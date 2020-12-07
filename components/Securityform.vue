@@ -56,7 +56,7 @@ export default {
           this.password3 = 'password'
         }
       } else {
-        console.log('no match')
+        // console.log('no match')
       }
     }
   }

@@ -42,7 +42,6 @@ export default {
     showSelect () {
       const select = document.getElementsByClassName('select')
       const inner = document.getElementById('inner-select')
-      console.log(select, select.length)
       if (select[0].className === 'select') {
         select[0].className = 'select active-select'
         inner.style.display = 'block'

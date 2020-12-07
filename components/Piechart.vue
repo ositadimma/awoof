@@ -28,12 +28,10 @@ export default {
         display: false
       },
       legendCallback: (chart) => {
-        console.log(chart.data)
         const text = []
         text.push('<ul class="pie-chart-legend">')
         for (let i = 0; i < chart.data.datasets[0].data.length; i += 1) {
           text.push('<li><span>')
-          console.log(i)
           if (chart.data.labels[i]) {
             text.push(chart.data.labels[i])
           }
