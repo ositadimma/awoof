@@ -3,82 +3,104 @@
     <img class="dashboard-logo" src="~/assets/images/Logo.png" alt="logo">
     <div class="dashboard-sidebar-nav">
       <h3>Menu</h3>
-      <div id="dashboard" :class="currentPath == '/' ? 'active' : 'inactive' " @click="showActive($event, '/')">
+      <nuxt-link
+        :class="currentPath.includes('index') ? 'active' : 'inactive'"
+        to="/"
+      >
         <Dashboardicon />
         <span>Dashboard</span>
-      </div>
+      </nuxt-link>
       <div class="Giveaways">
-        <div id="gift" :class="currentPath == '/giveaways/givers' || currentPath == '/giveaways/winners' || currentPath == '/giveaways/givers/detail' ? 'active' : 'inactive' " @click="showGiveaway">
+        <div
+          id="gift"
+          :class="currentPath.includes('giveaways') ? 'active' : 'inactive'"
+          @click="showGiveaway"
+        >
           <Gifticon />
           <span>Giveaways</span>
           <Strokeicon />
         </div>
-        <ul id="Giveaway-menu">
-          <li :class="currentPath == '/giveaways/givers' || currentPath == '/giveaways/givers/detail' ? 'list-active' : 'list-inactive' " @click="showActive($event, '/giveaways/givers')">
-            Givers
-          </li>
-          <li :class="currentPath == '/giveaways/winners' ? 'list-active' : 'list-inactive' " @click="showActive($event, '/giveaways/winners')">
-            Winners
-          </li>
+        <ul
+          :id="
+            (currentPath.includes('giveaways') && showgiveaway) ||
+              (!currentPath.includes('giveaways') && showgiveaway)
+              ? 'show-menu'
+              : 'hide-menu'
+          "
+        >
+          <nuxt-link to="/giveaways/givers">
+            <li
+              :class="
+                currentPath.includes('giveaways-givers')
+                  ? 'list-active'
+                  : 'list-inactive'
+              "
+            >
+              Givers
+            </li>
+          </nuxt-link>
+          <nuxt-link to="/giveaways/winners">
+            <li
+              :class="
+                currentPath.includes('giveaways-winners')
+                  ? 'list-active'
+                  : 'list-inactive'
+              "
+            >
+              Winners
+            </li>
+          </nuxt-link>
         </ul>
       </div>
-      <div id="transaction" :class="currentPath == '/transactions' || currentPath == '/transactions/detail' ? 'active' : 'inactive' " @click="showActive($event, '/transactions')">
+      <nuxt-link
+        :class="currentPath.includes('transactions') ? 'active' : 'inactive'"
+        to="/transactions"
+      >
         <Transactionsicon />
         <span>Transactions</span>
-      </div>
-      <div id="referral" :class="currentPath == '/referrals' || currentPath == '/referrals/detail' ? 'active' : 'inactive' " @click="showActive($event, '/referrals')">
+      </nuxt-link>
+      <nuxt-link
+        :class="currentPath.includes('referrals') ? 'active' : 'inactive'"
+        to="/referrals"
+      >
         <Referralsicon />
         <span>Referrals</span>
-      </div>
-      <div id="setting" :class="currentPath == '/settings' ? 'active' : 'inactive' " @click="showActive($event, '/settings')">
+      </nuxt-link>
+      <nuxt-link
+        :class="currentPath.includes('settings') ? 'active' : 'inactive'"
+        to="/settings"
+      >
         <Settingsicon />
         <span>Settings & Roles</span>
-      </div>
-      <Button text="New Giveaway" />
+      </nuxt-link>
+      <button class="btn-cmpt">
+        New Giveaway
+      </button>
     </div>
   </div>
 </template>
 
 <script>
-import Button from './Button'
 export default {
   name: 'DashboardSideBar',
-  components: {
-    Button
-  },
   data () {
     return {
-      showgiveaway: true,
-      currentPath: window.location.pathname
+      showgiveaway: false,
+      currentPath: ''
     }
   },
+  watch: {
+    $route () {
+      this.currentPath = this.$route.name
+    }
+  },
+  mounted () {
+    this.currentPath = this.$route.name
+  },
   methods: {
-    showActive (e, route) {
-      document.getElementById('Giveaway-menu').style.display = 'none'
-      this.showgiveaway = true // hides the drop down for giveaway when clicked on another div
-
-      this.currentPath = route
-      this.$router.push(route)
-      // ...
-    },
     showGiveaway () {
-      const gift = document.getElementById('gift')
-      if (this.showgiveaway) { // show give away menu bar
-        gift.classList.remove('inactive')
-        gift.classList.add('active')
-        document.getElementById('Giveaway-menu').style.display = 'flex'
-        document.getElementById('Giveaway-menu').style.flexDirection = 'column'
-        document.getElementById('Giveaway-menu').style.alignItems = 'flex-start'
-        this.showgiveaway = false
-      } else { // hide give away menu bar
-        if (gift.classList[0] === 'inactive') {
-          gift.classList.remove('inactive')
-          gift.classList.add('active')
-        }
-        document.getElementById('Giveaway-menu').style.display = 'none'
-        this.showgiveaway = true
-      }
-      // ...
+      /* eslint-disable-next-line */
+      this.showgiveaway = this.showgiveaway ? false : true
     }
   }
 }
@@ -106,10 +128,13 @@ export default {
   font-size: 13px;
   letter-spacing: 0.01em;
 
-  color: #FFFFFF;
+  color: #ffffff;
   margin: 15px 0px 12px 0px;
   padding-left: 41px;
   cursor: auto;
+}
+a {
+  text-decoration: none;
 }
 .dashboard-sidebar-nav .inactive {
   display: flex;
@@ -124,7 +149,7 @@ export default {
   cursor: pointer;
 }
 .dashboard-sidebar-nav .inactive:hover {
-  color: #09AB5D;
+  color: #09ab5d;
 }
 .dashboard-sidebar-nav .active {
   border-left: 4px solid;
@@ -137,20 +162,30 @@ export default {
 
   margin-bottom: 24px;
   padding-left: 41px;
-  color: #09AB5D;
+  color: #09ab5d;
   cursor: auto;
 }
-.dashboard-sidebar-nav .active .svg, .dashboard-sidebar-nav .inactive:hover .svg{
-  fill: #09AB5D;
+.dashboard-sidebar-nav .active .svg,
+.dashboard-sidebar-nav .inactive:hover .svg {
+  fill: #09ab5d;
 }
 .dashboard-sidebar-nav .inactive .svg {
   fill: rgba(255, 255, 255, 0.2);
 }
-.dashboard-sidebar-nav .active span, .dashboard-sidebar-nav .inactive span {
+.dashboard-sidebar-nav .active span,
+.dashboard-sidebar-nav .inactive span {
   padding-top: 6px;
   margin-left: 20px;
 }
 /* Giveaway dropdown */
+#show-menu {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+#hide-menu {
+  display: none;
+}
 .Giveaways {
   margin-bottom: 24px;
 }
@@ -179,17 +214,18 @@ export default {
   color: rgba(255, 255, 255, 0.2);
 }
 .Giveaways ul li.list-active {
-  color: #FFFFFF;
+  color: #ffffff;
   cursor: auto;
 }
 .Giveaways ul li:hover {
-  color: #FFFFFF;
+  color: #ffffff;
 }
 .Giveaways ul li:nth-child(1) {
   margin: 10px 0px 12px 0px;
 }
-.Giveaways .inactive:hover .svg-stroke, .Giveaways .active .svg-stroke {
-  fill: #FFFFFF;
+.Giveaways .inactive:hover .svg-stroke,
+.Giveaways .active .svg-stroke {
+  fill: #ffffff;
 }
 .btn-cmpt {
   width: 216px;

@@ -65,7 +65,6 @@
       </div>
     </div>
   </div>
-  </div>
 </template>
 
 <script>
@@ -108,8 +107,6 @@ table {
   width: 100%;
   margin-bottom: 40px;
   padding: 0px 3.4% 0px 3.4%;
-}
-table, tr {
 }
 th, td {
   text-align: left;

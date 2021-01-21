@@ -5,7 +5,9 @@
         <img src="~/assets/icons/Arrow LeftCircle.svg" alt="back" @click="$router.push('/transactions')">
         <span>Back</span>
       </div>
-      <Button text="Download Report" />
+      <button class="btn-cmpt">
+        Download Report
+      </button>
     </div>
 
     <div class="details">
@@ -114,14 +116,10 @@
 </template>
 
 <script>
-import Button from '~/components/Button'
 // when data is available name this file _id to get based on ID then change routes
 export default {
   name: 'Transactiondetail',
   layout: 'dashboardLayout',
-  components: {
-    Button
-  },
   created () {
     this.$store.commit('setLayout', 'TRANSACTIONS DETAILS') // changes layout title of dashboard header
   }
@@ -208,12 +206,8 @@ table {
   margin-bottom: 40px;
   padding: 0px 3.4% 0px 3.4%;
 }
-table, tr {
-  border: 1px solid;
-}
 th, td {
   text-align: left;
-  border: 1px solid;
 }
 th {
   font-weight: normal;
@@ -243,10 +237,8 @@ td {
   width: 100%;
   margin-bottom: 40px;
   padding: 0px 3.4% 0px 3.4%;
-  border: 1px solid;
 }
 .Task-grid {
-  border: 1px solid;
   display: flex;
   flex-direction: column;
 }
@@ -310,12 +302,10 @@ td {
 }
 .extra div:last-child span:nth-child(odd) {
   font-size: 11px;
-  border: 1px solid;
   color: #75759E;
   margin-bottom: 2px;
 }
 .extra div:last-child span:nth-child(even) {
-  border: 1px solid;
   font-weight: 600;
   font-size: 13px;
   color: #171717;

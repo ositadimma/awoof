@@ -11,19 +11,17 @@
 
       <label>Referral ID</label>
       <input type="text" placeholder="Please Enter">
-      <Button text="Continue" />
+      <button class="btn-cmpt">
+        Continue
+      </button>
       <span class="cancel" @click="$emit('CloseEdit')">Cancel</span>
     </div>
   </div>
 </template>
 
 <script>
-import Button from './Button'
 export default {
-  name: 'ReferralForm',
-  components: {
-    Button
-  }
+  name: 'ReferralForm'
 }
 </script>
 

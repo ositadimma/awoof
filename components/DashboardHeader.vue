@@ -38,8 +38,8 @@ export default {
 .dashboard-header {
   display: flex;
   align-items: center;
-  background: #FFFFFF;
-  box-shadow: inset 0px -1px 0px #E2E2EA;
+  background: #ffffff;
+  box-shadow: inset 0px -1px 0px #e2e2ea;
 
   height: 80px;
   padding: 0px 3.3% 0px 4.45%;
@@ -51,10 +51,13 @@ h3 {
   line-height: 25px;
 }
 .header-input {
-  border: 1px solid #E2E2EA;
+  border: 1px solid #e2e2ea;
   border-radius: 20px;
+
+  width: 33.43%;
+  max-width: 248px;
   height: 38px;
-  background: #FFFFFF;
+  background: #ffffff;
 
   display: flex;
   align-items: center;
@@ -62,19 +65,26 @@ h3 {
   padding-right: 1.4%;
   margin-right: 45px;
 }
-.header-input input {
+input[type=text] {
   border: none;
   border-radius: 20px;
+  width: 100%;
   height: 100%;
 
   padding-left: 27px;
+  font-size: 15px;
+}
+input[type=text]::placeholder {
+  color: #75759e;
+  opacity: 0.4;
   font-size: 12px;
 }
-.header-input input::placeholder, .header-input input::-moz-placeholder {
-  color: #75759E;
+input[type=text]::-moz-placeholder {
+  color: #75759e;
   opacity: 0.4;
+  font-size: 12px;
 }
-.header-input input:focus {
+input[type=text]:focus {
   outline: none;
 }
 span {

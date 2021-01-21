@@ -11,11 +11,13 @@
     "lint": "npm run lint:js"
   },
   "dependencies": {
+    "@nuxtjs/axios": "^5.12.5",
     "@nuxtjs/pwa": "^3.0.2",
     "chart.js": "^2.9.4",
     "chartjs-plugin-datalabels": "^0.7.0",
     "core-js": "^3.6.5",
-    "nuxt": "^2.14.6"
+    "nuxt": "^2.14.6",
+    "v-click-outside": "^3.1.2"
   },
   "devDependencies": {
     "@nuxtjs/eslint-config": "^3.1.0",

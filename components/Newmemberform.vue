@@ -25,19 +25,17 @@
       <input type="text" placeholder="Please Enter">
       <label>Email Address</label>
       <input type="text" placeholder="Please Enter">
-      <Button text="Create Account" />
+      <button class="btn-cmpt">
+        Create Account
+      </button>
       <span class="cancel" @click="$emit('closeForm')">Cancel</span>
     </div>
   </div>
 </template>
 
 <script>
-import Button from './Button'
 export default {
   name: 'Newmemberform',
-  components: {
-    Button
-  },
   methods: {
     showSelect () {
       const select = document.getElementsByClassName('select')

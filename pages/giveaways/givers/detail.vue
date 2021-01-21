@@ -2,12 +2,24 @@
   <div class="trandetail-container">
     <div class="header">
       <div class="back">
-        <img src="~/assets/icons/Arrow LeftCircle.svg" alt="back" @click="$router.push('/giveaways/givers')">
+        <img
+          src="~/assets/icons/Arrow LeftCircle.svg"
+          alt="back"
+          @click="$router.push('/giveaways/givers')"
+        >
         <span>Back</span>
       </div>
-      <Button text="Download Report" />
-      <!-- When onGoing use this instead <Button text="Edit Giveaway" class="edit-btn" />
-      <Button text="Suspend Giveaway" class="suspend-btn" />-->
+      <button class="btn-cmpt">
+        Download Report
+      </button>
+      <!-- When onGoing use this instead
+      <button class="edit-btn btn-cmpt">
+        Edit Giveaway
+      </button>
+      <button class="suspend-btn btn-cmpt">
+        Suspend Giveaway
+      </button>
+      -->
     </div>
 
     <div class="details">
@@ -27,7 +39,6 @@
 </template>
 
 <script>
-import Button from '~/components/Button'
 import GiveawayDetailTable from '~/components/Giveawaydetailtable'
 import WinnersTable from '~/components/Winnerstable'
 import FullDetails from '~/components/Fulldetails'
@@ -37,7 +48,6 @@ export default {
   name: 'Giveawaydetail',
   layout: 'dashboardLayout',
   components: {
-    Button,
     GiveawayDetailTable,
     WinnersTable,
     FullDetails,
@@ -51,7 +61,7 @@ export default {
 
 <style scoped>
 .trandetail-container {
-  background: #F7F7F8;
+  background: #f7f7f8;
   flex: 1;
 
   display: flex;
@@ -80,7 +90,7 @@ export default {
 .back span {
   font-size: 14px;
   line-height: 23px;
-  color: #75759E;
+  color: #75759e;
   margin-left: 11px;
 }
 .btn-cmpt {
@@ -94,7 +104,7 @@ export default {
 }
 .suspend-btn {
   width: 188px;
-  background: #E74D75;
+  background: #e74d75;
 }
 .details {
   width: 100%;
@@ -115,13 +125,14 @@ export default {
 .users {
   font-size: 16px;
   line-height: 26px;
-  color: #75759E;
+  color: #75759e;
 }
 @media (max-width: 1280px) {
   .details {
     flex-direction: column-reverse;
   }
-  .details .details-child-1, .details .details-child-2 {
+  .details .details-child-1,
+  .details .details-child-2 {
     width: 100%;
     margin-left: 0px;
   }

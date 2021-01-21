@@ -44,7 +44,6 @@ export default {
 
 <style scoped>
 .referral-container {
-  border: 1px solid;
   background: #F7F7F8;
   flex: 1;
 

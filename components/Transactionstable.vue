@@ -222,15 +222,6 @@ tbody tr:nth-child(odd) {
   padding-top: 2px;
   cursor: auto;
 }
-::-webkit-scrollbar {
-    width: 2px;
-}
-::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-}
-::-webkit-scrollbar-thumb {
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-}
 @media (max-width: 950px) {
   .table-head {
     max-height: 448px;

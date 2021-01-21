@@ -16,17 +16,15 @@
       <input :type="password3" placeholder="Please Enter">
       <img id="mask3" class="mask" src="~assets/icons/Mask.svg" alt="mask" @click="showPassword">
     </div>
-    <Button text="Save Changes" />
+    <button class="btn-cmpt">
+      Save Changes
+    </button>
   </div>
 </template>
 
 <script>
-import Button from './Button'
 export default {
   name: 'Securityform',
-  components: {
-    Button
-  },
   data () {
     return {
       password1: 'password',

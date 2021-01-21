@@ -17,7 +17,6 @@ export default {
 
 <style scoped>
 .winners-container {
-  border: 1px solid blue;
   background: #F7F7F8;
   flex: 1;
 
