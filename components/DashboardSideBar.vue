@@ -114,6 +114,8 @@ export default {
   background: #001431;
   position: sticky;
   top: 0;
+
+  overflow-y: auto;
 }
 .dashboard-logo {
   margin: 23px 0px 25px 31px;

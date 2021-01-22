@@ -74,7 +74,9 @@ export default {
   background: #F7F7F8;
   flex: 1;
 
+  width: 100%;
   height: 100%;
+
   padding: 30px 6% 0px 4.45%;
   overflow-y: auto;
   overflow-x: hidden;

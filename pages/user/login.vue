@@ -83,14 +83,14 @@ export default {
 
 .header {
   font-weight: 900;
-  font-size: 20px;
-  margin: 61px 0px 32px;
+  font-size: 1.25rem;
+  margin: 3.813rem 0px 2rem;
 }
 
 form {
   width: 100%;
   border-top: 1px solid #e4e4e4;
-  padding: 44px 6% 0px;
+  padding: 2.75rem 6% 0px;
 }
 
 label {
@@ -111,8 +111,8 @@ input[type='email'] {
   font-size: 12px;
   color: black;
 
-  margin-bottom: 24px;
-  padding-left: 30px;
+  margin-bottom: 1.5rem;
+  padding-left: 1.875rem;
 }
 
 .input {
@@ -123,7 +123,7 @@ input[type='email'] {
   border-radius: 6px;
 
   color: black;
-  margin-bottom: 49px;
+  margin-bottom: 3.063rem;
 
   display: flex;
   padding-right: 24px;
@@ -138,11 +138,11 @@ input[type='password'] {
   border-radius: 6px;
 
   font-size: 12px;
-  padding-left: 30px;
+  padding-left: 1.875rem;
 }
 
 .input span {
-  font-size: 11px;
+  font-size: 0.688rem;
   align-self: center;
   cursor: pointer;
 }
@@ -155,7 +155,7 @@ input[type='password']:focus {
 input[type='text']::placeholder,
 input[type='email']::placeholder,
 input[type='password']::placeholder {
-  font-size: 11px;
+  font-size: 0.688rem;
   color: #8692a6;
 }
 

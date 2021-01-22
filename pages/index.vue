@@ -111,12 +111,14 @@ export default {
 
 <style scoped>
 .dashboard {
-  background: #F7F7F8;
+  background: #f7f7f8;
   flex: 1;
 
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+
+  width: 100%;
   height: 100%;
 
   padding: 30px 6% 0px 4.45%;
@@ -124,16 +126,15 @@ export default {
   overflow-x: hidden;
 }
 .dashboard-child-1 {
-
   width: 100%;
   display: grid;
-  grid-template-columns: repeat( auto-fit, minmax(260px, 1fr) );
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   grid-gap: 19px 28px;
   margin-bottom: 20px;
 }
 .dashboard-card {
-  border: 1px solid #E2E2EA;
-  background: #FFFFFF;
+  border: 1px solid #e2e2ea;
+  background: #ffffff;
   border-radius: 20px;
   height: 122px;
 
@@ -153,7 +154,7 @@ export default {
   font-size: 12px;
   line-height: 19px;
 
-  color: #75759E;
+  color: #75759e;
 }
 .title-ctn .divide-fill {
   width: 20px;
@@ -176,7 +177,7 @@ export default {
   line-height: 15px;
   letter-spacing: 0.01em;
 
-  color: #09AB5D;
+  color: #09ab5d;
   margin-right: 6px;
 }
 .growth span:nth-child(2) {

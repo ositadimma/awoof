@@ -1,15 +1,19 @@
 <template>
   <div class="winners-container">
-    <!--No design yet-->
+    <WinnersTable />
   </div>
 </template>
 
 <script>
+import WinnersTable from '~/components/WinnersTable'
 export default {
   name: 'Winners',
   layout: 'dashboardLayout',
+  components: {
+    WinnersTable
+  },
   created () {
-    this.$store.commit('setLayout', 'WINNERS') // changes title of dashboard header
+    this.$store.commit('setLayout', 'GIVEAWAY (Winners)') // changes title of dashboard header
   }
 
 }
@@ -26,7 +30,7 @@ export default {
   width: 100%;
   height: 100%;
 
-  padding: 0px 6% 0px 4.45%;
+  padding: 6.4% 6% 0px 4.45%;
   overflow-y: auto;
 }
 </style>

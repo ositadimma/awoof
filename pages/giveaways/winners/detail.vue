@@ -5,56 +5,36 @@
         <img
           src="~/assets/icons/Arrow LeftCircle.svg"
           alt="back"
-          @click="$router.push('/giveaways/givers')"
+          @click="$router.push('/giveaways/winners')"
         >
         <span>Back</span>
       </div>
-      <button class="btn-cmpt">
-        Download Report
-      </button>
-      <!-- When onGoing use this instead
-      <button class="edit-btn btn-cmpt">
-        Edit Giveaway
-      </button>
-      <button class="suspend-btn btn-cmpt">
-        Suspend Giveaway
-      </button>
-      -->
     </div>
 
     <div class="details">
       <div class="details-child-1">
-        <GiveawayDetailTable />
-        <span class="users">Winners (5)</span>
-        <GiveawayWinnersTable />
-        <span class="users">Users Who Have Entered (335)</span>
-        <GiveawayWinnersTable />
+        <WinnersDetailTable />
       </div>
       <div class="details-child-2">
         <FullDetails />
-        <ParticipationReport />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import GiveawayDetailTable from '~/components/Giveawaydetailtable'
-import GiveawayWinnersTable from '~/components/GiveawayWinnerstable'
+import WinnersDetailTable from '~/components/Winnersdetailtable'
 import FullDetails from '~/components/Fulldetails'
-import ParticipationReport from '~/components/Participationreport'
 // when data is available name this file _id to get based on ID then change routes
 export default {
-  name: 'Giveawaydetail',
+  name: 'Winnerdetail',
   layout: 'dashboardLayout',
   components: {
-    GiveawayDetailTable,
-    GiveawayWinnersTable,
-    FullDetails,
-    ParticipationReport
+    WinnersDetailTable,
+    FullDetails
   },
   created () {
-    this.$store.commit('setLayout', 'GIVEAWAYS DETAILS') // changes layout title of dashboard header
+    this.$store.commit('setLayout', 'GIVEAWAY (WINNER DETAILS)') // changes title of dashboard header
   }
 }
 </script>
@@ -94,19 +74,6 @@ export default {
   line-height: 23px;
   color: #75759e;
   margin-left: 11px;
-}
-.btn-cmpt {
-  width: 175px;
-  height: 50px;
-  background: #083577;
-  border-radius: 20px;
-}
-.edit-btn {
-  width: 158px;
-}
-.suspend-btn {
-  width: 188px;
-  background: #e74d75;
 }
 .details {
   width: 100%;

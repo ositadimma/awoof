@@ -147,6 +147,8 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+
+  width: 100%;
   height: 100%;
 
   padding: 30px 6% 0px 4.45%;

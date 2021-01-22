@@ -34,9 +34,11 @@ export default {
   overflow: hidden;
 }
 .dashboard-ctn-child {
-  width: 100%;
-  height: 100%;
   display: flex;
   flex-direction: column;
+  flex: 1;
+  height: 100%;
+  align-items: flex-start;
+  overflow: hidden;
 }
 </style>

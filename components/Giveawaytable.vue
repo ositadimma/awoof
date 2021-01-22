@@ -272,7 +272,7 @@ tbody tr:nth-child(odd) {
 }
 .Name {
   padding-left: 31px;
-  width: 28%;
+  width: 23%;
 }
 .Name-div {
   display: flex;

@@ -27,6 +27,8 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+
+  width: 100%;
   height: 100%;
 
   padding: 6.4% 6% 0px 4.45%;

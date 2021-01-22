@@ -59,4 +59,10 @@ html {
   color: #fff;
   background-color: #35495e;
 }
+
+@media (max-width: 500px) {
+  html {
+    font-size: 14px;
+  }
+}
 </style>

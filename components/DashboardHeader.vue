@@ -41,6 +41,8 @@ export default {
   background: #ffffff;
   box-shadow: inset 0px -1px 0px #e2e2ea;
 
+  min-width: 100%;
+  max-width: 100%;
   height: 80px;
   padding: 0px 3.3% 0px 4.45%;
 }
