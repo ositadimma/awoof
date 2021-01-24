@@ -1,16 +1,16 @@
 <template>
   <div class="winners-container">
-    <WinnersTable />
+    <Winnerstable />
   </div>
 </template>
 
 <script>
-import WinnersTable from '~/components/WinnersTable'
+import Winnerstable from '~/components/Winnerstable'
 export default {
   name: 'Winners',
   layout: 'dashboardLayout',
   components: {
-    WinnersTable
+    Winnerstable
   },
   created () {
     this.$store.commit('setLayout', 'GIVEAWAY (Winners)') // changes title of dashboard header
