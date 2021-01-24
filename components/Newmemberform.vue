@@ -58,6 +58,7 @@ export default {
   background: #FFFFFF;
   width: 48.5%;
   height: 95%;/*660px;*/
+  overflow-y: auto;
 }
 span {
   font-weight: 600;

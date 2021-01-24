@@ -6,7 +6,7 @@
           <span id="Security" class="active" @click="changeNav">Security</span>
           <span id="Team" @click="changeNav">Team</span>
         </div>
-        <button id="Button" class="btn-cmpt" @click.native="showForm">
+        <button id="Button" class="btn-cmpt" @click="showForm">
           Add New Member +
         </button>
       </div>

@@ -31,6 +31,7 @@ export default {
   background: #FFFFFF;
   width: 48.5%;
   height: 82.5%;
+  overflow-y: auto;
 }
 span {
   font-weight: 600;
@@ -94,5 +95,17 @@ input[type=text]::placeholder {
 
   align-self: center;
   cursor: pointer;
+}
+@media (max-width: 950px) and (orientation: landscape) {
+  .ref-form-container {
+    width: 100%;
+    height: 100%;
+  }
+}
+@media (max-width: 767px) {
+  .ref-form-container {
+    width: 100%;
+    height: 100%;
+  }
 }
 </style>
