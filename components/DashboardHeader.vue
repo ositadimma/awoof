@@ -5,7 +5,7 @@
       <input type="text" placeholder="Search User or Giveaway">
       <Searchicon />
     </div>
-    <span>Hello, Kolade</span>
+    <span>Hello, {{ username }}</span>
     <div class="profile" @click="showMenu">
       <img src="~/assets/images/User.png" alt="user">
       <img id="arrow" src="~/assets/icons/arrowdown.svg" alt="dropdown">
@@ -14,11 +14,17 @@
 </template>
 
 <script>
+import Cookies from 'js-cookie'
 export default {
   props: {
     layout: {
       type: String,
       required: true
+    }
+  },
+  data () {
+    return {
+      username: Cookies.get('username')
     }
   },
   methods: {
@@ -67,7 +73,7 @@ h3 {
   padding-right: 1.4%;
   margin-right: 45px;
 }
-input[type=text] {
+input[type="text"] {
   border: none;
   border-radius: 20px;
   width: 100%;
@@ -76,17 +82,17 @@ input[type=text] {
   padding-left: 27px;
   font-size: 15px;
 }
-input[type=text]::placeholder {
+input[type="text"]::placeholder {
   color: #75759e;
   opacity: 0.4;
   font-size: 12px;
 }
-input[type=text]::-moz-placeholder {
+input[type="text"]::-moz-placeholder {
   color: #75759e;
   opacity: 0.4;
   font-size: 12px;
 }
-input[type=text]:focus {
+input[type="text"]:focus {
   outline: none;
 }
 span {

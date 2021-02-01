@@ -1,6 +1,6 @@
 <template>
   <div class="login-ctn">
-    <img src="~/assets/images/Login-logo.png" alt="logo" class="logo">
+    <img src="~/assets/images/Login-logo.png" alt="logo" class="logo easeIn">
     <Nuxt />
   </div>
 </template>
@@ -31,6 +31,11 @@ export default {
   margin-bottom: 49px;
 }
 
+@media (max-height: 850px) {
+  .logo {
+    margin-bottom: 29px;
+  }
+}
 @media (max-width: 800px) {
   .logo {
       display: none;

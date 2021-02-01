@@ -1,5 +1,5 @@
 <template>
-  <div class="chart-ctn">
+  <div class="chart-ctn animate__fadeInUp">
     <div class="head">
       <span class="title">Amount Processed</span>
       <div class="nav-border">

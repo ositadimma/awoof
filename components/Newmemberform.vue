@@ -1,5 +1,5 @@
 <template>
-  <div class="new-member-form">
+  <div class="new-member-form animate__fadeIn">
     <div class="header">
       <span>Add New Member</span>
       <img src="~/assets/icons/Delete.svg" @click="$emit('closeForm')">
@@ -56,8 +56,9 @@ export default {
 .new-member-form {
   padding: 2.9% 2.7% 0px 2.7%;
   background: #FFFFFF;
-  width: 48.5%;
-  height: 95%;/*660px;*/
+  width: 50.5%;
+  height: 95%;
+  max-height: 660px;
   overflow-y: auto;
 }
 span {

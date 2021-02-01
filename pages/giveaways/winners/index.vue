@@ -1,10 +1,11 @@
 <template>
   <div class="winners-container">
-    <Winnerstable />
+    <Winnerstable :data="data" :loading="loading" />
   </div>
 </template>
 
 <script>
+import Cookies from 'js-cookie'
 import Winnerstable from '~/components/Winnerstable'
 export default {
   name: 'Winners',
@@ -12,16 +13,36 @@ export default {
   components: {
     Winnerstable
   },
+  async asyncData ({ $axios, $toast }) {
+    let data = []
+    $axios.setHeader('x-auth-token', Cookies.get('token'))
+    try {
+      const response = await $axios.$get('/giveaways/winners')
+      data = response.data
+    } catch (err) {
+      if (err.message.includes('Network')) {
+        $toast.global.custom_error(
+          'please check your connection and try again'
+        )
+      }
+
+      if (err.response !== undefined) {
+        if (err.response.status === 400) {
+          $toast.global.custom_error(err.response.data.message)
+        }
+      }
+    }
+    return { data, loading: false }
+  },
   created () {
     this.$store.commit('setLayout', 'GIVEAWAY (Winners)') // changes title of dashboard header
   }
-
 }
 </script>
 
 <style scoped>
 .winners-container {
-  background: #F7F7F8;
+  background: #f7f7f8;
   flex: 1;
 
   display: flex;

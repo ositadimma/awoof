@@ -51,6 +51,7 @@ export default {
   font-weight: bold;
   font-size: 12px;
   line-height: 19px;
+  position: relative;
 }
 .nav span:nth-child(1) {
   margin-right: 25px;
@@ -62,14 +63,41 @@ export default {
   margin-right: 28px;
 }
 .nav span:hover {
-  border-bottom: 3px solid #09AB5D;
   cursor: pointer;
+}
+.nav span::before {
+  content: " ";
+  position: absolute;
+  bottom: 0;
+  width: 0;
+  height: 0;
+}
+.nav span:hover::before {
+  color:#09AB5D;
+  width: 100%;
+  border-bottom: 3px solid;
+  transition: all 0.2s ease-in-out;
+  transition-duration: 0.3s;
 }
 .nav .nav-active {
   border-bottom: 3px solid #09AB5D;
 }
 .nav .nav-active:hover {
   cursor: auto;
+}
+.nav .nav-active:hover::before {
+  color: transparent;
+  width: 0;
+  border-bottom: none;
+  transition: none;
+}
+@media (max-width: 1024px) {
+  .nav span:hover::before {
+    color: transparent;
+    width: 0;
+    border-bottom: none;
+    transition: none;
+  }
 }
 @media (max-width: 767px) {
   .transaction-container {

@@ -1,5 +1,5 @@
 <template>
-  <div class="giveaway-table">
+  <div class="giveaway-table animate__fadeInUp">
     <div class="table-head">
       <table>
         <thead>
@@ -13,19 +13,13 @@
             <th class="Tasks">
               Tasks
             </th>
-            <th>
-              Amount Won
-            </th>
-            <th>
-              Giveaway Amount
-            </th>
-            <th>
-              Date Posted
-            </th>
+            <th>Amount Won</th>
+            <th>Giveaway Amount</th>
+            <th>Date Posted</th>
             <th class="View" />
           </tr>
         </thead>
-        <tbody>
+        <tbody v-show="data.length > 0">
           <tr>
             <td data-title="Name" class="Name">
               <div class="Name-div">
@@ -49,39 +43,16 @@
               22 Jan 2020, 10:03
             </td>
             <td class="View">
-              <ArrowCircle @click.native="$router.push('/giveaways/winners/detail')" />
-            </td>
-          </tr>
-          <tr>
-            <td data-title="Name" class="Name">
-              <div class="Name-div">
-                <p>Don Jazzy</p>
-                <Checkicon />
-              </div>
-            </td>
-            <td data-title="Type">
-              Giveaway
-            </td>
-            <td data-title="Tasks" class="Tasks">
-              Open
-            </td>
-            <td data-title="Amount Won">
-              N100,000
-            </td>
-            <td data-title="Giveaway Amount">
-              N500,000
-            </td>
-            <td data-title="Date Posted">
-              22 Jan 2020, 10:03
-            </td>
-            <td class="View">
-              <ArrowCircle @click.native="$router.push('/giveaways/givers/detail')" />
+              <ArrowCircle
+                @click.native="$router.push('/giveaways/winners/detail')"
+              />
             </td>
           </tr>
         </tbody>
       </table>
+      <NoData v-show="data.length == 0" />
     </div>
-    <div class="pagination">
+    <!-- <div class="pagination">
       <span class="active">1</span>
       <span class="inactive">2</span>
       <span class="inactive">3</span>
@@ -90,13 +61,45 @@
       <span class="inactive">6</span>
       <span>. . .</span>
       <span class="inactive">10</span>
-    </div>
+    </div> -->
+    <paginate
+      :page-count="data.length"
+      :page-range="6"
+      :margin-pages="2"
+      :container-class="'pagination'"
+      :break-view-text="'. . .'"
+      :click-handler="Paginate"
+    />
   </div>
 </template>
 
 <script>
+import paginate from 'vuejs-paginate'
+import NoData from './NoTableData'
 export default {
-  name: 'WinnersTable'
+  name: 'WinnersTable',
+  components: {
+    NoData,
+    paginate
+  },
+  props: {
+    data: {
+      type: Array,
+      default () {
+        return []
+      }
+    },
+    loading: {
+      type: Boolean,
+      default () {
+        return true
+      }
+    }
+  },
+  methods: {
+    Paginate (clickedpagenumber) {
+    }
+  }
 }
 </script>
 
@@ -109,7 +112,7 @@ export default {
   margin-bottom: 10px;
 }
 .table-head {
-  width:100%;
+  width: 100%;
   border-radius: 20px;
   max-height: 500px;
   overflow-y: auto;
@@ -121,15 +124,16 @@ table {
   border-spacing: 0px;
 }
 thead tr {
-  background: #F0F2F4;
+  background: #f0f2f4;
 }
 th {
   font-weight: normal;
   font-size: 14px;
   line-height: 24px;
-  color: #75759E;
+  color: #75759e;
 }
-th, td {
+th,
+td {
   height: 64px;
   text-align: left;
   padding-left: 6px;
@@ -158,11 +162,11 @@ th:nth-last-child(2) div {
   cursor: pointer;
 }
 .ongoing {
-  color: #E1931E;
+  color: #e1931e;
   width: 11%;
 }
 .completed {
-  color: #09AB5D;
+  color: #09ab5d;
   width: 11%;
 }
 /**/
@@ -183,10 +187,10 @@ tbody tr:last-child td:last-child {
   border-bottom-right-radius: 20px;
 }
 tbody tr:nth-child(even) {
-  background: #F9FAFB;
+  background: #f9fafb;
 }
 tbody tr:nth-child(odd) {
-  background: #FFFFFF;
+  background: #ffffff;
 }
 .Name {
   padding-left: 31px;
@@ -211,7 +215,7 @@ p {
 .arrowcircle {
   cursor: pointer;
 }
-.pagination {
+/* .pagination {
   margin-top: 35px;
   display: flex;
   align-self: center;
@@ -219,8 +223,9 @@ p {
   width: 165px;
 }
 .pagination .inactive {
-  display: block;
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 20px;
   height: 21px;
 
@@ -237,8 +242,9 @@ p {
   border-radius: 5px;
 }
 .pagination .active {
-  display: block;
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 20px;
   height: 21px;
 
@@ -250,9 +256,9 @@ p {
   border-radius: 5px;
   padding-top: 2px;
   cursor: auto;
-}
+} */
 @media (max-width: 1100px) {
-  .table-head  {
+  .table-head {
     max-height: 450px;
   }
   thead {
@@ -263,12 +269,12 @@ p {
     width: 100%;
   }
   /**/
-  tr{
+  tr {
     display: flex;
     flex-direction: column;
   }
   tr:first-child {
-    border-radius: 20px 20px 0px 0px
+    border-radius: 20px 20px 0px 0px;
   }
   td {
     display: flex;
@@ -294,7 +300,10 @@ p {
   tbody tr:last-child td:first-child {
     border-radius: 0px;
   }
-  .Name, .Type, .Tasks, .View{
+  .Name,
+  .Type,
+  .Tasks,
+  .View {
     width: 100%;
     padding: 0px;
   }

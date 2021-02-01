@@ -1,6 +1,6 @@
 <template>
   <div class="setting-container">
-    <div class="setting-container-child">
+    <div class="setting-container-child animate__fadeInUp">
       <div class="setting-nav">
         <div class="setting-nav-child-1">
           <span id="Security" class="active" @click="changeNav">Security</span>

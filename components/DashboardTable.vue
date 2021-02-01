@@ -1,5 +1,5 @@
 <template>
-  <div class="dashboard-table">
+  <div class="dashboard-table animate__fadeInUp">
     <div class="head">
       <span>Recent Giveaways</span>
       <span>See All</span>

@@ -7,6 +7,35 @@
   box-sizing: border-box;
   margin: 0;
 }
+
+@keyframes easeIn {
+  0% {
+      opacity: 0;
+  }
+  100% {
+      opacity: 1;
+  }
+}
+
+@keyframes spinner2 {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.easeIn {
+  animation: easeIn 3s forwards ease;
+}
+.loader1 {
+  margin: 0 auto;
+  height: 30px;
+  width: 30px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 50%;
+  border: 2px solid rgba(0, 0, 0, 0.4);
+  border-top-color: #fff;
+  animation: spinner2 600ms linear infinite;
+}
 hr {
   border: none;
   border-top: 1px solid #E7E8F2;
@@ -77,7 +106,7 @@ hr {
   background: #09AB5D;
   border: none;
   border-radius: 3px;
-
+ 
   font-weight: 600;
   font-size: 14px;
   line-height: 24px;
@@ -93,6 +122,87 @@ hr {
 
 input[type=text]:focus, input[type=password]:focus, input[type=email]:focus {
   outline: #000000 auto 2px;
+}
+
+.toasted-container {
+  width: auto !important;
+  min-width: auto !important;
+  top: 10% !important;
+  right: 7% !important;
+}
+
+.toasted-container .toasted {
+  margin-top: 10px !important;
+}
+.toasted.bubble {
+  border-radius: 30px !important;
+}
+
+.toasted.bubble.success {
+  background: #09AB5D !important;
+}
+
+.toasted.bubble .action {
+  color: #fff !important;
+}
+
+.animate__fadeInUp, .animate__fadeIn {
+  animation-duration: 1s;
+}
+
+.pagination {
+  margin-top: 35px;
+  list-style-type: none;
+  display: flex;
+  align-self: center;
+  justify-content: space-between;
+  width: auto;
+  padding: 0;
+}
+
+.pagination > li:first-child, .pagination > li:last-child {
+  display: none;
+}
+
+.pagination a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 20px;
+  height: 21px;
+
+  font-weight: 600;
+  font-size: 14px;
+
+  color: #000000;
+  padding-top: 2px;
+  cursor: pointer;
+  outline: 0;
+}
+
+.pagination .active a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 20px;
+  height: 21px;
+
+  font-weight: 600;
+  font-size: 14px;
+
+  color: #FFFFFF;
+  background: #001431;
+  border-radius: 5px;
+  padding-top: 2px;
+  cursor: auto;
+  pointer-events:none;
+}
+
+.pagination .disabled a {
+  cursor: auto;
+  pointer-events:none;
 }
 
 ::-webkit-scrollbar {

@@ -1,6 +1,6 @@
 <template>
   <div class="referral-container">
-    <div class="referral-card">
+    <div class="referral-card animate__fadeInUp">
       <div class="title-ctn">
         <span class="title">Referral Bonus</span>
       </div>

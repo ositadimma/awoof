@@ -1,6 +1,6 @@
 <template>
   <div class="dashboard">
-    <div class="dashboard-child-1">
+    <div class="dashboard-child-1 animate__fadeInUp">
       <div class="dashboard-card">
         <div class="title-ctn">
           <span class="title">Amount Processed</span>

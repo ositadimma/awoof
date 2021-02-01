@@ -1,5 +1,5 @@
 <template>
-  <div class="referral-table">
+  <div class="referral-table animate__fadeInUp">
     <div class="table-head">
       <table>
         <thead>
@@ -220,8 +220,9 @@ tbody tr:nth-child(odd) {
   width: 165px;
 }
 .pagination .inactive {
-  display: block;
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 20px;
   height: 21px;
 
@@ -238,8 +239,9 @@ tbody tr:nth-child(odd) {
   border-radius: 5px;
 }
 .pagination .active {
-  display: block;
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 20px;
   height: 21px;
 

@@ -1,5 +1,5 @@
 <template>
-  <div class="ref-form-container">
+  <div class="ref-form-container animate__fadeIn">
     <div class="header">
       <span>Set Referral Bonus</span>
       <img src="~/assets/icons/Delete.svg" @click="$emit('CloseEdit')">
@@ -29,8 +29,9 @@ export default {
 .ref-form-container {
   padding: 2.9% 2.7% 0px 2.7%;
   background: #FFFFFF;
-  width: 48.5%;
+  width: 50.5%;
   height: 82.5%;
+  max-height: 564px;
   overflow-y: auto;
 }
 span {

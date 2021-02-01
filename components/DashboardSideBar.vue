@@ -100,7 +100,7 @@ export default {
   methods: {
     showGiveaway () {
       /* eslint-disable-next-line */
-      this.showgiveaway = this.showgiveaway ? false : true
+      this.showgiveaway = this.showgiveaway ? false : true;
     }
   }
 }
@@ -224,6 +224,9 @@ a {
 }
 .Giveaways ul li:nth-child(1) {
   margin: 10px 0px 12px 0px;
+}
+.Giveaways .inactive .svg-stroke {
+  fill: rgba(255, 255, 255, 0.2);
 }
 .Giveaways .inactive:hover .svg-stroke,
 .Giveaways .active .svg-stroke {
