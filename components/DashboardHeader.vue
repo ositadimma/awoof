@@ -27,6 +27,11 @@ export default {
       username: Cookies.get('username')
     }
   },
+  created () {
+    if (Cookies.get('username') === undefined) {
+      this.$router.push('/user/login')
+    }
+  },
   methods: {
     showMenu () {
       const arrow = document.getElementById('arrow')
@@ -73,7 +78,7 @@ h3 {
   padding-right: 1.4%;
   margin-right: 45px;
 }
-input[type="text"] {
+input[type='text'] {
   border: none;
   border-radius: 20px;
   width: 100%;
@@ -82,17 +87,17 @@ input[type="text"] {
   padding-left: 27px;
   font-size: 15px;
 }
-input[type="text"]::placeholder {
+input[type='text']::placeholder {
   color: #75759e;
   opacity: 0.4;
   font-size: 12px;
 }
-input[type="text"]::-moz-placeholder {
+input[type='text']::-moz-placeholder {
   color: #75759e;
   opacity: 0.4;
   font-size: 12px;
 }
-input[type="text"]:focus {
+input[type='text']:focus {
   outline: none;
 }
 span {

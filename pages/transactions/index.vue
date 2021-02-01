@@ -70,6 +70,7 @@ export default {
   position: absolute;
   bottom: 0;
   width: 0;
+  border-bottom: 3px solid;
   height: 0;
 }
 .nav span:hover::before {
