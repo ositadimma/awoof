@@ -11,27 +11,31 @@
           <th class="Tasks">
             Tasks
           </th>
-          <th>
-            Total Amount
-          </th>
-          <th>
-            Possible Winners
-          </th>
+          <th>Total Amount</th>
+          <th>Possible Winners</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td data-title="Status" class="success Status">
-            Success
+          <td
+            data-title="Status"
+            :class="
+              giveawayDetail.completed ? 'completed Status' : 'ongoing Status'
+            "
+          >
+            {{ giveawayDetail.completed ? 'Completed' : 'On-going' }}
           </td>
           <td data-title="Tasks" class="Tasks">
             3
           </td>
           <td data-title="Total Amount" class="Amount">
-            N500,000
+            N{{ amountDelimeter(giveawayDetail.amount) }}
           </td>
           <td data-title="Possible Winners">
-            5 (N100,000 per winner)
+            {{ giveawayDetail.numberOfWinners }} (N{{
+              amountDelimeter(giveawayDetail.amountPerWinner)
+            }}
+            per winner)
           </td>
         </tr>
       </tbody>
@@ -39,15 +43,15 @@
     <span>Tasks</span>
     <hr>
     <div class="Task-grid-container">
-      <div class="Task-grid">
+      <div v-for="(task, index) in tasks" :key="index" class="Task-grid">
         <div class="th">
-          Task One
+          Task {{ index + 1 }}
         </div>
-        <div data-title="Task-One" class="td">
-          Follw On Instagram
+        <div :data-title="`Task-${index + 1}`" class="td">
+          {{ task }}
         </div>
       </div>
-      <div class="Task-grid">
+      <!-- <div class="Task-grid">
         <div class="th">
           Task Two
         </div>
@@ -62,14 +66,48 @@
         <div data-title="Task-Three" class="td">
           Retweet on Twitter
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Giveawaydetailtable'
+  name: 'Giveawaydetailtable',
+  props: {
+    giveawayDetail: {
+      type: Object,
+      default () {
+        return {}
+      }
+    }
+  },
+  computed: {
+    tasks () {
+      const tasks = []
+      if (this.giveawayDetail.followInstagram) {
+        tasks.push('Follow On Instagram')
+      }
+      if (this.giveawayDetail.followTwitter) {
+        tasks.push('Follow On Twitter')
+      }
+      if (this.giveawayDetail.likeInstagram) {
+        tasks.push('Liked a post on Instagram')
+      }
+      if (this.giveawayDetail.likeTweet) {
+        tasks.push('Liked a post on Twitter')
+      }
+      return tasks
+    }
+  },
+  methods: {
+    amountDelimeter (amount) {
+      return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+    },
+    numToWords (num) {
+      // awaiting algorithm
+    }
+  }
 }
 </script>
 
@@ -77,8 +115,8 @@ export default {
 .body {
   width: 100%;
   height: 370px;
-  background: #FFFFFF;
-  border: 1px solid #E2E2EA;
+  background: #ffffff;
+  border: 1px solid #e2e2ea;
   border-radius: 20px;
 
   display: flex;
@@ -99,7 +137,7 @@ hr {
   font-size: 12px;
   line-height: 19px;
 
-  color: #A2ABAA;
+  color: #a2abaa;
 }
 /* table */
 table {
@@ -108,14 +146,15 @@ table {
   margin-bottom: 40px;
   padding: 0px 3.4% 0px 3.4%;
 }
-th, td {
+th,
+td {
   text-align: left;
 }
 th {
   font-weight: normal;
   font-size: 11px;
   line-height: 19px;
-  color: #75759E;
+  color: #75759e;
 }
 td {
   font-weight: 600;
@@ -135,7 +174,7 @@ td {
 }
 .Task-grid-container {
   display: grid;
-  grid-template-columns: repeat( auto-fit, minmax(150px, 1fr) );
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   grid-gap: 0px 18px;
   width: 100%;
   margin-bottom: 40px;
@@ -148,7 +187,7 @@ td {
 .Task-grid .th {
   font-size: 11px;
   line-height: 19px;
-  color: #75759E;
+  color: #75759e;
 }
 .Task-grid .td {
   font-weight: 600;
@@ -157,11 +196,11 @@ td {
   color: #171717;
   overflow-x: auto;
 }
-.success {
-  color: #09AB5D;
+.ongoing {
+  color: #e1931e;
 }
-.failed {
-  color: #E12A1E;
+.completed {
+  color: #09ab5d;
 }
 @media (max-width: 950px) {
   .body {
@@ -174,7 +213,7 @@ td {
   thead {
     display: none;
   }
-  tr{
+  tr {
     display: flex;
     flex-direction: column;
   }
@@ -185,7 +224,9 @@ td {
   td::before {
     content: attr(data-title);
   }
-  .Amount, .Tasks, .Status {
+  .Amount,
+  .Tasks,
+  .Status {
     width: 100%;
   }
   .Task-grid-container {

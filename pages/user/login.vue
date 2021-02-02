@@ -90,7 +90,7 @@ export default {
       this.loading = true
       try {
         const response = await this.$axios.$post(
-          '/auth/admin',
+          'https://awoof-api.herokuapp.com/v1/auth/admin',
           {
             email: this.email,
             password: this.password

@@ -10,35 +10,49 @@
         Full Name
       </span>
       <span>
-        Seun Kolade
+        {{ userInfo.firstName }} {{ userInfo.lastName }}
       </span>
 
       <span>
         Phone Number
       </span>
       <span>
-        09030928402
+        {{ userInfo.phoneNumber }}
       </span>
 
       <span>
         Email Address
       </span>
       <span>
-        seun@example.com
+        {{ userInfo.email }}
       </span>
 
       <span>
         Registration Date
       </span>
       <span>
-        22nd January, 2020
+        {{ format_date(userInfo.signupDate) }}
       </span>
     </div>
   </div>
 </template>
 <script>
+import moment from 'moment'
 export default {
-  name: 'Fulldetails'
+  name: 'Fulldetails',
+  props: {
+    userInfo: {
+      type: Object,
+      default () {
+        return {}
+      }
+    }
+  },
+  methods: {
+    format_date (value) {
+      return moment(new Date(String(value))).format('Do MMMM, YYYY')
+    }
+  }
 }
 </script>
 

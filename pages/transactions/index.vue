@@ -71,12 +71,11 @@ export default {
   bottom: 0;
   width: 0;
   border-bottom: 3px solid;
+  color:#09AB5D;
   height: 0;
 }
 .nav span:hover::before {
-  color:#09AB5D;
   width: 100%;
-  border-bottom: 3px solid;
   transition: all 0.2s ease-in-out;
   transition-duration: 0.3s;
 }

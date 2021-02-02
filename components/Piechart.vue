@@ -9,18 +9,40 @@
 import Chart from 'chart.js'
 import ChartDataLabels from 'chartjs-plugin-datalabels'
 export default {
+  name: 'PieChart',
+  props: {
+    giveawayParticipants: {
+      type: Array,
+      default () {
+        return []
+      }
+    }
+  },
   mounted () {
     // pie chart data
-    const labels = ['Female', 'Male']
+    const Duplicatedlabels = this.giveawayParticipants.map(
+      participant => participant.user.gender
+    )
+    const reducerArrayOfLabels = Duplicatedlabels.reduce((arr, val) => {
+      if (val in arr) {
+        arr[val] += 1
+      } else {
+        arr[val] = 1
+      }
+      return arr
+    }, {})
+    const labels = Object.keys(reducerArrayOfLabels)
+    const data = Object.values(reducerArrayOfLabels)
+    var sumOfData = data.reduce((arr, val) => arr + val, 0)
+
     const pieData = {
       labels,
-      datasets: [{
-        data: [64, 36],
-        backgroundColor: [
-          '#054EA4',
-          '#69A3E8'
-        ]
-      }]
+      datasets: [
+        {
+          data,
+          backgroundColor: ['#054EA4', '#69A3E8']
+        }
+      ]
     }
     const pieOptions = {
       responsive: true,
@@ -49,7 +71,8 @@ export default {
         datalabels: {
           display: true,
           formatter: (value, ctx) => {
-            return Math.round(value) + '%'
+            const percentage = (value / sumOfData) * 100
+            return Math.round(percentage) + '%'
           },
           color: '#fff'
         }

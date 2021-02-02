@@ -26,31 +26,36 @@
           </tr>
         </thead>
         <tbody v-show="data.length > 0">
-          <tr>
+          <tr v-for="(giveaway, index) in paginatedData" :key="index">
             <td data-title="Name" class="Name">
               <div class="Name-div">
-                <p>Don Jazzy</p>
-                <Checkicon />
+                <p>{{ giveaway.user.username }}</p>
+                <!-- <Checkicon /> -->
               </div>
             </td>
             <td data-title="Type">
-              Giveaway
+              {{ giveaway.type }}
             </td>
             <td data-title="Tasks" class="Tasks">
               Open
             </td>
             <td data-title="Total Amount">
-              N300,000,000
+              N{{ amountDelimeter(giveaway.amount) }}
             </td>
             <td data-title="Date Posted">
-              22 Jan 2020, 10:03
+              {{ format_date(giveaway.createdAt) }}
             </td>
-            <td data-title="Status" class="ongoing">
-              Ongoing
+            <td
+              data-title="Status"
+              :class="giveaway.completed ? 'completed' : 'ongoing'"
+            >
+              {{ giveaway.completed ? 'Completed' : 'Ongoing' }}
             </td>
             <td class="View">
               <ArrowCircle
-                @click.native="$router.push('/giveaways/givers/detail')"
+                @click.native="
+                  $router.push(`/giveaways/givers/${giveaway._id}`)
+                "
               />
             </td>
           </tr>
@@ -69,20 +74,18 @@
       <span class="inactive">10</span>
     </div> -->
     <paginate
-      :page-count="data.length"
-      :page-range="6"
+      :page-count="amountOfPages"
       :margin-pages="2"
       :container-class="'pagination'"
       :break-view-text="'. . .'"
       :click-handler="Paginate"
     />
-    {{ data }}
-    {{ loading }}
   </div>
 </template>
 
 <script>
 import paginate from 'vuejs-paginate'
+import moment from 'moment'
 import NoData from './NoTableData'
 export default {
   name: 'GiveawayTable',
@@ -104,8 +107,51 @@ export default {
       }
     }
   },
+  data () {
+    return {
+      paginatedData: this.initialPaginate(),
+      amountOfPages: Math.ceil(this.data.length / 6)
+    }
+  },
   methods: {
     Paginate (clickedpagenumber) {
+      let currentPage = 1
+      let pagesToShow = 7
+      let pageCount = 1
+      if (clickedpagenumber > 1) {
+        while (pageCount < clickedpagenumber) {
+          currentPage += 5
+          pagesToShow += 5
+          pageCount += 1
+        }
+      }
+
+      this.paginatedData = this.data
+        .sort((a, b) => {
+          const giveawayDateA = new Date(a.createdAt).getTime()
+          const giveawayDateB = new Date(b.createdAt).getTime()
+          return giveawayDateB - giveawayDateA
+        })
+        .slice(currentPage, pagesToShow)
+    },
+    initialPaginate () {
+      const initialData = this.data.sort((a, b) => {
+        const giveawayDateA = new Date(a.createdAt)
+        const giveawayDateB = new Date(b.createdAt)
+        return giveawayDateB - giveawayDateA
+      })
+      return initialData.slice(1, 7)
+    },
+    amountDelimeter (amount) {
+      return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+    },
+    format_date (value) {
+      const today = new Date().getTime()
+      const createdAt = new Date(String(value)).getTime()
+      if (today === createdAt) {
+        return `Today, ${moment(new Date(String(value))).format('hh:mm')}`
+      }
+      return moment(new Date(String(value))).format('DD MMM YYYY, hh:mm')
     }
   }
 }

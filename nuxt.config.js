@@ -12,11 +12,11 @@ export default {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      /* {
+      {
         rel: 'stylesheet',
         href:
           'https://cdn.jsdelivr.net/npm/@mdi/font@5.9.55/css/materialdesignicons.min.css'
-      }, */
+      },
       {
         rel: 'stylesheet',
         href:
@@ -64,7 +64,6 @@ export default {
   ],
 
   axios: {
-    baseURL: 'https://awoof-api.herokuapp.com/v1',
     retry: { retries: 3 }
   },
 

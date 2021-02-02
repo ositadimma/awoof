@@ -24,34 +24,68 @@
 
     <div class="details">
       <div class="details-child-1">
-        <GiveawayDetailTable />
-        <span class="users">Winners (5)</span>
-        <GiveawayWinnersTable />
-        <span class="users">Users Who Have Entered (335)</span>
-        <GiveawayWinnersTable />
+        <GiveawayDetailTable :giveaway-detail="giveawayDetail" />
+        <span class="users">Winners ({{ giveawayWinners.length }})</span>
+        <GiveawayWinnersTable :giveaway-winners="giveawayWinners" />
+        <span
+          class="users"
+        >Users Who Have Entered ({{ giveawayParticipants.length }})</span>
+        <GiveawayParticipationTable
+          :giveaway-participants="giveawayParticipants"
+        />
       </div>
       <div class="details-child-2">
-        <FullDetails />
-        <ParticipationReport />
+        <FullDetails :user-info="userInfo" />
+        <ParticipationReport :giveaway-participants="giveawayParticipants" />
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import Cookies from 'js-cookie'
 import GiveawayDetailTable from '~/components/Giveawaydetailtable'
 import GiveawayWinnersTable from '~/components/GiveawayWinnerstable'
+import GiveawayParticipationTable from '~/components/GiveawayParticipationtable'
 import FullDetails from '~/components/Fulldetails'
 import ParticipationReport from '~/components/Participationreport'
-// when data is available name this file _id to get based on ID then change routes
+
 export default {
   name: 'Giveawaydetail',
   layout: 'dashboardLayout',
   components: {
     GiveawayDetailTable,
     GiveawayWinnersTable,
+    GiveawayParticipationTable,
     FullDetails,
     ParticipationReport
+  },
+  async asyncData ({ $axios, $toast, params }) {
+    $axios.setHeader('x-auth-token', Cookies.get('token'))
+    try {
+      var giveawayDetailResponse = await $axios.$get(
+        `https://awoof-api.herokuapp.com/v1/giveaways/${params.id}`
+      )
+      var giveawayWinnersResponse = await $axios.$get(
+        `https://awoof-api.herokuapp.com/v1/giveaways/winners/${params.id}`
+      )
+    } catch (err) {
+      if (err.message.includes('Network')) {
+        $toast.global.custom_error('please check your connection and try again')
+      }
+
+      if (err.response !== undefined) {
+        if (err.response.status === 400) {
+          $toast.global.custom_error(err.response.data.message)
+        }
+      }
+    }
+    return {
+      giveawayDetail: giveawayDetailResponse.data,
+      userInfo: giveawayDetailResponse.data.user,
+      giveawayWinners: giveawayWinnersResponse.data,
+      giveawayParticipants: giveawayWinnersResponse.data
+    }
   },
   created () {
     this.$store.commit('setLayout', 'GIVEAWAYS DETAILS') // changes layout title of dashboard header

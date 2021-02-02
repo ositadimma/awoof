@@ -1,5 +1,5 @@
 <template>
-  <div class="Winners-table">
+  <div class="Participant-table">
     <div class="table-head">
       <table>
         <thead>
@@ -16,16 +16,16 @@
             <th class="View" />
           </tr>
         </thead>
-        <tbody v-show="giveawayWinners.length > 0">
-          <tr v-for="(winner, index) in giveawayWinners.filter(winner => winner.win)" :key="index">
+        <tbody v-show="giveawayParticipants.length > 0">
+          <tr v-for="(participant, index) in giveawayParticipants" :key="index">
             <td data-title="Name" class="Name">
-              {{ winner.user.firstName }} {{ winner.user.lastName }}
+              {{ participant.user.firstName }} {{ participant.user.lastName }}
             </td>
             <td data-title="Task Completion" class="Task">
-              All Completed
+              {{ participant.win ? 'All Completed' : 'Not Completed' }}
             </td>
             <td data-title="Date Entered">
-              {{ format_date(winner.user.signupDate) }}
+              {{ format_date(participant.user.signupDate) }}
             </td>
             <td class="View">
               <!-- <ArrowCircle /> -->
@@ -33,7 +33,7 @@
           </tr>
         </tbody>
       </table>
-      <NoData v-show="giveawayWinners.length == 0" />
+      <NoData v-show="giveawayParticipants.length == 0" />
     </div>
   </div>
 </template>
@@ -42,12 +42,12 @@
 import moment from 'moment'
 import NoData from './NoTableData'
 export default {
-  name: 'GiveawayWinnerstable',
+  name: 'GiveawayParticipantiontable',
   components: {
     NoData
   },
   props: {
-    giveawayWinners: {
+    giveawayParticipants: {
       type: Array,
       default () {
         return []
@@ -68,7 +68,7 @@ export default {
 </script>
 
 <style scoped>
-.Winners-table {
+.Participant-table {
   width: 100%;
   height: auto;
   margin: 26px 0px 67px 0px;
@@ -140,7 +140,7 @@ tbody tr:nth-child(odd) {
   cursor: pointer;
 }
 @media (max-width: 950px) {
-  .Winners-table .head {
+  .Participant-table .head {
     padding-left: 0px;
   }
   thead {
@@ -184,13 +184,13 @@ tbody tr:nth-child(odd) {
   }
 }
 @media (max-width: 767px) {
-  .Winners-table .head {
+  .Participant-table .head {
     padding-left: 0px;
   }
-  .Winners-table .head span:nth-child(1) {
+  .Participant-table .head span:nth-child(1) {
     font-size: 13px;
   }
-  .Winners-table .head span:nth-child(2) {
+  .Participant-table .head span:nth-child(2) {
     font-size: 13px;
   }
 }

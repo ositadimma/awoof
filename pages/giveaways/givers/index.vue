@@ -14,11 +14,9 @@ export default {
     GiveawayTable
   },
   async asyncData ({ $axios, $toast }) {
-    let data = []
     $axios.setHeader('x-auth-token', Cookies.get('token'))
     try {
-      const response = await $axios.$get('/giveaways')
-      data = response.data
+      var response = await $axios.$get('https://awoof-api.herokuapp.com/v1/giveaways')
     } catch (err) {
       if (err.message.includes('Network')) {
         $toast.global.custom_error('please check your connection and try again')
@@ -30,7 +28,7 @@ export default {
         }
       }
     }
-    return { data, loading: false }
+    return { data: response.data, loading: false }
   },
   created () {
     this.$store.commit('setLayout', 'GIVEAWAYS') // changes layout title of dashboard header
