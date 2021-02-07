@@ -1,5 +1,5 @@
 <template>
-  <div class="trandetail-container">
+  <div class="giveawaydetail-container">
     <div class="header">
       <div class="back">
         <img
@@ -9,24 +9,26 @@
         >
         <span>Back</span>
       </div>
-      <button class="btn-cmpt">
+      <button v-show="giveawayDetail.completed" class="btn-cmpt">
         Download Report
       </button>
-      <!-- When onGoing use this instead
-      <button class="edit-btn btn-cmpt">
+      <!-- When onGoing use this instead -->
+      <button v-show="!giveawayDetail.completed" class="edit-btn btn-cmpt">
         Edit Giveaway
       </button>
-      <button class="suspend-btn btn-cmpt">
+      <button v-show="!giveawayDetail.completed" class="suspend-btn btn-cmpt">
         Suspend Giveaway
       </button>
-      -->
     </div>
 
     <div class="details">
       <div class="details-child-1">
         <GiveawayDetailTable :giveaway-detail="giveawayDetail" />
-        <span class="users">Winners ({{ giveawayWinners.length }})</span>
-        <GiveawayWinnersTable :giveaway-winners="giveawayWinners" />
+        <span v-show="giveawayDetail.completed" class="users">Winners ({{ giveawayWinners.length }})</span>
+        <GiveawayWinnersTable
+          v-show="giveawayDetail.completed"
+          :giveaway-winners="giveawayWinners"
+        />
         <span
           class="users"
         >Users Who Have Entered ({{ giveawayParticipants.length }})</span>
@@ -35,8 +37,11 @@
         />
       </div>
       <div class="details-child-2">
-        <FullDetails :user-info="userInfo" />
-        <ParticipationReport :giveaway-participants="giveawayParticipants" />
+        <GiveawayFullDetails :user-info="userInfo" />
+        <ParticipationReport
+          v-show="giveawayDetail.completed"
+          :giveaway-participants="giveawayParticipants"
+        />
       </div>
     </div>
   </div>
@@ -47,7 +52,7 @@ import Cookies from 'js-cookie'
 import GiveawayDetailTable from '~/components/Giveawaydetailtable'
 import GiveawayWinnersTable from '~/components/GiveawayWinnerstable'
 import GiveawayParticipationTable from '~/components/GiveawayParticipationtable'
-import FullDetails from '~/components/Fulldetails'
+import GiveawayFullDetails from '~/components/GiveawayFulldetails'
 import ParticipationReport from '~/components/Participationreport'
 
 export default {
@@ -57,7 +62,7 @@ export default {
     GiveawayDetailTable,
     GiveawayWinnersTable,
     GiveawayParticipationTable,
-    FullDetails,
+    GiveawayFullDetails,
     ParticipationReport
   },
   async asyncData ({ $axios, $toast, params }) {
@@ -71,7 +76,9 @@ export default {
       )
     } catch (err) {
       if (err.message.includes('Network')) {
-        $toast.global.custom_error('please check your connection and try again')
+        $toast.global.custom_error(
+          'please check your connection and try again'
+        )
       }
 
       if (err.response !== undefined) {
@@ -94,7 +101,7 @@ export default {
 </script>
 
 <style scoped>
-.trandetail-container {
+.giveawaydetail-container {
   background: #f7f7f8;
   flex: 1;
 
@@ -141,6 +148,7 @@ export default {
 .suspend-btn {
   width: 188px;
   background: #e74d75;
+  margin-left: 14px;
 }
 .details {
   width: 100%;
@@ -174,8 +182,8 @@ export default {
   }
 }
 @media (max-width: 950px) {
-  .trandetail-container {
-    padding: 20px 0px 0px 0px;
+  .giveawaydetail-container {
+    padding: 20px 4.5% 0px 4.5%;
   }
   .back span {
     font-size: 12px;

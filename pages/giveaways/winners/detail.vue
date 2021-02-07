@@ -16,7 +16,7 @@
         <WinnersDetailTable />
       </div>
       <div class="details-child-2">
-        <FullDetails />
+        <WinnersFullDetails />
       </div>
     </div>
   </div>
@@ -24,14 +24,14 @@
 
 <script>
 import WinnersDetailTable from '~/components/Winnersdetailtable'
-import FullDetails from '~/components/Fulldetails'
+import WinnersFullDetails from '~/components/WinnersFulldetails'
 // when data is available name this file _id to get based on ID then change routes
 export default {
   name: 'Winnerdetail',
   layout: 'dashboardLayout',
   components: {
     WinnersDetailTable,
-    FullDetails
+    WinnersFullDetails
   },
   created () {
     this.$store.commit('setLayout', 'GIVEAWAY (WINNER DETAILS)') // changes title of dashboard header

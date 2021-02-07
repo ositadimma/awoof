@@ -6,15 +6,13 @@
           <span id="Security" class="active" @click="changeNav">Security</span>
           <span id="Team" @click="changeNav">Team</span>
         </div>
-        <button id="Button" class="btn-cmpt" @click="showForm">
+        <button id="Button" class="btn-cmpt new-member-btn" @click="showForm">
           Add New Member +
         </button>
       </div>
       <SecurityForm id="Securityform" />
       <TeamTable id="Teamtable" />
-      <div id="new-member" class="new-member-form-container">
-        <NewMember @closeForm="closeForm" />
-      </div>
+      <NewMember />
     </div>
   </div>
 </template>
@@ -58,12 +56,7 @@ export default {
       }
     },
     showForm () {
-      document.getElementById('new-member').style.display = 'flex'
-      document.getElementById('new-member').style.alignItems = 'center'
-      document.getElementById('new-member').style.justifyContent = 'center'
-    },
-    closeForm () {
-      document.getElementById('new-member').style.display = 'none'
+      document.querySelector('.new-member-form-container').removeAttribute('hidden')
     }
   }
 }
@@ -111,17 +104,6 @@ export default {
   border-bottom: 4px solid;
   color: #09AB5D;
   cursor: auto;
-}
-.new-member-form-container {
-  display: none;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  width: 100vw;
-  height: 100vh;
-
-  background: rgba(6, 13, 37, 0.6);
 }
 @media (max-width: 1095px) {
   .setting-container-child {

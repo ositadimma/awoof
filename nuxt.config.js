@@ -12,10 +12,14 @@ export default {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      // {
+      //   rel: 'stylesheet',
+      //   href:
+      //     'https://cdn.jsdelivr.net/npm/@mdi/font@5.9.55/css/materialdesignicons.min.css'
+      // },
       {
         rel: 'stylesheet',
-        href:
-          'https://cdn.jsdelivr.net/npm/@mdi/font@5.9.55/css/materialdesignicons.min.css'
+        href: 'https://fonts.googleapis.com/icon?family=Material+Icons'
       },
       {
         rel: 'stylesheet',
@@ -78,7 +82,6 @@ export default {
           theme: 'bubble',
           duration: 1003000,
           className: 'toast-container',
-          iconPack: 'mdi',
           action: {
             icon: 'close',
             onClick: (e, toastObject) => {
@@ -95,7 +98,6 @@ export default {
           theme: 'bubble',
           duration: 3000,
           className: 'toast-container',
-          iconPack: 'mdi',
           action: {
             icon: 'close',
             onClick: (e, toastObject) => {

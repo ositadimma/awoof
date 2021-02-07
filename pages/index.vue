@@ -104,7 +104,8 @@ export default {
     DashboardTable
   },
   created () {
-    this.$store.commit('setLayout', 'DASHBOARD') // changes layout title of dashboard header
+    // changes layout title of dashboard header
+    this.$store.commit('setLayout', 'DASHBOARD')
   }
 }
 </script>

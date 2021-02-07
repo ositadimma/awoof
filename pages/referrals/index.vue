@@ -4,15 +4,13 @@
       <div class="title-ctn">
         <span class="title">Referral Bonus</span>
       </div>
-      <div class="edit" @click="showEdit">
+      <div class="edit">
         <span class="amount">N500</span>
-        <div class="edit-image" />
+        <div class="edit-image" @click="showEdit" />
       </div>
     </div>
     <ReferralTable />
-    <div id="edit-form" class="edit-form">
-      <ReferralForm @CloseEdit="closeEdit" />
-    </div>
+    <ReferralForm />
   </div>
 </template>
 
@@ -31,12 +29,7 @@ export default {
   },
   methods: {
     showEdit () {
-      document.getElementById('edit-form').style.display = 'flex'
-      document.getElementById('edit-form').style.alignItems = 'center'
-      document.getElementById('edit-form').style.justifyContent = 'center'
-    },
-    closeEdit () {
-      document.getElementById('edit-form').style.display = 'none'
+      document.querySelector('.ref-form-container').removeAttribute('hidden')
     }
   }
 }
@@ -44,7 +37,7 @@ export default {
 
 <style scoped>
 .referral-container {
-  background: #F7F7F8;
+  background: #f7f7f8;
   flex: 1;
 
   display: flex;
@@ -59,8 +52,8 @@ export default {
   overflow-x: hidden;
 }
 .referral-card {
-  border: 1px solid #E2E2EA;
-  background: #FFFFFF;
+  border: 1px solid #e2e2ea;
+  background: #ffffff;
   border-radius: 20px;
   width: 260px;
   min-height: 95px;
@@ -80,7 +73,7 @@ export default {
   font-size: 12px;
   line-height: 19px;
 
-  color: #75759E;
+  color: #75759e;
 }
 .edit {
   display: flex;
@@ -101,17 +94,6 @@ export default {
   height: 20px;
   background-image: url('~assets/icons/EditSquare.svg');
   cursor: pointer;
-}
-.edit-form {
-  display: none;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  width: 100vw;
-  height: 100vh;
-
-  background: rgba(6, 13, 37, 0.6);
 }
 @media (max-width: 767px) {
   .referral-container {

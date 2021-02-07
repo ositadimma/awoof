@@ -115,13 +115,13 @@ export default {
   },
   methods: {
     Paginate (clickedpagenumber) {
-      let currentPage = 1
-      let pagesToShow = 7
+      let currentPage = 0
+      let pagesToShow = 6
       let pageCount = 1
       if (clickedpagenumber > 1) {
         while (pageCount < clickedpagenumber) {
-          currentPage += 5
-          pagesToShow += 5
+          currentPage += 6
+          pagesToShow += 6
           pageCount += 1
         }
       }
@@ -140,7 +140,7 @@ export default {
         const giveawayDateB = new Date(b.createdAt)
         return giveawayDateB - giveawayDateA
       })
-      return initialData.slice(1, 7)
+      return initialData.slice(0, 6)
     },
     amountDelimeter (amount) {
       return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')

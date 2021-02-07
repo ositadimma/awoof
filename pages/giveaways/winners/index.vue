@@ -30,7 +30,7 @@ export default {
         }
       }
     }
-    return { data: response.data, loading: false }
+    return { data: response ? response.data : [], loading: false }
   },
   created () {
     this.$store.commit('setLayout', 'GIVEAWAY (Winners)') // changes title of dashboard header

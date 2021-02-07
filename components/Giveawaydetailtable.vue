@@ -26,7 +26,7 @@
             {{ giveawayDetail.completed ? 'Completed' : 'On-going' }}
           </td>
           <td data-title="Tasks" class="Tasks">
-            3
+            {{ computedTasks.length }}
           </td>
           <td data-title="Total Amount" class="Amount">
             N{{ amountDelimeter(giveawayDetail.amount) }}
@@ -40,34 +40,45 @@
         </tr>
       </tbody>
     </table>
-    <span>Tasks</span>
+    <div class="edit-container">
+      <span>Tasks</span>
+      <button v-show="computedTasks.length > 0 && !giveawayDetail.completed" class="edit-btn btn-cmpt" @click="edit = !edit">
+        Edit
+      </button>
+    </div>
     <hr>
     <div class="Task-grid-container">
       <div v-for="(task, index) in tasks" :key="index" class="Task-grid">
         <div class="th">
           Task {{ index + 1 }}
         </div>
-        <div :data-title="`Task-${index + 1}`" class="td">
-          {{ task }}
+        <div v-if="!edit" :data-title="`Task-${index + 1}`" class="td">
+          {{ task.text }}
         </div>
+        <input v-if="edit" v-model="computedTasks[index].text" type="text">
       </div>
       <!-- <div class="Task-grid">
         <div class="th">
           Task Two
         </div>
-        <div data-title="Task-Two" class="td">
+        <div v-if="!edit" data-title="Task-Two" class="td">
           Share on Twitter
         </div>
+        <input v-if="edit" type="text">
       </div>
       <div class="Task-grid">
         <div class="th">
           Task Three
         </div>
-        <div data-title="Task-Three" class="td">
+        <div v-if="!edit" data-title="Task-Three" class="td">
           Retweet on Twitter
         </div>
+        <input v-if="edit" type="text">
       </div> -->
     </div>
+    <button v-show="edit" class="save-btn btn-cmpt">
+      Save
+    </button>
   </div>
 </template>
 
@@ -82,30 +93,67 @@ export default {
       }
     }
   },
+  data () {
+    return {
+      edit: false,
+      computedTasks: []
+    }
+  },
   computed: {
     tasks () {
       const tasks = []
       if (this.giveawayDetail.followInstagram) {
-        tasks.push('Follow On Instagram')
+        tasks.push({
+          text: 'Follow On Instagram'
+        })
+        // eslint-disable-next-line
+        this.computedTasks.push({
+          text: 'Follow On Instagram'
+        })
       }
       if (this.giveawayDetail.followTwitter) {
-        tasks.push('Follow On Twitter')
+        tasks.push({
+          text: 'Follow On Twitter'
+        })
+        // eslint-disable-next-line
+        this.computedTasks.push({
+          text: 'Follow On Twitter'
+        })
+      }
+      if (this.giveawayDetail.likeFacebook) {
+        tasks.push({
+          text: 'Liked a post on Facebook'
+        })
+        // eslint-disable-next-line
+        this.computedTasks.push({
+          text: 'Liked a post on Facebook'
+        })
       }
       if (this.giveawayDetail.likeInstagram) {
-        tasks.push('Liked a post on Instagram')
+        tasks.push({
+          text: 'Liked a post on Instagram'
+        })
+        // eslint-disable-next-line
+        this.computedTasks.push({
+          text: 'Liked a post on Instagram'
+        })
       }
       if (this.giveawayDetail.likeTweet) {
-        tasks.push('Liked a post on Twitter')
+        tasks.push({
+          text: 'Liked a post on Twitter'
+        })
+        // eslint-disable-next-line
+        this.computedTasks.push({
+          text: 'Liked a post on Twitter'
+        })
       }
+
       return tasks
     }
   },
   methods: {
     amountDelimeter (amount) {
       return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-    },
-    numToWords (num) {
-      // awaiting algorithm
     }
   }
 }
@@ -114,7 +162,8 @@ export default {
 <style scoped>
 .body {
   width: 100%;
-  height: 370px;
+  /* height: 370px; */
+  /* max-height: 1000px; */
   background: #ffffff;
   border: 1px solid #e2e2ea;
   border-radius: 20px;
@@ -122,6 +171,7 @@ export default {
   display: flex;
   flex-direction: column;
   margin-bottom: 65px;
+  padding-bottom: 25px;
 }
 hr {
   margin-bottom: 19px;
@@ -131,13 +181,50 @@ hr {
 .body span {
   align-self: start;
   display: block;
-  margin-left: 3.8%;
+  /* margin-left: 3.8%;
   margin-top: 27px;
-  margin-bottom: 16px;
+  margin-bottom: 16px; */
+  margin: 27px 0px 16px 3.8%;
   font-size: 12px;
   line-height: 19px;
 
   color: #a2abaa;
+}
+.edit-container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  margin: 27px 0px 16px 0px;
+}
+.edit-container span {
+  margin: 0px 0px 0px 3.8%;
+  align-self: center;
+}
+.edit-btn {
+  width: 89px;
+  max-width: 89px;
+  max-height: 27px;
+  background: #E74D75;
+  border-radius: 10px;
+  margin: 0px 3.8% 0px auto;
+}
+.save-btn {
+  width: 160px;
+  max-width: 160px;
+  min-height: 46px;
+  background: #09AB5D;
+  border-radius: 3px;
+  margin: 0px 3.8% 0px auto;
+}
+input[type='text'] {
+  color: #000000;
+  font-size: 12px;
+  width: 80%;
+  max-width: 201px;
+  height: 58px;
+  border: 1px solid #8692A6;
+  border-radius: 4px;
+  padding-left: 14px;
 }
 /* table */
 table {

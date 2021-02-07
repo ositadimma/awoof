@@ -1,6 +1,6 @@
 <template>
   <div class="dashboard-sidebar">
-    <img class="dashboard-logo" src="~/assets/images/Logo.png" alt="logo">
+    <img class="dashboard-logo" src="~/assets/images/Logo.png" alt="logo" @click="$router.push('/')">
     <div class="dashboard-sidebar-nav">
       <h3>Menu</h3>
       <nuxt-link
@@ -73,7 +73,7 @@
         <Settingsicon />
         <span>Settings & Roles</span>
       </nuxt-link>
-      <button class="btn-cmpt">
+      <button class="btn-cmpt" @click="$router.push('/newgiveaway')">
         New Giveaway
       </button>
     </div>
@@ -119,6 +119,7 @@ export default {
 }
 .dashboard-logo {
   margin: 23px 0px 25px 31px;
+  cursor: pointer;
 }
 .dashboard-sidebar-nav {
   border-top: 1px solid rgba(255, 255, 255, 0.2);

@@ -1,41 +1,50 @@
 <template>
-  <div class="new-member-form animate__fadeIn">
-    <div class="header">
-      <span>Add New Member</span>
-      <img src="~/assets/icons/Delete.svg" @click="$emit('closeForm')">
-    </div>
-    <hr>
-    <div class="form">
-      <label>Select Role</label>
-      <div class="select" @click="showSelect">
-        <div class="default-option">
-          Please select
-        </div>
-        <div id="inner-select" class="inner-select">
-          <div class="option">
-            Please select1
-          </div>
-          <div class="option">
-            Please select2
-          </div>
-        </div>
+  <div id="new-member-form-container" class="new-member-form-container" hidden>
+    <div
+      v-click-outside="clickAwayFromForm"
+      class="new-member-form animate__fadeIn"
+    >
+      <div class="header">
+        <span>Add New Member</span>
+        <img src="~/assets/icons/Delete.svg" @click="closeForm">
       </div>
+      <hr>
+      <div class="form">
+        <label>Select Role</label>
+        <div class="select" @click="showSelect">
+          <div class="default-option">
+            Please select
+          </div>
+          <div id="inner-select" class="inner-select">
+            <div class="option">
+              Please select1
+            </div>
+            <div class="option">
+              Please select2
+            </div>
+          </div>
+        </div>
 
-      <label>Fullname</label>
-      <input type="text" placeholder="Please Enter">
-      <label>Email Address</label>
-      <input type="text" placeholder="Please Enter">
-      <button class="btn-cmpt">
-        Create Account
-      </button>
-      <span class="cancel" @click="$emit('closeForm')">Cancel</span>
+        <label>Fullname</label>
+        <input type="text" placeholder="Please Enter">
+        <label>Email Address</label>
+        <input type="text" placeholder="Please Enter">
+        <button class="btn-cmpt">
+          Create Account
+        </button>
+        <span class="cancel" @click="closeForm">Cancel</span>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import vClickOutside from 'v-click-outside'
 export default {
   name: 'Newmemberform',
+  directives: {
+    clickOutside: vClickOutside.directive
+  },
   methods: {
     showSelect () {
       const select = document.getElementsByClassName('select')
@@ -47,15 +56,50 @@ export default {
         select[0].className = 'select'
         inner.style.display = 'none'
       }
+    },
+    clickAwayFromForm (e) {
+      const NewmemberformContainer = document.querySelector(
+        '.new-member-form-container'
+      )
+      const Newmemberform = document.querySelector('.new-member-form')
+      const Newmemberbutton = document.querySelector('.new-member-btn')
+
+      Newmemberform.childNodes.forEach((element) => {
+        if (
+          e.target !== Newmemberform &&
+          !element.isEqualNode(e.target) &&
+          e.target !== Newmemberbutton
+        ) {
+          NewmemberformContainer.setAttribute('hidden', true)
+        }
+      })
+    },
+    closeForm () {
+      document
+        .querySelector('.new-member-form-container')
+        .setAttribute('hidden', true)
     }
   }
 }
 </script>
 
 <style scoped>
+.new-member-form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100vw;
+  height: 100vh;
+
+  background: rgba(6, 13, 37, 0.6);
+}
 .new-member-form {
   padding: 2.9% 2.7% 0px 2.7%;
-  background: #FFFFFF;
+  background: #ffffff;
   width: 50.5%;
   height: 95%;
   max-height: 660px;
@@ -75,7 +119,7 @@ span {
   font-size: 18px;
   line-height: 29px;
 
-  color: #061E5B;
+  color: #061e5b;
 }
 .header img {
   margin-left: auto;
@@ -93,7 +137,7 @@ span {
   align-items: center;
   width: 100%;
   height: 64px;
-  border: 1px solid #8692A6;
+  border: 1px solid #8692a6;
   border-radius: 6px;
 
   margin-bottom: 21px;
@@ -103,7 +147,7 @@ span {
   cursor: pointer;
 }
 .select::after {
-  content: url('~assets/icons/teamcarrot.svg');
+  content: url("~assets/icons/teamcarrot.svg");
 }
 .active-select::after {
   transform: rotate(180deg);
@@ -117,7 +161,7 @@ span {
   padding-left: 30px;
   font-weight: 600;
   font-size: 12px;
-  color: #8692A6;
+  color: #8692a6;
 }
 .inner-select {
   display: none;
@@ -129,7 +173,7 @@ span {
   z-index: 1;
 
   overflow-y: auto;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
 }
 .option {
   height: 64px;
@@ -139,39 +183,39 @@ span {
   border-bottom: 1px solid;
   font-weight: 600;
   font-size: 12px;
-  color: #8692A6;
-  background: #FFFFFF;
+  color: #8692a6;
+  background: #ffffff;
 }
 .option:last-child {
   border: none;
 }
 .option:hover {
-  color: #FFFFFF;
-  background: #09AB5D;
+  color: #ffffff;
+  background: #09ab5d;
 }
 label {
   font-weight: 600;
   font-size: 14px;
   line-height: 23px;
-  color: #696F79;
+  color: #696f79;
   margin-bottom: 11px;
 }
-input[type=text] {
+input[type="text"] {
   width: 100%;
   height: 64px;
   padding-left: 30px;
 
-  border: 1px solid #8692A6;
+  border: 1px solid #8692a6;
   box-sizing: border-box;
   border-radius: 6px;
 
   margin-bottom: 21px;
   font-size: 12px;
-  color: #8692A6;
+  color: #8692a6;
 }
-input[type=text]::placeholder {
+input[type="text"]::placeholder {
   font-weight: 600;
-  color: #8692A6;
+  color: #8692a6;
 }
 .btn-cmpt {
   height: 64px;
@@ -182,7 +226,7 @@ input[type=text]::placeholder {
 .cancel {
   font-size: 12px;
   line-height: 19px;
-  color: #8692A6;
+  color: #8692a6;
 
   align-self: center;
   cursor: pointer;

@@ -28,7 +28,7 @@ export default {
         }
       }
     }
-    return { data: response.data, loading: false }
+    return { data: response ? response.data : [], loading: false }
   },
   created () {
     this.$store.commit('setLayout', 'GIVEAWAYS') // changes layout title of dashboard header
