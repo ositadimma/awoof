@@ -329,7 +329,9 @@ export default {
     },
     bodyFormatData () {
       const today = new Date()
-      const dateInThreeDays = today.getDate() + 3
+      const dateInThreeDays = new Date()
+      dateInThreeDays.setDate(today.getDate() + 3)
+
       const data = new FormData()
       data.append('amount', parseInt(this.amount.replace(',', '')))
       data.append(
