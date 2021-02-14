@@ -1,9 +1,9 @@
 <template>
-  <div class="ref-form-container" hidden>
-    <div v-click-outside="clickAwayFromForm" class="ref-form-body animate__fadeIn">
+  <div class="ref-form-container" @click.self="closeModal">
+    <div class="ref-form-body animate__fadeIn">
       <div class="header">
         <span>Set Referral Bonus</span>
-        <img src="~/assets/icons/Delete.svg" @click="closeEdit">
+        <img src="~/assets/icons/Delete.svg" @click="closeModal">
       </div>
       <hr>
       <div class="form">
@@ -15,37 +15,18 @@
         <button class="btn-cmpt">
           Continue
         </button>
-        <span class="cancel" @click="closeEdit">Cancel</span>
+        <span class="cancel" @click="closeModal">Cancel</span>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import vClickOutside from 'v-click-outside'
 export default {
   name: 'ReferralForm',
-  directives: {
-    clickOutside: vClickOutside.directive
-  },
   methods: {
-    clickAwayFromForm (e) {
-      const Referralformcontainer = document.querySelector('.ref-form-container')
-      const Referralform = document.querySelector('.ref-form-body')
-      const Editbutton = document.querySelector('.edit-image')
-
-      Referralform.childNodes.forEach((element) => {
-        if (
-          e.target !== Referralform &&
-          !element.isEqualNode(e.target) &&
-          e.target !== Editbutton
-        ) {
-          Referralformcontainer.setAttribute('hidden', true)
-        }
-      })
-    },
-    closeEdit () {
-      document.querySelector('.ref-form-container').setAttribute('hidden', true)
+    closeModal () {
+      this.$store.commit('setModalOpen', false)
     }
   }
 }

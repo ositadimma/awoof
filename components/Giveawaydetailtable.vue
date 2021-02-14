@@ -23,10 +23,10 @@
               giveawayDetail.completed ? 'completed Status' : 'ongoing Status'
             "
           >
-            {{ giveawayDetail.completed ? 'Completed' : 'On-going' }}
+            {{ giveawayDetail.completed ? "Completed" : "On-going" }}
           </td>
           <td data-title="Tasks" class="Tasks">
-            {{ computedTasks.length }}
+            {{ tasks.length }}
           </td>
           <td data-title="Total Amount" class="Amount">
             N{{ amountDelimeter(giveawayDetail.amount) }}
@@ -42,49 +42,42 @@
     </table>
     <div class="edit-container">
       <span>Tasks</span>
-      <button v-show="computedTasks.length > 0 && !giveawayDetail.completed" class="edit-btn btn-cmpt" @click="edit = !edit">
+      <button
+        v-show="tasks.length > 0 && !giveawayDetail.completed"
+        class="edit-btn btn-cmpt"
+        @click="edit = !edit"
+      >
         Edit
       </button>
     </div>
     <hr>
-    <div class="Task-grid-container">
-      <div v-for="(task, index) in tasks" :key="index" class="Task-grid">
+    <div class="task-grid-container">
+      <div v-for="(task, index) in tasks" :key="index" class="task-grid">
         <div class="th">
           Task {{ index + 1 }}
         </div>
-        <div v-if="!edit" :data-title="`Task-${index + 1}`" class="td">
+        <div :data-title="`Task-${index + 1}`" class="td">
           {{ task.text }}
         </div>
-        <input v-if="edit" v-model="computedTasks[index].text" type="text">
       </div>
-      <!-- <div class="Task-grid">
-        <div class="th">
-          Task Two
+      <div v-show="edit" class="blur-container">
+        <div class="action" @click="showModal('modalBody')">
+          <span>ADD A NEW TASK</span>
+          <img src="~/assets/icons/addTask.svg" alt="add">
         </div>
-        <div v-if="!edit" data-title="Task-Two" class="td">
-          Share on Twitter
-        </div>
-        <input v-if="edit" type="text">
       </div>
-      <div class="Task-grid">
-        <div class="th">
-          Task Three
-        </div>
-        <div v-if="!edit" data-title="Task-Three" class="td">
-          Retweet on Twitter
-        </div>
-        <input v-if="edit" type="text">
-      </div> -->
     </div>
-    <button v-show="edit" class="save-btn btn-cmpt">
-      Save
-    </button>
+    <AddTask v-show="modalOpen" />
   </div>
 </template>
 
 <script>
+import AddTask from '../components/Addtask'
 export default {
   name: 'Giveawaydetailtable',
+  components: {
+    AddTask
+  },
   props: {
     giveawayDetail: {
       type: Object,
@@ -95,65 +88,56 @@ export default {
   },
   data () {
     return {
-      edit: false,
-      computedTasks: []
+      edit: false
     }
   },
   computed: {
     tasks () {
       const tasks = []
+      if (this.giveawayDetail.followPageOnFacebook) {
+        tasks.push({
+          text: 'Follow Page On Facebook'
+        })
+      }
+      if (this.giveawayDetail.likeFacebook) {
+        tasks.push({
+          text: 'Like post on Facebook'
+        })
+      }
       if (this.giveawayDetail.followInstagram) {
         tasks.push({
           text: 'Follow On Instagram'
         })
-        // eslint-disable-next-line
-        this.computedTasks.push({
-          text: 'Follow On Instagram'
+      }
+      if (this.giveawayDetail.likeInstagram) {
+        tasks.push({
+          text: 'Like post on Instagram'
         })
       }
       if (this.giveawayDetail.followTwitter) {
         tasks.push({
           text: 'Follow On Twitter'
         })
-        // eslint-disable-next-line
-        this.computedTasks.push({
-          text: 'Follow On Twitter'
-        })
-      }
-      if (this.giveawayDetail.likeFacebook) {
-        tasks.push({
-          text: 'Liked a post on Facebook'
-        })
-        // eslint-disable-next-line
-        this.computedTasks.push({
-          text: 'Liked a post on Facebook'
-        })
-      }
-      if (this.giveawayDetail.likeInstagram) {
-        tasks.push({
-          text: 'Liked a post on Instagram'
-        })
-        // eslint-disable-next-line
-        this.computedTasks.push({
-          text: 'Liked a post on Instagram'
-        })
       }
       if (this.giveawayDetail.likeTweet) {
         tasks.push({
-          text: 'Liked a post on Twitter'
-        })
-        // eslint-disable-next-line
-        this.computedTasks.push({
-          text: 'Liked a post on Twitter'
+          text: 'Like and retweet on Twitter'
         })
       }
 
       return tasks
+    },
+    modalOpen () {
+      return this.$store.state.modalOpen
     }
   },
   methods: {
     amountDelimeter (amount) {
       return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+    },
+    showModal () {
+      this.$store.commit('setModalOpen', true)
+      this.edit = false
     }
   }
 }
@@ -204,7 +188,7 @@ hr {
   width: 89px;
   max-width: 89px;
   max-height: 27px;
-  background: #E74D75;
+  background: #e74d75;
   border-radius: 10px;
   margin: 0px 3.8% 0px auto;
 }
@@ -212,17 +196,17 @@ hr {
   width: 160px;
   max-width: 160px;
   min-height: 46px;
-  background: #09AB5D;
+  background: #09ab5d;
   border-radius: 3px;
   margin: 0px 3.8% 0px auto;
 }
-input[type='text'] {
+input[type="text"] {
   color: #000000;
   font-size: 12px;
   width: 80%;
   max-width: 201px;
   height: 58px;
-  border: 1px solid #8692A6;
+  border: 1px solid #8692a6;
   border-radius: 4px;
   padding-left: 14px;
 }
@@ -259,24 +243,25 @@ td {
 .Status {
   width: 18%;
 }
-.Task-grid-container {
+.task-grid-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  grid-gap: 0px 18px;
+  gap: 20px 18px;
   width: 100%;
   margin-bottom: 40px;
+  position: relative;
   padding: 0px 3.4% 0px 3.4%;
 }
-.Task-grid {
+.task-grid {
   display: flex;
   flex-direction: column;
 }
-.Task-grid .th {
+.task-grid .th {
   font-size: 11px;
   line-height: 19px;
   color: #75759e;
 }
-.Task-grid .td {
+.task-grid .td {
   font-weight: 600;
   font-size: 13px;
   line-height: 21px;
@@ -288,6 +273,37 @@ td {
 }
 .completed {
   color: #09ab5d;
+}
+.blur-container {
+  position: absolute;
+  bottom: 2px;
+  background: linear-gradient(
+    rgba(255, 255, 255, 0.2),
+    rgba(255, 255, 255, 1),
+    rgba(255, 255, 255, 1)
+  );
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  padding-top: 7%;
+}
+.action {
+  width: 163px;
+  position: absolute;
+  right: 0;
+  display: flex;
+  margin-right: 3.4%;
+  cursor: pointer;
+}
+.action span {
+  display: block;
+  margin: 10px 1.18rem 0px 0px;
+  font-weight: bold;
+  font-size: 12px;
+  color: #083577;
 }
 @media (max-width: 950px) {
   .body {
@@ -316,22 +332,22 @@ td {
   .Status {
     width: 100%;
   }
-  .Task-grid-container {
+  .task-grid-container {
     display: flex;
     flex-direction: column;
   }
-  .Task-grid {
+  .task-grid {
     display: block;
     width: 100%;
   }
-  .Task-grid .th {
+  .task-grid .th {
     display: none;
   }
-  .Task-grid .td {
+  .task-grid .td {
     display: flex;
     justify-content: space-between;
   }
-  .Task-grid .td::before {
+  .task-grid .td::before {
     content: attr(data-title);
   }
 }

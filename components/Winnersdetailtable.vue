@@ -22,19 +22,23 @@
       <tbody>
         <tr>
           <td data-title="Type" class="Status">
-            Star Givaway
+            {{ giveawayDetail.type }} Givaway
           </td>
           <td data-title="Giver" class="Tasks">
             <div class="Name-div">
-              <p>Don Jazzy</p>
-              <Checkicon />
+              <p>
+                {{
+                  giveawayDetail.user ? giveawayDetail.user.username : "Admin"
+                }}
+              </p>
+              <!-- <Checkicon /> -->
             </div>
           </td>
           <td data-title="Total Amount" class="Amount">
-            N500,000
+            N{{ amountDelimeter(giveawayDetail.amount) }}
           </td>
           <td data-title="Date Posted" class="Date">
-            Today, 8:45
+            {{ format_date(giveawayDetail.user.signupDate) }}
           </td>
         </tr>
       </tbody>
@@ -59,54 +63,100 @@
       <tbody>
         <tr>
           <td data-title="Possible Winners" class="Status">
-            5 (N100,000 per winner)
+            {{ giveawayDetail.numberOfWinners }} (N{{
+              amountDelimeter(giveawayDetail.amountPerWinner)
+            }}
+            per winner)
           </td>
           <td data-title="Task Completion" class="Tasks">
             All Completed
           </td>
           <td data-title="Amount Won" class="Amount">
-            N100,000
+            N{{ amountDelimeter(giveawayDetail.amountPerWinner) }}
           </td>
           <td data-title="Date Entered" class="Date">
-            Today, 10:03
+            {{ format_date(giveawayDetail.createdAt) }}
           </td>
         </tr>
       </tbody>
     </table>
-    <span>Tasks</span>
+    <!-- <span>Tasks</span>
     <hr>
     <div class="Task-grid-container">
-      <div class="Task-grid">
+      <div v-for="(task, index) in tasks" :key="index" class="Task-grid">
         <div class="th">
-          Task One
+          Task {{ index + 1 }}
         </div>
-        <div data-title="Task-One" class="td">
-          Follow On Instagram
+        <div :data-title="`Task-${index + 1}`" class="td">
+          {{ task.text }}
         </div>
       </div>
-      <div class="Task-grid">
-        <div class="th">
-          Task Two
-        </div>
-        <div data-title="Task-Two" class="td">
-          Share on Twitter
-        </div>
-      </div>
-      <div class="Task-grid">
-        <div class="th">
-          Task Three
-        </div>
-        <div data-title="Task-Three" class="td">
-          Retweet on Twitter
-        </div>
-      </div>
-    </div>
+    </div> -->
   </div>
 </template>
 
 <script>
+import moment from 'moment'
 export default {
-  name: 'Winnersdetailtable'
+  name: 'Winnersdetailtable',
+  props: {
+    giveawayDetail: {
+      type: Object,
+      default () {
+        return {}
+      }
+    }
+  },
+  computed: {
+    // tasks () {
+    //   const tasks = []
+    //   if (this.giveawayDetail.followPageOnFacebook) {
+    //     tasks.push({
+    //       text: 'Follow Page On Facebook'
+    //     })
+    //   }
+    //   if (this.giveawayDetail.likeFacebook) {
+    //     tasks.push({
+    //       text: 'Like post on Facebook'
+    //     })
+    //   }
+    //   if (this.giveawayDetail.followInstagram) {
+    //     tasks.push({
+    //       text: 'Follow On Instagram'
+    //     })
+    //   }
+    //   if (this.giveawayDetail.likeInstagram) {
+    //     tasks.push({
+    //       text: 'Like post on Instagram'
+    //     })
+    //   }
+    //   if (this.giveawayDetail.followTwitter) {
+    //     tasks.push({
+    //       text: 'Follow On Twitter'
+    //     })
+    //   }
+    //   if (this.giveawayDetail.likeTweet) {
+    //     tasks.push({
+    //       text: 'Like and retweet on Twitter'
+    //     })
+    //   }
+
+    //   return tasks
+    // }
+  },
+  methods: {
+    amountDelimeter (amount) {
+      return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+    },
+    format_date (value) {
+      const today = new Date().getTime()
+      const createdAt = new Date(String(value)).getTime()
+      if (today === createdAt) {
+        return `Today, ${moment(new Date(String(value))).format('hh:mm')}`
+      }
+      return moment(new Date(String(value))).format('DD MMM YYYY, hh:mm')
+    }
+  }
 }
 </script>
 
@@ -114,8 +164,8 @@ export default {
 .body {
   width: 100%;
   height: 433px;
-  background: #FFFFFF;
-  border: 1px solid #E2E2EA;
+  background: #ffffff;
+  border: 1px solid #e2e2ea;
   border-radius: 20px;
 
   display: flex;
@@ -137,7 +187,7 @@ hr {
   font-size: 12px;
   line-height: 19px;
 
-  color: #A2ABAA;
+  color: #a2abaa;
 }
 /* table */
 table {
@@ -146,28 +196,33 @@ table {
   margin-bottom: 40px;
   padding: 0px 3.4% 0px 3.4%;
 }
-th, td {
+th,
+td {
   text-align: left;
 }
 th {
   font-weight: normal;
   font-size: 11px;
   line-height: 19px;
-  color: #75759E;
+  color: #75759e;
 }
 td {
   font-weight: 600;
   font-size: 13px;
   line-height: 21px;
   color: #171717;
+  text-transform: capitalize;
   overflow-x: auto;
 }
-.Amount, .Tasks, .Status, .Date {
+.Amount,
+.Tasks,
+.Status,
+.Date {
   width: 25%;
 }
 .Task-grid-container {
   display: grid;
-  grid-template-columns: repeat( auto-fit, minmax(150px, 1fr) );
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   grid-gap: 0px 18px;
   width: 100%;
   padding: 0px 3.4% 0px 3.4%;
@@ -179,7 +234,7 @@ td {
 .Task-grid .th {
   font-size: 11px;
   line-height: 19px;
-  color: #75759E;
+  color: #75759e;
 }
 .Task-grid .td {
   font-weight: 600;
@@ -208,7 +263,7 @@ td {
   thead {
     display: none;
   }
-  tr{
+  tr {
     display: flex;
     flex-direction: column;
   }
@@ -220,7 +275,10 @@ td {
   td::before {
     content: attr(data-title);
   }
-  .Amount, .Tasks, .Status, .Date {
+  .Amount,
+  .Tasks,
+  .Status,
+  .Date {
     width: 100%;
   }
   .Task-grid-container {

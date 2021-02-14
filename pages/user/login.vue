@@ -127,7 +127,7 @@ export default {
 
   background: #ffffff;
   border-radius: 20px;
-  padding: 0px 3.75%;
+  padding: 0px 3.75% 1rem;
   overflow-y: auto;
 }
 

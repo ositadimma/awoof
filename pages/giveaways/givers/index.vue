@@ -1,12 +1,13 @@
 <template>
   <div class="giver-container">
-    <GiveawayTable :loading="loading" :data="data" />
+    <GiveawayTable :data="data" />
   </div>
 </template>
 
 <script>
 import Cookies from 'js-cookie'
 import GiveawayTable from '~/components/Giveawaytable'
+
 export default {
   name: 'Giver',
   layout: 'dashboardLayout',
@@ -28,7 +29,7 @@ export default {
         }
       }
     }
-    return { data: response ? response.data : [], loading: false }
+    return { data: response ? response.data : [] }
   },
   created () {
     this.$store.commit('setLayout', 'GIVEAWAYS') // changes layout title of dashboard header

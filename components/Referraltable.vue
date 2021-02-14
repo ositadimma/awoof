@@ -25,108 +25,111 @@
             <th class="View" />
           </tr>
         </thead>
-        <tbody>
-          <tr>
+        <tbody v-show="data.length > 0">
+          <tr v-for="(referral, index) in paginatedData" :key="index">
             <td data-title="Ref ID" class="Id">
-              <p>#18319</p>
+              <p>#{{ referral.referralCode }}</p>
             </td>
             <td data-title="Username">
-              Precious Martins
+              {{ referral.username }}
             </td>
             <td data-title="Email">
-              preciousmartins@example.com
+              {{ referral.email }}
             </td>
             <td data-title="Phone Number">
-              +2348123456789
+              {{ referral.phoneNumber }}
             </td>
             <td data-title="Date Used">
-              22 Jan 2020, 10:03
+              {{ format_date(referral.signupDate) }}
             </td>
             <td data-title="Code Usage" class="Code-usage">
-              4 Users
+              {{ referral.refCodeUsage }} Users
             </td>
             <td class="View">
-              <ArrowCircle @click.native="$router.push('/referrals/detail')" />
-            </td>
-          </tr>
-          <tr>
-            <td data-title="Ref ID" class="Id">
-              <p>#18319</p>
-            </td>
-            <td data-title="Username">
-              Precious Martins
-            </td>
-            <td data-title="Email">
-              preciousmartins@example.com
-            </td>
-            <td data-title="Phone Number">
-              +2348123456789
-            </td>
-            <td data-title="Date Used">
-              22 Jan 2020, 10:03
-            </td>
-            <td data-title="Code Usage" class="Code-usage">
-              4 Users
-            </td>
-            <td class="View">
-              <ArrowCircle @click.native="$router.push('/referrals/detail')" />
-            </td>
-          </tr>
-          <tr>
-            <td data-title="Ref ID" class="Id">
-              <p>#18319</p>
-            </td>
-            <td data-title="Username">
-              Precious Martins
-            </td>
-            <td data-title="Email">
-              preciousmartins@example.com
-            </td>
-            <td data-title="Phone Number">
-              +2348123456789
-            </td>
-            <td data-title="Date Used">
-              22 Jan 2020, 10:03
-            </td>
-            <td data-title="Code Usage" class="Code-usage">
-              4 Users
-            </td>
-            <td class="View">
-              <ArrowCircle @click.native="$router.push('/referrals/detail')" />
+              <ArrowCircle
+                @click.native="
+                  $router.push(`/referrals/${referral._id}`)
+                "
+              />
             </td>
           </tr>
         </tbody>
       </table>
+      <NoData v-show="data.length == 0" />
     </div>
-    <!--<div class="table-ctn">
-      <ReferralTableBody />
-      <ReferralTableBody />
-      <ReferralTableBody />
-      <ReferralTableBody />
-      <ReferralTableBody />
-      <ReferralTableBody />
-      <ReferralTableBody />
-    </div>-->
-    <div class="pagination">
-      <span class="active">1</span>
-      <span class="inactive">2</span>
-      <span class="inactive">3</span>
-      <span class="inactive">4</span>
-      <span class="inactive">5</span>
-      <span class="inactive">6</span>
-      <span>. . .</span>
-      <span class="inactive">10</span>
-    </div>
+    <paginate
+      :page-count="amountOfPages"
+      :margin-pages="2"
+      :container-class="'pagination'"
+      :break-view-text="'. . .'"
+      :click-handler="Paginate"
+    />
   </div>
 </template>
 
 <script>
-// import ReferralTableBody from './ReferralTablebody'
+import paginate from 'vuejs-paginate'
+import moment from 'moment'
+import NoData from './NoTableData'
+
 export default {
-  name: 'ReferralTable'
-  /* components: {
-    ReferralTableBody
-  } */
+  name: 'ReferralTable',
+  components: {
+    NoData,
+    paginate
+  },
+  props: {
+    data: {
+      type: Array,
+      default () {
+        return []
+      }
+    }
+  },
+  data () {
+    return {
+      paginatedData: this.initialPaginate(),
+      amountOfPages: Math.ceil(this.data.length / 6)
+    }
+  },
+  methods: {
+    Paginate (clickedpagenumber) {
+      let currentPage = 0
+      let pagesToShow = 6
+      let pageCount = 1
+      if (clickedpagenumber > 1) {
+        while (pageCount < clickedpagenumber) {
+          currentPage += 6
+          pagesToShow += 6
+          pageCount += 1
+        }
+      }
+
+      this.paginatedData = this.data
+        .sort((a, b) => {
+          const referralDateA = new Date(a.signupDate).getTime()
+          const referralDateB = new Date(b.signupDate).getTime()
+          return referralDateB - referralDateA
+        })
+        .slice(currentPage, pagesToShow)
+    },
+    initialPaginate () {
+      const initialData = this.data.sort((a, b) => {
+        const referralDateA = new Date(a.signupDate)
+        const referralDateB = new Date(b.signupDate)
+        return referralDateB - referralDateA
+      })
+      return initialData.slice(0, 6)
+    },
+    format_date (value) {
+      const today = new Date().getTime()
+      const signupDate = new Date(String(value)).getTime()
+      if (today === signupDate) {
+        return `Today, ${moment(new Date(String(value))).format('hh:mm')}`
+      }
+      return moment(new Date(String(value))).format('DD MMM YYYY, hh:mm')
+    }
+  }
 }
 </script>
 

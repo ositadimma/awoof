@@ -3,12 +3,15 @@
     <div class="head">
       <span class="title">Amount Processed</span>
       <div class="nav-border">
-        <span class="nav">Weekly</span>
-        <span class="nav active">Monthly</span>
-        <span class="nav">Yearly</span>
+        <!-- <span class="nav">Weekly</span> -->
+        <span :class=" mode === 'Monthly' ? 'nav active' : 'nav' " @click="changeMode('Monthly')">Monthly</span>
+        <span :class=" mode === 'Yearly' ? 'nav active' : 'nav' " @click="changeMode('Yearly')">Yearly</span>
       </div>
     </div>
-    <LineChart />
+    <LineChart v-show="dashboardChart.length > 0" :dashboard-chart="dashboardChart" />
+    <div v-show="dashboardChart.length == 0" class="no-data">
+      No data available
+    </div>
   </div>
 </template>
 
@@ -18,6 +21,24 @@ export default {
   name: 'Dashboardchart',
   components: {
     LineChart
+  },
+  props: {
+    dashboardChart: {
+      type: Array,
+      default () {
+        return []
+      }
+    }
+  },
+  computed: {
+    mode () {
+      return this.$store.state.mode
+    }
+  },
+  methods: {
+    changeMode (mode) {
+      this.$store.commit('setMode', mode)
+    }
   }
 }
 </script>
@@ -81,6 +102,21 @@ export default {
   color: #FFFFFF;
   background: #00C4B7;
   cursor: auto;
+}
+.no-data {
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  font-size: calc(1rem + 0.3vw);
+  color: #00C4B7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+@media (min-width: 1600px) {
+  .no-data {
+    font-size: 30px;
+  }
 }
 @media (max-width: 767px) {
   .head .title {

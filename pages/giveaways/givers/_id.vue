@@ -5,7 +5,7 @@
         <img
           src="~/assets/icons/Arrow LeftCircle.svg"
           alt="back"
-          @click="$router.push('/giveaways/givers')"
+          @click="previousRoute"
         >
         <span>Back</span>
       </div>
@@ -13,12 +13,12 @@
         Download Report
       </button>
       <!-- When onGoing use this instead -->
-      <button v-show="!giveawayDetail.completed" class="edit-btn btn-cmpt">
+      <!-- <button v-show="!giveawayDetail.completed" class="edit-btn btn-cmpt">
         Edit Giveaway
-      </button>
-      <button v-show="!giveawayDetail.completed" class="suspend-btn btn-cmpt">
+      </button> -->
+      <!-- <button v-show="!giveawayDetail.completed" class="suspend-btn btn-cmpt">
         Suspend Giveaway
-      </button>
+      </button> -->
     </div>
 
     <div class="details">
@@ -87,15 +87,21 @@ export default {
         }
       }
     }
+    // eslint-disable-next-line
     return {
-      giveawayDetail: giveawayDetailResponse.data,
-      userInfo: giveawayDetailResponse.data.user,
-      giveawayWinners: giveawayWinnersResponse.data,
-      giveawayParticipants: giveawayWinnersResponse.data
+      giveawayDetail: giveawayDetailResponse !== undefined ? giveawayDetailResponse.data : {},
+      userInfo: giveawayDetailResponse !== undefined ? giveawayDetailResponse.data.user : {},
+      giveawayWinners: giveawayWinnersResponse !== undefined ? giveawayWinnersResponse.data : [],
+      giveawayParticipants: giveawayWinnersResponse !== undefined ? giveawayWinnersResponse.data : []
     }
   },
   created () {
     this.$store.commit('setLayout', 'GIVEAWAYS DETAILS') // changes layout title of dashboard header
+  },
+  methods: {
+    previousRoute () {
+      window.history.back()
+    }
   }
 }
 </script>
@@ -135,6 +141,7 @@ export default {
   line-height: 23px;
   color: #75759e;
   margin-left: 11px;
+  padding-top: 3px;
 }
 .btn-cmpt {
   width: 175px;

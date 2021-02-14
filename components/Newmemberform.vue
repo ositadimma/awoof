@@ -1,12 +1,9 @@
 <template>
-  <div id="new-member-form-container" class="new-member-form-container" hidden>
-    <div
-      v-click-outside="clickAwayFromForm"
-      class="new-member-form animate__fadeIn"
-    >
+  <div id="new-member-form-container" class="new-member-form-container" @click.self="closeModal">
+    <div class="new-member-form animate__fadeIn">
       <div class="header">
         <span>Add New Member</span>
-        <img src="~/assets/icons/Delete.svg" @click="closeForm">
+        <img src="~/assets/icons/Delete.svg" @click="closeModal">
       </div>
       <hr>
       <div class="form">
@@ -32,19 +29,15 @@
         <button class="btn-cmpt">
           Create Account
         </button>
-        <span class="cancel" @click="closeForm">Cancel</span>
+        <span class="cancel" @click="closeModal">Cancel</span>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import vClickOutside from 'v-click-outside'
 export default {
   name: 'Newmemberform',
-  directives: {
-    clickOutside: vClickOutside.directive
-  },
   methods: {
     showSelect () {
       const select = document.getElementsByClassName('select')
@@ -57,27 +50,8 @@ export default {
         inner.style.display = 'none'
       }
     },
-    clickAwayFromForm (e) {
-      const NewmemberformContainer = document.querySelector(
-        '.new-member-form-container'
-      )
-      const Newmemberform = document.querySelector('.new-member-form')
-      const Newmemberbutton = document.querySelector('.new-member-btn')
-
-      Newmemberform.childNodes.forEach((element) => {
-        if (
-          e.target !== Newmemberform &&
-          !element.isEqualNode(e.target) &&
-          e.target !== Newmemberbutton
-        ) {
-          NewmemberformContainer.setAttribute('hidden', true)
-        }
-      })
-    },
-    closeForm () {
-      document
-        .querySelector('.new-member-form-container')
-        .setAttribute('hidden', true)
+    closeModal () {
+      this.$store.commit('setModalOpen', false)
     }
   }
 }

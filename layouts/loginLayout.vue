@@ -37,6 +37,9 @@ export default {
   }
 }
 @media (max-width: 800px) {
+  .logo-ctn {
+    overflow-y: hidden;
+  }
   .logo {
       display: none;
   }

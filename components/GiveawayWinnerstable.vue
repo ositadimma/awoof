@@ -19,7 +19,7 @@
         <tbody v-show="giveawayWinners.length > 0">
           <tr v-for="(winner, index) in giveawayWinners.filter(winner => winner.win)" :key="index">
             <td data-title="Name" class="Name">
-              {{ winner.user.firstName }} {{ winner.user.lastName }}
+              {{ winner.user.firstName+' '+winner.user.lastName }}
             </td>
             <td data-title="Task Completion" class="Task">
               All Completed

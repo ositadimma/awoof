@@ -20,31 +20,33 @@
           </tr>
         </thead>
         <tbody v-show="data.length > 0">
-          <tr>
+          <tr v-for="(giveaway, index) in paginatedData" :key="index">
             <td data-title="Name" class="Name">
               <div class="Name-div">
-                <p>Don Jazzy</p>
-                <Checkicon />
+                <p>{{ giveaway.user ? giveaway.user.username : "Admin" }}</p>
+                <!-- <Checkicon /> -->
               </div>
             </td>
             <td data-title="Type">
-              Giveaway
+              {{ giveaway.giveaway_id.type }}
             </td>
             <td data-title="Tasks" class="Tasks">
               Open
             </td>
             <td data-title="Amount Won">
-              N100,000
+              N{{ amountDelimeter(giveaway.giveaway_id.amountPerWinner) }}
             </td>
             <td data-title="Giveaway Amount">
-              N500,000
+              N{{ amountDelimeter(giveaway.giveaway_id.amount) }}
             </td>
             <td data-title="Date Posted">
-              22 Jan 2020, 10:03
+              {{ format_date(giveaway.giveaway_id.createdAt) }}
             </td>
             <td class="View">
               <ArrowCircle
-                @click.native="$router.push('/giveaways/winners/detail')"
+                @click.native="
+                  $router.push(`/giveaways/winners/${giveaway.giveaway_id._id}`)
+                "
               />
             </td>
           </tr>
@@ -52,19 +54,8 @@
       </table>
       <NoData v-show="data.length == 0" />
     </div>
-    <!-- <div class="pagination">
-      <span class="active">1</span>
-      <span class="inactive">2</span>
-      <span class="inactive">3</span>
-      <span class="inactive">4</span>
-      <span class="inactive">5</span>
-      <span class="inactive">6</span>
-      <span>. . .</span>
-      <span class="inactive">10</span>
-    </div> -->
     <paginate
-      :page-count="data.length"
-      :page-range="6"
+      :page-count="amountOfPages"
       :margin-pages="2"
       :container-class="'pagination'"
       :break-view-text="'. . .'"
@@ -75,6 +66,7 @@
 
 <script>
 import paginate from 'vuejs-paginate'
+import moment from 'moment'
 import NoData from './NoTableData'
 export default {
   name: 'WinnersTable',
@@ -88,16 +80,53 @@ export default {
       default () {
         return []
       }
-    },
-    loading: {
-      type: Boolean,
-      default () {
-        return true
-      }
+    }
+  },
+  data () {
+    return {
+      paginatedData: this.initialPaginate(),
+      amountOfPages: Math.ceil(this.data.length / 6)
     }
   },
   methods: {
     Paginate (clickedpagenumber) {
+      let currentPage = 0
+      let pagesToShow = 6
+      let pageCount = 1
+      if (clickedpagenumber > 1) {
+        while (pageCount < clickedpagenumber) {
+          currentPage += 6
+          pagesToShow += 6
+          pageCount += 1
+        }
+      }
+
+      this.paginatedData = this.data
+        .sort((a, b) => {
+          const winnerDateA = new Date(a.createdAt).getTime()
+          const winnerDateB = new Date(b.createdAt).getTime()
+          return winnerDateB - winnerDateA
+        })
+        .slice(currentPage, pagesToShow)
+    },
+    initialPaginate () {
+      const initialData = this.data.sort((a, b) => {
+        const winnerDateA = new Date(a.createdAt)
+        const winnerDateB = new Date(b.createdAt)
+        return winnerDateB - winnerDateA
+      })
+      return initialData.slice(0, 6)
+    },
+    amountDelimeter (amount) {
+      return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+    },
+    format_date (value) {
+      const today = new Date().getTime()
+      const createdAt = new Date(String(value)).getTime()
+      if (today === createdAt) {
+        return `Today, ${moment(new Date(String(value))).format('hh:mm')}`
+      }
+      return moment(new Date(String(value))).format('DD MMM YYYY, hh:mm')
     }
   }
 }

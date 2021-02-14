@@ -6,33 +6,47 @@
           <span class="title">Amount Processed</span>
           <img src="~/assets/icons/Graph.svg">
         </div>
-        <span class="amount">N20,000,000</span>
-        <div class="growth">
+        <span
+          class="amount"
+        >N{{
+          dashboardParams.amount_processed !== undefined
+            ? amountDelimeter(dashboardParams.amount_processed)
+            : 0
+        }}</span>
+        <!-- <div class="growth">
           <span>+50%</span>
           <span>this week</span>
-        </div>
+        </div> -->
       </div>
       <div class="dashboard-card">
         <div class="title-ctn">
           <span class="title">Total Givers</span>
           <img src="~/assets/icons/3user.svg">
         </div>
-        <span class="amount">325</span>
-        <div class="growth">
+        <span class="amount">{{
+          dashboardParams.givers !== undefined
+            ? amountDelimeter(dashboardParams.givers)
+            : 0
+        }}</span>
+        <!-- <div class="growth">
           <span>+5%</span>
           <span>this week</span>
-        </div>
+        </div> -->
       </div>
       <div class="dashboard-card">
         <div class="title-ctn">
           <span class="title">Awoofers</span>
           <img src="~/assets/icons/Graph.svg">
         </div>
-        <span class="amount">624</span>
-        <div class="growth">
+        <span class="amount">{{
+          dashboardParams.awoofwers !== undefined
+            ? amountDelimeter(dashboardParams.awoofwers)
+            : 0
+        }}</span>
+        <!-- <div class="growth">
           <span>+12%</span>
           <span>this week</span>
-        </div>
+        </div> -->
       </div>
       <div class="dashboard-card">
         <div class="title-ctn">
@@ -41,7 +55,11 @@
             <img src="~/assets/icons/divide.svg">
           </div>
         </div>
-        <span class="amount">7</span>
+        <span class="amount">{{
+          dashboardParams.current_giveaways !== undefined
+            ? amountDelimeter(dashboardParams.current_giveaways)
+            : 0
+        }}</span>
         <!--<div class="growth">
           <span>+12%</span>
           <span>this week</span>
@@ -51,7 +69,11 @@
         <div class="title-ctn">
           <span class="title">Completed Giveaways</span>
         </div>
-        <span class="amount">183</span>
+        <span class="amount">{{
+          dashboardParams.completed_giveaways !== undefined
+            ? amountDelimeter(dashboardParams.completed_giveaways)
+            : 0
+        }}</span>
         <!--<div class="growth">
           <span>+12%</span>
           <span>this week</span>
@@ -61,7 +83,11 @@
         <div class="title-ctn">
           <span class="title">Total Winners</span>
         </div>
-        <span class="amount">200</span>
+        <span class="amount">{{
+          dashboardParams.winners!== undefined
+            ? amountDelimeter(dashboardParams.winners)
+            : 0
+        }}</span>
         <!--<div class="growth">
           <span>+12%</span>
           <span>this week</span>
@@ -71,7 +97,11 @@
         <div class="title-ctn">
           <span class="title">Star Giveaway</span>
         </div>
-        <span class="amount">4</span>
+        <span class="amount">{{
+          dashboardParams.star_giveaways !== undefined
+            ? amountDelimeter(dashboardParams.star_giveaways)
+            : 0
+        }}</span>
         <!--<div class="growth">
           <span>+12%</span>
           <span>this week</span>
@@ -81,19 +111,26 @@
         <div class="title-ctn">
           <span class="title">Total Bills Payment</span>
         </div>
-        <span class="amount">N94,000</span>
+        <span
+          class="amount"
+        >N{{
+          dashboardParams.bills_payment !== undefined
+            ? amountDelimeter(dashboardParams.bills_payment)
+            : 0
+        }}</span>
         <!--<div class="growth">
           <span>+12%</span>
           <span>this week</span>
         </div>-->
       </div>
     </div>
-    <DashboardChart />
-    <DashboardTable />
+    <DashboardChart :dashboard-chart="dashboardChart" />
+    <DashboardTable :dashboard-table="dashboardTable" />
   </div>
 </template>
 
 <script>
+import Cookies from 'js-cookie'
 import DashboardChart from '~/components/Dashboardchart'
 import DashboardTable from '~/components/DashboardTable'
 export default {
@@ -103,9 +140,51 @@ export default {
     DashboardChart,
     DashboardTable
   },
+  async asyncData ({ $axios, $toast }) {
+    $axios.setHeader('x-auth-token', Cookies.get('token'))
+    try {
+      var dashboardParamsResponse = await $axios.$get(
+        'https://awoof-api.herokuapp.com/v1/admins/dashboard_params'
+      )
+      var dashboardChartResponse = await $axios.$get(
+        'https://awoof-api.herokuapp.com/v1/admins/chart'
+      )
+      var dashboardTableresponse = await $axios.$get(
+        'https://awoof-api.herokuapp.com/v1/giveaways'
+      )
+    } catch (err) {
+      if (err.message.includes('Network')) {
+        $toast.global.custom_error(
+          'please check your connection and try again'
+        )
+      }
+
+      if (err.response !== undefined) {
+        if (err.response.status === 400) {
+          $toast.global.custom_error(err.response.data.message)
+        }
+      }
+    }
+    return {
+      dashboardParams: dashboardParamsResponse
+        ? dashboardParamsResponse.data
+        : {},
+      dashboardChart: dashboardChartResponse ? dashboardChartResponse.data : [],
+      dashboardTable: dashboardTableresponse ? dashboardTableresponse.data : []
+    }
+  },
   created () {
     // changes layout title of dashboard header
     this.$store.commit('setLayout', 'DASHBOARD')
+  },
+  methods: {
+    amountDelimeter (amount) {
+      if (amount !== undefined) {
+        return Math.floor(amount)
+          .toString()
+          .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+      }
+    }
   }
 }
 </script>
@@ -163,7 +242,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-image: url('~assets/icons/dividefill.svg');
+  background-image: url("~assets/icons/dividefill.svg");
 }
 .dashboard-card .amount {
   font-weight: 600;
@@ -191,7 +270,7 @@ export default {
 }
 @media (max-width: 767px) {
   .dashboard {
-    padding: 20px 0px 0px 0px;
+    padding: 20px 4.5% 0px 4.5%;
   }
   .dashboard-child-1 {
     grid-gap: 10px 28px;

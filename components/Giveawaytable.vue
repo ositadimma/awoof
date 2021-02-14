@@ -29,7 +29,7 @@
           <tr v-for="(giveaway, index) in paginatedData" :key="index">
             <td data-title="Name" class="Name">
               <div class="Name-div">
-                <p>{{ giveaway.user.username }}</p>
+                <p>{{ giveaway.user ? giveaway.user.username : 'Admin' }}</p>
                 <!-- <Checkicon /> -->
               </div>
             </td>
@@ -63,16 +63,6 @@
       </table>
       <NoData v-show="data.length == 0" />
     </div>
-    <!-- <div class="pagination">
-      <span class="active">1</span>
-      <span class="inactive">2</span>
-      <span class="inactive">3</span>
-      <span class="inactive">4</span>
-      <span class="inactive">5</span>
-      <span class="inactive">6</span>
-      <span>. . .</span>
-      <span class="inactive">10</span>
-    </div> -->
     <paginate
       :page-count="amountOfPages"
       :margin-pages="2"
@@ -87,6 +77,7 @@
 import paginate from 'vuejs-paginate'
 import moment from 'moment'
 import NoData from './NoTableData'
+
 export default {
   name: 'GiveawayTable',
   components: {
@@ -98,12 +89,6 @@ export default {
       type: Array,
       default () {
         return []
-      }
-    },
-    loading: {
-      type: Boolean,
-      default () {
-        return true
       }
     }
   },

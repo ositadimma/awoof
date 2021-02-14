@@ -19,7 +19,7 @@
         <tbody v-show="giveawayParticipants.length > 0">
           <tr v-for="(participant, index) in giveawayParticipants" :key="index">
             <td data-title="Name" class="Name">
-              {{ participant.user.firstName }} {{ participant.user.lastName }}
+              {{ participant.user.firstName+' '+participant.user.lastName }}
             </td>
             <td data-title="Task Completion" class="Task">
               {{ participant.win ? 'All Completed' : 'Not Completed' }}

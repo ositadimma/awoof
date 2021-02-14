@@ -1,6 +1,6 @@
 <template>
   <div class="winners-container">
-    <Winnerstable :data="data" :loading="loading" />
+    <Winnerstable :data="data" />
   </div>
 </template>
 
@@ -16,7 +16,7 @@ export default {
   async asyncData ({ $axios, $toast }) {
     $axios.setHeader('x-auth-token', Cookies.get('token'))
     try {
-      var response = await $axios.$get('https://awoof-api.herokuapp.com/v1/giveaways/winners')
+      var response = await $axios.$get('https://awoof-api.herokuapp.com/v1/Admins/get_giveaway_winners')
     } catch (err) {
       if (err.message.includes('Network')) {
         $toast.global.custom_error(
@@ -30,7 +30,7 @@ export default {
         }
       }
     }
-    return { data: response ? response.data : [], loading: false }
+    return { data: response ? response.data : [] }
   },
   created () {
     this.$store.commit('setLayout', 'GIVEAWAY (Winners)') // changes title of dashboard header

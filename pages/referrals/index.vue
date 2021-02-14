@@ -6,17 +6,19 @@
       </div>
       <div class="edit">
         <span class="amount">N500</span>
-        <div class="edit-image" @click="showEdit" />
+        <div class="edit-image" @click="showModal" />
       </div>
     </div>
-    <ReferralTable />
-    <ReferralForm />
+    <ReferralTable :data="data" />
+    <ReferralForm v-show="modalOpen" />
   </div>
 </template>
 
 <script>
+import Cookies from 'js-cookie'
 import ReferralTable from '~/components/Referraltable'
 import ReferralForm from '~/components/Referralform'
+
 export default {
   name: 'Referral',
   layout: 'dashboardLayout',
@@ -24,12 +26,34 @@ export default {
     ReferralTable,
     ReferralForm
   },
+  async asyncData ({ $axios, $toast }) {
+    $axios.setHeader('x-auth-token', Cookies.get('token'))
+    try {
+      var response = await $axios.$get('https://awoof-api.herokuapp.com/v1/admins/get_all_refferals')
+    } catch (err) {
+      if (err.message.includes('Network')) {
+        $toast.global.custom_error('please check your connection and try again')
+      }
+
+      if (err.response !== undefined) {
+        if (err.response.status === 400) {
+          $toast.global.custom_error(err.response.data.message)
+        }
+      }
+    }
+    return { data: response ? response.data : [] }
+  },
+  computed: {
+    modalOpen () {
+      return this.$store.state.modalOpen
+    }
+  },
   created () {
     this.$store.commit('setLayout', 'REFERRALS') // changes layout title of dashboard header
   },
   methods: {
-    showEdit () {
-      document.querySelector('.ref-form-container').removeAttribute('hidden')
+    showModal () {
+      this.$store.commit('setModalOpen', true)
     }
   }
 }

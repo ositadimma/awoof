@@ -6,13 +6,13 @@
           <span id="Security" class="active" @click="changeNav">Security</span>
           <span id="Team" @click="changeNav">Team</span>
         </div>
-        <button id="Button" class="btn-cmpt new-member-btn" @click="showForm">
+        <button id="Button" class="btn-cmpt new-member-btn" @click="showModal">
           Add New Member +
         </button>
       </div>
       <SecurityForm id="Securityform" />
       <TeamTable id="Teamtable" />
-      <NewMember />
+      <NewMember v-show="modalOpen" />
     </div>
   </div>
 </template>
@@ -28,6 +28,11 @@ export default {
     SecurityForm,
     TeamTable,
     NewMember
+  },
+  computed: {
+    modalOpen () {
+      return this.$store.state.modalOpen
+    }
   },
   created () {
     this.$store.commit('setLayout', 'SETTINGS') // changes layout title of dashboard header
@@ -55,8 +60,8 @@ export default {
         teamTable.style.display = 'none' // table
       }
     },
-    showForm () {
-      document.querySelector('.new-member-form-container').removeAttribute('hidden')
+    showModal () {
+      this.$store.commit('setModalOpen', true)
     }
   }
 }

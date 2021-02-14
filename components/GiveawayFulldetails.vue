@@ -10,7 +10,7 @@
         Full Name
       </span>
       <span>
-        {{ userInfo.firstName }} {{ userInfo.lastName }}
+        {{ userInfo.firstName+' '+userInfo.lastName }}
       </span>
 
       <span>

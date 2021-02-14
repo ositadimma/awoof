@@ -18,7 +18,10 @@
 }
 
 @keyframes spinner2 {
-  to {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
     transform: rotate(360deg);
   }
 }
@@ -224,6 +227,10 @@ input[type=text]:focus, input[type=password]:focus, input[type=email]:focus {
 .pagination .disabled a {
   cursor: auto;
   pointer-events:none;
+}
+
+td {
+  text-transform: capitalize;
 }
 
 ::-webkit-scrollbar {

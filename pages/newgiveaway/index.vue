@@ -129,14 +129,13 @@
           <div class="condition-child">
             Follow Page On Facebook
             <div class="checkbox">
-              <input id="check2" type="checkbox">
+              <input id="check2" v-model="followPageOnFacebook" type="checkbox">
               <label for="check2" />
             </div>
           </div>
           <div class="condition-child">
             Facebook Username
             <input
-              v-model="followPageOnFacebook"
               type="text"
               placeholder="Username"
             >
@@ -144,7 +143,7 @@
           <div class="condition-child">
             Like Post On Facebook
             <input
-              v-model="likePostOnFacebook"
+              v-model="LikeFacebookLink"
               type="text"
               placeholder="Link"
             >
@@ -170,12 +169,12 @@
           </div>
           <div class="condition-child">
             Instagram Username
-            <input type="text" placeholder="Username">
+            <input v-model="followInstagramLink" type="text" placeholder="Username">
           </div>
           <div class="condition-child">
             Like Post On Instagram
             <input
-              v-model="likePostOnInstagram"
+              v-model="LikeInstagramLink"
               type="text"
               placeholder="Link"
             >
@@ -201,11 +200,11 @@
           </div>
           <div class="condition-child">
             Twitter Username
-            <input type="text" placeholder="Username">
+            <input v-model="followTwitterLink" type="text" placeholder="Username">
           </div>
           <div class="condition-child">
             Like Post On Twitter
-            <input v-model="likePostOnTwitter" type="text" placeholder="Link">
+            <input v-model="LikeTwitterLink" type="text" placeholder="Link">
           </div>
         </div>
       </div>
@@ -247,12 +246,14 @@ export default {
       dropdown3: false,
       image: '',
       message: '',
-      followPageOnFacebook: '',
+      followPageOnFacebook: false,
       followInstagram: false,
+      followInstagramLink: '',
       followTwitter: false,
-      likePostOnFacebook: '',
-      likePostOnInstagram: '',
-      likePostOnTwitter: '',
+      followTwitterLink: '',
+      LikeFacebookLink: '',
+      LikeInstagramLink: '',
+      LikeTwitterLink: '',
       loading: false
     }
   },
@@ -321,10 +322,13 @@ export default {
       this.image = ''
       this.message = ''
       this.followInstagram = false
+      this.followInstagramLink = ''
       this.followTwitter = false
-      this.likePostOnFacebook = ''
-      this.likePostOnInstagram = ''
-      this.likePostOnTwitter = ''
+      this.followTwitterLink = ''
+      this.LikeFacebookLink = ''
+      this.followPageOnFacebook = false
+      this.LikeInstagramLink = ''
+      this.LikeTwitterLink = ''
       this.loading = false
     },
     bodyFormatData () {
@@ -340,22 +344,25 @@ export default {
       )
       data.append('type', 'star')
       data.append('isAnonymous', false)
+      data.append('minimumstars', this.noOfStars)
       data.append('frequency', `${dateInThreeDays}`)
       data.append('message', this.message)
-      data.append('likePostOnFacebook', this.likePostOnFacebook)
-      data.append('likePostOnInstagram', this.likePostOnInstagram)
-      data.append('likePostOnTwitter', this.likePostOnTwitter)
+      data.append('likeFacebookLink', this.LikeFacebookLink)
+      data.append('followPageOnFacebook', this.followPageOnFacebook)
+      data.append('likeFacebook', this.LikeFacebookLink !== '')
+      data.append('likeInstagramLink', this.LikeInstagramLink)
       data.append('followInstagram', this.followInstagram)
+      data.append('followInstagramLink', this.followInstagramLink)
+      data.append('likeInstagram', this.LikeInstagramLink !== '')
+      data.append('likeTweetLink', this.LikeTwitterLink)
       data.append('followTwitter', this.followTwitter)
-      data.append('likeFacebook', this.likePostOnFacebook !== '')
-      data.append('likeInstagram', this.likePostOnInstagram !== '')
-      data.append('likeTwitter', this.likePostOnTwitter !== '')
-      // data.append('followPageOnFacebook', this.followPageOnFacebook)
+      data.append('followTwitterLink', this.followTwitterLink)
+      data.append('likeTweet', this.LikeTwitterLink !== '')
       data.append('payment_reference', '')
       data.append('payment_status', 'success')
       data.append('gateway_response', '')
       data.append('image', this.image)
-      data.append('expiry', `${dateInThreeDays}`)
+      data.append('expiry', '3 days')
       data.append('endAt', `${dateInThreeDays}`)
       return data
     },
@@ -373,7 +380,6 @@ export default {
           this.setDataToDefault()
         }
       } catch (err) {
-        this.loading = false
         if (err.message.includes('Network')) {
           this.$toast.global.custom_error(
             'please check your connection and try again'
@@ -386,6 +392,7 @@ export default {
           }
         }
       }
+      this.loading = false
     }
   }
 }

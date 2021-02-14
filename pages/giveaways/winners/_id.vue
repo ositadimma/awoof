@@ -5,7 +5,7 @@
         <img
           src="~/assets/icons/Arrow LeftCircle.svg"
           alt="back"
-          @click="$router.push('/giveaways/winners')"
+          @click="previousRoute"
         >
         <span>Back</span>
       </div>
@@ -13,16 +13,17 @@
 
     <div class="details">
       <div class="details-child-1">
-        <WinnersDetailTable />
+        <WinnersDetailTable :giveaway-detail="giveawayDetail" />
       </div>
       <div class="details-child-2">
-        <WinnersFullDetails />
+        <WinnersFullDetails :user-info="userInfo" />
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import Cookies from 'js-cookie'
 import WinnersDetailTable from '~/components/Winnersdetailtable'
 import WinnersFullDetails from '~/components/WinnersFulldetails'
 // when data is available name this file _id to get based on ID then change routes
@@ -33,8 +34,43 @@ export default {
     WinnersDetailTable,
     WinnersFullDetails
   },
+  async asyncData ({ $axios, $toast, params }) {
+    $axios.setHeader('x-auth-token', Cookies.get('token'))
+    try {
+      var giveawayDetailResponse = await $axios.$get(
+        `https://awoof-api.herokuapp.com/v1/giveaways/${params.id}`
+      )
+      var winnerDetailResponse = await $axios.$get(
+        `https://awoof-api.herokuapp.com/v1/users/${giveawayDetailResponse.data.user._id}`
+      )
+    } catch (err) {
+      if (err.message.includes('Network')) {
+        $toast.global.custom_error(
+          'please check your connection and try again'
+        )
+      }
+
+      if (err.response !== undefined) {
+        if (err.response.status === 400) {
+          $toast.global.custom_error(err.response.data.message)
+        }
+      }
+    }
+    // eslint-disable-next-line
+    return {
+      giveawayDetail:
+        giveawayDetailResponse !== undefined ? giveawayDetailResponse.data : {},
+      userInfo:
+        winnerDetailResponse !== undefined ? winnerDetailResponse.data : {}
+    }
+  },
   created () {
     this.$store.commit('setLayout', 'GIVEAWAY (WINNER DETAILS)') // changes title of dashboard header
+  },
+  methods: {
+    previousRoute () {
+      window.history.back()
+    }
   }
 }
 </script>

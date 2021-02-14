@@ -1,7 +1,7 @@
 <template>
   <div class="refdetail-container">
     <div class="back">
-      <img src="~/assets/icons/Arrow LeftCircle.svg" alt="back" @click="$router.push('/referrals')">
+      <img src="~/assets/icons/Arrow LeftCircle.svg" alt="back" @click="previousRoute">
       <span>Back</span>
     </div>
     <div class="refdetail-card">
@@ -14,7 +14,7 @@
 
     <div class="details">
       <div class="head">
-        <h3>Precious Martins</h3>
+        <h3>{{ referralDetail.username }}</h3>
         <span>FULL DETAILS</span>
       </div>
       <hr>
@@ -33,10 +33,10 @@
           <tbody>
             <tr>
               <td class="phone" data-title="Phone Number">
-                09030928402
+                {{ referralDetail.phoneNumber }}
               </td>
               <td data-title="Email">
-                don@mavinsrecord.com
+                {{ referralDetail.email }}
               </td>
             </tr>
           </tbody>
@@ -60,13 +60,13 @@
           <tbody>
             <tr>
               <td class="id" data-title="Ref ID">
-                #18319
+                #{{ referralDetail.referralCode }}
               </td>
               <td data-title="Usage">
-                3
+                {{ referralDetail.refCodeUsage }}
               </td>
               <td data-title="Total Amount">
-                N1,500
+                N{{ amountDelimeter(referralDetail.balance) }}
               </td>
             </tr>
           </tbody>
@@ -87,54 +87,70 @@
               </th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
+          <tbody v-show="referralDetail.usersReffered.length > 0">
+            <tr v-for="(user, index) in referralDetail.usersReffered" :key="index">
               <td class="name" data-title="Name">
-                Jide Akinsanya
+                {{ user.firstName+' '+user.lastName }}
               </td>
               <td data-title="Phone No">
-                +2348123456789
+                {{ user.phoneNumber }}
               </td>
               <td data-title="Email">
-                Jide@example.com
-              </td>
-            </tr>
-            <tr>
-              <td class="name" data-title="Name">
-                Jide Akinsanya
-              </td>
-              <td data-title="Phone No">
-                +2348123456789
-              </td>
-              <td data-title="Email">
-                Jide@example.com
-              </td>
-            </tr>
-            <tr>
-              <td class="name" data-title="Name">
-                Jide Akinsanya
-              </td>
-              <td data-title="Phone No">
-                +2348123456789
-              </td>
-              <td data-title="Email">
-                Jide@example.com
+                {{ user.email }}
               </td>
             </tr>
           </tbody>
         </table>
+        <NoData v-show="referralDetail.usersReffered.length == 0" />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-// when data is available name this file _id to get based on ID then change routes
+import Cookies from 'js-cookie'
+import NoData from '~/components/NoTableData'
+
 export default {
   name: 'Referraldetail',
   layout: 'dashboardLayout',
+  components: {
+    NoData
+  },
+  async asyncData ({ $axios, $toast, params }) {
+    $axios.setHeader('x-auth-token', Cookies.get('token'))
+    try {
+      var referralDetailResponse = await $axios.$get(
+        `https://awoof-api.herokuapp.com/v1/admins/get_refferal/${params.id}`
+      )
+    } catch (err) {
+      if (err.message.includes('Network')) {
+        $toast.global.custom_error(
+          'please check your connection and try again'
+        )
+      }
+
+      if (err.response !== undefined) {
+        if (err.response.status === 400) {
+          $toast.global.custom_error(err.response.data.message)
+        }
+      }
+    }
+    // eslint-disable-next-line
+    return {
+      referralDetail: referralDetailResponse !== undefined ? referralDetailResponse : {}
+    }
+  },
   created () {
     this.$store.commit('setLayout', 'REFERRALS DETAILS') // changes layout title of dashboard header
+  },
+  methods: {
+    previousRoute () {
+      window.history.back()
+    },
+    amountDelimeter (amount) {
+      return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+    }
   }
 }
 </script>
@@ -212,7 +228,7 @@ export default {
 
   display: flex;
   flex-direction: column;
-  padding-top: 7.5%;
+  padding-top: 5.5%;
   /*padding: 7.5% 3.4% 0px 3.4%;*/
 }
 .head {
