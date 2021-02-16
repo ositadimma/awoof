@@ -17,9 +17,22 @@
             <th>Date Posted</th>
             <th>
               <span>Status</span>
-              <div>
-                <img src="~/assets/icons/down.svg" alt="down">
-                <img src="~/assets/icons/up.svg" alt="up">
+              <div v-if="status == 'Ongoing'">
+                <img src="~assets/icons/down.svg" alt="down">
+                <img
+                  src="~/assets/icons/up.svg"
+                  alt="up"
+                  @click="toggleStatus('Completed')"
+                >
+              </div>
+              <div v-else>
+                <img
+                  src="~/assets/icons/up.svg"
+                  alt="up"
+                  class="rotate"
+                  @click="toggleStatus('Ongoing')"
+                >
+                <img src="~assets/icons/down.svg" alt="down" class="rotate">
               </div>
             </th>
             <th class="View" />
@@ -29,7 +42,7 @@
           <tr v-for="(giveaway, index) in paginatedData" :key="index">
             <td data-title="Name" class="Name">
               <div class="Name-div">
-                <p>{{ giveaway.user ? giveaway.user.username : 'Admin' }}</p>
+                <p>{{ giveaway.user ? giveaway.user.username : "Admin" }}</p>
                 <!-- <Checkicon /> -->
               </div>
             </td>
@@ -49,7 +62,7 @@
               data-title="Status"
               :class="giveaway.completed ? 'completed' : 'ongoing'"
             >
-              {{ giveaway.completed ? 'Completed' : 'Ongoing' }}
+              {{ giveaway.completed ? "Completed" : "Ongoing" }}
             </td>
             <td class="View">
               <ArrowCircle
@@ -95,37 +108,86 @@ export default {
   data () {
     return {
       paginatedData: this.initialPaginate(),
-      amountOfPages: Math.ceil(this.data.length / 6)
+      amountOfPages: Math.ceil(this.data.length / 6),
+      currentPage: 0,
+      pagesToShow: 6,
+      status: 'Ongoing'
     }
   },
   methods: {
     Paginate (clickedpagenumber) {
-      let currentPage = 0
-      let pagesToShow = 6
+      this.currentPage = 0
+      this.pagesToShow = 6
       let pageCount = 1
       if (clickedpagenumber > 1) {
         while (pageCount < clickedpagenumber) {
-          currentPage += 6
-          pagesToShow += 6
+          this.currentPage += 6
+          this.pagesToShow += 6
           pageCount += 1
         }
       }
 
       this.paginatedData = this.data
         .sort((a, b) => {
-          const giveawayDateA = new Date(a.createdAt).getTime()
-          const giveawayDateB = new Date(b.createdAt).getTime()
-          return giveawayDateB - giveawayDateA
+          if (this.status === 'Ongoing') {
+            if (!a.completed && b.completed) {
+              return -1
+            }
+            if (a.completed && !b.completed) {
+              return 1
+            }
+          } else {
+            if (a.completed && !b.completed) {
+              return -1
+            }
+            if (!a.completed && b.completed) {
+              return 1
+            }
+          }
+          // const giveawayDateA = new Date(a.createdAt)
+          // const giveawayDateB = new Date(b.createdAt)
+          // return giveawayDateB - giveawayDateA
         })
-        .slice(currentPage, pagesToShow)
+        .slice(this.currentPage, this.pagesToShow)
     },
     initialPaginate () {
       const initialData = this.data.sort((a, b) => {
-        const giveawayDateA = new Date(a.createdAt)
-        const giveawayDateB = new Date(b.createdAt)
-        return giveawayDateB - giveawayDateA
+        if (!a.completed && b.completed) {
+          return -1
+        }
+        if (a.completed && !b.completed) {
+          return 1
+        }
+        // const giveawayDateA = new Date(a.createdAt)
+        // const giveawayDateB = new Date(b.createdAt)
+        // return giveawayDateB - giveawayDateA
       })
       return initialData.slice(0, 6)
+    },
+    toggleStatus (status) {
+      this.status = status
+      this.paginatedData = this.data
+        .sort((a, b) => {
+          if (this.status === 'Ongoing') {
+            if (!a.completed && b.completed) {
+              return -1
+            }
+            if (a.completed && !b.completed) {
+              return 1
+            }
+          } else {
+            if (a.completed && !b.completed) {
+              return -1
+            }
+            if (!a.completed && b.completed) {
+              return 1
+            }
+          }
+          // const giveawayDateA = new Date(a.createdAt)
+          // const giveawayDateB = new Date(b.createdAt)
+          // return giveawayDateB - giveawayDateA
+        })
+        .slice(this.currentPage, this.pagesToShow)
     },
     amountDelimeter (amount) {
       return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
@@ -254,50 +316,9 @@ p {
 .arrowcircle {
   cursor: pointer;
 }
-/* .pagination {
-  margin-top: 35px;
-  display: flex;
-  align-self: center;
-  justify-content: space-between;
-  width: 165px;
+.rotate {
+  transform: rotate(180deg);
 }
-.pagination .inactive {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  width: 20px;
-  height: 21px;
-
-  font-weight: 600;
-  font-size: 14px;
-
-  color: #000000;
-  padding-top: 2px;
-  cursor: pointer;
-}
-.pagination .inactive:hover {
-  color: #FFFFFF;
-  background: #001431;
-  border-radius: 5px;
-}
-.pagination .active {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  width: 20px;
-  height: 21px;
-
-  font-weight: 600;
-  font-size: 14px;
-
-  color: #FFFFFF;
-  background: #001431;
-  border-radius: 5px;
-  padding-top: 2px;
-  cursor: auto;
-} */
 @media (max-width: 1100px) {
   .table-head {
     max-height: 450px;

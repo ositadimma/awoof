@@ -14,7 +14,7 @@
           placeholder="Enter password"
           @click="showFocus"
         >
-        <span @click="changeInputType">show</span>
+        <span class="visibility-container" @click="changeInputType">show</span>
       </div>
       <button
         v-show="
@@ -97,7 +97,7 @@ export default {
           }
         )
 
-        Cookies.set('username', response.data.username, { expires: 8 })
+        Cookies.set('firstname', response.data.firstName, { expires: 8 })
         Cookies.set('token', response.data.idToken, { expires: 8 })
         Cookies.set('userid', response.data._id, { expires: 8 })
         this.loading = false
@@ -176,7 +176,7 @@ input[type="email"] {
   margin-bottom: 3.063rem;
 
   display: flex;
-  padding-right: 24px;
+  position: relative;
 }
 
 input[type="text"],
@@ -207,6 +207,18 @@ input[type="email"]::placeholder,
 input[type="password"]::placeholder {
   font-size: 0.688rem;
   color: #8692a6;
+}
+
+.visibility-container {
+  width: 10%;
+  height: 100%;
+  position: absolute;
+  right: 0;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
 }
 
 .btn-cmpt {

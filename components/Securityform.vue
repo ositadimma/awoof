@@ -2,60 +2,153 @@
   <div class="form">
     <h3>Change Your Password</h3>
     <label>Current Password</label>
-    <div class="input">
-      <input :type="password1" placeholder="Please Enter">
-      <img id="mask1" class="mask" src="~assets/icons/Mask.svg" alt="mask" @click="showPassword">
+    <div ref="input1" class="input">
+      <input
+        v-model="password"
+        :type="showPassword1 ? 'text' : 'password'"
+        placeholder="Please Enter"
+        @blur="removeFocus"
+        @click="showFocus"
+      >
+      <div
+        id="mask1"
+        class="visibility-container"
+        @click="showPassword1 = !showPassword1"
+      >
+        <img src="~assets/icons/Mask.svg" alt="mask">
+      </div>
     </div>
     <label>New Password</label>
-    <div class="input">
-      <input :type="password2" placeholder="Please Enter">
-      <img id="mask2" class="mask" src="~assets/icons/Mask.svg" alt="mask" @click="showPassword">
+    <div ref="input2" class="input">
+      <input
+        v-model="newPassword"
+        :type="showPassword2 ? 'text' : 'password'"
+        placeholder="Please Enter"
+        @blur="removeFocus"
+        @click="showFocus"
+      >
+      <div
+        id="mask2"
+        class="visibility-container"
+        @click="showPassword2 = !showPassword2"
+      >
+        <img src="~assets/icons/Mask.svg" alt="mask">
+      </div>
     </div>
     <label>Confirm New Password</label>
-    <div class="input">
-      <input :type="password3" placeholder="Please Enter">
-      <img id="mask3" class="mask" src="~assets/icons/Mask.svg" alt="mask" @click="showPassword">
+    <div ref="input3" class="input">
+      <input
+        v-model="confirmPassword"
+        :type="showPassword3 ? 'text' : 'password'"
+        placeholder="Please Enter"
+        @blur="removeFocus"
+        @click="showFocus"
+      >
+      <div
+        id="mask3"
+        class="visibility-container"
+        @click="showPassword3 = !showPassword3"
+      >
+        <img src="~assets/icons/Mask.svg" alt="mask">
+      </div>
     </div>
-    <button class="btn-cmpt">
+    <button v-show="!validate && !loading" class="disable-1 btn-cmpt">
       Save Changes
+    </button>
+    <button
+      v-show="validate && !loading"
+      class="btn-cmpt"
+      @click="changePassword"
+    >
+      Save Changes
+    </button>
+    <button v-show="loading" class="btn-cmpt" disabled>
+      <div class="loader1" />
     </button>
   </div>
 </template>
 
 <script>
+import Cookies from 'js-cookie'
 export default {
   name: 'Securityform',
   data () {
     return {
-      password1: 'password',
-      password2: 'password',
-      password3: 'password'
+      showPassword1: false,
+      showPassword2: false,
+      showPassword3: false,
+      password: '',
+      newPassword: '',
+      confirmPassword: '',
+      loading: false
+    }
+  },
+  computed: {
+    validate () {
+      if (
+        this.password.length < 8 ||
+        this.newPassword.length < 8 ||
+        this.confirmPassword.length < 8 ||
+        (this.newPassword !== '' &&
+          this.confirmPassword &&
+          this.newPassword !== this.confirmPassword)
+      ) {
+        return false
+      }
+      return true
     }
   },
   methods: {
-    showPassword (e) {
-      const mask = document.getElementsByClassName('mask')
-      if (e.target.id === mask[0].id) {
-        if (this.password1 === 'password') {
-          this.password1 = 'text'
-        } else {
-          this.password1 = 'password'
+    setDataToDefault () {
+      this.password = ''
+      this.newPassword = ''
+      this.confirmPassword = ''
+    },
+    async changePassword () {
+      this.loading = true
+      this.$axios.setHeader('x-auth-token', Cookies.get('token'))
+      try {
+        const response = await this.$axios.$put(
+          'https://awoof-api.herokuapp.com/v1/admins/password',
+          {
+            password: this.password,
+            newPassword: this.newPassword
+          }
+        )
+        if (response) {
+          this.$toast.global.custom_success('Admin password updated')
+          this.setDataToDefault()
         }
-      } else if (e.target.id === mask[1].id) {
-        if (this.password2 === 'password') {
-          this.password2 = 'text'
-        } else {
-          this.password2 = 'password'
+      } catch (err) {
+        if (err.message.includes('Network')) {
+          this.$toast.global.custom_error(
+            'please check your connection and try again'
+          )
         }
-      } else if (e.target.id === mask[2].id) {
-        if (this.password3 === 'password') {
-          this.password3 = 'text'
-        } else {
-          this.password3 = 'password'
+
+        if (err.response !== undefined) {
+          if (err.response.status === 400) {
+            this.$toast.global.custom_error(err.response.data.message)
+          } else if (err.response.status === 403) {
+            this.$toast.global.custom_error(err.response.data)
+          }
         }
-      } else {
-        // console.log('no match')
       }
+      this.loading = false
+    },
+    showFocus (e) {
+      if (e.target.parentNode === this.$refs.input1) {
+        this.$refs.input1.style.outline = '#000000 auto 2px'
+      } else if (e.target.parentNode === this.$refs.input2) {
+        this.$refs.input2.style.outline = '#000000 auto 2px'
+      } else {
+        this.$refs.input3.style.outline = '#000000 auto 2px'
+      }
+    },
+    removeFocus () {
+      document.getElementsByTagName('*').forEach((element) => {
+        element.style.outline = '0'
+      })
     }
   }
 }
@@ -69,6 +162,7 @@ export default {
 }
 h3 {
   align-self: center;
+  text-align: center;
   margin-bottom: 39px;
 
   font-size: 18px;
@@ -79,7 +173,7 @@ label {
   font-weight: 600;
   font-size: 14px;
   line-height: 23px;
-  color: #696F79;
+  color: #696f79;
   margin-bottom: 11px;
 }
 .input {
@@ -90,26 +184,38 @@ label {
 
   margin-bottom: 21px;
   border-radius: 6px;
-  border: 1px solid #8692A6;
-  padding-right: 4.295%;
+  border: 1px solid #8692a6;
+  position: relative;
   overflow: hidden;
 }
-input[type=password], input[type=text] {
+input[type="password"],
+input[type="text"] {
   border: none;
-  width: 95%;
+  width: 100%;
   height: 100%;
   padding-left: 30px;
   box-sizing: border-box;
 
   font-size: 12px;
 }
-input[type=password]::placeholder, input[type=text]::placeholder {
+input[type="password"]::placeholder,
+input[type="text"]::placeholder {
   font-weight: 600;
 }
-input[type=password]:focus , input[type=text]:focus {
+input[type="password"]:focus,
+input[type="text"]:focus {
   outline: none;
 }
-.mask {
+.visibility-container {
+  width: 12%;
+  height: 100%;
+  position: absolute;
+  right: 0;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0px 4px 0px 4px;
   cursor: pointer;
 }
 .btn-cmpt {
@@ -121,6 +227,11 @@ input[type=password]:focus , input[type=text]:focus {
 @media (max-width: 767px) {
   .form {
     padding: 40px 13% 0px 13%;
+  }
+}
+@media (max-width: 500px) {
+  .visibility-container {
+    width: 20%;
   }
 }
 </style>

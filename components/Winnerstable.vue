@@ -100,19 +100,19 @@ export default {
           pageCount += 1
         }
       }
-
+      // FIX THIS PLEASE NOW IT'S NOT IN ORDER
       this.paginatedData = this.data
         .sort((a, b) => {
-          const winnerDateA = new Date(a.createdAt).getTime()
-          const winnerDateB = new Date(b.createdAt).getTime()
+          const winnerDateA = new Date(a.giveaway_id.createdAt)
+          const winnerDateB = new Date(b.giveaway_id.createdAt)
           return winnerDateB - winnerDateA
         })
         .slice(currentPage, pagesToShow)
     },
     initialPaginate () {
       const initialData = this.data.sort((a, b) => {
-        const winnerDateA = new Date(a.createdAt)
-        const winnerDateB = new Date(b.createdAt)
+        const winnerDateA = new Date(a.giveaway_id.createdAt)
+        const winnerDateB = new Date(b.giveaway_id.createdAt)
         return winnerDateB - winnerDateA
       })
       return initialData.slice(0, 6)

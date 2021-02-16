@@ -1,11 +1,14 @@
 <template>
   <div class="dashboard-header">
     <h3>{{ layout }}</h3>
-    <div class="header-input">
-      <input type="text" placeholder="Search User or Giveaway">
-      <Searchicon />
+    <MobileDashboardSideBar :firstname="firstname" />
+    <div ref="headerInput" class="header-input">
+      <input type="text" placeholder="Search User or Giveaway" @blur="removeFocus" @click="showFocus">
+      <div class="search-container">
+        <Searchicon />
+      </div>
     </div>
-    <span>Hello, {{ username }}</span>
+    <span>Hello, {{ firstname }}</span>
     <div class="profile" @click="showMenu">
       <img src="~/assets/images/User.png" alt="user">
       <img id="arrow" src="~/assets/icons/arrowdown.svg" alt="dropdown">
@@ -15,6 +18,7 @@
 
 <script>
 import Cookies from 'js-cookie'
+import MobileDashboardSideBar from './MobileDashboardSideBar'
 export default {
   props: {
     layout: {
@@ -22,17 +26,31 @@ export default {
       required: true
     }
   },
+  component: {
+    MobileDashboardSideBar
+  },
   data () {
     return {
-      username: Cookies.get('username')
+      firstname: Cookies.get('firstname')
     }
   },
+  // computed: {
+  //   sideBarOpen () {
+  //     return this.$store.state.sideBarOpen
+  //   }
+  // },
   created () {
-    if (Cookies.get('username') === undefined) {
+    if (this.firstname === undefined || !this.firstname) {
       this.$router.push('/user/login')
     }
   },
   methods: {
+    showFocus () {
+      this.$refs.headerInput.style.outline = '#000000 auto 2px'
+    },
+    removeFocus () {
+      this.$refs.headerInput.style.outline = '0'
+    },
     showMenu () {
       const arrow = document.getElementById('arrow')
       if (arrow.classList.length) {
@@ -74,11 +92,10 @@ h3 {
 
   display: flex;
   align-items: center;
-
-  padding-right: 1.4%;
+  position: relative;
   margin-right: 45px;
 }
-input[type='text'] {
+input[type="text"] {
   border: none;
   border-radius: 20px;
   width: 100%;
@@ -87,17 +104,17 @@ input[type='text'] {
   padding-left: 27px;
   font-size: 15px;
 }
-input[type='text']::placeholder {
+input[type="text"]::placeholder {
   color: #75759e;
   opacity: 0.4;
   font-size: 12px;
 }
-input[type='text']::-moz-placeholder {
+input[type="text"]::-moz-placeholder {
   color: #75759e;
   opacity: 0.4;
   font-size: 12px;
 }
-input[type='text']:focus {
+input[type="text"]:focus {
   outline: none;
 }
 span {
@@ -112,6 +129,18 @@ span {
 }
 .profile .arrowup {
   transform: rotate(180deg);
+}
+.search-container {
+  width: 10%;
+  height: 100%;
+  position: absolute;
+  right: 0;
+  background: transparent;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
 }
 @media (max-width: 950px) {
   .dashboard-header {
@@ -129,9 +158,18 @@ span {
 }
 @media (max-width: 767px) {
   .dashboard-header {
-    padding: 0px;
+    padding: 0px 3.3% 0px 3.3%;
   }
   h3 {
+    display: none;
+  }
+  input[type="text"] {
+    padding-left: 3%;
+  }
+  .header-input {
+    width: 50%;
+  }
+  .profile {
     display: none;
   }
 }

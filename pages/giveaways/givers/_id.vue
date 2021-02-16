@@ -189,15 +189,15 @@ export default {
   }
 }
 @media (max-width: 950px) {
-  .giveawaydetail-container {
-    padding: 20px 4.5% 0px 4.5%;
-  }
   .back span {
     font-size: 12px;
     line-height: 21px;
   }
 }
 @media (max-width: 767px) {
+  .giveawaydetail-container {
+    padding: 20px 4.5% 0px 4.5%;
+  }
   .users {
     font-size: 14px;
     line-height: 24px;

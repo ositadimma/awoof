@@ -319,9 +319,6 @@ td {
   margin-bottom: 26px;
 }
 @media (max-width: 950px) {
-  .trandetail-container {
-    padding: 20px 0px;
-  }
   .details {
     flex-direction: column-reverse;
   }
@@ -381,6 +378,11 @@ td {
     margin-bottom: 20px;
     margin-left: 0px;
     padding-right: 23px;
+  }
+}
+@media (max-width: 767px) {
+  .trandetail-container {
+    padding: 20px 4.5% 0px 4.5%;
   }
 }
 </style>

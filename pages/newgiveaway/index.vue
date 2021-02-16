@@ -83,10 +83,7 @@
         Amount
       </label>
       <div class="amt-container">
-        ₦
-        <div class="amt">
-          {{ amount }}
-        </div>
+        ₦ {{ amount }}
       </div>
       <div class="custom-file">
         {{ image !== "" ? image.name : "Upload AD Image" }}
@@ -389,6 +386,8 @@ export default {
         if (err.response !== undefined) {
           if (err.response.status === 400) {
             this.$toast.global.custom_error(err.response.data.message)
+          } else if (err.response.status === 403) {
+            this.$toast.global.custom_error(err.response.data)
           }
         }
       }
@@ -441,7 +440,7 @@ header:before {
   width: 100%;
   border-bottom: 3px solid;
   position: absolute;
-  bottom: 3px;
+  bottom: 0;
   left: 0;
 }
 
@@ -551,7 +550,7 @@ input[type="number"].no-of-stars {
   padding: 0px 2px 0px 0.875rem;
 }
 
-.amt {
+/* .amt {
   display: flex;
   align-items: center;
   flex: 1;
@@ -561,7 +560,7 @@ input[type="number"].no-of-stars {
   font-weight: 600;
   font-size: calc(0.9375rem + 0.3vw);
   padding-left: 0.875rem;
-}
+} */
 
 input[type="number"] {
   border: none;

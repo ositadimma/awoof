@@ -1,11 +1,21 @@
 <template>
-  <div class="dashboard-sidebar">
-    <img class="dashboard-logo" src="~/assets/images/Logo.png" alt="logo" @click="$router.push('/')">
+  <nav :class="sideBarOpen ? 'mobilesidebar-open' : 'mobilesidebar'">
+    <div
+      :class="sideBarOpen ? 'hamburger open' : 'hamburger'"
+      @click="sideBarOpen = !sideBarOpen"
+    >
+      <span />
+      <span />
+      <span />
+      <span />
+    </div>
+    <h1>Welcome, {{ firstname }}</h1>
     <div class="dashboard-sidebar-nav">
       <h3>Menu</h3>
       <nuxt-link
         :class="currentPath.includes('index') ? 'active' : 'inactive'"
         to="/"
+        @click.native="closeSideBar"
       >
         <Dashboardicon />
         <span>Dashboard</span>
@@ -35,6 +45,7 @@
                   ? 'list-active'
                   : 'list-inactive'
               "
+              @click="closeSideBar"
             >
               Givers
             </li>
@@ -46,6 +57,7 @@
                   ? 'list-active'
                   : 'list-inactive'
               "
+              @click="closeSideBar"
             >
               Winners
             </li>
@@ -55,6 +67,7 @@
       <nuxt-link
         :class="currentPath.includes('transactions') ? 'active' : 'inactive'"
         to="/transactions"
+        @click.native="closeSideBar"
       >
         <Transactionsicon />
         <span>Transactions</span>
@@ -62,6 +75,7 @@
       <nuxt-link
         :class="currentPath.includes('referrals') ? 'active' : 'inactive'"
         to="/referrals"
+        @click.native="closeSideBar"
       >
         <Referralsicon />
         <span>Referrals</span>
@@ -69,22 +83,32 @@
       <nuxt-link
         :class="currentPath.includes('settings') ? 'active' : 'inactive'"
         to="/settings"
+        @click.native="closeSideBar"
       >
         <Settingsicon />
         <span>Settings & Roles</span>
       </nuxt-link>
-      <button class="btn-cmpt" @click="$router.push('/newgiveaway')">
+      <button class="btn-cmpt" @click="newGiveaway">
         New Giveaway
       </button>
     </div>
-  </div>
+  </nav>
 </template>
 
 <script>
 export default {
-  name: 'DashboardSideBar',
+  name: 'MobileSideBar',
+  props: {
+    firstname: {
+      type: String,
+      default () {
+        return ''
+      }
+    }
+  },
   data () {
     return {
+      sideBarOpen: false,
       showgiveaway: false,
       currentPath: ''
     }
@@ -96,29 +120,140 @@ export default {
   },
   mounted () {
     this.currentPath = this.$route.name
+  },
+  methods: {
+    closeSideBar () {
+      this.sideBarOpen = false
+    },
+    newGiveaway () {
+      this.closeSideBar()
+      this.$router.push('/newgiveaway')
+    }
   }
 }
 </script>
 
 <style scoped>
-.dashboard-sidebar {
-  min-width: 292px;
-  height: 100%;
+.mobilesidebar {
+  display: none;
+}
 
-  background: #001431;
-  position: sticky;
+.mobilesidebar-open {
+  position: absolute;
   top: 0;
-
+  left: 0;
+  display: none;
+  width: 100vw;
+  height: 100vh;
+  background: #001431;
+  z-index: 100;
+  overflow-x: hidden;
   overflow-y: auto;
+  padding: 0px 3.3% 0px 3.3%;
 }
-.dashboard-logo {
-  margin: 23px 0px 25px 31px;
+
+.hamburger {
+  display: block;
+  width: 30px;
+  min-height: 26px;
+  -webkit-transform: rotate(0deg);
+  -moz-transform: rotate(0deg);
+  -o-transform: rotate(0deg);
+  transform: rotate(0deg);
+  -webkit-transition: 0.5s ease-in-out;
+  -moz-transition: 0.5s ease-in-out;
+  -o-transition: 0.5s ease-in-out;
+  transition: 0.5s ease-in-out;
   cursor: pointer;
+  position: relative;
 }
+
+.hamburger span {
+  display: block;
+  min-height: 3px;
+  max-height: 3px;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  border-radius: 9px;
+  opacity: 1;
+  -webkit-transform: rotate(0deg);
+  -moz-transform: rotate(0deg);
+  -o-transform: rotate(0deg);
+  transform: rotate(0deg);
+  -webkit-transition: 0.25s ease-in-out;
+  -moz-transition: 0.25s ease-in-out;
+  -o-transition: 0.25s ease-in-out;
+  transition: 0.25s ease-in-out;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.hamburger span:nth-child(2),
+.hamburger span:nth-child(3) {
+  margin-top: 8px;
+}
+
+.hamburger span:nth-child(4) {
+  margin-top: 16px;
+}
+
+.open {
+  top: 30px;
+}
+
+.open span {
+  background-color: #09ab5d;
+}
+
+.open span:nth-child(1) {
+  top: 0;
+  width: 0%;
+  left: 50%;
+}
+
+.open span:nth-child(2) {
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+.open span:nth-child(3) {
+  -webkit-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg);
+  -o-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+}
+
+.open span:nth-child(4) {
+  top: 0;
+  width: 0%;
+  left: 50%;
+}
+
+.mobilesidebar h1 {
+  display: none;
+}
+
+.mobilesidebar-open h1 {
+  display: block;
+  font-size: calc(1rem + 1vw);
+  align-self: center;
+  color: #09ab5d;
+  position: absolute;
+  top: 30px;
+}
+
+.mobilesidebar .dashboard-sidebar-nav {
+  display: none;
+}
+
 .dashboard-sidebar-nav {
   border-top: 1px solid rgba(255, 255, 255, 0.2);
   display: flex;
   flex-direction: column;
+  margin-top: 3.5rem;
 }
 .dashboard-sidebar-nav h3 {
   font-weight: 600;
@@ -234,15 +369,20 @@ a {
 
   margin-top: 49px;
 }
+
 @media (max-width: 767px) {
-  .dashboard-sidebar {
-    display: none;
+  .mobilesidebar {
+    display: block;
+  }
+
+  .mobilesidebar-open {
+    display: flex;
+    flex-direction: column;
   }
 }
-@media (orientation: landscape) {
-  .dashboard-sidebar {
-    overflow-y: auto;
-    padding-bottom: 10px;
+@media (min-width: 600px) {
+  h1 {
+    font-size: 30px;
   }
 }
 </style>

@@ -9,7 +9,7 @@
         <span class="title">Referral Bonus</span>
         <img src="~/assets/icons/Graph.svg">
       </div>
-      <span class="amount">N500</span>
+      <span class="amount">N{{ amount.amount }}</span>
     </div>
 
     <div class="details">
@@ -123,6 +123,7 @@ export default {
       var referralDetailResponse = await $axios.$get(
         `https://awoof-api.herokuapp.com/v1/admins/get_refferal/${params.id}`
       )
+      var referralBonusResponse = await $axios.$get('https://awoof-api.herokuapp.com/v1/admins/referral_bonus')
     } catch (err) {
       if (err.message.includes('Network')) {
         $toast.global.custom_error(
@@ -138,7 +139,8 @@ export default {
     }
     // eslint-disable-next-line
     return {
-      referralDetail: referralDetailResponse !== undefined ? referralDetailResponse : {}
+      referralDetail: referralDetailResponse !== undefined ? referralDetailResponse : {},
+      amount: referralBonusResponse ? referralBonusResponse.data : {}
     }
   },
   created () {
@@ -332,7 +334,7 @@ td {
 }
 @media (max-width: 767px) {
   .refdetail-container {
-    padding: 20px 0px;
+    padding: 20px 4.5% 0px 4.5%;
   }
   .back span {
     font-size: 12px;

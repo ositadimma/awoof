@@ -118,12 +118,10 @@ export default {
     padding-right: 0px;
   }
 }
-@media (max-width: 816px) {
-  .setting-container {
-    padding: 20px 0px;
-  }
-}
 @media (max-width: 767px) {
+  .setting-container {
+    padding: 20px 4.5% 0px 4.5%;
+  }
   .setting-container-child {
     width: 100%;
   }

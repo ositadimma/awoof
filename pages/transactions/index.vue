@@ -1,24 +1,49 @@
 <template>
   <div class="transaction-container">
     <div class="nav">
-      <span class="nav-active">ALL</span>
-      <span>BANK TRANSFER</span>
+      <!-- <span class="nav-active">ALL</span> -->
+      <span class="nav-active">BANK TRANSFER</span>
       <span>WALLET</span>
-      <span>TRANSFER</span>
+      <!-- <span>TRANSFER</span> -->
       <span>AIRTIME TOPUP</span>
-      <span>DATA PURCHASE</span>
+      <!-- <span>DATA PURCHASE</span> -->
     </div>
     <TransactionsTable />
   </div>
 </template>
 
 <script>
+import Cookies from 'js-cookie'
 import TransactionsTable from '~/components/Transactionstable'
 export default {
   name: 'Referral',
   layout: 'dashboardLayout',
   components: {
     TransactionsTable
+  },
+  async asyncData ({ $axios, $toast }) {
+    $axios.setHeader('x-auth-token', Cookies.get('token'))
+    try {
+      var bankTransferResponse = await $axios.$get(
+        'https://awoof-api.herokuapp.com/v1/admins/bank_transfers'
+      )
+      // var walletResponse = await $axios.$get('https://awoof-api.herokuapp.com/v1/admins/wallet_top_ups')
+      // var airtimeResponse = await $axios.$get('https://awoof-api.herokuapp.com/v1/admins/airtime_top_up')
+    } catch (err) {
+      if (err.message.includes('Network')) {
+        $toast.global.custom_error(
+          'please check your connection and try again'
+        )
+      }
+
+      if (err.response !== undefined) {
+        if (err.response.status === 400) {
+          $toast.global.custom_error(err.response.data.message)
+        }
+      }
+    }
+    // console.log(bankTransferResponse, walletResponse, airtimeResponse)
+    return { data: bankTransferResponse ? bankTransferResponse.data : [] }
   },
   created () {
     this.$store.commit('setLayout', 'TRANSACTIONS') // changes layout title of dashboard header
@@ -28,7 +53,7 @@ export default {
 
 <style scoped>
 .transaction-container {
-  background: #F7F7F8;
+  background: #f7f7f8;
   flex: 1;
 
   display: flex;
@@ -59,7 +84,7 @@ export default {
 .nav span:nth-child(2) {
   margin-right: 29px;
 }
-.nav span:nth-child(n+2) {
+.nav span:nth-child(n + 2) {
   margin-right: 28px;
 }
 .nav span:hover {
@@ -71,7 +96,7 @@ export default {
   bottom: 0;
   width: 0;
   border-bottom: 3px solid;
-  color:#09AB5D;
+  color: #09ab5d;
   height: 0;
 }
 .nav span:hover::before {
@@ -80,7 +105,7 @@ export default {
   transition-duration: 0.3s;
 }
 .nav .nav-active {
-  border-bottom: 3px solid #09AB5D;
+  border-bottom: 3px solid #09ab5d;
 }
 .nav .nav-active:hover {
   cursor: auto;
@@ -101,7 +126,7 @@ export default {
 }
 @media (max-width: 767px) {
   .transaction-container {
-    padding: 20px 0px;
+    padding: 20px 4.5% 0px 4.5%;
   }
   .nav {
     width: 100%;
@@ -117,7 +142,7 @@ export default {
   .nav span:nth-child(2) {
     margin-right: 0px;
   }
-  .nav span:nth-child(n+2) {
+  .nav span:nth-child(n + 2) {
     margin-right: 0px;
   }
 }
@@ -136,7 +161,7 @@ export default {
   .nav span:nth-child(2) {
     margin-right: 0px;
   }
-  .nav span:nth-child(n+2) {
+  .nav span:nth-child(n + 2) {
     margin-right: 0px;
   }
 }

@@ -43,7 +43,7 @@
     <div class="edit-container">
       <span>Tasks</span>
       <button
-        v-show="tasks.length > 0 && !giveawayDetail.completed"
+        v-show="!giveawayDetail.completed"
         class="edit-btn btn-cmpt"
         @click="edit = !edit"
       >

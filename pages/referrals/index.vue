@@ -5,12 +5,12 @@
         <span class="title">Referral Bonus</span>
       </div>
       <div class="edit">
-        <span class="amount">N500</span>
+        <span class="amount">N{{ amount.amount }}</span>
         <div class="edit-image" @click="showModal" />
       </div>
     </div>
     <ReferralTable :data="data" />
-    <ReferralForm v-show="modalOpen" />
+    <ReferralForm v-show="modalOpen" :data="amount.amount.toString()" />
   </div>
 </template>
 
@@ -29,7 +29,8 @@ export default {
   async asyncData ({ $axios, $toast }) {
     $axios.setHeader('x-auth-token', Cookies.get('token'))
     try {
-      var response = await $axios.$get('https://awoof-api.herokuapp.com/v1/admins/get_all_refferals')
+      var referralResponse = await $axios.$get('https://awoof-api.herokuapp.com/v1/admins/get_all_refferals')
+      var referralBonusResponse = await $axios.$get('https://awoof-api.herokuapp.com/v1/admins/referral_bonus')
     } catch (err) {
       if (err.message.includes('Network')) {
         $toast.global.custom_error('please check your connection and try again')
@@ -41,7 +42,11 @@ export default {
         }
       }
     }
-    return { data: response ? response.data : [] }
+
+    return {
+      data: referralResponse ? referralResponse.data : [],
+      amount: referralBonusResponse ? referralBonusResponse.data : {}
+    }
   },
   computed: {
     modalOpen () {
@@ -121,7 +126,7 @@ export default {
 }
 @media (max-width: 767px) {
   .referral-container {
-    padding: 20px 0px;
+    padding: 20px 4.5% 0px 4.5%;
   }
   .title-ctn .title {
     font-size: 10px;
@@ -130,6 +135,11 @@ export default {
   .edit .amount {
     font-size: 18px;
     line-height: 32px;
+  }
+}
+@media (max-width: 290px) {
+  .referral-card {
+    width: 100%;
   }
 }
 </style>

@@ -84,8 +84,8 @@ export default {
     dashboardData () {
       // eslint-disable-next-line vue/no-side-effects-in-computed-properties
       const data = this.dashboardTable.sort((a, b) => {
-        const giveawayDateA = new Date(a.createdAt).getTime()
-        const giveawayDateB = new Date(b.createdAt).getTime()
+        const giveawayDateA = new Date(a.createdAt)
+        const giveawayDateB = new Date(b.createdAt)
         return giveawayDateB - giveawayDateA
       })
       return data

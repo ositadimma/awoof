@@ -9,7 +9,7 @@
         <span
           class="amount"
         >N{{
-          dashboardParams.amount_processed !== undefined
+          dashboardParams !== undefined
             ? amountDelimeter(dashboardParams.amount_processed)
             : 0
         }}</span>
@@ -24,7 +24,7 @@
           <img src="~/assets/icons/3user.svg">
         </div>
         <span class="amount">{{
-          dashboardParams.givers !== undefined
+          dashboardParams !== undefined
             ? amountDelimeter(dashboardParams.givers)
             : 0
         }}</span>
@@ -39,7 +39,7 @@
           <img src="~/assets/icons/Graph.svg">
         </div>
         <span class="amount">{{
-          dashboardParams.awoofwers !== undefined
+          dashboardParams !== undefined
             ? amountDelimeter(dashboardParams.awoofwers)
             : 0
         }}</span>
@@ -56,7 +56,7 @@
           </div>
         </div>
         <span class="amount">{{
-          dashboardParams.current_giveaways !== undefined
+          dashboardParams !== undefined
             ? amountDelimeter(dashboardParams.current_giveaways)
             : 0
         }}</span>
@@ -70,7 +70,7 @@
           <span class="title">Completed Giveaways</span>
         </div>
         <span class="amount">{{
-          dashboardParams.completed_giveaways !== undefined
+          dashboardParams !== undefined
             ? amountDelimeter(dashboardParams.completed_giveaways)
             : 0
         }}</span>
@@ -84,7 +84,7 @@
           <span class="title">Total Winners</span>
         </div>
         <span class="amount">{{
-          dashboardParams.winners!== undefined
+          dashboardParams !== undefined
             ? amountDelimeter(dashboardParams.winners)
             : 0
         }}</span>
@@ -98,7 +98,7 @@
           <span class="title">Star Giveaway</span>
         </div>
         <span class="amount">{{
-          dashboardParams.star_giveaways !== undefined
+          dashboardParams !== undefined
             ? amountDelimeter(dashboardParams.star_giveaways)
             : 0
         }}</span>
@@ -114,7 +114,7 @@
         <span
           class="amount"
         >N{{
-          dashboardParams.bills_payment !== undefined
+          dashboardParams !== undefined
             ? amountDelimeter(dashboardParams.bills_payment)
             : 0
         }}</span>
@@ -165,6 +165,7 @@ export default {
         }
       }
     }
+    // console.log(dashboardParamsResponse)
     return {
       dashboardParams: dashboardParamsResponse
         ? dashboardParamsResponse.data

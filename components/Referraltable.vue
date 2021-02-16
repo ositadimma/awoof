@@ -107,8 +107,8 @@ export default {
 
       this.paginatedData = this.data
         .sort((a, b) => {
-          const referralDateA = new Date(a.signupDate).getTime()
-          const referralDateB = new Date(b.signupDate).getTime()
+          const referralDateA = new Date(a.signupDate)
+          const referralDateB = new Date(b.signupDate)
           return referralDateB - referralDateA
         })
         .slice(currentPage, pagesToShow)
@@ -214,48 +214,6 @@ tbody tr:nth-child(odd) {
 }
 .arrowcircle {
   cursor: pointer;
-}
-.pagination {
-  margin-top: 35px;
-  display: flex;
-  align-self: center;
-  justify-content: space-between;
-  width: 165px;
-}
-.pagination .inactive {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 20px;
-  height: 21px;
-
-  font-weight: 600;
-  font-size: 14px;
-
-  color: #000000;
-  padding-top: 2px;
-  cursor: pointer;
-}
-.pagination .inactive:hover {
-  color: #FFFFFF;
-  background: #001431;
-  border-radius: 5px;
-}
-.pagination .active {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 20px;
-  height: 21px;
-
-  font-weight: 600;
-  font-size: 14px;
-
-  color: #FFFFFF;
-  background: #001431;
-  border-radius: 5px;
-  padding-top: 2px;
-  cursor: auto;
 }
 @media (max-width: 1100px) {
   .table-head {

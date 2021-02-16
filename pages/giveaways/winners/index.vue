@@ -30,6 +30,7 @@ export default {
         }
       }
     }
+    // console.log(response)
     return { data: response ? response.data : [] }
   },
   created () {
