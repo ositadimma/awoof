@@ -105,7 +105,9 @@ export default {
       } catch (err) {
         this.loading = false
         if (err.message.includes('Network')) {
-          this.$toast.global.custom_error('please check your connection and try again')
+          this.$toast.global.custom_error(
+            'please check your connection and try again'
+          )
         }
         if (err.response !== undefined && err.response.status === 400) {
           this.$toast.global.custom_error(err.response.data.message)

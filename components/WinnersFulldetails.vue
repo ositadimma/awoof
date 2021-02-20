@@ -8,11 +8,11 @@
     <div>
       <span>
         <p>Full Name</p>
-        <button class="add-btn btn-cmpt" @click="toggleEdit">
+        <!-- <button class="add-btn btn-cmpt" @click="toggleEdit">
           Edit
-        </button>
+        </button> -->
       </span>
-      <span>{{ userInfo.firstName+' '+userInfo.lastName }}</span>
+      <span>{{ userInfo.firstName + " " + userInfo.lastName }}</span>
 
       <span>
         Username
@@ -27,7 +27,7 @@
         <p>{{ userInfo.stars }}</p>
         <img src="~/assets/icons/star.svg" alt="star">
       </div>
-      <div v-show="edit" class="star-rating-edit">
+      <!-- <div v-show="edit" class="star-rating-edit">
         <input
           v-model="noOfStars"
           type="number"
@@ -35,23 +35,23 @@
           max="30"
           @input="validateNoOfStars"
         >
-        <img src="~/assets/icons/star.svg" alt="star">
-        <button class="add-btn btn-cmpt">
-          {{ buttonText }}
-        </button>
-      </div>
+      <img src="~/assets/icons/star.svg" alt="star">
+      <button class="add-btn btn-cmpt">
+        {{ buttonText }}
+      </button>
+    </div> -->
       <span class="wins">
         Number of wins
       </span>
       <div v-show="!edit" class="no-of-wins">
         <p>2</p>
       </div>
-      <div v-show="edit" class="no-of-wins-edit">
+      <!-- <div v-show="edit" class="no-of-wins-edit">
         <input
           v-model="noOfWins"
           type="number"
         >
-      </div>
+      </div> -->
       <span>
         Phone Number
       </span>
@@ -137,7 +137,6 @@ export default {
       //       'please check your connection and try again'
       //     )
       //   }
-
       //   if (err.response !== undefined) {
       //     if (err.response.status === 400) {
       //       this.$toast.global.custom_error(err.response.data.message)
@@ -213,7 +212,6 @@ export default {
 }
 .wins {
   font-weight: normal !important;
-  font-size: 11px !important;
   color: #75759e !important;
   margin-bottom: 5px !important;
 }
@@ -250,16 +248,20 @@ input[type="number"] {
   width: 89px;
   max-width: 89px;
   max-height: 27px;
-  background: #E74D75;
+  background: #e74d75;
   border-radius: 10px;
   margin-left: auto;
   padding-top: 2.5px;
+}
+@media (min-width: 1280px) {
+  .extra {
+    margin-bottom: 20px;
+  }
 }
 @media (max-width: 950px) {
   .extra {
     width: 100%;
     height: auto;
-    margin-bottom: 20px;
     margin-left: 0px;
     padding-right: 23px;
   }

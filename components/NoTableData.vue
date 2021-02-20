@@ -18,7 +18,7 @@ export default {
   justify-content: center;
   align-items: center;
   background: #fff;
-  color: #09AB5D;
+  color: #09ab5d;
   overflow-x: auto;
 }
 </style>

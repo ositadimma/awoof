@@ -28,7 +28,7 @@
         <tbody v-show="data.length > 0">
           <tr v-for="(referral, index) in paginatedData" :key="index">
             <td data-title="Ref ID" class="Id">
-              <p>#{{ referral.referralCode }}</p>
+              <p>#{{ referral.userRef }}</p>
             </td>
             <td data-title="Username">
               {{ referral.username }}
@@ -47,9 +47,7 @@
             </td>
             <td class="View">
               <ArrowCircle
-                @click.native="
-                  $router.push(`/referrals/${referral._id}`)
-                "
+                @click.native="$router.push(`/referrals/${referral._id}`)"
               />
             </td>
           </tr>
@@ -142,7 +140,7 @@ export default {
   margin-bottom: 10px;
 }
 .table-head {
-  width:100%;
+  width: 100%;
   border-radius: 20px;
   max-height: 500px;
   overflow-y: auto;
@@ -155,15 +153,16 @@ table {
   border-spacing: 0px;
 }
 thead tr {
-  background: #F0F2F4;
+  background: #f0f2f4;
 }
 th {
   font-weight: normal;
   font-size: 14px;
   line-height: 24px;
-  color: #75759E;
+  color: #75759e;
 }
-th, td {
+th,
+td {
   height: 64px;
   text-align: left;
   padding-left: 6px;
@@ -200,10 +199,10 @@ tbody tr:last-child td:last-child {
   border-bottom-right-radius: 20px;
 }
 tbody tr:nth-child(even) {
-  background: #F9FAFB;
+  background: #f9fafb;
 }
 tbody tr:nth-child(odd) {
-  background: #FFFFFF;
+  background: #ffffff;
 }
 .Id {
   padding-left: 31px;
@@ -227,12 +226,12 @@ tbody tr:nth-child(odd) {
     width: 100%;
   }
   /**/
-  tr{
+  tr {
     display: flex;
     flex-direction: column;
   }
   tr:first-child {
-    border-radius: 20px 20px 0px 0px
+    border-radius: 20px 20px 0px 0px;
   }
   td {
     display: flex;
@@ -258,7 +257,8 @@ tbody tr:nth-child(odd) {
   tbody tr:last-child td:first-child {
     border-radius: 0px;
   }
-  .Id, .View {
+  .Id,
+  .View {
     width: 100%;
     padding: 0px;
   }

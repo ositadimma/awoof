@@ -142,8 +142,7 @@ export default {
           innerHtml += '</thead><tbody>'
 
           bodyLines.forEach(function (body, i) {
-            innerHtml +=
-              "<tr><td class='tooltip-body'>" + body + '</td></tr>'
+            innerHtml += "<tr><td class='tooltip-body'>" + body + '</td></tr>'
           })
 
           innerHtml += '</tbody>'
@@ -224,7 +223,9 @@ export default {
             custom: customTooltips,
             callbacks: {
               title (tooltipItem) {
-                return `N${tooltipItem[0].yLabel.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`
+                return `N${tooltipItem[0].yLabel
+                  .toString()
+                  .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`
               },
               label (tooltipItem, data) {
                 return tooltipItem.xLabel

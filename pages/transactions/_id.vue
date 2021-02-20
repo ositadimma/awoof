@@ -2,15 +2,19 @@
   <div class="trandetail-container">
     <div class="header">
       <div class="back">
-        <img src="~/assets/icons/Arrow LeftCircle.svg" alt="back" @click="$router.push('/transactions')">
+        <img
+          src="~/assets/icons/Arrow LeftCircle.svg"
+          alt="back"
+          @click="previousRoute"
+        >
         <span>Back</span>
       </div>
-      <button class="btn-cmpt">
+      <button class="btn-cmpt" @click="downloadReport">
         Download Report
       </button>
     </div>
 
-    <div class="details">
+    <div ref="details" class="details">
       <div class="body">
         <span>Transaction Details</span>
         <hr>
@@ -20,17 +24,20 @@
               <th class="Ref">
                 Trans Ref.
               </th>
-              <th class="Status">
+              <!-- <th class="Status">
                 Status
-              </th>
-              <th class="Tasks">
+              </th> -->
+              <!-- <th class="Tasks">
                 Tasks
-              </th>
+              </th> -->
               <th class="Amount">
                 Total Amount
               </th>
               <th>
                 Method of Payment
+              </th>
+              <th>
+                Transaction Date
               </th>
             </tr>
           </thead>
@@ -39,22 +46,31 @@
               <td class="Ref" data-title="Trans Ref.">
                 #18441
               </td>
-              <td data-title="Status" class="success Status">
+              <!-- <td data-title="Status" class="success Status">
                 Success
-              </td>
-              <td data-title="Tasks" class="Tasks">
+              </td> -->
+              <!-- <td data-title="Tasks" class="Tasks">
                 2
-              </td>
+              </td> -->
               <td data-title="Total Amount" class="Amount">
-                N90,000
+                N{{ amountDelimeter(transactionDetail.amount) }}
               </td>
               <td data-title="Method of Payment">
-                Bank Transfer
+                {{ methodOfPayment }}
+              </td>
+              <td
+                v-if="transactionDetail.transaction_date !== undefined"
+                data-title="Transaction Date"
+              >
+                {{ format_date(transactionDetail.transaction_date) }}
+              </td>
+              <td v-else data-title="Transaction Date">
+                {{ format_date(transactionDetail.transactionDate) }}
               </td>
             </tr>
           </tbody>
         </table>
-        <span>Tasks taken</span>
+        <!-- <span>Tasks taken</span>
         <hr>
         <div class="Task-grid-container">
           <div class="Task-grid">
@@ -73,7 +89,7 @@
               Share on Twitter
             </div>
           </div>
-        </div>
+        </div> -->
       </div>
       <div class="extra">
         <div class="head">
@@ -86,28 +102,42 @@
             Full Name
           </span>
           <span>
-            Seun Kolade
+            {{
+              userDetail !== undefined && userDetail
+                ? userDetail.firstName + " " + userDetail.lastName
+                : "User does not exist"
+            }}
           </span>
 
           <span>
             Phone Number
           </span>
           <span>
-            09030928402
+            {{
+              userDetail !== undefined && userDetail
+                ? userDetail.phoneNumber
+                : "nil"
+            }}
           </span>
 
           <span>
             Email Address
           </span>
           <span>
-            seun@example.com
+            {{
+              userDetail !== undefined && userDetail ? userDetail.email : "nil"
+            }}
           </span>
 
           <span>
             Registration Date
           </span>
           <span>
-            22nd January, 2020
+            {{
+              userDetail !== undefined && userDetail
+                ? format_date(userDetail.signupDate)
+                : "nil"
+            }}
           </span>
         </div>
       </div>
@@ -116,19 +146,112 @@
 </template>
 
 <script>
-// when data is available name this file _id to get based on ID then change routes
+import html2pdf from 'html2pdf.js'
+import Cookies from 'js-cookie'
+import moment from 'moment'
+
 export default {
   name: 'Transactiondetail',
   layout: 'dashboardLayout',
+  async asyncData ({ $axios, $toast, params }) {
+    $axios.setHeader('x-auth-token', Cookies.get('token'))
+    try {
+      var response1 = await $axios.$get(
+        `https://awoof-api.herokuapp.com/v1/admins/bank_transfers/${params.id}`
+      )
+      var response2 = await $axios.$get(
+        `https://awoof-api.herokuapp.com/v1/admins/wallet_top_ups/${params.id}`
+      )
+      var response3 = await $axios.$get(
+        `https://awoof-api.herokuapp.com/v1/admins/airtime_top_up/${params.id}`
+      )
+
+      var transactionDetailResponse
+      var userDetailResponse
+      var methodOfPayment
+      if (response1.data) {
+        transactionDetailResponse = response1.data
+        userDetailResponse = await $axios.$get(
+          `https://awoof-api.herokuapp.com/v1/admins/get_by_email/${transactionDetailResponse.user}`
+        )
+        methodOfPayment = 'Bank Transfer'
+      } else if (response2.data) {
+        transactionDetailResponse = response2.data
+        userDetailResponse = await $axios.$get(
+          `https://awoof-api.herokuapp.com/v1/admins/get_by_email/${transactionDetailResponse.user_email}`
+        )
+        methodOfPayment = 'Wallet'
+      } else {
+        transactionDetailResponse = response3.data
+        userDetailResponse = await $axios.$get(
+          `https://awoof-api.herokuapp.com/v1/admins/get_by_email/${transactionDetailResponse.user}`
+        )
+        methodOfPayment = 'Airtime Topup'
+      }
+    } catch (err) {
+      if (err.message.includes('Network')) {
+        $toast.global.custom_error(
+          'please check your connection and try again'
+        )
+      }
+
+      if (err.response !== undefined) {
+        if (err.response.status === 400) {
+          $toast.global.custom_error(err.response.data.message)
+        }
+      }
+    }
+    // console.log(transactionDetailResponse, userDetailResponse)
+    // eslint-disable-next-line
+    return {
+      transactionDetail:
+        transactionDetailResponse !== undefined
+          ? transactionDetailResponse
+          : {},
+      userDetail:
+        userDetailResponse !== undefined ? userDetailResponse.data : {},
+      methodOfPayment
+    }
+  },
   created () {
     this.$store.commit('setLayout', 'TRANSACTIONS DETAILS') // changes layout title of dashboard header
+  },
+  methods: {
+    amountDelimeter (amount) {
+      return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+    },
+    format_date (value) {
+      const today = new Date().getTime()
+      const createdAt = new Date(String(value)).getTime()
+      if (today === createdAt) {
+        return `Today, ${moment(new Date(String(value))).format('hh:mm')}`
+      }
+      return moment(new Date(String(value))).format('DD MMM YYYY, hh:mm')
+    },
+    previousRoute () {
+      window.history.back()
+    },
+    downloadReport () {
+      const opt = {
+        margin: 10,
+        filename: 'Transaction_Details.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2, letterRendering: true },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' },
+        pagebreak: { mode: 'css' }
+      }
+      html2pdf()
+        .set(opt)
+        .from(this.$refs.details)
+        .save()
+    }
   }
 }
 </script>
 
 <style scoped>
 .trandetail-container {
-  background: #F7F7F8;
+  background: #f7f7f8;
   flex: 1;
 
   display: flex;
@@ -158,7 +281,7 @@ export default {
 .back span {
   font-size: 14px;
   line-height: 23px;
-  color: #75759E;
+  color: #75759e;
   margin-left: 11px;
 }
 .btn-cmpt {
@@ -183,8 +306,8 @@ hr {
 .body {
   width: 65%;
   height: 370px;
-  background: #FFFFFF;
-  border: 1px solid #E2E2EA;
+  background: #ffffff;
+  border: 1px solid #e2e2ea;
   border-radius: 20px;
 
   display: flex;
@@ -199,7 +322,7 @@ hr {
   font-size: 12px;
   line-height: 19px;
 
-  color: #A2ABAA;
+  color: #a2abaa;
 }
 /* table */
 table {
@@ -208,14 +331,15 @@ table {
   margin-bottom: 40px;
   padding: 0px 3.4% 0px 3.4%;
 }
-th, td {
+th,
+td {
   text-align: left;
 }
 th {
   font-weight: normal;
   font-size: 11px;
   line-height: 19px;
-  color: #75759E;
+  color: #75759e;
 }
 td {
   font-weight: 600;
@@ -235,7 +359,7 @@ td {
 }
 .Task-grid-container {
   display: grid;
-  grid-template-columns: repeat( auto-fit, minmax(150px, 1fr) );
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   width: 100%;
   margin-bottom: 40px;
   padding: 0px 3.4% 0px 3.4%;
@@ -247,7 +371,7 @@ td {
 .Task-grid .th {
   font-size: 11px;
   line-height: 19px;
-  color: #75759E;
+  color: #75759e;
 }
 .Task-grid .td {
   font-weight: 600;
@@ -257,10 +381,10 @@ td {
   overflow-x: auto;
 }
 .success {
-  color: #09AB5D;
+  color: #09ab5d;
 }
 .failed {
-  color: #E12A1E;
+  color: #e12a1e;
 }
 .extra {
   display: flex;
@@ -268,8 +392,8 @@ td {
   width: 32.5%;
   height: 370px;
 
-  background: #FFFFFF;
-  border: 1px solid #E2E2EA;
+  background: #ffffff;
+  border: 1px solid #e2e2ea;
   border-radius: 20px;
   margin-left: 27px;
   padding: 0px 38px 0px 23px;
@@ -283,20 +407,20 @@ td {
 .extra hr {
   width: 100%;
 }
-.extra .head span:first-child{
+.extra .head span:first-child {
   align-self: start;
   display: block;
   font-size: 12px;
   line-height: 19px;
 
-  color: #A2ABAA;
+  color: #a2abaa;
 }
-.extra .head span:last-child{
+.extra .head span:last-child {
   font-weight: bold;
   font-size: 11px;
   line-height: 18px;
 
-  color: #4CD964;
+  color: #4cd964;
 }
 .extra div:last-child {
   display: flex;
@@ -304,7 +428,7 @@ td {
 }
 .extra div:last-child span:nth-child(odd) {
   font-size: 11px;
-  color: #75759E;
+  color: #75759e;
   margin-bottom: 2px;
 }
 .extra div:last-child span:nth-child(even) {
@@ -315,7 +439,7 @@ td {
 .extra div:last-child span:nth-child(2) {
   margin-bottom: 24px;
 }
-.extra div:last-child span:nth-child(2n+2) {
+.extra div:last-child span:nth-child(2n + 2) {
   margin-bottom: 26px;
 }
 @media (max-width: 950px) {
@@ -339,7 +463,7 @@ td {
   thead {
     display: none;
   }
-  tr{
+  tr {
     display: flex;
     flex-direction: column;
   }
@@ -351,7 +475,9 @@ td {
   td::before {
     content: attr(data-title);
   }
-  .Amount, .Tasks, .Status{
+  .Amount,
+  .Tasks,
+  .Status {
     width: 100%;
   }
   .Task-grid-container {

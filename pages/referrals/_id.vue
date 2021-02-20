@@ -1,7 +1,11 @@
 <template>
   <div class="refdetail-container">
     <div class="back">
-      <img src="~/assets/icons/Arrow LeftCircle.svg" alt="back" @click="previousRoute">
+      <img
+        src="~/assets/icons/Arrow LeftCircle.svg"
+        alt="back"
+        @click="previousRoute"
+      >
       <span>Back</span>
     </div>
     <div class="refdetail-card">
@@ -88,9 +92,12 @@
             </tr>
           </thead>
           <tbody v-show="referralDetail.usersReffered.length > 0">
-            <tr v-for="(user, index) in referralDetail.usersReffered" :key="index">
+            <tr
+              v-for="(user, index) in referralDetail.usersReffered"
+              :key="index"
+            >
               <td class="name" data-title="Name">
-                {{ user.firstName+' '+user.lastName }}
+                {{ user.firstName + " " + user.lastName }}
               </td>
               <td data-title="Phone No">
                 {{ user.phoneNumber }}
@@ -123,7 +130,9 @@ export default {
       var referralDetailResponse = await $axios.$get(
         `https://awoof-api.herokuapp.com/v1/admins/get_refferal/${params.id}`
       )
-      var referralBonusResponse = await $axios.$get('https://awoof-api.herokuapp.com/v1/admins/referral_bonus')
+      var referralBonusResponse = await $axios.$get(
+        'https://awoof-api.herokuapp.com/v1/admins/referral_bonus'
+      )
     } catch (err) {
       if (err.message.includes('Network')) {
         $toast.global.custom_error(
@@ -139,7 +148,8 @@ export default {
     }
     // eslint-disable-next-line
     return {
-      referralDetail: referralDetailResponse !== undefined ? referralDetailResponse : {},
+      referralDetail:
+        referralDetailResponse !== undefined ? referralDetailResponse : {},
       amount: referralBonusResponse ? referralBonusResponse.data : {}
     }
   },
@@ -159,7 +169,7 @@ export default {
 
 <style scoped>
 .refdetail-container {
-  background: #F7F7F8;
+  background: #f7f7f8;
   flex: 1;
 
   display: flex;
@@ -184,12 +194,12 @@ export default {
 .back span {
   font-size: 14px;
   line-height: 23px;
-  color: #75759E;
+  color: #75759e;
   margin-left: 11px;
 }
 .refdetail-card {
-  border: 1px solid #E2E2EA;
-  background: #FFFFFF;
+  border: 1px solid #e2e2ea;
+  background: #ffffff;
   border-radius: 20px;
   width: 260px;
   min-height: 95px;
@@ -210,8 +220,7 @@ export default {
   font-size: 12px;
   line-height: 19px;
 
-  color: #75759E;
-
+  color: #75759e;
 }
 .refdetail-card .amount {
   font-weight: 600;
@@ -224,8 +233,8 @@ export default {
 .details {
   width: 65.3%;
   height: auto;
-  background: #FFFFFF;
-  border: 1px solid #E2E2EA;
+  background: #ffffff;
+  border: 1px solid #e2e2ea;
   border-radius: 20px;
 
   display: flex;
@@ -253,7 +262,7 @@ export default {
   font-size: 11px;
   line-height: 18px;
 
-  color: #4CD964;
+  color: #4cd964;
   align-self: flex-end;
 }
 hr {
@@ -274,7 +283,7 @@ hr {
   font-size: 12px;
   line-height: 19px;
 
-  color: #A2ABAA;
+  color: #a2abaa;
 }
 /* table */
 table {
@@ -287,15 +296,15 @@ table {
   margin-bottom: 0px;
   padding: 0px;
 }
-.code-users th{
+.code-users th {
   padding: 0px 0px 0px 3.4%;
 }
-.code-users td{
+.code-users td {
   padding: 10px 0px 10px 3.4%;
 }
 .code-users tbody tr:nth-child(even) {
   height: 64px;
-  background: #F9FAFB;
+  background: #f9fafb;
 }
 .code-users tbody tr:nth-child(1) td {
   vertical-align: bottom !important;
@@ -306,13 +315,14 @@ table {
 .code-users tbody tr {
   height: 64px;
 }
-th, td {
+th,
+td {
   text-align: left;
 }
 th {
   font-size: 11px;
   line-height: 19px;
-  color: #75759E;
+  color: #75759e;
 }
 .phone {
   width: 35%;
@@ -350,7 +360,6 @@ td {
   }
   .details {
     width: 100%;
-
   }
   table {
     padding: 0px;
@@ -373,13 +382,13 @@ td {
   .code-users tbody tr:nth-child(even) {
     height: initial;
   }
-  .code-users td{
+  .code-users td {
     padding-left: 0px;
   }
   thead {
     display: none;
   }
-  tr{
+  tr {
     display: flex;
     flex-direction: column;
   }

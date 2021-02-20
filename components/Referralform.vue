@@ -12,10 +12,17 @@
 
         <!-- <label>Referral ID</label>
         <input type="text" placeholder="Please Enter"> -->
-        <button v-show="amount.length == 0 && !loading" class="disable-1 btn-cmpt">
+        <button
+          v-show="amount.length == 0 && !loading"
+          class="disable-1 btn-cmpt"
+        >
           Continue
         </button>
-        <button v-show="amount.length > 0 && !loading" class="btn-cmpt" @click="createReferralBonus">
+        <button
+          v-show="amount.length > 0 && !loading"
+          class="btn-cmpt"
+          @click="createReferralBonus"
+        >
           Continue
         </button>
         <button v-show="loading" class="btn-cmpt" disabled>
@@ -142,7 +149,7 @@ label {
   color: #696f79;
   margin-bottom: 11px;
 }
-input[type='number'] {
+input[type="number"] {
   width: 100%;
   height: 64px;
   padding-left: 30px;
@@ -154,7 +161,7 @@ input[type='number'] {
   margin-bottom: 21px;
   font-size: 12px;
 }
-input[type='number']::placeholder {
+input[type="number"]::placeholder {
   font-weight: 600;
 }
 .btn-cmpt {

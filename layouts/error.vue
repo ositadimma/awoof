@@ -13,7 +13,7 @@
 export default {
   name: 'Error',
   // eslint-disable-next-line
-  props: ['error']
+  props: ["error"]
 }
 </script>
 
@@ -30,13 +30,13 @@ export default {
 h1 {
   font-weight: 600;
   font-size: calc(2rem + 0.5vw);
-  color: #09AB5D;
+  color: #09ab5d;
   text-align: center;
 }
 
 @media (min-width: 1600px) {
   h1 {
-      font-size: 45px;
+    font-size: 45px;
   }
 }
 </style>

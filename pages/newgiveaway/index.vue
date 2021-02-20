@@ -68,7 +68,7 @@
           </div>
         </div>
         <div class="child">
-          <label>No. Of Winners</label>
+          <label class="no-of-winners-label">No. Of Winners</label>
           <div v-click-outside="removeFocusDiv" class="no-of-winners">
             <input
               v-model="noOfWinners"
@@ -104,14 +104,14 @@
         <span>
           Learn More
         </span>
-        <div class="social">
+        <!-- <div class="social">
           <img src="~/assets/images/awoof.png" alt="select">
           No Engagement
           <div class="checkbox">
             <input id="check1" v-model="noEngagement" type="checkbox">
             <label for="check1" />
           </div>
-        </div>
+        </div> -->
         <div v-show="!noEngagement" class="social">
           <img src="~/assets/images/facebook.png" alt="select">
           Facebook
@@ -126,24 +126,25 @@
           <div class="condition-child">
             Follow Page On Facebook
             <div class="checkbox">
-              <input id="check2" v-model="followPageOnFacebook" type="checkbox">
+              <input
+                id="check2"
+                v-model="followPageOnFacebook"
+                type="checkbox"
+              >
               <label for="check2" />
             </div>
           </div>
           <div class="condition-child">
             Facebook Username
             <input
+              v-model="followFacebookPageLink"
               type="text"
               placeholder="Username"
             >
           </div>
           <div class="condition-child">
             Like Post On Facebook
-            <input
-              v-model="LikeFacebookLink"
-              type="text"
-              placeholder="Link"
-            >
+            <input v-model="LikeFacebookLink" type="text" placeholder="Link">
           </div>
         </div>
         <div v-show="!noEngagement" class="social">
@@ -166,15 +167,15 @@
           </div>
           <div class="condition-child">
             Instagram Username
-            <input v-model="followInstagramLink" type="text" placeholder="Username">
+            <input
+              v-model="followInstagramLink"
+              type="text"
+              placeholder="Username"
+            >
           </div>
           <div class="condition-child">
             Like Post On Instagram
-            <input
-              v-model="LikeInstagramLink"
-              type="text"
-              placeholder="Link"
-            >
+            <input v-model="LikeInstagramLink" type="text" placeholder="Link">
           </div>
         </div>
         <div v-show="!noEngagement" class="social">
@@ -197,7 +198,11 @@
           </div>
           <div class="condition-child">
             Twitter Username
-            <input v-model="followTwitterLink" type="text" placeholder="Username">
+            <input
+              v-model="followTwitterLink"
+              type="text"
+              placeholder="Username"
+            >
           </div>
           <div class="condition-child">
             Like Post On Twitter
@@ -244,6 +249,7 @@ export default {
       image: '',
       message: '',
       followPageOnFacebook: false,
+      followFacebookPageLink: '',
       followInstagram: false,
       followInstagramLink: '',
       followTwitter: false,
@@ -324,6 +330,7 @@ export default {
       this.followTwitterLink = ''
       this.LikeFacebookLink = ''
       this.followPageOnFacebook = false
+      this.followFacebookPageLink = ''
       this.LikeInstagramLink = ''
       this.LikeTwitterLink = ''
       this.loading = false
@@ -369,7 +376,7 @@ export default {
       this.$axios.setHeader('Content-Type', 'multipart/form-data')
       try {
         const response = await this.$axios.$post(
-          'https://awoof-api.herokuapp.com/v1/giveaways',
+          'https://awoof-api.herokuapp.com/v1/admins/create_giveaway',
           this.bodyFormatData()
         )
         if (response) {
@@ -535,6 +542,11 @@ input[type="number"].no-of-stars {
   min-height: 64px;
   border-radius: 6px;
   margin-bottom: 1.5rem;
+}
+
+.no-of-winners-label:after {
+  content: "*";
+  color: red;
 }
 
 .amt-container {

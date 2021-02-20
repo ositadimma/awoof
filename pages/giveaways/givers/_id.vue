@@ -9,7 +9,11 @@
         >
         <span>Back</span>
       </div>
-      <button v-show="giveawayDetail.completed" class="btn-cmpt">
+      <button
+        v-show="giveawayDetail.completed"
+        class="btn-cmpt"
+        @click="downloadReport"
+      >
         Download Report
       </button>
       <!-- When onGoing use this instead -->
@@ -21,10 +25,13 @@
       </button> -->
     </div>
 
-    <div class="details">
+    <div ref="details" class="details">
       <div class="details-child-1">
         <GiveawayDetailTable :giveaway-detail="giveawayDetail" />
-        <span v-show="giveawayDetail.completed" class="users">Winners ({{ giveawayWinners.length }})</span>
+        <span
+          v-show="giveawayDetail.completed"
+          class="users"
+        >Winners ({{ giveawayWinners.length }})</span>
         <GiveawayWinnersTable
           v-show="giveawayDetail.completed"
           :giveaway-winners="giveawayWinners"
@@ -48,6 +55,7 @@
 </template>
 
 <script>
+import html2pdf from 'html2pdf.js'
 import Cookies from 'js-cookie'
 import GiveawayDetailTable from '~/components/Giveawaydetailtable'
 import GiveawayWinnersTable from '~/components/GiveawayWinnerstable'
@@ -89,10 +97,63 @@ export default {
     }
     // eslint-disable-next-line
     return {
-      giveawayDetail: giveawayDetailResponse !== undefined ? giveawayDetailResponse.data : {},
-      userInfo: giveawayDetailResponse !== undefined ? giveawayDetailResponse.data.user : {},
-      giveawayWinners: giveawayWinnersResponse !== undefined ? giveawayWinnersResponse.data : [],
-      giveawayParticipants: giveawayWinnersResponse !== undefined ? giveawayWinnersResponse.data : []
+      giveawayDetail:
+        giveawayDetailResponse !== undefined ? giveawayDetailResponse.data : {},
+      userInfo:
+        giveawayDetailResponse.data.user !== undefined &&
+        giveawayDetailResponse.data.user
+          ? giveawayDetailResponse.data.user
+          : undefined,
+      giveawayWinners:
+        giveawayWinnersResponse !== undefined
+          ? giveawayWinnersResponse.data
+          : [],
+      giveawayParticipants:
+        giveawayWinnersResponse !== undefined
+          ? giveawayWinnersResponse.data
+          : []
+    }
+  },
+  computed: {
+    tasks () {
+      const tasks = []
+      if (this.giveawayDetail.followPageOnFacebook) {
+        tasks.push({
+          text: 'Follow Page On Facebook'
+        })
+      }
+      if (this.giveawayDetail.likeFacebook) {
+        tasks.push({
+          text: 'Like post on Facebook',
+          link: this.giveawayDetail.likeFacebookLink
+        })
+      }
+      if (this.giveawayDetail.followInstagram) {
+        tasks.push({
+          text: 'Follow On Instagram',
+          link: this.giveawayDetail.followInstagramLink
+        })
+      }
+      if (this.giveawayDetail.likeInstagram) {
+        tasks.push({
+          text: 'Like post on Instagram',
+          link: this.giveawayDetail.likeInstagramLink
+        })
+      }
+      if (this.giveawayDetail.followTwitter) {
+        tasks.push({
+          text: 'Follow On Twitter',
+          link: this.giveawayDetail.followTwitterLink
+        })
+      }
+      if (this.giveawayDetail.likeTweet) {
+        tasks.push({
+          text: 'Like and retweet on Twitter',
+          link: this.giveawayDetail.likeTweetLink
+        })
+      }
+
+      return tasks
     }
   },
   created () {
@@ -101,6 +162,23 @@ export default {
   methods: {
     previousRoute () {
       window.history.back()
+    },
+    amountDelimeter (amount) {
+      return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+    },
+    downloadReport () {
+      const opt = {
+        margin: 10,
+        filename: 'Giveaway_Details.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2, letterRendering: true },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' },
+        pagebreak: { mode: 'css' }
+      }
+      html2pdf()
+        .set(opt)
+        .from(this.$refs.details)
+        .save()
     }
   }
 }

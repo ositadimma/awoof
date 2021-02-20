@@ -17,10 +17,14 @@ export default {
   async asyncData ({ $axios, $toast }) {
     $axios.setHeader('x-auth-token', Cookies.get('token'))
     try {
-      var response = await $axios.$get('https://awoof-api.herokuapp.com/v1/giveaways')
+      var response = await $axios.$get(
+        'https://awoof-api.herokuapp.com/v1/giveaways'
+      )
     } catch (err) {
       if (err.message.includes('Network')) {
-        $toast.global.custom_error('please check your connection and try again')
+        $toast.global.custom_error(
+          'please check your connection and try again'
+        )
       }
 
       if (err.response !== undefined) {
@@ -53,9 +57,9 @@ export default {
   overflow-y: auto;
   overflow-x: hidden;
 }
-@media (max-width: 767px) {
+@media (max-width: 768px) {
   .giver-container {
-    padding: 6.4% 0px;
+    padding: 6.4% 4.5% 0px 4.5%;
   }
 }
 </style>

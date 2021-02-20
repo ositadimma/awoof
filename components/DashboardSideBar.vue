@@ -1,6 +1,11 @@
 <template>
   <div class="dashboard-sidebar">
-    <img class="dashboard-logo" src="~/assets/images/Logo.png" alt="logo" @click="$router.push('/')">
+    <img
+      class="dashboard-logo"
+      src="~/assets/images/Logo.png"
+      alt="logo"
+      @click="$router.push('/')"
+    >
     <div class="dashboard-sidebar-nav">
       <h3>Menu</h3>
       <nuxt-link

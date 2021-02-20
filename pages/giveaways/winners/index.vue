@@ -16,7 +16,9 @@ export default {
   async asyncData ({ $axios, $toast }) {
     $axios.setHeader('x-auth-token', Cookies.get('token'))
     try {
-      var response = await $axios.$get('https://awoof-api.herokuapp.com/v1/Admins/get_giveaway_winners')
+      var response = await $axios.$get(
+        'https://awoof-api.herokuapp.com/v1/Admins/get_giveaway_winners'
+      )
     } catch (err) {
       if (err.message.includes('Network')) {
         $toast.global.custom_error(

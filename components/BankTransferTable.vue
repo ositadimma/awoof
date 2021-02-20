@@ -7,71 +7,132 @@
             <th class="Ref">
               Trans Ref.
             </th>
-            <th class="User">
-              User
+            <th class="Email">
+              Email Address
             </th>
-            <th class="Tasks">
+            <th>Phone Number</th>
+            <!-- <th class="Tasks">
               Tasks
-            </th>
-            <th>
-              Total Amount
-            </th>
-            <th>
-              Date Posted
-            </th>
-            <th class="Status">
+            </th> -->
+            <th>Total Amount</th>
+            <th>Date Posted</th>
+            <!-- <th class="Status">
               <span>Status</span>
               <div>
                 <img src="~/assets/icons/down.svg" alt="down">
                 <img src="~/assets/icons/up.svg" alt="u[">
               </div>
-            </th>
+            </th> -->
             <th class="View" />
           </tr>
         </thead>
-        <tbody>
-          <tr>
+        <tbody v-show="data.length > 0">
+          <tr v-for="(transfer, index) in paginatedData" :key="index">
             <td data-title="Trans Ref." class="Ref">
               <p>#18319</p>
             </td>
-            <td data-title="User" class="User">
-              Michael Daniel
+            <td data-title="Email Address" class="Email">
+              {{ transfer.user }}
             </td>
-            <td data-title="Tasks" class="Tasks">
-              Open
+            <td data-title="Phone Number">
+              {{ transfer.phoneNumber }}
             </td>
+            <!-- <td data-title="Tasks" class="Tasks">
+              Open  transaction_ref: response.data.reference,
+            </td> -->
             <td data-title="Total Amount">
-              N300,000
+              N{{ amountDelimeter(transfer.amount) }}
             </td>
             <td data-title="Date Posted">
-              22 Jan 2020, 10:03
+              {{ format_date(transfer.transaction_date) }}
             </td>
-            <td data-title="Status" class="Status failed">
+            <!-- <td data-title="Status" class="Status failed">
               Failed
-            </td>
+            </td> -->
             <td class="View">
-              <ArrowCircle @click.native="$router.push('/transactions/detail')" />
+              <ArrowCircle
+                @click.native="$router.push(`/transactions/${transfer._id}`)"
+              />
             </td>
           </tr>
         </tbody>
       </table>
+      <NoData v-show="data.length == 0" />
     </div>
-    <div class="pagination">
-      <span class="active">1</span>
-      <span class="inactive">2</span>
-      <span class="inactive">3</span>
-      <span class="inactive">4</span>
-      <span class="inactive">5</span>
-      <span class="inactive">6</span>
-      <span>. . .</span>
-      <span class="inactive">10</span>
-    </div>
+    <paginate
+      :page-count="amountOfPages"
+      :margin-pages="2"
+      :container-class="'pagination'"
+      :break-view-text="'. . .'"
+      :click-handler="Paginate"
+    />
   </div>
 </template>
 
 <script>
+import paginate from 'vuejs-paginate'
+import moment from 'moment'
+import NoData from './NoTableData'
 export default {
-  name: 'TransactionsTable'
+  name: 'TransactionsTable',
+  components: {
+    NoData,
+    paginate
+  },
+  props: {
+    data: {
+      type: Array,
+      default () {
+        return []
+      }
+    }
+  },
+  data () {
+    return {
+      paginatedData: this.initialPaginate(),
+      amountOfPages: Math.ceil(this.data.length / 6)
+    }
+  },
+  methods: {
+    Paginate (clickedpagenumber) {
+      let currentPage = 0
+      let pagesToShow = 6
+      let pageCount = 1
+      if (clickedpagenumber > 1) {
+        while (pageCount < clickedpagenumber) {
+          currentPage += 6
+          pagesToShow += 6
+          pageCount += 1
+        }
+      }
+      this.paginatedData = this.data
+        .sort((a, b) => {
+          const winnerDateA = new Date(a.transaction_date)
+          const winnerDateB = new Date(b.transaction_date)
+          return winnerDateB - winnerDateA
+        })
+        .slice(currentPage, pagesToShow)
+    },
+    initialPaginate () {
+      const initialData = this.data.sort((a, b) => {
+        const winnerDateA = new Date(a.transaction_date)
+        const winnerDateB = new Date(b.transaction_date)
+        return winnerDateB - winnerDateA
+      })
+      return initialData.slice(0, 6)
+    },
+    amountDelimeter (amount) {
+      return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+    },
+    format_date (value) {
+      const today = new Date().getTime()
+      const createdAt = new Date(String(value)).getTime()
+      if (today === createdAt) {
+        return `Today, ${moment(new Date(String(value))).format('hh:mm')}`
+      }
+      return moment(new Date(String(value))).format('DD MMM YYYY, hh:mm')
+    }
+  }
 }
 </script>
 
@@ -84,7 +145,7 @@ export default {
   margin-bottom: 10px;
 }
 .table-head {
-  width:100%;
+  width: 100%;
   border-radius: 20px;
   max-height: 520px;
   overflow-y: auto;
@@ -96,15 +157,16 @@ table {
   border-spacing: 0px;
 }
 thead tr {
-  background: #F0F2F4;
+  background: #f0f2f4;
 }
 th {
   font-weight: normal;
   font-size: 14px;
   line-height: 24px;
-  color: #75759E;
+  color: #75759e;
 }
-th, td {
+th,
+td {
   height: 64px;
   text-align: left;
   padding-left: 6px;
@@ -133,11 +195,11 @@ th:nth-last-child(2) div {
   cursor: pointer;
 }
 .failed {
-  color: #E12A1E;
+  color: #e12a1e;
   width: 20%;
 }
 .completed {
-  color: #09AB5D;
+  color: #09ab5d;
   width: 20%;
 }
 /**/
@@ -158,16 +220,16 @@ tbody tr:last-child td:last-child {
   border-bottom-right-radius: 20px;
 }
 tbody tr:nth-child(even) {
-  background: #F9FAFB;
+  background: #f9fafb;
 }
 tbody tr:nth-child(odd) {
-  background: #FFFFFF;
+  background: #ffffff;
 }
 .Ref {
   padding-left: 31px;
   width: 15%;
 }
-.User {
+.Email {
   width: 20%;
 }
 .Tasks {
@@ -182,48 +244,6 @@ tbody tr:nth-child(odd) {
 .arrowcircle {
   cursor: pointer;
 }
-.pagination {
-  margin-top: 35px;
-  display: flex;
-  align-self: center;
-  justify-content: space-between;
-  width: 165px;
-}
-.pagination .inactive {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 20px;
-  height: 21px;
-
-  font-weight: 600;
-  font-size: 14px;
-
-  color: #000000;
-  padding-top: 2px;
-  cursor: pointer;
-}
-.pagination .inactive:hover {
-  color: #FFFFFF;
-  background: #001431;
-  border-radius: 5px;
-}
-.pagination .active {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 20px;
-  height: 21px;
-
-  font-weight: 600;
-  font-size: 14px;
-
-  color: #FFFFFF;
-  background: #001431;
-  border-radius: 5px;
-  padding-top: 2px;
-  cursor: auto;
-}
 @media (max-width: 950px) {
   .table-head {
     max-height: 448px;
@@ -236,12 +256,12 @@ tbody tr:nth-child(odd) {
     width: 100%;
   }
   /**/
-  tr{
+  tr {
     display: flex;
     flex-direction: column;
   }
   tr:first-child {
-    border-radius: 20px 20px 0px 0px
+    border-radius: 20px 20px 0px 0px;
   }
   td {
     display: flex;
@@ -267,7 +287,11 @@ tbody tr:nth-child(odd) {
   tbody tr:last-child td:first-child {
     border-radius: 0px;
   }
-  .Ref, .User, .Tasks, .View, .Status {
+  .Ref,
+  .Email,
+  .Tasks,
+  .View,
+  .Status {
     width: 100%;
     padding: 0px;
   }

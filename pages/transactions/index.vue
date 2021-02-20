@@ -2,24 +2,40 @@
   <div class="transaction-container">
     <div class="nav">
       <!-- <span class="nav-active">ALL</span> -->
-      <span class="nav-active">BANK TRANSFER</span>
-      <span>WALLET</span>
+      <span
+        :class="{ 'nav-active': bankTransferActive }"
+        @click="selectedBankTransfer"
+      >BANK TRANSFER</span>
+      <span
+        :class="{ 'nav-active': walletActive }"
+        @click="selectedWallet"
+      >WALLET</span>
       <!-- <span>TRANSFER</span> -->
-      <span>AIRTIME TOPUP</span>
+      <span
+        :class="{ 'nav-active': airtimeActive }"
+        @click="selectedAirtime"
+      >AIRTIME TOPUP</span>
       <!-- <span>DATA PURCHASE</span> -->
     </div>
-    <TransactionsTable />
+    <BankTransferTable v-show="bankTransferActive" :data="bankTransfer" />
+    <WalletTable v-show="walletActive" :data="wallet" />
+    <AirtimeTable v-show="airtimeActive" :data="airtime" />
   </div>
 </template>
 
 <script>
 import Cookies from 'js-cookie'
-import TransactionsTable from '~/components/Transactionstable'
+import BankTransferTable from '~/components/BankTransferTable'
+import WalletTable from '~/components/WalletTable'
+import AirtimeTable from '~/components/AirtimeTable'
+
 export default {
   name: 'Referral',
   layout: 'dashboardLayout',
   components: {
-    TransactionsTable
+    BankTransferTable,
+    WalletTable,
+    AirtimeTable
   },
   async asyncData ({ $axios, $toast }) {
     $axios.setHeader('x-auth-token', Cookies.get('token'))
@@ -27,8 +43,12 @@ export default {
       var bankTransferResponse = await $axios.$get(
         'https://awoof-api.herokuapp.com/v1/admins/bank_transfers'
       )
-      // var walletResponse = await $axios.$get('https://awoof-api.herokuapp.com/v1/admins/wallet_top_ups')
-      // var airtimeResponse = await $axios.$get('https://awoof-api.herokuapp.com/v1/admins/airtime_top_up')
+      var walletResponse = await $axios.$get(
+        'https://awoof-api.herokuapp.com/v1/admins/wallet_top_ups'
+      )
+      var airtimeResponse = await $axios.$get(
+        'https://awoof-api.herokuapp.com/v1/admins/airtime_top_up'
+      )
     } catch (err) {
       if (err.message.includes('Network')) {
         $toast.global.custom_error(
@@ -43,10 +63,38 @@ export default {
       }
     }
     // console.log(bankTransferResponse, walletResponse, airtimeResponse)
-    return { data: bankTransferResponse ? bankTransferResponse.data : [] }
+    return {
+      bankTransfer: bankTransferResponse ? bankTransferResponse.data : [],
+      wallet: walletResponse ? walletResponse.data : [],
+      airtime: airtimeResponse ? airtimeResponse.data : []
+    }
+  },
+  data () {
+    return {
+      bankTransferActive: true,
+      walletActive: false,
+      airtimeActive: false
+    }
   },
   created () {
     this.$store.commit('setLayout', 'TRANSACTIONS') // changes layout title of dashboard header
+  },
+  methods: {
+    selectedBankTransfer () {
+      this.bankTransferActive = true
+      this.walletActive = false
+      this.airtimeActive = false
+    },
+    selectedWallet () {
+      this.bankTransferActive = false
+      this.walletActive = true
+      this.airtimeActive = false
+    },
+    selectedAirtime () {
+      this.bankTransferActive = false
+      this.walletActive = false
+      this.airtimeActive = true
+    }
   }
 }
 </script>

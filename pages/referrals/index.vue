@@ -29,11 +29,17 @@ export default {
   async asyncData ({ $axios, $toast }) {
     $axios.setHeader('x-auth-token', Cookies.get('token'))
     try {
-      var referralResponse = await $axios.$get('https://awoof-api.herokuapp.com/v1/admins/get_all_refferals')
-      var referralBonusResponse = await $axios.$get('https://awoof-api.herokuapp.com/v1/admins/referral_bonus')
+      var referralResponse = await $axios.$get(
+        'https://awoof-api.herokuapp.com/v1/admins/get_all_refferals'
+      )
+      var referralBonusResponse = await $axios.$get(
+        'https://awoof-api.herokuapp.com/v1/admins/referral_bonus'
+      )
     } catch (err) {
       if (err.message.includes('Network')) {
-        $toast.global.custom_error('please check your connection and try again')
+        $toast.global.custom_error(
+          'please check your connection and try again'
+        )
       }
 
       if (err.response !== undefined) {
@@ -121,7 +127,7 @@ export default {
 .edit .edit-image {
   width: 20px;
   height: 20px;
-  background-image: url('~assets/icons/EditSquare.svg');
+  background-image: url("~assets/icons/EditSquare.svg");
   cursor: pointer;
 }
 @media (max-width: 767px) {

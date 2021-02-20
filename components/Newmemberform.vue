@@ -1,5 +1,9 @@
 <template>
-  <div id="new-member-form-container" class="new-member-form-container" @click.self="closeModal">
+  <div
+    id="new-member-form-container"
+    class="new-member-form-container"
+    @click.self="closeModal"
+  >
     <div class="new-member-form animate__fadeIn">
       <div class="header">
         <span>Add New Member</span>
@@ -8,7 +12,11 @@
       <hr>
       <div class="form">
         <label>Select Role</label>
-        <div :class="selectRoleOpen ? 'active-select select' : 'select' " tabindex="0" @click="selectRoleOpen = !selectRoleOpen">
+        <div
+          :class="selectRoleOpen ? 'active-select select' : 'select'"
+          tabindex="0"
+          @click="selectRoleOpen = !selectRoleOpen"
+        >
           <div class="default-option">
             {{ role }}
           </div>
@@ -22,18 +30,22 @@
           </div>
         </div>
 
-        <label>Firstname</label>
+        <label>First Name</label>
         <input v-model="firstname" type="text" placeholder="Please Enter">
-        <label>Lastname</label>
+        <label>Last Name</label>
         <input v-model="lastname" type="text" placeholder="Please Enter">
         <label>Email Address</label>
         <input v-model="email" type="text" placeholder="Please Enter">
-        <label>Phonenumber</label>
+        <label>Phone Number</label>
         <input v-model="phonenumber" type="text" placeholder="Please Enter">
         <button v-show="!validate && !loading" class="disable-1 btn-cmpt">
           Create Account
         </button>
-        <button v-show="validate && !loading" class="btn-cmpt" @click="createAdmin">
+        <button
+          v-show="validate && !loading"
+          class="btn-cmpt"
+          @click="createAdmin"
+        >
           Create Account
         </button>
         <button v-show="loading" class="btn-cmpt" disabled>
@@ -64,7 +76,13 @@ export default {
   },
   computed: {
     validate () {
-      if (this.role === 'Please select a role' || this.firstname === '' || this.lastname === '' || !this.emailValidate.test(this.email) || this.phonenumber === '') {
+      if (
+        this.role === 'Please select a role' ||
+        this.firstname === '' ||
+        this.lastname === '' ||
+        !this.emailValidate.test(this.email) ||
+        this.phonenumber === ''
+      ) {
         return false
       }
       return true
@@ -246,6 +264,10 @@ label {
   line-height: 23px;
   color: #696f79;
   margin-bottom: 11px;
+}
+label:after {
+  content: "*";
+  color: red;
 }
 input[type="text"] {
   width: 100%;

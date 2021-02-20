@@ -123,7 +123,7 @@ export default {
 .extra div:last-child span:nth-child(2n + 2) {
   margin-bottom: 26px;
 }
-@media (max-width: 950px) {
+@media (max-width: 1024px) {
   .extra {
     width: 100%;
     height: auto;

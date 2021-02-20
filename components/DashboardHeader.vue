@@ -2,24 +2,41 @@
   <div class="dashboard-header">
     <h3>{{ layout }}</h3>
     <MobileDashboardSideBar :firstname="firstname" />
-    <div ref="headerInput" class="header-input">
+    <!-- <div ref="headerInput" class="header-input">
       <input type="text" placeholder="Search User or Giveaway" @blur="removeFocus" @click="showFocus">
       <div class="search-container">
         <Searchicon />
       </div>
-    </div>
+    </div> -->
     <span>Hello, {{ firstname }}</span>
-    <div class="profile" @click="showMenu">
+    <div
+      v-click-outside="closeMenu"
+      class="profile"
+      @click="menuOpen = !menuOpen"
+    >
       <img src="~/assets/images/User.png" alt="user">
-      <img id="arrow" src="~/assets/icons/arrowdown.svg" alt="dropdown">
+      <img
+        :class="{ arrowup: menuOpen }"
+        src="~/assets/icons/arrowdown.svg"
+        alt="dropdown"
+      >
+      <div v-show="menuOpen" class="logout-container animate__fadeIn">
+        <nuxt-link to="/user/login" @click.native="logOut">
+          Logout
+        </nuxt-link>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import vClickOutside from 'v-click-outside'
 import Cookies from 'js-cookie'
 import MobileDashboardSideBar from './MobileDashboardSideBar'
 export default {
+  directives: {
+    clickOutside: vClickOutside.directive
+  },
   props: {
     layout: {
       type: String,
@@ -31,7 +48,8 @@ export default {
   },
   data () {
     return {
-      firstname: Cookies.get('firstname')
+      firstname: Cookies.get('firstname'),
+      menuOpen: false
     }
   },
   // computed: {
@@ -51,13 +69,15 @@ export default {
     removeFocus () {
       this.$refs.headerInput.style.outline = '0'
     },
-    showMenu () {
-      const arrow = document.getElementById('arrow')
-      if (arrow.classList.length) {
-        arrow.classList.remove('arrowup')
-      } else {
-        arrow.classList.add('arrowup')
+    closeMenu () {
+      if (this.menuOpen) {
+        this.menuOpen = false
       }
+    },
+    logOut () {
+      Cookies.remove('firstname', '')
+      Cookies.remove('token', '')
+      Cookies.remove('userid', '')
     }
   }
 }
@@ -126,9 +146,29 @@ span {
 .profile {
   display: flex;
   cursor: pointer;
+  position: relative;
 }
 .profile .arrowup {
   transform: rotate(180deg);
+}
+.logout-container {
+  position: absolute;
+  left: -40px;
+  bottom: -50px;
+  width: 120px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  cursor: auto;
+}
+.logout-container a {
+  color: #09ab5d;
+}
+.logout-container a:hover {
+  color: #03572e;
 }
 .search-container {
   width: 10%;
@@ -168,9 +208,6 @@ span {
   }
   .header-input {
     width: 50%;
-  }
-  .profile {
-    display: none;
   }
 }
 @media (max-width: 500px) {

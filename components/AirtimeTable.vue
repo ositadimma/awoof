@@ -1,52 +1,61 @@
 <template>
-  <div class="giveaway-table animate__fadeInUp">
+  <div class="transaction-table animate__fadeInUp">
     <div class="table-head">
       <table>
         <thead>
           <tr class="header">
-            <th class="Name">
-              Name
+            <th class="Ref">
+              Trans Ref.
             </th>
-            <th class="Type">
-              Type
+            <th class="Email">
+              Email Address
             </th>
-            <th class="Tasks">
+            <th>Operator Name</th>
+            <th>Phone Number</th>
+            <!-- <th class="Tasks">
               Tasks
-            </th>
-            <th>Amount Won</th>
-            <th>Giveaway Amount</th>
+            </th> -->
+            <th>Total Amount</th>
             <th>Date Posted</th>
+            <!-- <th class="Status">
+              <span>Status</span>
+              <div>
+                <img src="~/assets/icons/down.svg" alt="down">
+                <img src="~/assets/icons/up.svg" alt="u[">
+              </div>
+            </th> -->
             <th class="View" />
           </tr>
         </thead>
         <tbody v-show="data.length > 0">
-          <tr v-for="(giveaway, index) in paginatedData" :key="index">
-            <td data-title="Name" class="Name">
-              <div class="Name-div">
-                <p>{{ giveaway.user ? giveaway.user.username : "Admin" }}</p>
-                <!-- <Checkicon /> -->
-              </div>
+          <tr v-for="(transfer, index) in paginatedData" :key="index">
+            <td data-title="Trans Ref." class="Ref">
+              <p>#18319</p>
             </td>
-            <td data-title="Type">
-              {{ giveaway.giveaway_id.type }}
+            <td data-title="Email Address" class="Email">
+              {{ transfer.user }}
             </td>
-            <td data-title="Tasks" class="Tasks">
-              Open
+            <td data-title="Operator Name">
+              {{ transfer.operatorName }}
             </td>
-            <td data-title="Amount Won">
-              N{{ amountDelimeter(giveaway.giveaway_id.amountPerWinner) }}
+            <td data-title="Phone Number">
+              {{ "+" + transfer.recipientPhoneNumber }}
             </td>
-            <td data-title="Giveaway Amount">
-              N{{ amountDelimeter(giveaway.giveaway_id.amount) }}
+            <!-- <td data-title="Tasks" class="Tasks">
+              Open  transaction_ref: response.data.reference,
+            </td> -->
+            <td data-title="Total Amount">
+              N{{ amountDelimeter(transfer.amount) }}
             </td>
             <td data-title="Date Posted">
-              {{ format_date(giveaway.giveaway_id.createdAt) }}
+              {{ format_date(transfer.transactionDate) }}
             </td>
+            <!-- <td data-title="Status" class="Status failed">
+              Failed
+            </td> -->
             <td class="View">
               <ArrowCircle
-                @click.native="
-                  $router.push(`/giveaways/winners/${giveaway.giveaway_id._id}`)
-                "
+                @click.native="$router.push(`/transactions/${transfer._id}`)"
               />
             </td>
           </tr>
@@ -68,9 +77,8 @@
 import paginate from 'vuejs-paginate'
 import moment from 'moment'
 import NoData from './NoTableData'
-
 export default {
-  name: 'WinnersTable',
+  name: 'TransactionsTable',
   components: {
     NoData,
     paginate
@@ -103,16 +111,16 @@ export default {
       }
       this.paginatedData = this.data
         .sort((a, b) => {
-          const winnerDateA = new Date(a.giveaway_id.createdAt)
-          const winnerDateB = new Date(b.giveaway_id.createdAt)
+          const winnerDateA = new Date(a.transactionDate)
+          const winnerDateB = new Date(b.transactionDate)
           return winnerDateB - winnerDateA
         })
         .slice(currentPage, pagesToShow)
     },
     initialPaginate () {
       const initialData = this.data.sort((a, b) => {
-        const winnerDateA = new Date(a.giveaway_id.createdAt)
-        const winnerDateB = new Date(b.giveaway_id.createdAt)
+        const winnerDateA = new Date(a.transactionDate)
+        const winnerDateB = new Date(b.transactionDate)
         return winnerDateB - winnerDateA
       })
       return initialData.slice(0, 6)
@@ -133,7 +141,7 @@ export default {
 </script>
 
 <style scoped>
-.giveaway-table {
+.transaction-table {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -143,7 +151,7 @@ export default {
 .table-head {
   width: 100%;
   border-radius: 20px;
-  max-height: 500px;
+  max-height: 520px;
   overflow-y: auto;
 }
 table {
@@ -182,7 +190,7 @@ th:nth-last-child(2) div {
 th:nth-last-child(2) {
   display: flex;
   align-items: center;
-  min-width: 11%;
+  min-width: 20%;
 }
 th:nth-last-child(2) div {
   margin-left: 15px;
@@ -190,13 +198,13 @@ th:nth-last-child(2) div {
 th:nth-last-child(2) div {
   cursor: pointer;
 }
-.ongoing {
-  color: #e1931e;
-  width: 11%;
+.failed {
+  color: #e12a1e;
+  width: 20%;
 }
 .completed {
   color: #09ab5d;
-  width: 11%;
+  width: 20%;
 }
 /**/
 td {
@@ -221,22 +229,18 @@ tbody tr:nth-child(even) {
 tbody tr:nth-child(odd) {
   background: #ffffff;
 }
-.Name {
+.Ref {
   padding-left: 31px;
-  width: 23%;
+  width: 15%;
 }
-.Name-div {
-  display: flex;
-  align-items: center;
-}
-p {
-  margin-right: 10px;
-}
-.Type {
-  width: 12%;
+.Email {
+  width: 20%;
 }
 .Tasks {
   width: 10%;
+}
+.Status {
+  width: 15%;
 }
 .View {
   width: 10%;
@@ -244,51 +248,9 @@ p {
 .arrowcircle {
   cursor: pointer;
 }
-/* .pagination {
-  margin-top: 35px;
-  display: flex;
-  align-self: center;
-  justify-content: space-between;
-  width: 165px;
-}
-.pagination .inactive {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 20px;
-  height: 21px;
-
-  font-weight: 600;
-  font-size: 14px;
-
-  color: #000000;
-  padding-top: 2px;
-  cursor: pointer;
-}
-.pagination .inactive:hover {
-  color: #FFFFFF;
-  background: #001431;
-  border-radius: 5px;
-}
-.pagination .active {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 20px;
-  height: 21px;
-
-  font-weight: 600;
-  font-size: 14px;
-
-  color: #FFFFFF;
-  background: #001431;
-  border-radius: 5px;
-  padding-top: 2px;
-  cursor: auto;
-} */
-@media (max-width: 1100px) {
+@media (max-width: 950px) {
   .table-head {
-    max-height: 450px;
+    max-height: 448px;
   }
   thead {
     display: none;
@@ -329,10 +291,11 @@ p {
   tbody tr:last-child td:first-child {
     border-radius: 0px;
   }
-  .Name,
-  .Type,
+  .Ref,
+  .Email,
   .Tasks,
-  .View {
+  .View,
+  .Status {
     width: 100%;
     padding: 0px;
   }

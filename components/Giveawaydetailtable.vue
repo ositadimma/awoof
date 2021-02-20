@@ -67,7 +67,7 @@
         </div>
       </div>
     </div>
-    <AddTask v-show="modalOpen" />
+    <AddTask v-show="modalOpen" :key="0" :tasks="tasks" @refresh="refresh" />
   </div>
 </template>
 
@@ -88,12 +88,14 @@ export default {
   },
   data () {
     return {
+      key: 0,
       edit: false
     }
   },
   computed: {
     tasks () {
       const tasks = []
+      // console.log(this.giveawayDetail)
       if (this.giveawayDetail.followPageOnFacebook) {
         tasks.push({
           text: 'Follow Page On Facebook'
@@ -102,26 +104,31 @@ export default {
       if (this.giveawayDetail.likeFacebook) {
         tasks.push({
           text: 'Like post on Facebook'
+          // link: this.giveawayDetail.likeFacebookLink
         })
       }
       if (this.giveawayDetail.followInstagram) {
         tasks.push({
-          text: 'Follow On Instagram'
+          text: 'Follow On Instagram',
+          link: this.giveawayDetail.followInstagramLink
         })
       }
       if (this.giveawayDetail.likeInstagram) {
         tasks.push({
-          text: 'Like post on Instagram'
+          text: 'Like post on Instagram',
+          link: this.giveawayDetail.likeInstagramLink
         })
       }
       if (this.giveawayDetail.followTwitter) {
         tasks.push({
-          text: 'Follow On Twitter'
+          text: 'Follow On Twitter',
+          link: this.giveawayDetail.followTwitterLink
         })
       }
       if (this.giveawayDetail.likeTweet) {
         tasks.push({
-          text: 'Like and retweet on Twitter'
+          text: 'Like and retweet on Twitter',
+          link: this.giveawayDetail.likeTweetLink
         })
       }
 
@@ -138,6 +145,10 @@ export default {
     showModal () {
       this.$store.commit('setModalOpen', true)
       this.edit = false
+    },
+    refresh () {
+      this.$nuxt.refresh()
+      this.key += 1
     }
   }
 }
@@ -276,7 +287,8 @@ td {
 }
 .blur-container {
   position: absolute;
-  bottom: 2px;
+  bottom: -21px;
+  right: 0;
   background: linear-gradient(
     rgba(255, 255, 255, 0.2),
     rgba(255, 255, 255, 1),
@@ -349,6 +361,7 @@ td {
   }
   .task-grid .td::before {
     content: attr(data-title);
+    color: #000000;
   }
 }
 </style>
