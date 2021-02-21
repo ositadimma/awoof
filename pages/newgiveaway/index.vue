@@ -210,14 +210,19 @@
           </div>
         </div>
       </div>
-      <label class="end-label">End date (should not be more than 30 days from now)</label>
+      <label
+        class="end-label"
+      >End date (should not be more than 30 days from now)</label>
       <input
         v-model="endAt"
         v-mask="'##/##/####'"
         type="tel"
         placeholder="dd/mm/yyyy"
       >
-      <button v-show="amount === '0' || endAt.length < 10 && !loading" class="disable-1 btn-cmpt">
+      <button
+        v-show="amount === '0' || (endAt.length < 10 && !loading)"
+        class="disable-1 btn-cmpt"
+      >
         Proceed
       </button>
       <button
@@ -348,12 +353,11 @@ export default {
     },
     bodyFormatData () {
       const stringDate = this.endAt.split('/')
-      const dateToConvert = stringDate[1] + ' ' + stringDate[0] + ' ' + stringDate[1]
+      const dateToConvert = stringDate[1] + ' ' + stringDate[0] + ' ' + stringDate[2]
       const endAt = new Date(dateToConvert)
-      // console.log(endAt)
       // const today = new Date()
-      // const dateInThreeDays = new Date()
-      // dateInThreeDays.setDate(today.getDate() + 3)
+      // const dateInThirtyDays = new Date()
+      // dateInThirtyDays.setDate(today.getDate() + 30)
 
       const data = new FormData()
       data.append('amount', parseInt(this.amount.replace(',', '')))
