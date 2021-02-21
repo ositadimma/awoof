@@ -4,7 +4,7 @@
       Page does not exist.
     </h1>
     <h1 v-else>
-      {{ error }}
+      Please check your connection and try again.
     </h1>
   </div>
 </template>

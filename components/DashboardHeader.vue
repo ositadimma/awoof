@@ -153,6 +153,7 @@ span {
 }
 .logout-container {
   position: absolute;
+  z-index: 1;
   left: -40px;
   bottom: -50px;
   width: 120px;

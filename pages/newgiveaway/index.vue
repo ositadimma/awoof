@@ -210,11 +210,18 @@
           </div>
         </div>
       </div>
-      <button v-show="amount === '0' && !loading" class="disable-1 btn-cmpt">
+      <label class="end-label">End date (should not be more than 30 days from now)</label>
+      <input
+        v-model="endAt"
+        v-mask="'##/##/####'"
+        type="tel"
+        placeholder="dd/mm/yyyy"
+      >
+      <button v-show="amount === '0' || endAt.length < 10 && !loading" class="disable-1 btn-cmpt">
         Proceed
       </button>
       <button
-        v-show="amount !== '0' && !loading"
+        v-show="amount !== '0' && endAt.length == 10 && !loading"
         class="btn-cmpt"
         @click="createGiveaway"
       >
@@ -229,12 +236,14 @@
 
 <script>
 import vClickOutside from 'v-click-outside'
+import { mask } from 'vue-the-mask'
 import Cookies from 'js-cookie'
 export default {
   name: 'NewGiveaway',
   layout: 'dashboardLayout',
   directives: {
-    clickOutside: vClickOutside.directive
+    clickOutside: vClickOutside.directive,
+    mask
   },
   data () {
     return {
@@ -257,6 +266,7 @@ export default {
       LikeFacebookLink: '',
       LikeInstagramLink: '',
       LikeTwitterLink: '',
+      endAt: '',
       loading: false
     }
   },
@@ -333,12 +343,17 @@ export default {
       this.followFacebookPageLink = ''
       this.LikeInstagramLink = ''
       this.LikeTwitterLink = ''
+      this.endAt = ''
       this.loading = false
     },
     bodyFormatData () {
-      const today = new Date()
-      const dateInThreeDays = new Date()
-      dateInThreeDays.setDate(today.getDate() + 3)
+      const stringDate = this.endAt.split('/')
+      const dateToConvert = stringDate[1] + ' ' + stringDate[0] + ' ' + stringDate[1]
+      const endAt = new Date(dateToConvert)
+      // console.log(endAt)
+      // const today = new Date()
+      // const dateInThreeDays = new Date()
+      // dateInThreeDays.setDate(today.getDate() + 3)
 
       const data = new FormData()
       data.append('amount', parseInt(this.amount.replace(',', '')))
@@ -349,7 +364,7 @@ export default {
       data.append('type', 'star')
       data.append('isAnonymous', false)
       data.append('minimumstars', this.noOfStars)
-      data.append('frequency', `${dateInThreeDays}`)
+      data.append('frequency', `${endAt}`)
       data.append('message', this.message)
       data.append('likeFacebookLink', this.LikeFacebookLink)
       data.append('followPageOnFacebook', this.followPageOnFacebook)
@@ -366,8 +381,8 @@ export default {
       data.append('payment_status', 'success')
       data.append('gateway_response', '')
       data.append('image', this.image)
-      data.append('expiry', '3 days')
-      data.append('endAt', `${dateInThreeDays}`)
+      data.append('expiry', '30 days')
+      data.append('endAt', `${endAt}`)
       return data
     },
     async createGiveaway () {
@@ -869,6 +884,27 @@ input[type="text"]::placeholder {
 .up {
   cursor: pointer !important;
   margin: 0px 4px 0px auto !important;
+}
+
+.end-label {
+  color: #000000;
+  font-size: calc(0.625rem + 0.3vw);
+}
+
+.end-label:after {
+  content: "*";
+  color: #ff0000;
+}
+
+input[type="tel"] {
+  border: 3px solid rgba(134, 146, 166, 0.4);
+  border-radius: 3px;
+  width: 100%;
+  height: 55px;
+  color: #000000;
+  font-weight: 600;
+  font-size: calc(0.82rem + 0.3vw);
+  padding-left: 0.875rem;
 }
 
 .btn-cmpt {
