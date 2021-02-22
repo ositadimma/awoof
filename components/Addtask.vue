@@ -6,7 +6,7 @@
         <img src="~/assets/icons/Delete.svg" @click="closeModal">
       </header>
       <div class="conditions-container">
-        <div v-show="!followPageOnFacebookCheck" class="social">
+        <div v-show="!followPageOnFacebookCheck || !likeFacebookCheck" class="social">
           <img src="~/assets/images/facebook.png" alt="select">
           Facebook
           <img
@@ -17,7 +17,7 @@
           >
         </div>
         <div v-show="dropdown1" class="condition-container">
-          <div v-show="!followPageOnFacebookCheck" class="condition-child">
+          <!-- <div v-show="!followPageOnFacebookCheck" class="condition-child">
             Follow Page On Facebook
             <div class="checkbox">
               <input
@@ -35,7 +35,7 @@
           >
             Facebook Username
             <input type="text" placeholder="Username">
-          </div>
+          </div> -->
           <div v-show="!likeFacebookCheck" class="condition-child">
             Like post/page on Facebook
             <div class="checkbox">
@@ -245,7 +245,7 @@ export default {
     },
     validateChecks () {
       if (
-        this.followPageOnFacebookCheck &&
+        // this.followPageOnFacebookCheck &&
         this.likeFacebookCheck &&
         this.followInstagramCheck &&
         this.likeInstagramCheck &&
@@ -291,7 +291,7 @@ export default {
     bodyData () {
       const data = {
         likeFacebookLink: this.likeFacebookLink,
-        followPageOnFacebook: this.followPageOnFacebook,
+        followPageOnFacebook: false,
         likeFacebook: this.likeFacebook,
         likeInstagramLink: this.likeInstagramLink,
         followInstagram: this.followInstagram,
@@ -383,10 +383,10 @@ export default {
       }
       if (this.likeFacebookCheck) {
         this.likeFacebook = true
-        // const index = tasks.findIndex(
-        //   element => element.text === 'Like andpost on Facebook'
-        // )
-        // this.likeFacebookLink = tasks[index].link
+        const index = tasks.findIndex(
+          element => element.text === 'Like and post on Facebook'
+        )
+        this.likeFacebookLink = tasks[index].link
       }
       if (this.followInstagramCheck) {
         this.followInstagram = true

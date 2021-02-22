@@ -123,7 +123,7 @@
           >
         </div>
         <div v-show="dropdown1 && !noEngagement" class="condition-container">
-          <div class="condition-child">
+          <!-- <div class="condition-child">
             Follow Page On Facebook
             <div class="checkbox">
               <input
@@ -133,15 +133,15 @@
               >
               <label for="check2" />
             </div>
-          </div>
-          <div class="condition-child">
+          </div> -->
+          <!-- <div class="condition-child">
             Facebook Username
             <input
               v-model="followFacebookPageLink"
               type="text"
               placeholder="Username"
             >
-          </div>
+          </div> -->
           <div class="condition-child">
             Like Post On Facebook
             <input v-model="LikeFacebookLink" type="text" placeholder="Link">
@@ -157,7 +157,7 @@
             @click="dropdown2 = !dropdown2"
           >
         </div>
-        <div v-show="dropdown2 && !noEngagement" class="condition-container">
+        <div v-show="dropdown2 && !noEngagement" class="condition-container instagram">
           <div class="condition-child">
             Follow On Instagram
             <div class="checkbox">
@@ -188,7 +188,7 @@
             @click="dropdown3 = !dropdown3"
           >
         </div>
-        <div v-show="dropdown3 && !noEngagement" class="condition-container">
+        <div v-show="dropdown3 && !noEngagement" class="condition-container twitter">
           <div class="condition-child">
             Follow On Twitter
             <div class="checkbox">
@@ -210,7 +210,7 @@
           </div>
         </div>
       </div>
-      <label
+      <!-- <label
         class="end-label"
       >End date (should not be more than 30 days from now)</label>
       <input
@@ -218,15 +218,15 @@
         v-mask="'##/##/####'"
         type="tel"
         placeholder="dd/mm/yyyy"
-      >
+      > -->
       <button
-        v-show="amount === '0' || (endAt.length < 10 && !loading)"
+        v-show="amount === '0' && !loading"
         class="disable-1 btn-cmpt"
       >
         Proceed
       </button>
       <button
-        v-show="amount !== '0' && endAt.length == 10 && !loading"
+        v-show="amount !== '0' && !loading"
         class="btn-cmpt"
         @click="createGiveaway"
       >
@@ -241,14 +241,13 @@
 
 <script>
 import vClickOutside from 'v-click-outside'
-import { mask } from 'vue-the-mask'
+// import { mask } from 'vue-the-mask'
 import Cookies from 'js-cookie'
 export default {
   name: 'NewGiveaway',
   layout: 'dashboardLayout',
   directives: {
-    clickOutside: vClickOutside.directive,
-    mask
+    clickOutside: vClickOutside.directive
   },
   data () {
     return {
@@ -345,19 +344,19 @@ export default {
       this.followTwitterLink = ''
       this.LikeFacebookLink = ''
       this.followPageOnFacebook = false
-      this.followFacebookPageLink = ''
+      // this.followFacebookPageLink = ''
       this.LikeInstagramLink = ''
       this.LikeTwitterLink = ''
       this.endAt = ''
       this.loading = false
     },
     bodyFormatData () {
-      const stringDate = this.endAt.split('/')
-      const dateToConvert = stringDate[1] + ' ' + stringDate[0] + ' ' + stringDate[2]
-      const endAt = new Date(dateToConvert)
-      // const today = new Date()
-      // const dateInThirtyDays = new Date()
-      // dateInThirtyDays.setDate(today.getDate() + 30)
+      // const stringDate = this.endAt.split('/')
+      // const dateToConvert = stringDate[1] + ' ' + stringDate[0] + ' ' + stringDate[2]
+      // const endAt = new Date(dateToConvert)
+      const today = new Date()
+      const dateInThirtyDays = new Date()
+      dateInThirtyDays.setDate(today.getDate() + 30)
 
       const data = new FormData()
       data.append('amount', parseInt(this.amount.replace(',', '')))
@@ -368,10 +367,10 @@ export default {
       data.append('type', 'star')
       data.append('isAnonymous', false)
       data.append('minimumstars', this.noOfStars)
-      data.append('frequency', `${endAt}`)
+      data.append('frequency', `${dateInThirtyDays}`)
       data.append('message', this.message)
       data.append('likeFacebookLink', this.LikeFacebookLink)
-      data.append('followPageOnFacebook', this.followPageOnFacebook)
+      data.append('followPageOnFacebook', this.this.followPageOnFacebook)
       data.append('likeFacebook', this.LikeFacebookLink !== '')
       data.append('likeInstagramLink', this.LikeInstagramLink)
       data.append('followInstagram', this.followInstagram)
@@ -386,7 +385,7 @@ export default {
       data.append('gateway_response', '')
       data.append('image', this.image)
       data.append('expiry', '30 days')
-      data.append('endAt', `${endAt}`)
+      data.append('endAt', `${dateInThirtyDays}`)
       return data
     },
     async createGiveaway () {
@@ -843,7 +842,7 @@ input[type="checkbox"] {
   padding: 5.5% 4%;
 }
 
-.condition-container .condition-child:nth-child(1) {
+.instagram  .condition-child:nth-child(1), .twitter  .condition-child:nth-child(1) {
   height: 50px;
   display: flex;
   align-items: flex-start;

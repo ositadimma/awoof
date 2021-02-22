@@ -94,6 +94,7 @@ export default {
   },
   computed: {
     tasks () {
+      // console.log(this.giveawayDetail)
       const tasks = []
       // console.log(this.giveawayDetail)
       if (this.giveawayDetail.followPageOnFacebook) {
@@ -103,7 +104,7 @@ export default {
       }
       if (this.giveawayDetail.likeFacebook) {
         tasks.push({
-          text: 'Like post on Facebook'
+          text: 'Like and post on Facebook'
           // link: this.giveawayDetail.likeFacebookLink
         })
       }
