@@ -51,9 +51,7 @@ export default {
       )
     } catch (err) {
       if (err.message.includes('Network')) {
-        $toast.global.custom_error(
-          'please check your connection and try again'
-        )
+        $toast.global.custom_error('please check your connection and try again')
       }
 
       if (err.response !== undefined) {
@@ -144,7 +142,10 @@ export default {
   color: #09ab5d;
   cursor: auto;
 }
-@media (max-width: 1095px) {
+@media (max-width: 1250px) {
+  .setting-container {
+    padding: 20px 4.5% 0px 4.5%;
+  }
   .setting-container-child {
     width: 100%;
   }
@@ -153,12 +154,12 @@ export default {
   }
 }
 @media (max-width: 767px) {
-  .setting-container {
+  /* .setting-container {
     padding: 20px 4.5% 0px 4.5%;
   }
   .setting-container-child {
     width: 100%;
-  }
+  } */
   .setting-nav {
     flex-direction: column;
     padding-right: 0px;

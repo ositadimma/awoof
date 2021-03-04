@@ -86,7 +86,7 @@
         ₦ {{ amount }}
       </div>
       <div class="custom-file">
-        {{ image !== "" ? image.name : "Upload AD Image" }}
+        {{ image !== '' ? image.name : 'Upload AD Image' }}
         <label class="f-btn" for="file"> Select Image </label>
         <input
           id="file"
@@ -157,7 +157,10 @@
             @click="dropdown2 = !dropdown2"
           >
         </div>
-        <div v-show="dropdown2 && !noEngagement" class="condition-container instagram">
+        <div
+          v-show="dropdown2 && !noEngagement"
+          class="condition-container instagram"
+        >
           <div class="condition-child">
             Follow On Instagram
             <div class="checkbox">
@@ -188,7 +191,10 @@
             @click="dropdown3 = !dropdown3"
           >
         </div>
-        <div v-show="dropdown3 && !noEngagement" class="condition-container twitter">
+        <div
+          v-show="dropdown3 && !noEngagement"
+          class="condition-container twitter"
+        >
           <div class="condition-child">
             Follow On Twitter
             <div class="checkbox">
@@ -210,23 +216,24 @@
           </div>
         </div>
       </div>
-      <!-- <label
+      <label
         class="end-label"
       >End date (should not be more than 30 days from now)</label>
       <input
         v-model="endAt"
-        v-mask="'##/##/####'"
-        type="tel"
-        placeholder="dd/mm/yyyy"
-      > -->
+        type="date"
+        placeholder="mm/dd/yyyy"
+        :max="formatDate(dateInThirtyDays)"
+      >
       <button
-        v-show="amount === '0' && !loading"
+        v-show="amount === '0' || (endAt === '' && !loading)"
         class="disable-1 btn-cmpt"
+        @click="createGiveaway"
       >
         Proceed
       </button>
       <button
-        v-show="amount !== '0' && !loading"
+        v-show="amount !== '0' && endAt !== '' && !loading"
         class="btn-cmpt"
         @click="createGiveaway"
       >
@@ -240,6 +247,7 @@
 </template>
 
 <script>
+import moment from 'moment'
 import vClickOutside from 'v-click-outside'
 // import { mask } from 'vue-the-mask'
 import Cookies from 'js-cookie'
@@ -280,6 +288,12 @@ export default {
       return (parseAmount * this.noOfWinners)
         .toString()
         .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+    },
+    dateInThirtyDays () {
+      const today = new Date()
+      const incomingDays = new Date()
+      incomingDays.setDate(today.getDate() + 30)
+      return incomingDays
     }
   },
   created () {
@@ -287,6 +301,9 @@ export default {
     this.$store.commit('setLayout', 'NEW GIVEAWAY')
   },
   methods: {
+    formatDate (value) {
+      return moment(new Date(String(value))).format('YYYY-MM-DD')
+    },
     validateNoOfStars (e) {
       if (parseInt(this.noOfStars) < 31 || this.noOfStars === '') {
       } else {
@@ -353,10 +370,10 @@ export default {
     bodyFormatData () {
       // const stringDate = this.endAt.split('/')
       // const dateToConvert = stringDate[1] + ' ' + stringDate[0] + ' ' + stringDate[2]
-      // const endAt = new Date(dateToConvert)
-      const today = new Date()
-      const dateInThirtyDays = new Date()
-      dateInThirtyDays.setDate(today.getDate() + 30)
+      const endAt = new Date(this.endAt)
+      // const today = new Date()
+      // const dateInThirtyDays = new Date()
+      // dateInThirtyDays.setDate(today.getDate() + 30)
 
       const data = new FormData()
       data.append('amount', parseInt(this.amount.replace(',', '')))
@@ -367,10 +384,10 @@ export default {
       data.append('type', 'star')
       data.append('isAnonymous', false)
       data.append('minimumstars', this.noOfStars)
-      data.append('frequency', `${dateInThirtyDays}`)
+      data.append('frequency', `${this.dateInThirtyDays}`)
       data.append('message', this.message)
       data.append('likeFacebookLink', this.LikeFacebookLink)
-      data.append('followPageOnFacebook', this.this.followPageOnFacebook)
+      data.append('followPageOnFacebook', this.followPageOnFacebook)
       data.append('likeFacebook', this.LikeFacebookLink !== '')
       data.append('likeInstagramLink', this.LikeInstagramLink)
       data.append('followInstagram', this.followInstagram)
@@ -385,7 +402,7 @@ export default {
       data.append('gateway_response', '')
       data.append('image', this.image)
       data.append('expiry', '30 days')
-      data.append('endAt', `${dateInThirtyDays}`)
+      data.append('endAt', `${endAt}`)
       return data
     },
     async createGiveaway () {
@@ -401,7 +418,9 @@ export default {
           this.$toast.global.custom_success('Giveaway created')
           this.setDataToDefault()
         }
+        this.loading = false
       } catch (err) {
+        this.loading = false
         if (err.message.includes('Network')) {
           this.$toast.global.custom_error(
             'please check your connection and try again'
@@ -416,7 +435,6 @@ export default {
           }
         }
       }
-      this.loading = false
     }
   }
 }
@@ -461,7 +479,7 @@ header {
 }
 
 header:before {
-  content: "";
+  content: '';
   width: 100%;
   border-bottom: 3px solid;
   position: absolute;
@@ -554,7 +572,7 @@ label {
   align-self: flex-start;
 }
 
-input[type="number"].no-of-stars {
+input[type='number'].no-of-stars {
   border: 1px solid #8692a6;
   width: 100%;
   min-height: 64px;
@@ -563,7 +581,7 @@ input[type="number"].no-of-stars {
 }
 
 .no-of-winners-label:after {
-  content: "*";
+  content: '*';
   color: red;
 }
 
@@ -592,7 +610,7 @@ input[type="number"].no-of-stars {
   padding-left: 0.875rem;
 } */
 
-input[type="number"] {
+input[type='number'] {
   border: none;
   flex: 1;
   width: 100%;
@@ -603,7 +621,7 @@ input[type="number"] {
   padding-left: 0.875rem;
 }
 
-input[type="number"]::placeholder {
+input[type='number']::placeholder {
   color: #000000;
   font-size: calc(0.93rem + 0.3vw);
 }
@@ -675,7 +693,7 @@ input[type="number"]::placeholder {
   padding: 0px 2px 0px 2px;
 }
 
-.no-of-winners input[type="number"]:focus {
+.no-of-winners input[type='number']:focus {
   outline: 0;
 }
 
@@ -780,7 +798,7 @@ textarea::placeholder {
 }
 
 /* custom checkbox */
-input[type="checkbox"] {
+input[type='checkbox'] {
   padding: 0;
   height: initial;
   width: initial;
@@ -803,7 +821,7 @@ input[type="checkbox"] {
 }
 
 .checkbox label:before {
-  content: "";
+  content: '';
   -webkit-appearance: none;
   background: #ffffff;
   border: 1px solid #8692a6;
@@ -818,13 +836,13 @@ input[type="checkbox"] {
   cursor: pointer;
 }
 
-.checkbox input[type="checkbox"]:checked + label:before {
+.checkbox input[type='checkbox']:checked + label:before {
   background: #09ab5d;
   border: none;
 }
 
-.checkbox input[type="checkbox"]:checked + label:after {
-  content: "";
+.checkbox input[type='checkbox']:checked + label:after {
+  content: '';
   position: absolute;
   top: 2px;
   left: 5px;
@@ -842,7 +860,8 @@ input[type="checkbox"] {
   padding: 5.5% 4%;
 }
 
-.instagram  .condition-child:nth-child(1), .twitter  .condition-child:nth-child(1) {
+.instagram .condition-child:nth-child(1),
+.twitter .condition-child:nth-child(1) {
   height: 50px;
   display: flex;
   align-items: flex-start;
@@ -861,7 +880,7 @@ input[type="checkbox"] {
   font-size: calc(0.8rem + 0.3vw);
 }
 
-input[type="text"] {
+input[type='text'] {
   border: 3px solid rgba(134, 146, 166, 0.4);
   border-radius: 3px;
   width: 100%;
@@ -873,7 +892,7 @@ input[type="text"] {
   padding-left: 0.875rem;
 }
 
-input[type="text"]::placeholder {
+input[type='text']::placeholder {
   color: #000000;
   font-size: calc(0.6rem + 0.2vw);
 }
@@ -895,11 +914,11 @@ input[type="text"]::placeholder {
 }
 
 .end-label:after {
-  content: "*";
+  content: '*';
   color: #ff0000;
 }
 
-input[type="tel"] {
+input[type='date'] {
   border: 3px solid rgba(134, 146, 166, 0.4);
   border-radius: 3px;
   width: 100%;
@@ -937,11 +956,11 @@ input[type="tel"] {
     font-size: 19px;
   }
 
-  input[type="number"] {
+  input[type='number'] {
     font-size: 19px;
   }
 
-  input[type="text"] {
+  input[type='text'] {
     font-size: 15px;
   }
 

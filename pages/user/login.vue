@@ -13,6 +13,7 @@
           :type="type"
           placeholder="Enter password"
           @click="showFocus"
+          @keyup.enter="login"
         >
         <span class="visibility-container" @click="changeInputType">show</span>
       </div>
@@ -67,7 +68,7 @@ export default {
   },
   beforeMount () {
     // eslint-disable-next-line
-    window.addEventListener("resize", this.handleResize);
+    window.addEventListener('resize', this.handleResize)
     this.screenWidth = window.innerWidth
   },
   beforeDestroyed () {
@@ -154,7 +155,7 @@ label {
   display: block;
 }
 
-input[type="email"] {
+input[type='email'] {
   width: 100%;
   height: 64px;
   border: 1px solid #8692a6;
@@ -181,8 +182,8 @@ input[type="email"] {
   position: relative;
 }
 
-input[type="text"],
-input[type="password"] {
+input[type='text'],
+input[type='password'] {
   width: 100%;
   height: 100%;
 
@@ -199,14 +200,14 @@ input[type="password"] {
   cursor: pointer;
 }
 
-input[type="text"]:focus,
-input[type="password"]:focus {
+input[type='text']:focus,
+input[type='password']:focus {
   outline: 0;
 }
 
-input[type="text"]::placeholder,
-input[type="email"]::placeholder,
-input[type="password"]::placeholder {
+input[type='text']::placeholder,
+input[type='email']::placeholder,
+input[type='password']::placeholder {
   font-size: 0.688rem;
   color: #8692a6;
 }
