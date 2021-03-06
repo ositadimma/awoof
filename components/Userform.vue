@@ -1,8 +1,8 @@
 <template>
-  <div class="ref-form-container" @click.self="closeModal">
-    <div class="ref-form-body animate__fadeIn">
+  <div class="user-form-container" @click.self="closeModal">
+    <div class="user-form-body animate__fadeIn">
       <div class="header">
-        <span>Set Referral Bonus</span>
+        <span>Set User Bonus</span>
         <img src="~/assets/icons/Delete.svg" @click="closeModal">
       </div>
       <hr>
@@ -12,16 +12,13 @@
 
         <!-- <label>Referral ID</label>
         <input type="text" placeholder="Please Enter"> -->
-        <button
-          v-show="amount.length == 0 && !loading"
-          class="disable-1 btn-cmpt"
-        >
+        <button v-show="amount == 0 && !loading" class="disable-1 btn-cmpt">
           Continue
         </button>
         <button
-          v-show="amount.length > 0 && !loading"
+          v-show="amount > 0 && !loading"
           class="btn-cmpt"
-          @click="createReferralBonus"
+          @click="createUserBonus"
         >
           Continue
         </button>
@@ -37,34 +34,26 @@
 <script>
 import Cookies from 'js-cookie'
 export default {
-  name: 'ReferralForm',
-  props: {
-    data: {
-      type: String,
-      default () {
-        return '500'
-      }
-    }
-  },
+  name: 'UserForm',
   data () {
     return {
-      amount: this.data,
+      amount: 0,
       loading: false
     }
   },
   methods: {
-    async createReferralBonus () {
+    async createUserBonus () {
       this.loading = true
       this.$axios.setHeader('x-auth-token', Cookies.get('token'))
       try {
         const response = await this.$axios.$post(
-          'https://awoof-api.herokuapp.com/v1/admins/set_referral_bonus',
+          `https://awoof-api.herokuapp.com/v1/admins/create_surprise/${this.$route.params.id}`,
           {
             amount: parseInt(this.amount)
           }
         )
         if (response) {
-          this.$toast.global.custom_success('Referral bonus created')
+          this.$toast.global.custom_success('User bonus awarded successfully')
           this.$nuxt.refresh()
           this.closeModal()
         }
@@ -86,7 +75,6 @@ export default {
       this.loading = false
     },
     closeModal () {
-      this.amount = this.data
       this.$store.commit('setModalOpen', false)
     }
   }
@@ -94,7 +82,7 @@ export default {
 </script>
 
 <style scoped>
-.ref-form-container {
+.user-form-container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -107,7 +95,7 @@ export default {
 
   background: rgba(6, 13, 37, 0.6);
 }
-.ref-form-body {
+.user-form-body {
   padding: 2.9% 2.7% 0px 2.7%;
   background: #ffffff;
   width: 50.5%;
@@ -179,13 +167,13 @@ input[type='number']::placeholder {
   cursor: pointer;
 }
 @media (max-width: 950px) and (orientation: landscape) {
-  .ref-form-body {
+  .user-form-body {
     width: 100%;
     height: 100%;
   }
 }
 @media (max-width: 1024px) {
-  .ref-form-body {
+  .user-form-body {
     width: 100%;
     height: 100%;
     max-height: 100%;

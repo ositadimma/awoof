@@ -58,6 +58,13 @@
         </ul>
       </div>
       <nuxt-link
+        :class="currentPath.includes('users') ? 'active' : 'inactive'"
+        to="/users"
+      >
+        <Referralsicon />
+        <span>Users</span>
+      </nuxt-link>
+      <nuxt-link
         :class="currentPath.includes('transactions') ? 'active' : 'inactive'"
         to="/transactions"
       >
@@ -165,7 +172,7 @@ a {
   margin-bottom: 24px;
   padding-left: 41px;
   color: #09ab5d;
-  cursor: auto;
+  cursor: pointer;
 }
 .dashboard-sidebar-nav .active .svg,
 .dashboard-sidebar-nav .inactive:hover .svg {
@@ -217,7 +224,7 @@ a {
 }
 .Giveaways ul li.list-active {
   color: #ffffff;
-  cursor: auto;
+  /* cursor: auto; */
 }
 .Giveaways ul li:hover {
   color: #ffffff;

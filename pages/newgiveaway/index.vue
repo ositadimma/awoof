@@ -4,10 +4,10 @@
       <header>
         New Giveaway
       </header>
-      <!-- <div class="mode">
-        <span>Anonymous Mode</span>
+      <div class="mode">
+        <span>Already Completed</span>
         <div class="switch-container">
-          <input id="switch" type="checkbox">
+          <input id="switch" v-model="completed" type="checkbox">
           <label for="switch" class="switch-btn">
             <span>
               No
@@ -17,7 +17,7 @@
             </span>
           </label>
         </div>
-      </div> -->
+      </div>
       <hr>
       <label>
         Minimum No. Of Stars (0 - 30)
@@ -279,6 +279,7 @@ export default {
       LikeInstagramLink: '',
       LikeTwitterLink: '',
       endAt: '',
+      completed: false,
       loading: false
     }
   },
@@ -403,6 +404,7 @@ export default {
       data.append('image', this.image)
       data.append('expiry', '30 days')
       data.append('endAt', `${endAt}`)
+      data.append('completed', this.completed)
       return data
     },
     async createGiveaway () {
@@ -501,7 +503,7 @@ span {
   font-size: calc(0.625rem + 0.3vw);
 }
 
-/* On / off
+/* On / off */
 .switch-container {
   min-width: 61px;
   min-height: 28px;
@@ -532,7 +534,7 @@ span {
 }
 
 .switch-btn:before {
-  content: "";
+  content: '';
   width: 22px;
   height: 21px;
   border-radius: 50%;
@@ -555,7 +557,7 @@ span {
 
 .switch-container .switch-btn span:nth-child(2) {
   color: #09ab5d;
-} */
+}
 
 hr {
   color: #8692a6;
@@ -921,6 +923,7 @@ input[type='text']::placeholder {
 input[type='date'] {
   border: 3px solid rgba(134, 146, 166, 0.4);
   border-radius: 3px;
+  background: #fff;
   width: 100%;
   height: 55px;
   color: #000000;

@@ -65,6 +65,14 @@
         </ul>
       </div>
       <nuxt-link
+        :class="currentPath.includes('users') ? 'active' : 'inactive'"
+        to="/users"
+        @click.native="closeSideBar"
+      >
+        <Referralsicon />
+        <span>Users</span>
+      </nuxt-link>
+      <nuxt-link
         :class="currentPath.includes('transactions') ? 'active' : 'inactive'"
         to="/transactions"
         @click.native="closeSideBar"
