@@ -84,9 +84,7 @@ export default {
       )
     } catch (err) {
       if (err.message.includes('Network')) {
-        $toast.global.custom_error(
-          'please check your connection and try again'
-        )
+        $toast.global.custom_error('please check your connection and try again')
       }
 
       if (err.response !== undefined) {
@@ -173,7 +171,10 @@ export default {
         image: { type: 'jpeg', quality: 0.98 },
         html2canvas: { scale: 2, letterRendering: true },
         jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' },
-        pagebreak: { mode: 'css' }
+        pagebreak: { mode: 'css' },
+        ignoreElements: (node) => {
+          return node.nodeName === 'CANVAS'
+        }
       }
       html2pdf()
         .set(opt)

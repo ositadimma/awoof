@@ -7,7 +7,7 @@
         <div class="th">
           Full Name
         </div>
-        <div class="td">
+        <div class="td" data-title="Full Name">
           {{
             userDetail.firstName !== undefined ||
               userDetail.lastName !== undefined
@@ -20,7 +20,7 @@
         <div class="th">
           Email
         </div>
-        <div class="td">
+        <div class="td" data-title="Email">
           {{ userDetail.email !== undefined ? userDetail.email : 'nil' }}
         </div>
       </div>
@@ -28,7 +28,7 @@
         <div class="th">
           Phone Number
         </div>
-        <div class="td">
+        <div class="td" data-title="Phone Number">
           {{
             userDetail.phoneNumber !== undefined
               ? userDetail.phoneNumber
@@ -40,7 +40,7 @@
         <div class="th">
           Balance
         </div>
-        <div class="td">
+        <div class="td" data-title="Balance">
           {{
             userDetail.balance !== undefined
               ? amountDelimeter(userDetail.balance)
@@ -52,7 +52,7 @@
         <div class="th">
           Registration Date
         </div>
-        <div class="td">
+        <div class="td" data-title="Registration Date">
           {{
             userDetail.signupDate !== undefined
               ? format_date(userDetail.signupDate)
@@ -70,6 +70,7 @@
               ? 'td active'
               : 'td inactive'
           "
+          data-title="User Status"
         >
           {{
             userDetail.isActive !== undefined
@@ -84,7 +85,7 @@
         <div class="th">
           Stars
         </div>
-        <div class="td">
+        <div class="td" data-title="Stars">
           {{ userDetail.stars !== undefined ? userDetail.stars : 'nil' }}
         </div>
       </div>
@@ -92,10 +93,10 @@
         <div class="th">
           Giveaways Won
         </div>
-        <div class="td">
+        <div class="td" data-title="Giveaways Won">
           {{
             userDetail.giveawaysWon !== undefined
-              ? userDetail.giveawaysWon
+              ? amountDelimeter(userDetail.giveawaysWon)
               : 'nil'
           }}
         </div>
@@ -104,7 +105,7 @@
         <div class="th">
           Followers
         </div>
-        <div class="td">
+        <div class="td" data-title="Followers">
           {{
             userDetail.followers !== undefined ? userDetail.followers : 'nil'
           }}
@@ -114,7 +115,7 @@
         <div class="th">
           Following
         </div>
-        <div class="td">
+        <div class="td" data-title="Following">
           {{
             userDetail.following !== undefined ? userDetail.following : 'nil'
           }}
@@ -124,7 +125,7 @@
         <div class="th">
           Location
         </div>
-        <div class="td">
+        <div class="td" data-title="Location">
           {{ userDetail.location !== undefined ? userDetail.location : 'nil' }}
         </div>
       </div>
