@@ -79,7 +79,10 @@ export default {
   },
   computed: {
     validate () {
-      if (this.giveawayParticipants.some(user => user.win)) {
+      if (
+        this.giveawayParticipants.length === 0 ||
+        this.giveawayParticipants.some(user => user.win)
+      ) {
         return true
       }
       return false
