@@ -12,7 +12,7 @@
           Edit
         </button> -->
       </span>
-      <span>{{ userInfo.firstName + " " + userInfo.lastName }}</span>
+      <span>{{ userInfo.firstName + ' ' + userInfo.lastName }}</span>
 
       <span>
         Username
@@ -160,6 +160,7 @@ export default {
   background: #ffffff;
   border: 1px solid #e2e2ea;
   border-radius: 20px;
+  margin-bottom: 1rem;
   padding: 0px 38px 0px 23px;
 }
 .extra .head {
@@ -236,7 +237,7 @@ export default {
 .star-rating-edit img {
   margin-left: 0.6rem;
 }
-input[type="number"] {
+input[type='number'] {
   width: 62px;
   max-width: 62px;
   height: 31px;

@@ -7,19 +7,19 @@
     <div class="charts">
       <span class="Gender">Gender</span>
       <PieChart
-        v-show="giveawayParticipants.length > 0"
+        v-if="giveawayParticipants.length > 0"
         :giveaway-participants="giveawayParticipants"
       />
-      <div v-show="giveawayParticipants.length < 1" class="No-data">
+      <div v-if="giveawayParticipants.length < 1" class="No-data">
         No data
       </div>
       <hr>
       <span class="Location">Location</span>
       <HorizontalBar
-        v-show="giveawayParticipants.length > 0"
+        v-if="giveawayParticipants.length > 0"
         :giveaway-participants="giveawayParticipants"
       />
-      <div v-show="giveawayParticipants.length < 1" class="No-data">
+      <div v-if="giveawayParticipants.length < 1" class="No-data">
         No data
       </div>
     </div>
