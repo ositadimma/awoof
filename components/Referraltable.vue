@@ -1,5 +1,5 @@
 <template>
-  <div class="referral-table">
+  <div class="referral-table animate__fadeInUp">
     <div class="table-head">
       <table>
         <thead>
@@ -25,108 +25,109 @@
             <th class="View" />
           </tr>
         </thead>
-        <tbody>
-          <tr>
+        <tbody v-show="data.length > 0">
+          <tr v-for="(referral, index) in paginatedData" :key="index">
             <td data-title="Ref ID" class="Id">
-              <p>#18319</p>
+              <p>#{{ referral.userRef }}</p>
             </td>
             <td data-title="Username">
-              Precious Martins
+              {{ referral.username }}
             </td>
             <td data-title="Email">
-              preciousmartins@example.com
+              {{ referral.email }}
             </td>
             <td data-title="Phone Number">
-              +2348123456789
+              {{ referral.phoneNumber }}
             </td>
             <td data-title="Date Used">
-              22 Jan 2020, 10:03
+              {{ format_date(referral.signupDate) }}
             </td>
             <td data-title="Code Usage" class="Code-usage">
-              4 Users
+              {{ referral.refCodeUsage }} Users
             </td>
             <td class="View">
-              <ArrowCircle @click.native="$router.push('/referrals/detail')" />
-            </td>
-          </tr>
-          <tr>
-            <td data-title="Ref ID" class="Id">
-              <p>#18319</p>
-            </td>
-            <td data-title="Username">
-              Precious Martins
-            </td>
-            <td data-title="Email">
-              preciousmartins@example.com
-            </td>
-            <td data-title="Phone Number">
-              +2348123456789
-            </td>
-            <td data-title="Date Used">
-              22 Jan 2020, 10:03
-            </td>
-            <td data-title="Code Usage" class="Code-usage">
-              4 Users
-            </td>
-            <td class="View">
-              <ArrowCircle @click.native="$router.push('/referrals/detail')" />
-            </td>
-          </tr>
-          <tr>
-            <td data-title="Ref ID" class="Id">
-              <p>#18319</p>
-            </td>
-            <td data-title="Username">
-              Precious Martins
-            </td>
-            <td data-title="Email">
-              preciousmartins@example.com
-            </td>
-            <td data-title="Phone Number">
-              +2348123456789
-            </td>
-            <td data-title="Date Used">
-              22 Jan 2020, 10:03
-            </td>
-            <td data-title="Code Usage" class="Code-usage">
-              4 Users
-            </td>
-            <td class="View">
-              <ArrowCircle @click.native="$router.push('/referrals/detail')" />
+              <ArrowCircle
+                @click.native="$router.push(`/referrals/${referral._id}`)"
+              />
             </td>
           </tr>
         </tbody>
       </table>
+      <NoData v-show="data.length == 0" />
     </div>
-    <!--<div class="table-ctn">
-      <ReferralTableBody />
-      <ReferralTableBody />
-      <ReferralTableBody />
-      <ReferralTableBody />
-      <ReferralTableBody />
-      <ReferralTableBody />
-      <ReferralTableBody />
-    </div>-->
-    <div class="pagination">
-      <span class="active">1</span>
-      <span class="inactive">2</span>
-      <span class="inactive">3</span>
-      <span class="inactive">4</span>
-      <span class="inactive">5</span>
-      <span class="inactive">6</span>
-      <span>. . .</span>
-      <span class="inactive">10</span>
-    </div>
+    <paginate
+      :page-count="amountOfPages"
+      :margin-pages="2"
+      :container-class="'pagination'"
+      :break-view-text="'. . .'"
+      :click-handler="Paginate"
+    />
   </div>
 </template>
 
 <script>
-// import ReferralTableBody from './ReferralTablebody'
+import paginate from 'vuejs-paginate'
+import moment from 'moment'
+import NoData from './NoTableData'
+
 export default {
-  name: 'ReferralTable'
-  /* components: {
-    ReferralTableBody
-  } */
+  name: 'ReferralTable',
+  components: {
+    NoData,
+    paginate
+  },
+  props: {
+    data: {
+      type: Array,
+      default () {
+        return []
+      }
+    }
+  },
+  data () {
+    return {
+      paginatedData: this.initialPaginate(),
+      amountOfPages: Math.ceil(this.data.length / 6)
+    }
+  },
+  methods: {
+    Paginate (clickedpagenumber) {
+      let currentPage = 0
+      let pagesToShow = 6
+      let pageCount = 1
+      if (clickedpagenumber > 1) {
+        while (pageCount < clickedpagenumber) {
+          currentPage += 6
+          pagesToShow += 6
+          pageCount += 1
+        }
+      }
+
+      this.paginatedData = this.data
+        .sort((a, b) => {
+          const referralDateA = new Date(a.signupDate)
+          const referralDateB = new Date(b.signupDate)
+          return referralDateB - referralDateA
+        })
+        .slice(currentPage, pagesToShow)
+    },
+    initialPaginate () {
+      const initialData = this.data.sort((a, b) => {
+        const referralDateA = new Date(a.signupDate)
+        const referralDateB = new Date(b.signupDate)
+        return referralDateB - referralDateA
+      })
+      return initialData.slice(0, 6)
+    },
+    format_date (value) {
+      const today = new Date().getTime()
+      const signupDate = new Date(String(value)).getTime()
+      if (today === signupDate) {
+        return `Today, ${moment(new Date(String(value))).format('hh:mm')}`
+      }
+      return moment(new Date(String(value))).format('DD MMM YYYY, hh:mm')
+    }
+  }
 }
 </script>
 
@@ -139,7 +140,7 @@ export default {
   margin-bottom: 10px;
 }
 .table-head {
-  width:100%;
+  width: 100%;
   border-radius: 20px;
   max-height: 500px;
   overflow-y: auto;
@@ -152,15 +153,16 @@ table {
   border-spacing: 0px;
 }
 thead tr {
-  background: #F0F2F4;
+  background: #f0f2f4;
 }
 th {
   font-weight: normal;
   font-size: 14px;
   line-height: 24px;
-  color: #75759E;
+  color: #75759e;
 }
-th, td {
+th,
+td {
   height: 64px;
   text-align: left;
   padding-left: 6px;
@@ -197,10 +199,10 @@ tbody tr:last-child td:last-child {
   border-bottom-right-radius: 20px;
 }
 tbody tr:nth-child(even) {
-  background: #F9FAFB;
+  background: #f9fafb;
 }
 tbody tr:nth-child(odd) {
-  background: #FFFFFF;
+  background: #ffffff;
 }
 .Id {
   padding-left: 31px;
@@ -211,55 +213,6 @@ tbody tr:nth-child(odd) {
 }
 .arrowcircle {
   cursor: pointer;
-}
-.pagination {
-  margin-top: 35px;
-  display: flex;
-  align-self: center;
-  justify-content: space-between;
-  width: 165px;
-}
-.pagination .inactive {
-  display: block;
-  text-align: center;
-  width: 20px;
-  height: 21px;
-
-  font-weight: 600;
-  font-size: 14px;
-
-  color: #000000;
-  padding-top: 2px;
-  cursor: pointer;
-}
-.pagination .inactive:hover {
-  color: #FFFFFF;
-  background: #001431;
-  border-radius: 5px;
-}
-.pagination .active {
-  display: block;
-  text-align: center;
-  width: 20px;
-  height: 21px;
-
-  font-weight: 600;
-  font-size: 14px;
-
-  color: #FFFFFF;
-  background: #001431;
-  border-radius: 5px;
-  padding-top: 2px;
-  cursor: auto;
-}
-::-webkit-scrollbar {
-    width: 2px;
-}
-::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-}
-::-webkit-scrollbar-thumb {
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
 }
 @media (max-width: 1100px) {
   .table-head {
@@ -273,12 +226,12 @@ tbody tr:nth-child(odd) {
     width: 100%;
   }
   /**/
-  tr{
+  tr {
     display: flex;
     flex-direction: column;
   }
   tr:first-child {
-    border-radius: 20px 20px 0px 0px
+    border-radius: 20px 20px 0px 0px;
   }
   td {
     display: flex;
@@ -304,7 +257,8 @@ tbody tr:nth-child(odd) {
   tbody tr:last-child td:first-child {
     border-radius: 0px;
   }
-  .Id, .View {
+  .Id,
+  .View {
     width: 100%;
     padding: 0px;
   }

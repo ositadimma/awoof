@@ -1,26 +1,40 @@
 <template>
   <div class="setting-container">
-    <div class="setting-container-child">
+    <div class="setting-container-child animate__fadeInUp">
       <div class="setting-nav">
         <div class="setting-nav-child-1">
-          <span id="Security" class="active" @click="changeNav">Security</span>
-          <span id="Team" @click="changeNav">Team</span>
+          <span
+            :class="{ active: securityOpen }"
+            @click="security"
+          >Security</span>
+          <span :class="{ active: teamOpen }" @click="team">Team</span>
         </div>
-        <Button id="Button" text="Add New Member +" @click.native="showForm" />
+        <button
+          v-show="teamOpen"
+          class="btn-cmpt new-member-btn"
+          @click="showModal"
+        >
+          Add New Member +
+        </button>
       </div>
-      <SecurityForm id="Securityform" />
-      <TeamTable id="Teamtable" />
-      <div id="new-member" class="new-member-form-container">
-        <NewMember @closeForm="closeForm" />
-      </div>
+      <SecurityForm v-show="securityOpen" />
+      <TeamTable
+        v-show="teamOpen"
+        :key="key"
+        :data="admins"
+        @refresh="refresh"
+      />
+      <NewMember v-show="modalOpen" />
     </div>
   </div>
 </template>
 
 <script>
+import Cookies from 'js-cookie'
 import SecurityForm from '~/components/Securityform'
 import TeamTable from '~/components/Teamtable'
 import NewMember from '~/components/Newmemberform'
+
 export default {
   name: 'Setting',
   layout: 'dashboardLayout',
@@ -29,39 +43,58 @@ export default {
     TeamTable,
     NewMember
   },
+  async asyncData ({ $axios, $toast }) {
+    $axios.setHeader('x-auth-token', Cookies.get('token'))
+    try {
+      var adminsResponse = await $axios.$get(
+        'https://awoof-api.herokuapp.com/v1/admins/get_all_admins'
+      )
+    } catch (err) {
+      if (err.message.includes('Network')) {
+        $toast.global.custom_error('please check your connection and try again')
+      }
+
+      if (err.response !== undefined) {
+        if (err.response.status === 400) {
+          $toast.global.custom_error(err.response.data.message)
+        }
+      }
+    }
+    // console.log(adminsResponse)
+    return {
+      admins: adminsResponse ? adminsResponse.data : []
+    }
+  },
+  data () {
+    return {
+      key: 0,
+      securityOpen: true,
+      teamOpen: false
+    }
+  },
+  computed: {
+    modalOpen () {
+      return this.$store.state.modalOpen
+    }
+  },
   created () {
     this.$store.commit('setLayout', 'SETTINGS') // changes layout title of dashboard header
   },
   methods: {
-    changeNav (e) {
-      const security = document.getElementById('Security')
-      const team = document.getElementById('Team')
-      const button = document.getElementById('Button')
-      const securityForm = document.getElementById('Securityform')
-      const teamTable = document.getElementById('Teamtable')
-
-      if (e.srcElement.outerText === 'Team' || e.srcElement.textContent === 'Team') {
-        security.classList.remove('active')
-        team.classList.add('active')
-        button.style.display = 'block'
-        teamTable.style.display = 'block' // table
-        securityForm.style.display = 'none' // form
-      } else {
-        team.classList.remove('active')
-        security.classList.add('active')
-        button.style.display = 'none'
-        securityForm.style.display = 'flex' // form
-        securityForm.style.flexDirection = 'column'
-        teamTable.style.display = 'none' // table
-      }
+    security () {
+      this.securityOpen = true
+      this.teamOpen = false
     },
-    showForm () {
-      document.getElementById('new-member').style.display = 'flex'
-      document.getElementById('new-member').style.alignItems = 'center'
-      document.getElementById('new-member').style.justifyContent = 'center'
+    team () {
+      this.securityOpen = false
+      this.teamOpen = true
     },
-    closeForm () {
-      document.getElementById('new-member').style.display = 'none'
+    showModal () {
+      this.$store.commit('setModalOpen', true)
+    },
+    refresh () {
+      this.$nuxt.refresh()
+      this.key += 1
     }
   }
 }
@@ -69,18 +102,20 @@ export default {
 
 <style scoped>
 .setting-container {
-  background: #F7F7F8;
+  background: #f7f7f8;
   flex: 1;
 
+  width: 100%;
   height: 100%;
+
   padding: 30px 6% 0px 4.45%;
   overflow-y: auto;
   overflow-x: hidden;
 }
 .setting-container-child {
-  width: 713px;
+  width: 913px;
   height: auto;
-  background: #FFFFFF;
+  background: #ffffff;
 }
 .setting-nav {
   display: flex;
@@ -88,7 +123,6 @@ export default {
 }
 .setting-nav .btn-cmpt {
   width: 188px;
-  display: none;
 }
 .setting-nav-child-1 {
   display: flex;
@@ -105,21 +139,13 @@ export default {
 }
 .setting-nav-child-1 .active {
   border-bottom: 4px solid;
-  color: #09AB5D;
+  color: #09ab5d;
   cursor: auto;
 }
-.new-member-form-container {
-  display: none;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  width: 100vw;
-  height: 100vh;
-
-  background: rgba(6, 13, 37, 0.6);
-}
-@media (max-width: 1095px) {
+@media (max-width: 1250px) {
+  .setting-container {
+    padding: 20px 4.5% 0px 4.5%;
+  }
   .setting-container-child {
     width: 100%;
   }
@@ -127,15 +153,13 @@ export default {
     padding-right: 0px;
   }
 }
-@media (max-width: 816px) {
-  .setting-container {
-    padding: 20px 0px;
-  }
-}
 @media (max-width: 767px) {
+  /* .setting-container {
+    padding: 20px 4.5% 0px 4.5%;
+  }
   .setting-container-child {
     width: 100%;
-  }
+  } */
   .setting-nav {
     flex-direction: column;
     padding-right: 0px;

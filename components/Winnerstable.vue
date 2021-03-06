@@ -1,56 +1,147 @@
 <template>
-  <div class="Winners-table">
+  <div class="giveaway-table animate__fadeInUp">
     <div class="table-head">
       <table>
         <thead>
-          <tr>
+          <tr class="header">
             <th class="Name">
               Name
             </th>
-            <th class="Task">
-              Task Completion
+            <th class="Type">
+              Type
             </th>
-            <th>
-              Date Entered
+            <th class="Tasks">
+              Tasks
             </th>
+            <th>Amount Won</th>
+            <th>Giveaway Amount</th>
+            <th>Date Posted</th>
             <th class="View" />
           </tr>
         </thead>
-        <tbody>
-          <tr>
+        <tbody v-show="data.length > 0">
+          <tr v-for="(giveaway, index) in paginatedData" :key="index">
             <td data-title="Name" class="Name">
-              Chibuzo Chiamaka
+              <div class="Name-div">
+                <p>{{ giveaway.user ? giveaway.user.username : "Admin" }}</p>
+                <!-- <Checkicon /> -->
+              </div>
             </td>
-            <td data-title="Task Completion" class="Task">
-              All Completed
+            <td data-title="Type">
+              {{ giveaway.giveaway_id.type }}
             </td>
-            <td data-title="Date Entered">
-              Today, 10:03
+            <td data-title="Tasks" class="Tasks">
+              Open
+            </td>
+            <td data-title="Amount Won">
+              N{{ amountDelimeter(giveaway.giveaway_id.amountPerWinner) }}
+            </td>
+            <td data-title="Giveaway Amount">
+              N{{ amountDelimeter(giveaway.giveaway_id.amount) }}
+            </td>
+            <td data-title="Date Posted">
+              {{ format_date(giveaway.giveaway_id.createdAt) }}
             </td>
             <td class="View">
-              <ArrowCircle />
+              <ArrowCircle
+                @click.native="
+                  $router.push(`/giveaways/winners/${giveaway.giveaway_id._id}`)
+                "
+              />
             </td>
           </tr>
         </tbody>
       </table>
+      <NoData v-show="data.length == 0" />
     </div>
+    <paginate
+      :page-count="amountOfPages"
+      :margin-pages="2"
+      :container-class="'pagination'"
+      :break-view-text="'. . .'"
+      :click-handler="Paginate"
+    />
   </div>
 </template>
 
 <script>
+import paginate from 'vuejs-paginate'
+import moment from 'moment'
+import NoData from './NoTableData'
+
 export default {
-  name: 'Winnerstable'
+  name: 'WinnersTable',
+  components: {
+    NoData,
+    paginate
+  },
+  props: {
+    data: {
+      type: Array,
+      default () {
+        return []
+      }
+    }
+  },
+  data () {
+    return {
+      paginatedData: this.initialPaginate(),
+      amountOfPages: Math.ceil(this.data.length / 6)
+    }
+  },
+  methods: {
+    Paginate (clickedpagenumber) {
+      let currentPage = 0
+      let pagesToShow = 6
+      let pageCount = 1
+      if (clickedpagenumber > 1) {
+        while (pageCount < clickedpagenumber) {
+          currentPage += 6
+          pagesToShow += 6
+          pageCount += 1
+        }
+      }
+      this.paginatedData = this.data
+        .sort((a, b) => {
+          const winnerDateA = new Date(a.giveaway_id.createdAt)
+          const winnerDateB = new Date(b.giveaway_id.createdAt)
+          return winnerDateB - winnerDateA
+        })
+        .slice(currentPage, pagesToShow)
+    },
+    initialPaginate () {
+      const initialData = this.data.sort((a, b) => {
+        const winnerDateA = new Date(a.giveaway_id.createdAt)
+        const winnerDateB = new Date(b.giveaway_id.createdAt)
+        return winnerDateB - winnerDateA
+      })
+      return initialData.slice(0, 6)
+    },
+    amountDelimeter (amount) {
+      return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+    },
+    format_date (value) {
+      const today = new Date().getTime()
+      const createdAt = new Date(String(value)).getTime()
+      if (today === createdAt) {
+        return `Today, ${moment(new Date(String(value))).format('hh:mm')}`
+      }
+      return moment(new Date(String(value))).format('DD MMM YYYY, hh:mm')
+    }
+  }
 }
 </script>
 
 <style scoped>
-.Winners-table {
+.giveaway-table {
+  display: flex;
+  flex-direction: column;
   width: 100%;
   height: auto;
-  margin: 26px 0px 67px 0px;
+  margin-bottom: 10px;
 }
 .table-head {
-  width:100%;
+  width: 100%;
   border-radius: 20px;
   max-height: 500px;
   overflow-y: auto;
@@ -62,15 +153,16 @@ table {
   border-spacing: 0px;
 }
 thead tr {
-  background: #F0F2F4;
+  background: #f0f2f4;
 }
 th {
   font-weight: normal;
   font-size: 14px;
   line-height: 24px;
-  color: #75759E;
+  color: #75759e;
 }
-th, td {
+th,
+td {
   height: 64px;
   text-align: left;
   padding-left: 6px;
@@ -82,12 +174,37 @@ th:last-child {
   padding-left: 0px;
   border-top-right-radius: 20px;
 }
+/* status */
+th:nth-last-child(2) div {
+  display: flex;
+  flex-direction: column;
+}
+th:nth-last-child(2) {
+  display: flex;
+  align-items: center;
+  min-width: 11%;
+}
+th:nth-last-child(2) div {
+  margin-left: 15px;
+}
+th:nth-last-child(2) div {
+  cursor: pointer;
+}
+.ongoing {
+  color: #e1931e;
+  width: 11%;
+}
+.completed {
+  color: #09ab5d;
+  width: 11%;
+}
+/**/
+td {
+  overflow-x: auto;
+}
 td:last-child {
   padding-left: 0px;
   text-align: center;
-}
-td {
-  overflow-x: auto;
 }
 tbody tr:last-child td {
   height: 74px;
@@ -99,14 +216,27 @@ tbody tr:last-child td:last-child {
   border-bottom-right-radius: 20px;
 }
 tbody tr:nth-child(even) {
-  background: #F9FAFB;
+  background: #f9fafb;
 }
 tbody tr:nth-child(odd) {
-  background: #FFFFFF;
+  background: #ffffff;
 }
 .Name {
   padding-left: 31px;
-  width: 35%;
+  width: 23%;
+}
+.Name-div {
+  display: flex;
+  align-items: center;
+}
+p {
+  margin-right: 10px;
+}
+.Type {
+  width: 12%;
+}
+.Tasks {
+  width: 10%;
 }
 .View {
   width: 10%;
@@ -114,28 +244,66 @@ tbody tr:nth-child(odd) {
 .arrowcircle {
   cursor: pointer;
 }
-::-webkit-scrollbar {
-    width: 2px;
+/* .pagination {
+  margin-top: 35px;
+  display: flex;
+  align-self: center;
+  justify-content: space-between;
+  width: 165px;
 }
-::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+.pagination .inactive {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20px;
+  height: 21px;
+
+  font-weight: 600;
+  font-size: 14px;
+
+  color: #000000;
+  padding-top: 2px;
+  cursor: pointer;
 }
-::-webkit-scrollbar-thumb {
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+.pagination .inactive:hover {
+  color: #FFFFFF;
+  background: #001431;
+  border-radius: 5px;
 }
-@media (max-width: 950px) {
-  .Winners-table .head {
-    padding-left: 0px;
+.pagination .active {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20px;
+  height: 21px;
+
+  font-weight: 600;
+  font-size: 14px;
+
+  color: #FFFFFF;
+  background: #001431;
+  border-radius: 5px;
+  padding-top: 2px;
+  cursor: auto;
+} */
+@media (max-width: 1100px) {
+  .table-head {
+    max-height: 450px;
   }
   thead {
     display: none;
   }
-  tr{
+  /* status */
+  td:nth-last-child(2) {
+    width: 100%;
+  }
+  /**/
+  tr {
     display: flex;
     flex-direction: column;
   }
   tr:first-child {
-    border-radius: 20px 20px 0px 0px
+    border-radius: 20px 20px 0px 0px;
   }
   td {
     display: flex;
@@ -161,20 +329,20 @@ tbody tr:nth-child(odd) {
   tbody tr:last-child td:first-child {
     border-radius: 0px;
   }
-  .Name, .View {
+  .Name,
+  .Type,
+  .Tasks,
+  .View {
     width: 100%;
     padding: 0px;
   }
 }
 @media (max-width: 767px) {
-  .Winners-table .head {
-    padding-left: 0px;
+  th {
+    font-size: 12px;
   }
-  .Winners-table .head span:nth-child(1) {
-    font-size: 13px;
-  }
-  .Winners-table .head span:nth-child(2) {
-    font-size: 13px;
+  td {
+    font-size: 11px;
   }
 }
 </style>

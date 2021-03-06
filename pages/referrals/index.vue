@@ -1,24 +1,24 @@
 <template>
   <div class="referral-container">
-    <div class="referral-card">
+    <div class="referral-card animate__fadeInUp">
       <div class="title-ctn">
         <span class="title">Referral Bonus</span>
       </div>
-      <div class="edit" @click="showEdit">
-        <span class="amount">N500</span>
-        <div class="edit-image" />
+      <div class="edit">
+        <span class="amount">N{{ amount.amount }}</span>
+        <div class="edit-image" @click="showModal" />
       </div>
     </div>
-    <ReferralTable />
-    <div id="edit-form" class="edit-form">
-      <ReferralForm @CloseEdit="closeEdit" />
-    </div>
+    <ReferralTable :data="data" />
+    <ReferralForm v-show="modalOpen" :data="amount.amount.toString()" />
   </div>
 </template>
 
 <script>
+import Cookies from 'js-cookie'
 import ReferralTable from '~/components/Referraltable'
 import ReferralForm from '~/components/Referralform'
+
 export default {
   name: 'Referral',
   layout: 'dashboardLayout',
@@ -26,17 +26,45 @@ export default {
     ReferralTable,
     ReferralForm
   },
+  async asyncData ({ $axios, $toast }) {
+    $axios.setHeader('x-auth-token', Cookies.get('token'))
+    try {
+      var referralResponse = await $axios.$get(
+        'https://awoof-api.herokuapp.com/v1/admins/get_all_refferals'
+      )
+      var referralBonusResponse = await $axios.$get(
+        'https://awoof-api.herokuapp.com/v1/admins/referral_bonus'
+      )
+    } catch (err) {
+      if (err.message.includes('Network')) {
+        $toast.global.custom_error(
+          'please check your connection and try again'
+        )
+      }
+
+      if (err.response !== undefined) {
+        if (err.response.status === 400) {
+          $toast.global.custom_error(err.response.data.message)
+        }
+      }
+    }
+
+    return {
+      data: referralResponse ? referralResponse.data : [],
+      amount: referralBonusResponse ? referralBonusResponse.data : {}
+    }
+  },
+  computed: {
+    modalOpen () {
+      return this.$store.state.modalOpen
+    }
+  },
   created () {
     this.$store.commit('setLayout', 'REFERRALS') // changes layout title of dashboard header
   },
   methods: {
-    showEdit () {
-      document.getElementById('edit-form').style.display = 'flex'
-      document.getElementById('edit-form').style.alignItems = 'center'
-      document.getElementById('edit-form').style.justifyContent = 'center'
-    },
-    closeEdit () {
-      document.getElementById('edit-form').style.display = 'none'
+    showModal () {
+      this.$store.commit('setModalOpen', true)
     }
   }
 }
@@ -44,13 +72,14 @@ export default {
 
 <style scoped>
 .referral-container {
-  border: 1px solid;
-  background: #F7F7F8;
+  background: #f7f7f8;
   flex: 1;
 
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+
+  width: 100%;
   height: 100%;
 
   padding: 30px 6% 0px 4.45%;
@@ -58,8 +87,8 @@ export default {
   overflow-x: hidden;
 }
 .referral-card {
-  border: 1px solid #E2E2EA;
-  background: #FFFFFF;
+  border: 1px solid #e2e2ea;
+  background: #ffffff;
   border-radius: 20px;
   width: 260px;
   min-height: 95px;
@@ -79,7 +108,7 @@ export default {
   font-size: 12px;
   line-height: 19px;
 
-  color: #75759E;
+  color: #75759e;
 }
 .edit {
   display: flex;
@@ -98,23 +127,12 @@ export default {
 .edit .edit-image {
   width: 20px;
   height: 20px;
-  background-image: url('~assets/icons/EditSquare.svg');
+  background-image: url("~assets/icons/EditSquare.svg");
   cursor: pointer;
-}
-.edit-form {
-  display: none;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  width: 100vw;
-  height: 100vh;
-
-  background: rgba(6, 13, 37, 0.6);
 }
 @media (max-width: 767px) {
   .referral-container {
-    padding: 20px 0px;
+    padding: 20px 4.5% 0px 4.5%;
   }
   .title-ctn .title {
     font-size: 10px;
@@ -123,6 +141,11 @@ export default {
   .edit .amount {
     font-size: 18px;
     line-height: 32px;
+  }
+}
+@media (max-width: 290px) {
+  .referral-card {
+    width: 100%;
   }
 }
 </style>

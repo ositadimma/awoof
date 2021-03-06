@@ -1,5 +1,5 @@
 <template>
-  <div class="giveaway-table">
+  <div class="giveaway-table animate__fadeInUp">
     <div class="table-head">
       <table>
         <thead>
@@ -13,172 +13,194 @@
             <th class="Tasks">
               Tasks
             </th>
-            <th>
-              Total Amount
-            </th>
-            <th>
-              Date Posted
-            </th>
+            <th>Total Amount</th>
+            <th>Date Posted</th>
             <th>
               <span>Status</span>
-              <div>
-                <img src="~/assets/icons/down.svg" alt="down">
-                <img src="~/assets/icons/up.svg" alt="up">
+              <div v-if="status == 'Ongoing'">
+                <img src="~assets/icons/down.svg" alt="down">
+                <img
+                  src="~/assets/icons/up.svg"
+                  alt="up"
+                  @click="toggleStatus('Completed')"
+                >
+              </div>
+              <div v-else>
+                <img
+                  src="~/assets/icons/up.svg"
+                  alt="up"
+                  class="rotate"
+                  @click="toggleStatus('Ongoing')"
+                >
+                <img src="~assets/icons/down.svg" alt="down" class="rotate">
               </div>
             </th>
             <th class="View" />
           </tr>
         </thead>
-        <tbody>
-          <tr>
+        <tbody v-show="data.length > 0">
+          <tr v-for="(giveaway, index) in paginatedData" :key="index">
             <td data-title="Name" class="Name">
               <div class="Name-div">
-                <p>Don Jazzy</p>
-                <Checkicon />
+                <p>{{ giveaway.user ? giveaway.user.username : "Admin" }}</p>
+                <!-- <Checkicon /> -->
               </div>
             </td>
             <td data-title="Type">
-              Giveaway
+              {{ giveaway.type }}
             </td>
             <td data-title="Tasks" class="Tasks">
               Open
             </td>
             <td data-title="Total Amount">
-              N300,000,000
+              N{{ amountDelimeter(giveaway.amount) }}
             </td>
             <td data-title="Date Posted">
-              22 Jan 2020, 10:03
+              {{ format_date(giveaway.createdAt) }}
             </td>
-            <td data-title="Status" class="ongoing">
-              Ongoing
-            </td>
-            <td class="View">
-              <ArrowCircle @click.native="$router.push('/giveaways/givers/detail')" />
-            </td>
-          </tr>
-          <tr>
-            <td data-title="Name" class="Name">
-              <div class="Name-div">
-                <p>Don Jazzy</p>
-                <Checkicon />
-              </div>
-            </td>
-            <td data-title="Type">
-              Giveaway
-            </td>
-            <td data-title="Tasks" class="Tasks">
-              Open
-            </td>
-            <td data-title="Total Amount">
-              N300,000,000
-            </td>
-            <td data-title="Date Posted">
-              22 Jan 2020, 10:03
-            </td>
-            <td data-title="Status" class="ongoing">
-              Ongoing
+            <td
+              data-title="Status"
+              :class="giveaway.completed ? 'completed' : 'ongoing'"
+            >
+              {{ giveaway.completed ? "Completed" : "Ongoing" }}
             </td>
             <td class="View">
-              <ArrowCircle @click.native="$router.push('/giveaways/givers/detail')" />
-            </td>
-          </tr>
-          <tr>
-            <td data-title="Name" class="Name">
-              <div class="Name-div">
-                <p>Don Jazzy</p>
-                <Checkicon />
-              </div>
-            </td>
-            <td data-title="Type">
-              Giveaway
-            </td>
-            <td data-title="Tasks" class="Tasks">
-              Open
-            </td>
-            <td data-title="Total Amount">
-              N300,000,000
-            </td>
-            <td data-title="Date Posted">
-              22 Jan 2020, 10:03
-            </td>
-            <td data-title="Status" class="ongoing">
-              Ongoing
-            </td>
-            <td class="View">
-              <ArrowCircle @click.native="$router.push('/giveaways/givers/detail')" />
-            </td>
-          </tr>
-          <tr>
-            <td data-title="Name" class="Name">
-              <div class="Name-div">
-                <p>Don Jazzy</p>
-                <Checkicon />
-              </div>
-            </td>
-            <td data-title="Type">
-              Giveaway
-            </td>
-            <td data-title="Tasks" class="Tasks">
-              Open
-            </td>
-            <td data-title="Total Amount">
-              N300,000,000
-            </td>
-            <td data-title="Date Posted">
-              22 Jan 2020, 10:03
-            </td>
-            <td data-title="Status" class="ongoing">
-              Ongoing
-            </td>
-            <td class="View">
-              <ArrowCircle @click.native="$router.push('/giveaways/givers/detail')" />
-            </td>
-          </tr>
-          <tr>
-            <td data-title="Name" class="Name">
-              <div class="Name-div">
-                <p>Don Jazzy</p>
-                <Checkicon />
-              </div>
-            </td>
-            <td data-title="Type">
-              Giveaway
-            </td>
-            <td data-title="Tasks" class="Tasks">
-              Open
-            </td>
-            <td data-title="Total Amount">
-              N300,000,000
-            </td>
-            <td data-title="Date Posted">
-              22 Jan 2020, 10:03
-            </td>
-            <td data-title="Status" class="ongoing">
-              Ongoing
-            </td>
-            <td class="View">
-              <ArrowCircle @click.native="$router.push('/giveaways/givers/detail')" />
+              <ArrowCircle
+                @click.native="
+                  $router.push(`/giveaways/givers/${giveaway._id}`)
+                "
+              />
             </td>
           </tr>
         </tbody>
       </table>
+      <NoData v-show="data.length == 0" />
     </div>
-    <div class="pagination">
-      <span class="active">1</span>
-      <span class="inactive">2</span>
-      <span class="inactive">3</span>
-      <span class="inactive">4</span>
-      <span class="inactive">5</span>
-      <span class="inactive">6</span>
-      <span>. . .</span>
-      <span class="inactive">10</span>
-    </div>
+    <paginate
+      :page-count="amountOfPages"
+      :margin-pages="2"
+      :container-class="'pagination'"
+      :break-view-text="'. . .'"
+      :click-handler="Paginate"
+    />
   </div>
 </template>
 
 <script>
+import paginate from 'vuejs-paginate'
+import moment from 'moment'
+import NoData from './NoTableData'
+
 export default {
-  name: 'GiveawayTable'
+  name: 'GiveawayTable',
+  components: {
+    NoData,
+    paginate
+  },
+  props: {
+    data: {
+      type: Array,
+      default () {
+        return []
+      }
+    }
+  },
+  data () {
+    return {
+      paginatedData: this.initialPaginate(),
+      amountOfPages: Math.ceil(this.data.length / 6),
+      currentPage: 0,
+      pagesToShow: 6,
+      status: 'Ongoing'
+    }
+  },
+  methods: {
+    Paginate (clickedpagenumber) {
+      this.currentPage = 0
+      this.pagesToShow = 6
+      let pageCount = 1
+      if (clickedpagenumber > 1) {
+        while (pageCount < clickedpagenumber) {
+          this.currentPage += 6
+          this.pagesToShow += 6
+          pageCount += 1
+        }
+      }
+
+      this.paginatedData = this.data
+        .sort((a, b) => {
+          if (this.status === 'Ongoing') {
+            if (!a.completed && b.completed) {
+              return -1
+            }
+            if (a.completed && !b.completed) {
+              return 1
+            }
+          } else {
+            if (a.completed && !b.completed) {
+              return -1
+            }
+            if (!a.completed && b.completed) {
+              return 1
+            }
+          }
+          // const giveawayDateA = new Date(a.createdAt)
+          // const giveawayDateB = new Date(b.createdAt)
+          // return giveawayDateB - giveawayDateA
+        })
+        .slice(this.currentPage, this.pagesToShow)
+    },
+    initialPaginate () {
+      const initialData = this.data.sort((a, b) => {
+        if (!a.completed && b.completed) {
+          return -1
+        }
+        if (a.completed && !b.completed) {
+          return 1
+        }
+        // const giveawayDateA = new Date(a.createdAt)
+        // const giveawayDateB = new Date(b.createdAt)
+        // return giveawayDateB - giveawayDateA
+      })
+      return initialData.slice(0, 6)
+    },
+    toggleStatus (status) {
+      this.status = status
+      this.paginatedData = this.data
+        .sort((a, b) => {
+          if (this.status === 'Ongoing') {
+            if (!a.completed && b.completed) {
+              return -1
+            }
+            if (a.completed && !b.completed) {
+              return 1
+            }
+          } else {
+            if (a.completed && !b.completed) {
+              return -1
+            }
+            if (!a.completed && b.completed) {
+              return 1
+            }
+          }
+          // const giveawayDateA = new Date(a.createdAt)
+          // const giveawayDateB = new Date(b.createdAt)
+          // return giveawayDateB - giveawayDateA
+        })
+        .slice(this.currentPage, this.pagesToShow)
+    },
+    amountDelimeter (amount) {
+      return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+    },
+    format_date (value) {
+      const today = new Date().getTime()
+      const createdAt = new Date(String(value)).getTime()
+      if (today === createdAt) {
+        return `Today, ${moment(new Date(String(value))).format('hh:mm')}`
+      }
+      return moment(new Date(String(value))).format('DD MMM YYYY, hh:mm')
+    }
+  }
 }
 </script>
 
@@ -191,7 +213,7 @@ export default {
   margin-bottom: 10px;
 }
 .table-head {
-  width:100%;
+  width: 100%;
   border-radius: 20px;
   max-height: 500px;
   overflow-y: auto;
@@ -203,15 +225,16 @@ table {
   border-spacing: 0px;
 }
 thead tr {
-  background: #F0F2F4;
+  background: #f0f2f4;
 }
 th {
   font-weight: normal;
   font-size: 14px;
   line-height: 24px;
-  color: #75759E;
+  color: #75759e;
 }
-th, td {
+th,
+td {
   height: 64px;
   text-align: left;
   padding-left: 6px;
@@ -240,11 +263,11 @@ th:nth-last-child(2) div {
   cursor: pointer;
 }
 .ongoing {
-  color: #E1931E;
+  color: #e1931e;
   width: 11%;
 }
 .completed {
-  color: #09AB5D;
+  color: #09ab5d;
   width: 11%;
 }
 /**/
@@ -265,14 +288,14 @@ tbody tr:last-child td:last-child {
   border-bottom-right-radius: 20px;
 }
 tbody tr:nth-child(even) {
-  background: #F9FAFB;
+  background: #f9fafb;
 }
 tbody tr:nth-child(odd) {
-  background: #FFFFFF;
+  background: #ffffff;
 }
 .Name {
   padding-left: 31px;
-  width: 28%;
+  width: 23%;
 }
 .Name-div {
   display: flex;
@@ -293,57 +316,11 @@ p {
 .arrowcircle {
   cursor: pointer;
 }
-.pagination {
-  margin-top: 35px;
-  display: flex;
-  align-self: center;
-  justify-content: space-between;
-  width: 165px;
-}
-.pagination .inactive {
-  display: block;
-  text-align: center;
-  width: 20px;
-  height: 21px;
-
-  font-weight: 600;
-  font-size: 14px;
-
-  color: #000000;
-  padding-top: 2px;
-  cursor: pointer;
-}
-.pagination .inactive:hover {
-  color: #FFFFFF;
-  background: #001431;
-  border-radius: 5px;
-}
-.pagination .active {
-  display: block;
-  text-align: center;
-  width: 20px;
-  height: 21px;
-
-  font-weight: 600;
-  font-size: 14px;
-
-  color: #FFFFFF;
-  background: #001431;
-  border-radius: 5px;
-  padding-top: 2px;
-  cursor: auto;
-}
-::-webkit-scrollbar {
-    width: 2px;
-}
-::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-}
-::-webkit-scrollbar-thumb {
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+.rotate {
+  transform: rotate(180deg);
 }
 @media (max-width: 1100px) {
-  .table-head  {
+  .table-head {
     max-height: 450px;
   }
   thead {
@@ -354,12 +331,12 @@ p {
     width: 100%;
   }
   /**/
-  tr{
+  tr {
     display: flex;
     flex-direction: column;
   }
   tr:first-child {
-    border-radius: 20px 20px 0px 0px
+    border-radius: 20px 20px 0px 0px;
   }
   td {
     display: flex;
@@ -385,7 +362,10 @@ p {
   tbody tr:last-child td:first-child {
     border-radius: 0px;
   }
-  .Name, .Type, .Tasks, .View{
+  .Name,
+  .Type,
+  .Tasks,
+  .View {
     width: 100%;
     padding: 0px;
   }

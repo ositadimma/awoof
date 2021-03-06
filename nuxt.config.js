@@ -11,18 +11,29 @@ export default {
       { hid: 'description', name: 'description', content: '' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      // {
+      //   rel: 'stylesheet',
+      //   href:
+      //     'https://cdn.jsdelivr.net/npm/@mdi/font@5.9.55/css/materialdesignicons.min.css'
+      // },
+      {
+        rel: 'stylesheet',
+        href: 'https://fonts.googleapis.com/icon?family=Material+Icons'
+      },
+      {
+        rel: 'stylesheet',
+        href:
+          'https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css'
+      }
     ]
   },
 
   // Global CSS (https://go.nuxtjs.dev/config-css)
-  css: [
-    '@assets/styles/global.css',
-  ],
+  css: ['@assets/styles/global.css'],
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
-  plugins: [
-  ],
+  plugins: [{ src: '~/plugins/axios' }],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
   components: true,
@@ -30,27 +41,84 @@ export default {
   // Modules for dev and build (recommended) (https://go.nuxtjs.dev/config-modules)
   buildModules: [
     // https://go.nuxtjs.dev/eslint
-    '@nuxtjs/eslint-module',
+    '@nuxtjs/eslint-module'
   ],
+
+  // loading indicator
+  loadingIndicator: {
+    name: 'circle',
+    color: '#09AB5D',
+    background: 'white'
+  },
+
+  // loading bar
+  loading: {
+    height: '4px',
+    color: '#09AB5D'
+  },
 
   // Modules (https://go.nuxtjs.dev/config-modules)
   modules: [
     // https://go.nuxtjs.dev/pwa
     '@nuxtjs/pwa',
+    '@nuxtjs/axios',
+    '@nuxtjs/toast'
   ],
+
+  axios: {
+    retry: { retries: 3 }
+  },
+
+  toast: {
+    position: 'top-right',
+    register: [
+      {
+        name: 'custom_success',
+        message: message => message,
+        options: {
+          type: 'success',
+          theme: 'bubble',
+          duration: 1003000,
+          className: 'toast-container',
+          action: {
+            icon: 'close',
+            onClick: (e, toastObject) => {
+              toastObject.goAway(0)
+            }
+          }
+        }
+      },
+      {
+        name: 'custom_error',
+        message: message => message,
+        options: {
+          type: 'error',
+          theme: 'bubble',
+          duration: 3000,
+          className: 'toast-container',
+          action: {
+            icon: 'close',
+            onClick: (e, toastObject) => {
+              toastObject.goAway(0)
+            }
+          }
+        }
+      }
+    ]
+  },
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {
-    extend(config, ctx) {
-        config.module.rules.push({
-          enforce: 'pre',
-          test: /\.(js|vue)$/,
-          loader: 'eslint-loader',
-          exclude: /(node_modules)/,
-          options: {
-            fix: true
-          }
-        })
+    extend (config, ctx) {
+      config.module.rules.push({
+        enforce: 'pre',
+        test: /\.(js|vue)$/,
+        loader: 'eslint-loader',
+        exclude: /(node_modules)/,
+        options: {
+          fix: true
+        }
+      })
     }
   }
 }

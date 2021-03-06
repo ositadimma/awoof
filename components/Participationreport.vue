@@ -6,10 +6,22 @@
     <hr>
     <div class="charts">
       <span class="Gender">Gender</span>
-      <PieChart />
+      <PieChart
+        v-show="giveawayParticipants.length > 0"
+        :giveaway-participants="giveawayParticipants"
+      />
+      <div v-show="giveawayParticipants.length < 1" class="No-data">
+        No data
+      </div>
       <hr>
       <span class="Location">Location</span>
-      <HorizontalBar />
+      <HorizontalBar
+        v-show="giveawayParticipants.length > 0"
+        :giveaway-participants="giveawayParticipants"
+      />
+      <div v-show="giveawayParticipants.length < 1" class="No-data">
+        No data
+      </div>
     </div>
   </div>
 </template>
@@ -22,6 +34,14 @@ export default {
   components: {
     PieChart,
     HorizontalBar
+  },
+  props: {
+    giveawayParticipants: {
+      type: Array,
+      default () {
+        return []
+      }
+    }
   }
 }
 </script>
@@ -33,8 +53,8 @@ export default {
   width: 100%;
   height: auto;
 
-  background: #FFFFFF;
-  border: 1px solid #E2E2EA;
+  background: #ffffff;
+  border: 1px solid #e2e2ea;
   border-radius: 20px;
   padding: 0px 38px 30px 23px;
   margin-top: 113px;
@@ -48,27 +68,34 @@ export default {
   width: 100%;
   margin: 16px 0px 17px 0px;
 }
-.participation .head span:first-child{
+.participation .head span:first-child {
   align-self: start;
   display: block;
   font-size: 12px;
   line-height: 19px;
 
-  color: #A2ABAA;
+  color: #a2abaa;
 }
 .charts hr {
   margin-bottom: 24px;
 }
-.charts .Gender, .charts .Location {
+.charts .Gender,
+.charts .Location {
   display: block;
-  color: #75759E;
+  color: #75759e;
   font-size: 12px;
   margin-bottom: 4px;
 }
+.No-data {
+  color: #09ab5d;
+  box-sizing: content-box;
+  width: 60px;
+  margin: 0 auto;
+}
 @media (max-width: 1280px) {
   .participation {
-   margin: 65px 0px 65px 0px;
-   height: auto;
+    margin: 65px 0px 65px 0px;
+    height: auto;
   }
 }
 </style>

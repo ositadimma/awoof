@@ -1,8 +1,8 @@
 <template>
-  <div class="dashboard-table">
+  <div class="dashboard-table animate__fadeInUp">
     <div class="head">
       <span>Recent Giveaways</span>
-      <span>See All</span>
+      <span @click="$router.push('/giveaways/givers')">See All</span>
     </div>
     <div class="table-head">
       <table>
@@ -26,154 +26,84 @@
             <th class="View" />
           </tr>
         </thead>
-        <tbody>
-          <tr>
+        <tbody v-show="dashboardData.length > 0">
+          <tr
+            v-for="(giveaway, index) in dashboardData.slice(0, 6)"
+            :key="index"
+          >
             <td data-title="Name" class="Name">
               <div class="Name-div">
-                <p>Don Jazzy</p>
-                <Checkicon />
+                <p>{{ giveaway.user ? giveaway.user.username : "Admin" }}</p>
+                <!-- <Checkicon /> -->
               </div>
             </td>
             <td data-title="Type" class="Type">
-              Giveaway
+              {{ giveaway.type }}
             </td>
             <td data-title="Tasks">
               Open
             </td>
             <td data-title="Total Amount">
-              N300,000,000
+              N{{ amountDelimeter(giveaway.amount) }}
             </td>
             <td data-title="Date Posted">
-              22 Jan 2020, 10:03
+              {{ format_date(giveaway.createdAt) }}
             </td>
             <td class="View">
-              <ArrowCircle />
-            </td>
-          </tr>
-          <tr>
-            <td data-title="Name" class="Name">
-              <div class="Name-div">
-                <p>Don Jazzy</p>
-                <Checkicon />
-              </div>
-            </td>
-            <td data-title="Type" class="Type">
-              Giveaway
-            </td>
-            <td data-title="Tasks">
-              Open
-            </td>
-            <td data-title="Total Amount">
-              N300,000,000
-            </td>
-            <td data-title="Date Posted">
-              22 Jan 2020, 10:03
-            </td>
-            <td class="View">
-              <ArrowCircle />
-            </td>
-          </tr>
-          <tr>
-            <td data-title="Name" class="Name">
-              <div class="Name-div">
-                <p>Don Jazzy</p>
-                <Checkicon />
-              </div>
-            </td>
-            <td data-title="Type" class="Type">
-              Giveaway
-            </td>
-            <td data-title="Tasks">
-              Open
-            </td>
-            <td data-title="Total Amount">
-              N300,000,000
-            </td>
-            <td data-title="Date Posted">
-              22 Jan 2020, 10:03
-            </td>
-            <td class="View">
-              <ArrowCircle />
-            </td>
-          </tr>
-          <tr>
-            <td data-title="Name" class="Name">
-              <div class="Name-div">
-                <p>Don Jazzy</p>
-                <Checkicon />
-              </div>
-            </td>
-            <td data-title="Type" class="Type">
-              Giveaway
-            </td>
-            <td data-title="Tasks">
-              Open
-            </td>
-            <td data-title="Total Amount">
-              N300,000,000
-            </td>
-            <td data-title="Date Posted">
-              22 Jan 2020, 10:03
-            </td>
-            <td class="View">
-              <ArrowCircle />
-            </td>
-          </tr>
-          <tr>
-            <td data-title="Name" class="Name">
-              <div class="Name-div">
-                <p>Don Jazzy</p>
-                <Checkicon />
-              </div>
-            </td>
-            <td data-title="Type" class="Type">
-              Giveaway
-            </td>
-            <td data-title="Tasks">
-              Open
-            </td>
-            <td data-title="Total Amount">
-              N300,000,000
-            </td>
-            <td data-title="Date Posted">
-              22 Jan 2020, 10:03
-            </td>
-            <td class="View">
-              <ArrowCircle />
-            </td>
-          </tr>
-          <tr>
-            <td data-title="Name" class="Name">
-              <div class="Name-div">
-                <p>Don Jazzy</p>
-                <Checkicon />
-              </div>
-            </td>
-            <td data-title="Type" class="Type">
-              Giveaway
-            </td>
-            <td data-title="Tasks">
-              Open
-            </td>
-            <td data-title="Total Amount">
-              N300,000,000
-            </td>
-            <td data-title="Date Posted">
-              22 Jan 2020, 10:03
-            </td>
-            <td class="View">
-              <ArrowCircle />
+              <ArrowCircle
+                @click.native="
+                  $router.push(`/giveaways/givers/${giveaway._id}`)
+                "
+              />
             </td>
           </tr>
         </tbody>
       </table>
+      <NoData v-show="dashboardData.length == 0" />
     </div>
   </div>
 </template>
 
 <script>
+import moment from 'moment'
+import NoData from './NoTableData'
 export default {
-  name: 'DashboardTable'
+  name: 'DashboardTable',
+  components: {
+    NoData
+  },
+  props: {
+    dashboardTable: {
+      type: Array,
+      default () {
+        return []
+      }
+    }
+  },
+  computed: {
+    dashboardData () {
+      // eslint-disable-next-line vue/no-side-effects-in-computed-properties
+      const data = this.dashboardTable.sort((a, b) => {
+        const giveawayDateA = new Date(a.createdAt)
+        const giveawayDateB = new Date(b.createdAt)
+        return giveawayDateB - giveawayDateA
+      })
+      return data
+    }
+  },
+  methods: {
+    amountDelimeter (amount) {
+      return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+    },
+    format_date (value) {
+      const today = new Date().getTime()
+      const createdAt = new Date(String(value)).getTime()
+      if (today === createdAt) {
+        return `Today, ${moment(new Date(String(value))).format('hh:mm')}`
+      }
+      return moment(new Date(String(value))).format('DD MMM YYYY, hh:mm')
+    }
+  }
 }
 </script>
 
@@ -190,19 +120,19 @@ export default {
 }
 .dashboard-table .head span:nth-child(1) {
   font-size: 16px;
-  color: #75759E;
+  color: #75759e;
   flex: 3;
 }
 .dashboard-table .head span:nth-child(2) {
   font-size: 16px;
   font-weight: bold;
-  color: #09AB5D;
+  color: #09ab5d;
   cursor: pointer;
 }
 .table-head {
-  width:100%;
+  width: 100%;
   border-radius: 20px;
-  max-height: 500px;
+  max-height: 700px;
   overflow-y: auto;
 }
 table {
@@ -212,15 +142,16 @@ table {
   border-spacing: 0px;
 }
 thead tr {
-  background: #F0F2F4;
+  background: #f0f2f4;
 }
 th {
   font-weight: normal;
   font-size: 14px;
   line-height: 24px;
-  color: #75759E;
+  color: #75759e;
 }
-th, td {
+th,
+td {
   height: 64px;
   text-align: left;
   padding-left: 6px;
@@ -249,10 +180,10 @@ tbody tr:last-child td:last-child {
   border-bottom-right-radius: 20px;
 }
 tbody tr:nth-child(even) {
-  background: #F9FAFB;
+  background: #f9fafb;
 }
 tbody tr:nth-child(odd) {
-  background: #FFFFFF;
+  background: #ffffff;
 }
 .Name {
   padding-left: 31px;
@@ -274,31 +205,22 @@ p {
 .arrowcircle {
   cursor: pointer;
 }
-::-webkit-scrollbar {
-    width: 2px;
-}
-::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-}
-::-webkit-scrollbar-thumb {
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-}
 @media (max-width: 1100px) {
   .dashboard-table .head {
     padding-left: 0px;
   }
   .table-head {
-    max-height: 386px;
+    max-height: 586px;
   }
   thead {
     display: none;
   }
-  tr{
+  tr {
     display: flex;
     flex-direction: column;
   }
   tr:first-child {
-    border-radius: 20px 20px 0px 0px
+    border-radius: 20px 20px 0px 0px;
   }
   td {
     display: flex;
@@ -324,7 +246,9 @@ p {
   tbody tr:last-child td:first-child {
     border-radius: 0px;
   }
-  .Name, .Type, .View {
+  .Name,
+  .Type,
+  .View {
     width: 100%;
     padding: 0px;
   }

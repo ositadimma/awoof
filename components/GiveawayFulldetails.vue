@@ -10,47 +10,71 @@
         Full Name
       </span>
       <span>
-        Seun Kolade
+        {{ userInfo.firstName + " " + userInfo.lastName }}
       </span>
 
       <span>
         Phone Number
       </span>
       <span>
-        09030928402
+        {{ userInfo.phoneNumber }}
       </span>
 
       <span>
         Email Address
       </span>
       <span>
-        seun@example.com
+        {{ userInfo.email }}
       </span>
 
       <span>
         Registration Date
       </span>
       <span>
-        22nd January, 2020
+        {{
+          userInfo.signupDate !== undefined
+            ? format_date(userInfo.signupDate)
+            : "No registration date set"
+        }}
       </span>
     </div>
   </div>
 </template>
+
 <script>
+import moment from 'moment'
 export default {
-  name: 'Fulldetails'
+  name: 'GiveawayFulldetails',
+  props: {
+    userInfo: {
+      type: Object,
+      default () {
+        return {
+          firstName: 'Admin',
+          lastName: '',
+          email: 'No email set',
+          phoneNumber: 'No phone number set'
+        }
+      }
+    }
+  },
+  methods: {
+    format_date (value) {
+      return moment(new Date(String(value))).format('Do MMMM, YYYY')
+    }
+  }
 }
 </script>
 
-<style>
+<style scoped>
 .extra {
   display: flex;
   flex-direction: column;
   width: 100%;
   height: 370px;
 
-  background: #FFFFFF;
-  border: 1px solid #E2E2EA;
+  background: #ffffff;
+  border: 1px solid #e2e2ea;
   border-radius: 20px;
   padding: 0px 38px 0px 23px;
 }
@@ -64,20 +88,20 @@ export default {
   width: 100%;
   margin-bottom: 19px;
 }
-.extra .head span:first-child{
+.extra .head span:first-child {
   align-self: start;
   display: block;
   font-size: 12px;
   line-height: 19px;
 
-  color: #A2ABAA;
+  color: #a2abaa;
 }
-.extra .head span:last-child{
+.extra .head span:last-child {
   font-weight: bold;
   font-size: 11px;
   line-height: 18px;
 
-  color: #4CD964;
+  color: #4cd964;
 }
 .extra div:last-child {
   display: flex;
@@ -85,7 +109,7 @@ export default {
 }
 .extra div:last-child span:nth-child(odd) {
   font-size: 11px;
-  color: #75759E;
+  color: #75759e;
   margin-bottom: 2px;
 }
 .extra div:last-child span:nth-child(even) {
@@ -96,10 +120,10 @@ export default {
 .extra div:last-child span:nth-child(2) {
   margin-bottom: 24px;
 }
-.extra div:last-child span:nth-child(2n+2) {
+.extra div:last-child span:nth-child(2n + 2) {
   margin-bottom: 26px;
 }
-@media (max-width: 950px) {
+@media (max-width: 1280px) {
   .extra {
     width: 100%;
     height: auto;
