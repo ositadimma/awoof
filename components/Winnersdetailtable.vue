@@ -28,7 +28,7 @@
             <div class="Name-div">
               <p>
                 {{
-                  giveawayDetail.user ? giveawayDetail.user.username : "Admin"
+                  giveawayDetail.user ? giveawayDetail.user.username : 'Admin'
                 }}
               </p>
               <!-- <Checkicon /> -->
@@ -38,7 +38,7 @@
             N{{ amountDelimeter(giveawayDetail.amount) }}
           </td>
           <td data-title="Date Posted" class="Date">
-            {{ format_date(giveawayDetail.user.signupDate) }}
+            {{ format_date(giveawayDetail.createdAt) }}
           </td>
         </tr>
       </tbody>
@@ -75,7 +75,11 @@
             N{{ amountDelimeter(giveawayDetail.amountPerWinner) }}
           </td>
           <td data-title="Date Entered" class="Date">
-            {{ format_date(giveawayDetail.createdAt) }}
+            {{
+              giveawayDetail.user !== undefined
+                ? format_date(giveawayDetail.user.signupDate)
+                : 'nil'
+            }}
           </td>
         </tr>
       </tbody>

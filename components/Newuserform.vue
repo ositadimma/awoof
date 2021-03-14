@@ -180,6 +180,7 @@ export default {
       this.email = ''
       this.phonenumber = ''
       this.gender = 'Please select gender'
+      this.password = ''
       this.image = ''
       this.referralCode = ''
       this.dateOfBirth = ''
@@ -390,6 +391,7 @@ input[type='email'] {
   margin-bottom: 21px;
   font-size: 12px;
   color: #8692a6;
+  background: transparent;
   padding-right: 5%;
 }
 

@@ -342,7 +342,9 @@ export default {
       ) {
         this.image = file
       } else {
-        this.$toast.global.custom_error('Can only upload images')
+        this.$toast.global.custom_error(
+          'Can only images and images must be in png, jpeg, jpg, or gif format'
+        )
       }
     },
     setDataToDefault () {
