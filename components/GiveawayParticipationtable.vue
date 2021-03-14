@@ -10,6 +10,9 @@
             <th class="Name">
               Name
             </th>
+            <th>
+              Email
+            </th>
             <th class="Task">
               Task Completion
             </th>
@@ -24,11 +27,14 @@
             <td data-title="Name" class="Name">
               {{ participant.user.firstName + ' ' + participant.user.lastName }}
             </td>
+            <td data-title="Email">
+              {{ participant.user.email }}
+            </td>
             <td data-title="Task Completion" class="Task">
-              {{ participant.win ? 'All Completed' : 'Not Completed' }}
+              All Completed
             </td>
             <td data-title="Date Entered">
-              {{ format_date(participant.user.signupDate) }}
+              {{ format_date(participant.createdAt) }}
             </td>
             <td class="View">
               <!-- <ArrowCircle /> -->
@@ -110,6 +116,15 @@ export default {
       }
       return moment(new Date(String(value))).format('DD MMM YYYY, hh:mm')
     },
+    setDataToDefault () {
+      this.customWinners = []
+      this.checkboxes = []
+      for (let i = 0; i < this.giveawayParticipants.length; i += 1) {
+        this.checkboxes.push({
+          checked: false
+        })
+      }
+    },
     setWinner (index, uuid) {
       if (this.checkboxes[index].checked) {
         const newCustomWinners = this.customWinners.filter(
@@ -126,35 +141,41 @@ export default {
       }
     },
     async addWinners () {
-      this.loading = '- - -'
-      this.$axios.setHeader('x-auth-token', Cookies.get('token'))
-      try {
-        const response = await this.$axios.$post(
-          `https://awoof-api.herokuapp.com/v1/admins/set_giveaway_winners/${this.$route.params.id}`,
-          {
-            winner: this.customWinners
-          }
-        )
-        if (response) {
-          this.$toast.global.custom_success('Winners successfully added.')
-          this.$nuxt.refresh()
-        }
-      } catch (err) {
-        if (err.message.includes('Network')) {
-          this.$toast.global.custom_error(
-            'please check your connection and try again'
+      if (this.customWinners.length < 1) {
+        this.$toast.global.custom_error('Please select a winner')
+      } else {
+        this.loading = '- - -'
+        this.$axios.setHeader('x-auth-token', Cookies.get('token'))
+        try {
+          const response = await this.$axios.$post(
+            `https://awoof-api.herokuapp.com/v1/admins/set_giveaway_winners/${this.$route.params.id}`,
+            {
+              winners: this.customWinners
+            }
           )
-        }
+          if (response) {
+            this.$toast.global.custom_success('Winners successfully added.')
+            this.$emit('refresh')
+            this.setDataToDefault()
+          }
+          this.loading = 'Add winners'
+        } catch (err) {
+          this.loading = 'Add winners'
+          if (err.message.includes('Network')) {
+            this.$toast.global.custom_error(
+              'please check your connection and try again'
+            )
+          }
 
-        if (err.response !== undefined) {
-          if (err.response.status === 400) {
-            this.$toast.global.custom_error(err.response.data.message)
-          } else if (err.response.status === 403) {
-            this.$toast.global.custom_error(err.response.data)
+          if (err.response !== undefined) {
+            if (err.response.status === 400) {
+              this.$toast.global.custom_error(err.response.data.message)
+            } else if (err.response.status === 403) {
+              this.$toast.global.custom_error(err.response.data)
+            }
           }
         }
       }
-      this.loading = 'Add winners'
     }
   }
 }
@@ -226,7 +247,7 @@ tbody tr:nth-child(odd) {
 }
 .Name {
   padding-left: 31px;
-  width: 35%;
+  width: 20%;
 }
 .View {
   width: 10%;
@@ -291,6 +312,7 @@ input[type='checkbox'] {
   cursor: pointer;
 }
 .btn-cmpt {
+  min-width: 77.344px;
   margin-left: auto;
   min-height: 30px;
   margin-bottom: 0.7rem;

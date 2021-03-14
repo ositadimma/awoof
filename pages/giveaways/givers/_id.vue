@@ -27,26 +27,30 @@
 
     <div ref="details" class="details">
       <div class="details-child-1">
-        <GiveawayDetailTable :giveaway-detail="giveawayDetail" />
+        <GiveawayDetailTable :key="key + 1" :giveaway-detail="giveawayDetail" />
         <span
           v-show="giveawayDetail.completed"
           class="users"
         >Winners ({{ giveawayWinners.length }})</span>
         <GiveawayWinnersTable
           v-show="giveawayDetail.completed"
+          :key="key + 2"
           :giveaway-winners="giveawayWinners"
         />
         <span
           class="users"
         >Users Who Have Entered ({{ giveawayParticipants.length }})</span>
         <GiveawayParticipationTable
+          :key="key + 3"
           :giveaway-participants="giveawayParticipants"
+          @refresh="refresh"
         />
       </div>
       <div class="details-child-2">
-        <GiveawayFullDetails :user-info="userInfo" />
+        <GiveawayFullDetails :key="key" :user-info="userInfo" />
         <ParticipationReport
           v-show="giveawayDetail.completed"
+          :key="key + 4"
           :giveaway-participants="giveawayParticipants"
         />
       </div>
@@ -96,6 +100,7 @@ export default {
         }
       }
     }
+
     // eslint-disable-next-line
     return {
       giveawayDetail:
@@ -111,8 +116,13 @@ export default {
           : [],
       giveawayParticipants:
         giveawayParticipantsResponse !== undefined
-          ? giveawayWinnersResponse.data
+          ? giveawayParticipantsResponse.data
           : []
+    }
+  },
+  data () {
+    return {
+      key: 0
     }
   },
   computed: {
@@ -183,6 +193,10 @@ export default {
         .set(opt)
         .from(this.$refs.details)
         .save()
+    },
+    refresh () {
+      this.$nuxt.refresh()
+      this.key += 1
     }
   }
 }
