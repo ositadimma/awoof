@@ -6,7 +6,8 @@
         <img src="~/assets/icons/Delete.svg" @click="closeModal">
       </header>
       <div class="conditions-container">
-        <div v-show="!followPageOnFacebookCheck || !likeFacebookCheck" class="social">
+        <!-- !followPageOnFacebookCheck ||  -->
+        <div v-show="!likeFacebookCheck" class="social">
           <img src="~/assets/images/facebook.png" alt="select">
           Facebook
           <img
@@ -359,7 +360,7 @@ export default {
         element => element.text === 'Follow Page On Facebook'
       )
       this.likeFacebookCheck = tasks.some(
-        element => element.text === 'Like post on Facebook'
+        element => element.text === 'Like and post on Facebook'
       )
       this.followInstagramCheck = tasks.some(
         element => element.text === 'Follow On Instagram'
@@ -519,7 +520,7 @@ img {
 }
 
 /* custom checkbox */
-input[type="checkbox"] {
+input[type='checkbox'] {
   padding: 0;
   height: initial;
   width: initial;
@@ -542,7 +543,7 @@ input[type="checkbox"] {
 }
 
 .checkbox label:before {
-  content: "";
+  content: '';
   -webkit-appearance: none;
   background: #ffffff;
   border: 1px solid #8692a6;
@@ -557,13 +558,13 @@ input[type="checkbox"] {
   cursor: pointer;
 }
 
-.checkbox input[type="checkbox"]:checked + label:before {
+.checkbox input[type='checkbox']:checked + label:before {
   background: #09ab5d;
   border: none;
 }
 
-.checkbox input[type="checkbox"]:checked + label:after {
-  content: "";
+.checkbox input[type='checkbox']:checked + label:after {
+  content: '';
   position: absolute;
   top: 2.5px;
   left: 6px;
@@ -602,7 +603,7 @@ input[type="checkbox"] {
   font-size: calc(0.8rem + 0.3vw);
 }
 
-input[type="text"] {
+input[type='text'] {
   border: 1px solid rgba(134, 146, 166, 0.4);
   border-radius: 3px;
   width: 100%;
@@ -614,7 +615,7 @@ input[type="text"] {
   padding-left: 0.875rem;
 }
 
-input[type="text"]::placeholder {
+input[type='text']::placeholder {
   color: rgba(52, 87, 70, 0.2);
   font-size: calc(0.6rem + 0.2vw);
 }
@@ -659,7 +660,7 @@ input[type="text"]::placeholder {
     font-size: 16px;
   }
 
-  input[type="text"] {
+  input[type='text'] {
     font-size: 15px;
   }
 

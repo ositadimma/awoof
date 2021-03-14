@@ -37,9 +37,7 @@ export default {
       )
     } catch (err) {
       if (err.message.includes('Network')) {
-        $toast.global.custom_error(
-          'please check your connection and try again'
-        )
+        $toast.global.custom_error('please check your connection and try again')
       }
 
       if (err.response !== undefined) {
@@ -127,7 +125,7 @@ export default {
 .edit .edit-image {
   width: 20px;
   height: 20px;
-  background-image: url("~assets/icons/EditSquare.svg");
+  background-image: url('~assets/icons/EditSquare.svg');
   cursor: pointer;
 }
 @media (max-width: 767px) {

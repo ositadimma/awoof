@@ -82,6 +82,9 @@ export default {
       var giveawayWinnersResponse = await $axios.$get(
         `https://awoof-api.herokuapp.com/v1/giveaways/winners/${params.id}`
       )
+      var giveawayParticipantsResponse = await $axios.$get(
+        `https://awoof-api.herokuapp.com/v1/admins/get_participants/${params.id}`
+      )
     } catch (err) {
       if (err.message.includes('Network')) {
         $toast.global.custom_error('please check your connection and try again')
@@ -107,7 +110,7 @@ export default {
           ? giveawayWinnersResponse.data
           : [],
       giveawayParticipants:
-        giveawayWinnersResponse !== undefined
+        giveawayParticipantsResponse !== undefined
           ? giveawayWinnersResponse.data
           : []
     }

@@ -23,7 +23,7 @@
               giveawayDetail.completed ? 'completed Status' : 'ongoing Status'
             "
           >
-            {{ giveawayDetail.completed ? "Completed" : "On-going" }}
+            {{ giveawayDetail.completed ? 'Completed' : 'On-going' }}
           </td>
           <td data-title="Tasks" class="Tasks">
             {{ tasks.length }}
@@ -104,8 +104,8 @@ export default {
       }
       if (this.giveawayDetail.likeFacebook) {
         tasks.push({
-          text: 'Like and post on Facebook'
-          // link: this.giveawayDetail.likeFacebookLink
+          text: 'Like and post on Facebook',
+          link: this.giveawayDetail.likeFacebookLink
         })
       }
       if (this.giveawayDetail.followInstagram) {
@@ -212,7 +212,7 @@ hr {
   border-radius: 3px;
   margin: 0px 3.8% 0px auto;
 }
-input[type="text"] {
+input[type='text'] {
   color: #000000;
   font-size: 12px;
   width: 80%;
