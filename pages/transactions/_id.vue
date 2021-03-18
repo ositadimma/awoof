@@ -104,8 +104,8 @@
           <span>
             {{
               userDetail !== undefined && userDetail
-                ? userDetail.firstName + " " + userDetail.lastName
-                : "User does not exist"
+                ? userDetail.firstName + ' ' + userDetail.lastName
+                : 'User does not exist'
             }}
           </span>
 
@@ -116,7 +116,7 @@
             {{
               userDetail !== undefined && userDetail
                 ? userDetail.phoneNumber
-                : "nil"
+                : 'No phone number set'
             }}
           </span>
 
@@ -125,7 +125,9 @@
           </span>
           <span>
             {{
-              userDetail !== undefined && userDetail ? userDetail.email : "nil"
+              userDetail !== undefined && userDetail
+                ? userDetail.email
+                : 'No email set'
             }}
           </span>
 
@@ -136,7 +138,7 @@
             {{
               userDetail !== undefined && userDetail
                 ? format_date(userDetail.signupDate)
-                : "nil"
+                : 'No registration date set'
             }}
           </span>
         </div>
@@ -190,9 +192,7 @@ export default {
       }
     } catch (err) {
       if (err.message.includes('Network')) {
-        $toast.global.custom_error(
-          'please check your connection and try again'
-        )
+        $toast.global.custom_error('please check your connection and try again')
       }
 
       if (err.response !== undefined) {

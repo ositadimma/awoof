@@ -45,9 +45,7 @@ export default {
       )
     } catch (err) {
       if (err.message.includes('Network')) {
-        $toast.global.custom_error(
-          'please check your connection and try again'
-        )
+        $toast.global.custom_error('please check your connection and try again')
       }
 
       if (err.response !== undefined) {
@@ -61,7 +59,9 @@ export default {
       giveawayDetail:
         giveawayDetailResponse !== undefined ? giveawayDetailResponse.data : {},
       userInfo:
-        winnerDetailResponse !== undefined ? winnerDetailResponse.data : {}
+        winnerDetailResponse !== undefined
+          ? winnerDetailResponse.data
+          : undefined
     }
   },
   created () {

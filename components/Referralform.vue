@@ -7,7 +7,7 @@
       </div>
       <hr>
       <div class="form">
-        <label>Amount</label>
+        <label>Amount of stars</label>
         <input v-model="amount" type="number" placeholder="Please Enter">
 
         <!-- <label>Referral ID</label>

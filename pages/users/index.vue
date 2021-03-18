@@ -1,26 +1,28 @@
 <template>
   <div class="user-container">
-    <div class="user-card animate__fadeInUp">
-      <div class="title-ctn">
-        <span class="title">User Count</span>
+    <div class="box-container animate__fadeInUp">
+      <div class="user-card">
+        <div class="title-ctn">
+          <span class="title">User Count</span>
+        </div>
+        <div class="user-count">
+          <span class="amount">{{ data.length }}</span>
+          <button class="btn-cmpt" @click="showModal">
+            Add new user
+          </button>
+        </div>
       </div>
-      <div class="user-count">
-        <span class="amount">{{ data.length }}</span>
-        <button class="btn-cmpt" @click="showModal">
-          Add new user
+      <div class="search-container">
+        <input
+          v-model="search"
+          type="search"
+          placeholder="Search users..."
+          @keyup.enter="filterSearch"
+        >
+        <button class="search" @click="filterSearch">
+          Search
         </button>
       </div>
-    </div>
-    <div class="search-container animate__fadeInUp">
-      <input
-        v-model="search"
-        type="search"
-        placeholder="Search users..."
-        @keyup.enter="filterSearch"
-      >
-      <button class="search" @click="filterSearch">
-        Search
-      </button>
     </div>
     <UsersTable :key="key" :data="searchData" />
     <NewUserForm v-show="modalOpen" />
@@ -130,6 +132,12 @@ export default {
   overflow-y: auto;
   overflow-x: hidden;
 }
+.box-container {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
 .user-card {
   border: 1px solid #e2e2ea;
   background: #ffffff;
@@ -142,7 +150,6 @@ export default {
   flex-direction: column;
   /*margin: 0px 21px 19px 0px;*/
   padding: 10px 31px 0px 29px;
-  margin-bottom: 1.5rem;
 }
 .title-ctn {
   display: flex;
@@ -172,22 +179,23 @@ export default {
   padding-top: 2.5px;
 }
 .search-container {
+  margin-left: auto;
   width: 100%;
   max-width: 400px;
-  min-height: 80px;
-  max-height: 80px;
+  min-height: 60px;
+  max-height: 60px;
   border: 1px solid #e2e2ea;
   border-radius: 20px;
   background: #fff;
   display: flex;
   align-items: center;
   /* box-shadow: 0 6px 30px -10px #d5dbed; */
-  margin: 0 0 1.5rem;
   padding: 0 1rem 0 1rem;
 }
 input[type='search'] {
-  flex: 1;
-  height: 70%;
+  width: 75%;
+  min-height: 70%;
+  max-height: 70%;
   padding-left: 1rem;
   font-size: 1.3rem;
   border: none;
@@ -216,9 +224,23 @@ input[type='search']:focus {
   height: 70%;
   font-size: 1.3rem;
   cursor: pointer;
+  margin-left: auto;
 }
 .search:focus {
   outline: 0;
+}
+@media (max-width: 1054px) {
+  .box-container {
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
+  }
+  .user-card {
+    margin-bottom: 1rem;
+  }
+  .search-container {
+    margin-left: 0;
+  }
 }
 @media (max-width: 768px) {
   .user-container {

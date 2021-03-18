@@ -44,7 +44,7 @@
         Number of wins
       </span>
       <div v-show="!edit" class="no-of-wins">
-        <p>2</p>
+        <p>{{ userInfo.giveawaysWon }}</p>
       </div>
       <!-- <div v-show="edit" class="no-of-wins-edit">
         <input
@@ -85,7 +85,15 @@ export default {
     userInfo: {
       type: Object,
       default () {
-        return {}
+        return {
+          firstName: 'User does not exist',
+          lastName: '',
+          username: 'No username set',
+          email: 'No email set',
+          stars: 0,
+          giveawaysWon: 0,
+          phoneNumber: 'No phone number set'
+        }
       }
     }
   },
@@ -103,7 +111,10 @@ export default {
       this.noOfStars = this.userInfo.stars
     },
     format_date (value) {
-      return moment(new Date(String(value))).format('Do MMMM, YYYY')
+      if (value !== undefined || value) {
+        return moment(new Date(String(value))).format('Do MMMM, YYYY')
+      }
+      return 'No registration date set'
     },
     validateNoOfStars (e) {
       if (parseInt(this.noOfStars) < 31 || this.noOfStars === '') {

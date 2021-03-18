@@ -5,7 +5,10 @@
         <span class="title">Referral Bonus</span>
       </div>
       <div class="edit">
-        <span class="amount">N{{ amount.amount }}</span>
+        <span
+          class="amount"
+        ><img src="~/assets/icons/star.svg" alt="star">
+          {{ amount.amount }}</span>
         <div class="edit-image" @click="showModal" />
       </div>
     </div>
@@ -90,6 +93,7 @@ export default {
   border-radius: 20px;
   width: 260px;
   min-height: 95px;
+  max-height: 95px;
 
   display: flex;
   justify-content: center;
@@ -121,6 +125,9 @@ export default {
 
   color: #171725;
   padding-top: 3px;
+}
+.edit .amount img {
+  margin-top: 5px;
 }
 .edit .edit-image {
   width: 20px;
