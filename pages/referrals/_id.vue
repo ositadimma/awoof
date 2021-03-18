@@ -64,7 +64,7 @@
           <tbody>
             <tr>
               <td class="id" data-title="Ref ID">
-                #{{ referralDetail.referralCode }}
+                #{{ referralDetail.userRef }}
               </td>
               <td data-title="Usage">
                 {{ referralDetail.refCodeUsage }}
@@ -97,7 +97,7 @@
               :key="index"
             >
               <td class="name" data-title="Name">
-                {{ user.firstName + " " + user.lastName }}
+                {{ user.firstName + ' ' + user.lastName }}
               </td>
               <td data-title="Phone No">
                 {{ user.phoneNumber }}
@@ -135,9 +135,7 @@ export default {
       )
     } catch (err) {
       if (err.message.includes('Network')) {
-        $toast.global.custom_error(
-          'please check your connection and try again'
-        )
+        $toast.global.custom_error('please check your connection and try again')
       }
 
       if (err.response !== undefined) {
