@@ -379,10 +379,10 @@ export default {
       // dateInThirtyDays.setDate(today.getDate() + 30)
 
       const data = new FormData()
-      data.append('amount', parseInt(this.amount.replace(',', '')))
+      data.append('amount', parseInt(this.amount.replaceAll(',', '')))
       data.append(
         'amountPerWinner',
-        parseInt(this.amountPerWinner.replace(',', ''))
+        parseInt(this.amountPerWinner.replaceAll(',', ''))
       )
       data.append('type', 'star')
       data.append('isAnonymous', false)
