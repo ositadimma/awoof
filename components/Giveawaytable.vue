@@ -18,9 +18,10 @@
             <th>
               <span>Status</span>
               <div v-if="status == 'Ongoing'">
-                <img src="~assets/icons/down.svg" alt="down">
+                <img src="~assets/icons/down.svg" class="scale" alt="down">
                 <img
                   src="~/assets/icons/up.svg"
+                  class="scale"
                   alt="up"
                   @click="toggleStatus('Completed')"
                 >
@@ -42,7 +43,7 @@
           <tr v-for="(giveaway, index) in paginatedData" :key="index">
             <td data-title="Name" class="Name">
               <div class="Name-div">
-                <p>{{ giveaway.user ? giveaway.user.username : "Admin" }}</p>
+                <p>{{ giveaway.user ? giveaway.user.username : 'Admin' }}</p>
                 <!-- <Checkicon /> -->
               </div>
             </td>
@@ -62,7 +63,7 @@
               data-title="Status"
               :class="giveaway.completed ? 'completed' : 'ongoing'"
             >
-              {{ giveaway.completed ? "Completed" : "Ongoing" }}
+              {{ giveaway.completed ? 'Completed' : 'Ongoing' }}
             </td>
             <td class="View">
               <ArrowCircle
@@ -250,6 +251,8 @@ th:last-child {
 th:nth-last-child(2) div {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+  min-height: 18px;
 }
 th:nth-last-child(2) {
   display: flex;
@@ -317,7 +320,10 @@ p {
   cursor: pointer;
 }
 .rotate {
-  transform: rotate(180deg);
+  transform: rotate(180deg) scale(1.9);
+}
+.scale {
+  transform: scale(1.9);
 }
 @media (max-width: 1100px) {
   .table-head {
