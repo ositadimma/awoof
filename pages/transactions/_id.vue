@@ -44,7 +44,7 @@
           <tbody>
             <tr>
               <td class="Ref" data-title="Trans Ref.">
-                #18441
+                #{{ transactionDetail.order_ref }}
               </td>
               <!-- <td data-title="Status" class="success Status">
                 Success

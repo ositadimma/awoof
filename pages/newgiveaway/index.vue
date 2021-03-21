@@ -20,9 +20,30 @@
       </div>
       <hr>
       <label>
+        Type
+      </label>
+      <div class="type-select">
+        {{ type }}
+        <img
+          :class="{ 'select-up': selectTypeOpen }"
+          src="~/assets/images/dropdown.png"
+          alt="select"
+          @click="selectTypeOpen = !selectTypeOpen"
+        >
+        <div v-show="selectTypeOpen" class="type-select-options-container">
+          <div class="option" @click="selectType('Normal')">
+            Normal
+          </div>
+          <div class="option" @click="selectType('Star')">
+            Star
+          </div>
+        </div>
+      </div>
+      <label v-show="type == 'Star'">
         Minimum No. Of Stars (0 - 30)
       </label>
       <input
+        v-show="type == 'Star'"
         v-model="noOfStars"
         class="no-of-stars"
         type="number"
@@ -43,25 +64,25 @@
               @click="selectAmountOpen = !selectAmountOpen"
             >
             <div v-show="selectAmountOpen" class="amt-select-options-container">
-              <div class="option" tabindex="1" @click="selectAmount('1,000')">
+              <div class="option" @click="selectAmount('1,000')">
                 ₦1,000
               </div>
-              <div class="option" tabindex="1" @click="selectAmount('2,000')">
+              <div class="option" @click="selectAmount('2,000')">
                 ₦2,000
               </div>
-              <div class="option" tabindex="1" @click="selectAmount('5,000')">
+              <div class="option" @click="selectAmount('5,000')">
                 ₦5,000
               </div>
-              <div class="option" tabindex="1" @click="selectAmount('10,000')">
+              <div class="option" @click="selectAmount('10,000')">
                 ₦10,000
               </div>
-              <div class="option" tabindex="1" @click="selectAmount('20,000')">
+              <div class="option" @click="selectAmount('20,000')">
                 ₦20,000
               </div>
-              <div class="option" tabindex="1" @click="selectAmount('50,000')">
+              <div class="option" @click="selectAmount('50,000')">
                 ₦50,000
               </div>
-              <div class="option" tabindex="1" @click="selectAmount('100,000')">
+              <div class="option" @click="selectAmount('100,000')">
                 ₦100,000
               </div>
             </div>
@@ -226,14 +247,22 @@
         :max="formatDate(dateInThirtyDays)"
       >
       <button
-        v-show="amount === '0' || (endAt === '' && !loading)"
+        v-show="
+          type === 'Please select a giveaway type' ||
+            amount === '0' ||
+            (endAt === '' && !loading)
+        "
         class="disable-1 btn-cmpt"
-        @click="createGiveaway"
       >
         Proceed
       </button>
       <button
-        v-show="amount !== '0' && endAt !== '' && !loading"
+        v-show="
+          type !== 'Please select a giveaway type' &&
+            amount !== '0' &&
+            endAt !== '' &&
+            !loading
+        "
         class="btn-cmpt"
         @click="createGiveaway"
       >
@@ -259,6 +288,8 @@ export default {
   },
   data () {
     return {
+      type: 'Please select a giveaway type',
+      selectTypeOpen: false,
       noOfStars: '0',
       selectAmountOpen: false,
       amountPerWinner: '1,000',
@@ -315,6 +346,10 @@ export default {
         )
       }
     },
+    selectType (type) {
+      this.type = type
+      this.selectTypeOpen = false
+    },
     selectAmount (selectedAmount) {
       this.amountPerWinner = selectedAmount
       this.selectAmountOpen = false
@@ -349,6 +384,7 @@ export default {
     },
     setDataToDefault () {
       this.noOfStars = '0'
+      this.type = 'Please select a giveaway type'
       this.selectAmountOpen = false
       this.amountPerWinner = '1000'
       this.noOfWinners = 0
@@ -384,9 +420,9 @@ export default {
         'amountPerWinner',
         parseInt(this.amountPerWinner.replaceAll(',', ''))
       )
-      data.append('type', 'star')
+      data.append('type', this.type.toLowerCase())
       data.append('isAnonymous', false)
-      data.append('minimumstars', this.noOfStars)
+      data.append('minimumstars', this.type === 'Star' ? this.noOfStars : 0)
       data.append('frequency', `${this.dateInThirtyDays}`)
       data.append('message', this.message)
       data.append('likeFacebookLink', this.LikeFacebookLink)
@@ -647,7 +683,8 @@ input[type='number']::placeholder {
   align-self: flex-end;
 }
 
-.amt-select {
+.amt-select,
+.type-select {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -662,7 +699,14 @@ input[type='number']::placeholder {
   padding: 0px 1.56rem 0px 0.875rem;
 }
 
-.amt-select-options-container {
+.type-select {
+  position: relative;
+  z-index: 2;
+  margin-bottom: 1.5rem;
+}
+
+.amt-select-options-container,
+.type-select-options-container {
   width: 100%;
   background: #fff;
   position: absolute;
@@ -672,18 +716,27 @@ input[type='number']::placeholder {
   box-shadow: 0 10px 20px rgb(0 0 0 / 19%), 0 6px 6px rgb(0 0 0 / 23%);
 }
 
-.amt-select-options-container .option {
+.amt-select-options-container .option,
+.type-select-options-container .option {
   cursor: pointer;
   width: 100%;
   height: 70px;
   display: flex;
   align-items: center;
   padding-left: 5px;
+  background-color: #fff;
+  transition: background-color 0.1s ease-in-out;
 }
 
-.amt-select-options-container .option:focus {
-  outline: #8692a6 auto 3px;
+.amt-select-options-container .option:hover,
+.type-select-options-container .option:hover {
+  background-color: #09ab5d;
+  color: #fff;
 }
+
+/* .amt-select-options-container .option:focus {
+  outline: #8692a6 auto 3px;
+} */
 
 .select-up {
   transform: rotate(180deg);
@@ -969,7 +1022,8 @@ input[type='date'] {
     font-size: 15px;
   }
 
-  .amt-select {
+  .amt-select,
+  .type-select {
     font-size: 19px;
   }
 
