@@ -2,7 +2,7 @@
   <div class="user-form-container" @click.self="closeModal">
     <div class="user-form-body animate__fadeIn">
       <div class="header">
-        <span>Set User Bonus</span>
+        <span>Set User Star</span>
         <img src="~/assets/icons/Delete.svg" @click="closeModal">
       </div>
       <hr>
@@ -34,7 +34,7 @@
 <script>
 import Cookies from 'js-cookie'
 export default {
-  name: 'UserForm',
+  name: 'UserStar',
   data () {
     return {
       amount: 0,
@@ -47,13 +47,13 @@ export default {
       this.$axios.setHeader('x-auth-token', Cookies.get('token'))
       try {
         const response = await this.$axios.$post(
-          `https://awoof-api.herokuapp.com/v1/admins/create_surprise/${this.$route.params.id}`,
+          `https://awoof-api.herokuapp.com/v1/admins/send_stars/${this.$route.params.id}`,
           {
-            amount: parseInt(this.amount)
+            stars: parseInt(this.amount)
           }
         )
         if (response) {
-          this.$toast.global.custom_success('User bonus awarded successfully')
+          this.$toast.global.custom_success('User star added successfully')
           this.$nuxt.refresh()
           this.closeModal()
         }

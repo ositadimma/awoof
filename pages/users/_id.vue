@@ -9,8 +9,11 @@
         >
         <span>Back</span>
       </div>
-      <button class="btn-cmpt" @click="showModal">
-        Set Bonus
+      <button class="btn-cmpt primary" @click="showStarModal">
+        Add Star
+      </button>
+      <button class="btn-cmpt secondary" @click="showSurpriseModal">
+        Set Surprise
       </button>
       <!-- When onGoing use this instead -->
       <!-- <button v-show="!giveawayDetail.completed" class="edit-btn btn-cmpt">
@@ -26,7 +29,8 @@
         <UserDetailTable :user-detail="userDetail" />
       </div>
     </div>
-    <UserForm v-show="modalOpen" />
+    <UserForm v-show="modalOpen && modal == 'surprise'" />
+    <UserStar v-show="modalOpen && modal == 'star'" />
   </div>
 </template>
 
@@ -34,13 +38,15 @@
 import Cookies from 'js-cookie'
 import UserDetailTable from '~/components/UserDetailtable'
 import UserForm from '~/components/Userform'
+import UserStar from '~/components/Userstar'
 
 export default {
   name: 'Giveawaydetail',
   layout: 'dashboardLayout',
   components: {
     UserDetailTable,
-    UserForm
+    UserForm,
+    UserStar
   },
   async asyncData ({ $axios, $toast, params }) {
     $axios.setHeader('x-auth-token', Cookies.get('token'))
@@ -65,6 +71,11 @@ export default {
         userDetailResponse !== undefined ? userDetailResponse.data : {}
     }
   },
+  data () {
+    return {
+      modal: 'star'
+    }
+  },
   computed: {
     modalOpen () {
       return this.$store.state.modalOpen
@@ -77,8 +88,13 @@ export default {
     previousRoute () {
       window.history.back()
     },
-    showModal () {
+    showStarModal () {
       this.$store.commit('setModalOpen', true)
+      this.modal = 'star'
+    },
+    showSurpriseModal () {
+      this.$store.commit('setModalOpen', true)
+      this.modal = 'surprise'
     }
   }
 }
@@ -155,6 +171,12 @@ export default {
   font-size: 16px;
   line-height: 26px;
   color: #75759e;
+}
+.primary {
+  margin-right: 1rem;
+}
+.secondary {
+  background-color: #09ab5d;
 }
 @media (max-width: 1280px) {
   .details {
