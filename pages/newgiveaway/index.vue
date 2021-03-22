@@ -22,7 +22,7 @@
       <label>
         Type
       </label>
-      <div class="type-select">
+      <div v-click-outside="() => (selectTypeOpen = false)" class="type-select">
         {{ type }}
         <img
           :class="{ 'select-up': selectTypeOpen }"
@@ -55,7 +55,10 @@
       <div class="amt-per-winner-container">
         <div class="child">
           <label>Amount Per Winner</label>
-          <div class="amt-select">
+          <div
+            v-click-outside="() => (selectAmountOpen = false)"
+            class="amt-select"
+          >
             ₦ {{ amountPerWinner }}
             <img
               :class="{ 'select-up': selectAmountOpen }"
