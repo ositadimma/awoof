@@ -26,6 +26,7 @@
     </div>
     <UsersTable :key="key" :data="searchData" />
     <NewUserForm v-show="modalOpen" />
+    <ReserveUser v-show="currentPath == 'users' && modalHeaderOpen" />
   </div>
 </template>
 
@@ -34,13 +35,15 @@ import Cookies from 'js-cookie'
 import moment from 'moment'
 import UsersTable from '~/components/Userstable'
 import NewUserForm from '~/components/Newuserform'
+import ReserveUser from '~/components/Reserveuser'
 
 export default {
   name: 'Users',
   layout: 'dashboardLayout',
   components: {
     UsersTable,
-    NewUserForm
+    NewUserForm,
+    ReserveUser
   },
   async asyncData ({ $axios, $toast }) {
     $axios.setHeader('x-auth-token', Cookies.get('token'))
@@ -65,17 +68,27 @@ export default {
     return {
       searchData: [],
       search: '',
+      currentPath: '',
       key: 0
     }
   },
   computed: {
     modalOpen () {
       return this.$store.state.modalOpen
+    },
+    modalHeaderOpen () {
+      return this.$store.state.modalHeaderOpen
+    }
+  },
+  watch: {
+    $route (newRoute) {
+      this.currentPath = newRoute.name
     }
   },
   created () {
     this.$store.commit('setLayout', 'USERS') // changes layout title of dashboard header
     this.searchData = this.data
+    this.currentPath = this.$route.name
   },
   methods: {
     showModal () {

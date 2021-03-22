@@ -1,7 +1,16 @@
 <template>
   <div class="dashboard-header">
-    <h3>{{ layout }}</h3>
     <MobileDashboardSideBar :firstname="firstname" />
+    <div class="dashboard-header__title">
+      <h3>{{ layout }}</h3>
+      <button
+        v-if="currentPath === 'users'"
+        class="btn-cmpt btn-cmpt--big"
+        @click="showHeaderModal"
+      >
+        Reserve Username
+      </button>
+    </div>
     <!-- <div ref="headerInput" class="header-input">
       <input type="text" placeholder="Search User or Giveaway" @blur="removeFocus" @click="showFocus">
       <div class="search-container">
@@ -33,6 +42,7 @@
 import vClickOutside from 'v-click-outside'
 import Cookies from 'js-cookie'
 import MobileDashboardSideBar from './MobileDashboardSideBar'
+
 export default {
   directives: {
     clickOutside: vClickOutside.directive
@@ -49,20 +59,25 @@ export default {
   data () {
     return {
       firstname: Cookies.get('firstname'),
+      currentPath: '',
       menuOpen: false
     }
   },
-  // computed: {
-  //   sideBarOpen () {
-  //     return this.$store.state.sideBarOpen
-  //   }
-  // },
+  watch: {
+    $route (newRoute) {
+      this.currentPath = newRoute.name
+    }
+  },
   created () {
     if (this.firstname === undefined || !this.firstname) {
       this.$router.push('/user/login')
     }
+    this.currentPath = this.$route.name
   },
   methods: {
+    showHeaderModal () {
+      this.$store.commit('setModalHeaderOpen', true)
+    },
     showFocus () {
       this.$refs.headerInput.style.outline = '#000000 auto 2px'
     },
@@ -95,11 +110,16 @@ export default {
   height: 80px;
   padding: 0px 3.3% 0px 4.45%;
 }
-h3 {
+.dashboard-header__title {
   flex: 3;
+  display: flex;
+  align-items: center;
+}
+h3 {
   font-weight: 600;
   font-size: 15px;
   line-height: 25px;
+  margin-right: 1rem;
 }
 .header-input {
   border: 1px solid #e2e2ea;
@@ -115,7 +135,7 @@ h3 {
   position: relative;
   margin-right: 45px;
 }
-input[type="text"] {
+input[type='text'] {
   border: none;
   border-radius: 20px;
   width: 100%;
@@ -124,17 +144,17 @@ input[type="text"] {
   padding-left: 27px;
   font-size: 15px;
 }
-input[type="text"]::placeholder {
+input[type='text']::placeholder {
   color: #75759e;
   opacity: 0.4;
   font-size: 12px;
 }
-input[type="text"]::-moz-placeholder {
+input[type='text']::-moz-placeholder {
   color: #75759e;
   opacity: 0.4;
   font-size: 12px;
 }
-input[type="text"]:focus {
+input[type='text']:focus {
   outline: none;
 }
 span {
@@ -183,9 +203,17 @@ span {
   justify-content: center;
   cursor: pointer;
 }
+.btn-cmpt--big {
+  min-width: 200px;
+  max-width: 200px;
+  min-height: 45px;
+}
 @media (max-width: 950px) {
   .dashboard-header {
     justify-content: space-between;
+  }
+  .dashboard-header__title {
+    flex: 0;
   }
   .header-input {
     margin-right: 0px;
@@ -204,17 +232,23 @@ span {
   h3 {
     display: none;
   }
-  input[type="text"] {
+  input[type='text'] {
     padding-left: 3%;
   }
   .header-input {
     width: 50%;
+  }
+  .btn-cmpt--big {
+    transform: scale(0.8);
   }
 }
 @media (max-width: 500px) {
   h3 {
     font-size: 13px;
     line-height: 23px;
+  }
+  .btn-cmpt--big {
+    transform: scale(0.7);
   }
 }
 </style>

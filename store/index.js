@@ -2,6 +2,7 @@ export const state = () => ({
   layout: '',
   mode: 'Monthly',
   modalOpen: false,
+  modalHeaderOpen: false,
   popUpOpen: false
 })
 
@@ -14,6 +15,9 @@ export const mutations = {
   },
   setModalOpen (state, open) {
     state.modalOpen = open
+  },
+  setModalHeaderOpen (state, open) {
+    state.modalHeaderOpen = open
   },
   setPopUpOpen (state, open) {
     state.popUpOpen = open
