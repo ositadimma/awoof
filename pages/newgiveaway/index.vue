@@ -20,6 +20,36 @@
       </div>
       <hr>
       <label>
+        User
+      </label>
+      <div v-click-outside="() => (selectUserOpen = false)" class="user-select">
+        {{ user }}
+        <img
+          :class="{ 'select-up': selectUserOpen }"
+          src="~/assets/images/dropdown.png"
+          alt="select"
+          @click="selectUserOpen = !selectUserOpen"
+        >
+        <div v-show="selectUserOpen" class="user-select-options-container">
+          <div class="option">
+            <input
+              v-model="search"
+              type="search"
+              placeholder="search user"
+              @input="filterSearch"
+            >
+          </div>
+          <div
+            v-for="(userData, index) in searchData"
+            :key="index"
+            class="option"
+            @click="selectUser(shortenName(userData), userData._id)"
+          >
+            {{ shortenName(userData) }}
+          </div>
+        </div>
+      </div>
+      <label>
         Type
       </label>
       <div v-click-outside="() => (selectTypeOpen = false)" class="type-select">
@@ -289,8 +319,32 @@ export default {
   directives: {
     clickOutside: vClickOutside.directive
   },
+  async asyncData ({ $axios, $toast }) {
+    $axios.setHeader('x-auth-token', Cookies.get('token'))
+    try {
+      var response = await $axios.$get(
+        'https://awoof-api.herokuapp.com/v1/admins/get_all_users'
+      )
+    } catch (err) {
+      if (err.message.includes('Network')) {
+        $toast.global.custom_error('please check your connection and try again')
+      }
+
+      if (err.response !== undefined) {
+        if (err.response.status === 400) {
+          $toast.global.custom_error(err.response.data.message)
+        }
+      }
+    }
+    return { data: response ? response.data : [] }
+  },
   data () {
     return {
+      searchData: [],
+      search: '',
+      user: 'Select a user',
+      userId: '',
+      selectUserOpen: false,
       type: 'Please select a giveaway type',
       selectTypeOpen: false,
       noOfStars: '0',
@@ -336,6 +390,43 @@ export default {
     this.$store.commit('setLayout', 'NEW GIVEAWAY')
   },
   methods: {
+    shortenName (user) {
+      if (
+        user.firstName !== undefined &&
+        user.lastName !== undefined &&
+        (user.firstName + ' ' + user.lastName).length < 20
+      ) {
+        if ((user.firstName + ' ' + user.lastName).length < 18) {
+          return user.firstName + ' ' + user.lastName
+        } else {
+          return (user.firstName + ' ' + user.lastName).substring(0, 18) + '...'
+        }
+      } else {
+        return 'Admin'
+      }
+    },
+    filterSearch () {
+      const data = this.data.filter((obj) => {
+        var stopSearch = false
+
+        Object.values(obj).forEach((val) => {
+          const filter1 = String(val)
+            .toLowerCase()
+            .includes(this.search.toLowerCase())
+          const filter2 = String(this.formatDate(val))
+            .toLowerCase()
+            .includes(this.search.toLowerCase())
+          if (filter1 || filter2) {
+            stopSearch = true
+          }
+        })
+
+        if (stopSearch) {
+          return obj
+        }
+      })
+      this.searchData = data
+    },
     formatDate (value) {
       return moment(new Date(String(value))).format('YYYY-MM-DD')
     },
@@ -348,6 +439,11 @@ export default {
           'minimum number of stars has to be less than or equal to 30'
         )
       }
+    },
+    selectUser (user, userId) {
+      this.user = user
+      this.userId = userId
+      this.selectUserOpen = false
     },
     selectType (type) {
       this.type = type
@@ -408,6 +504,7 @@ export default {
       this.LikeTwitterLink = ''
       this.endAt = ''
       this.loading = false
+      this.user = 'Select a user'
     },
     bodyFormatData () {
       // const stringDate = this.endAt.split('/')
@@ -424,6 +521,7 @@ export default {
         parseInt(this.amountPerWinner.replaceAll(',', ''))
       )
       data.append('type', this.type.toLowerCase())
+      data.append('user_id', this.userId)
       data.append('isAnonymous', false)
       data.append('minimumstars', this.type === 'Star' ? this.noOfStars : 0)
       data.append('frequency', `${this.dateInThirtyDays}`)
@@ -687,7 +785,8 @@ input[type='number']::placeholder {
 }
 
 .amt-select,
-.type-select {
+.type-select,
+.user-select {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -707,9 +806,15 @@ input[type='number']::placeholder {
   z-index: 2;
   margin-bottom: 1.5rem;
 }
+.user-select {
+  position: relative;
+  z-index: 3;
+  margin-bottom: 1.5rem;
+}
 
 .amt-select-options-container,
-.type-select-options-container {
+.type-select-options-container,
+.user-select-options-container {
   width: 100%;
   background: #fff;
   position: absolute;
@@ -720,10 +825,12 @@ input[type='number']::placeholder {
 }
 
 .amt-select-options-container .option,
-.type-select-options-container .option {
+.type-select-options-container .option,
+.user-select-options-container .option {
   cursor: pointer;
   width: 100%;
   height: 70px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.5);
   display: flex;
   align-items: center;
   padding-left: 5px;
@@ -732,9 +839,32 @@ input[type='number']::placeholder {
 }
 
 .amt-select-options-container .option:hover,
-.type-select-options-container .option:hover {
+.type-select-options-container .option:hover,
+.user-select-options-container .option:hover {
   background-color: #09ab5d;
   color: #fff;
+}
+
+.user-select-options-container .option:first-child {
+  padding: 0;
+}
+
+.amt-select-options-container .option:last-child,
+.type-select-options-container .option:last-child,
+.user-select-options-container .option:last-child {
+  border-bottom: none;
+}
+
+input[type='search'] {
+  width: 100%;
+  height: 100%;
+  font-size: 1.3rem;
+  padding-left: 0.9rem;
+  border: none;
+}
+
+input[type='search']:focus {
+  outline: 0;
 }
 
 /* .amt-select-options-container .option:focus {

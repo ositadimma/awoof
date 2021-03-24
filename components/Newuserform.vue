@@ -350,7 +350,7 @@ span {
   display: flex;
   align-items: center;
   padding-left: 30px;
-  border-bottom: 1px solid;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.5);
   font-weight: 600;
   font-size: 12px;
   color: #8692a6;
