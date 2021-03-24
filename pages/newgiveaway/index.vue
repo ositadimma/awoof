@@ -128,6 +128,7 @@
               v-model="noOfWinners"
               type="number"
               placeholder="0"
+              :disabled="user === 'Select a user' ? false : true"
               @click="noOfWinnersFocus"
             >
           </div>
@@ -406,6 +407,10 @@ export default {
       }
     },
     filterSearch () {
+      if (this.search === '') {
+        this.user = 'Select a user'
+        this.noOfWinners = 0
+      }
       const data = this.data.filter((obj) => {
         var stopSearch = false
 
@@ -443,6 +448,7 @@ export default {
     selectUser (user, userId) {
       this.user = user
       this.userId = userId
+      this.noOfWinners = 1
       this.selectUserOpen = false
     },
     selectType (type) {
