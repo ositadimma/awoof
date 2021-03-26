@@ -44,7 +44,11 @@
           <tbody>
             <tr>
               <td class="Ref" data-title="Trans Ref.">
-                #{{ transactionDetail.order_ref }}
+                #{{
+                  transactionDetail.order_ref !== undefined
+                    ? transactionDetail.order_ref
+                    : transactionDetail.transactionId
+                }}
               </td>
               <!-- <td data-title="Status" class="success Status">
                 Success

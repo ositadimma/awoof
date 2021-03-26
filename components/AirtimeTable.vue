@@ -30,7 +30,7 @@
         <tbody v-show="data.length > 0">
           <tr v-for="(transfer, index) in paginatedData" :key="index">
             <td data-title="Trans Ref." class="Ref">
-              <p>#{{ transfer.order_ref }}</p>
+              <p>#{{ transfer.transactionId }}</p>
             </td>
             <td data-title="Email Address" class="Email">
               {{ transfer.user }}
