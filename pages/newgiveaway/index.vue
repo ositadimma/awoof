@@ -49,7 +49,7 @@
           </div>
         </div>
       </div>
-      <label>
+      <label class="type-label">
         Type
       </label>
       <div v-click-outside="() => (selectTypeOpen = false)" class="type-select">
@@ -727,7 +727,8 @@ input[type='number'].no-of-stars {
   margin-bottom: 1.5rem;
 }
 
-.no-of-winners-label:after {
+.no-of-winners-label:after,
+.type-label:after {
   content: '*';
   color: red;
 }

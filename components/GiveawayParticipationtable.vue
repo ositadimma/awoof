@@ -39,7 +39,7 @@
             <td class="View">
               <!-- <ArrowCircle /> -->
               <div
-                v-if="checkboxes[index] !== undefined && !participant.win"
+                v-if="checkboxes[index] !== undefined && !validate"
                 class="checkbox"
                 @click="setWinner(index, participant._id)"
               >
