@@ -22,13 +22,17 @@
       <label>
         User
       </label>
-      <div v-click-outside="() => (selectUserOpen = false)" class="user-select">
+      <div
+        v-click-outside="() => (selectUserOpen = false)"
+        class="user-select"
+        tabindex="0"
+        @click="manualSelectUserOpen"
+      >
         {{ user }}
         <img
           :class="{ 'select-up': selectUserOpen }"
           src="~/assets/images/dropdown.png"
           alt="select"
-          @click="selectUserOpen = !selectUserOpen"
         >
         <div v-show="selectUserOpen" class="user-select-options-container">
           <div class="option">
@@ -52,13 +56,17 @@
       <label class="type-label">
         Type
       </label>
-      <div v-click-outside="() => (selectTypeOpen = false)" class="type-select">
+      <div
+        v-click-outside="() => (selectTypeOpen = false)"
+        class="type-select"
+        tabindex="0"
+        @click="manualSelectTypeOpen"
+      >
         {{ type }}
         <img
           :class="{ 'select-up': selectTypeOpen }"
           src="~/assets/images/dropdown.png"
           alt="select"
-          @click="selectTypeOpen = !selectTypeOpen"
         >
         <div v-show="selectTypeOpen" class="type-select-options-container">
           <div class="option" @click="selectType('Normal')">
@@ -88,13 +96,14 @@
           <div
             v-click-outside="() => (selectAmountOpen = false)"
             class="amt-select"
+            tabindex="0"
+            @click="manualSelectAmountOpen"
           >
             ₦ {{ amountPerWinner }}
             <img
               :class="{ 'select-up': selectAmountOpen }"
               src="~/assets/images/dropdown.png"
               alt="select"
-              @click="selectAmountOpen = !selectAmountOpen"
             >
             <div v-show="selectAmountOpen" class="amt-select-options-container">
               <div class="option" @click="selectAmount('1,000')">
@@ -167,14 +176,17 @@
             <label for="check1" />
           </div>
         </div> -->
-        <div v-show="!noEngagement" class="social">
+        <div
+          v-show="!noEngagement"
+          class="social"
+          @click="dropdown1 = !dropdown1"
+        >
           <img src="~/assets/images/facebook.png" alt="select">
           Facebook
           <img
             alt="drop"
             :class="!dropdown1 ? 'down' : 'up'"
             src="~/assets/icons/dropdown.svg"
-            @click="dropdown1 = !dropdown1"
           >
         </div>
         <div v-show="dropdown1 && !noEngagement" class="condition-container">
@@ -202,14 +214,17 @@
             <input v-model="LikeFacebookLink" type="text" placeholder="Link">
           </div>
         </div>
-        <div v-show="!noEngagement" class="social">
+        <div
+          v-show="!noEngagement"
+          class="social"
+          @click="dropdown2 = !dropdown2"
+        >
           <img src="~/assets/images/instagram.png" alt="select">
           Instagram
           <img
             :class="!dropdown2 ? 'down' : 'up'"
             src="~/assets/icons/dropdown.svg"
             alt="drop"
-            @click="dropdown2 = !dropdown2"
           >
         </div>
         <div
@@ -236,14 +251,17 @@
             <input v-model="LikeInstagramLink" type="text" placeholder="Link">
           </div>
         </div>
-        <div v-show="!noEngagement" class="social">
+        <div
+          v-show="!noEngagement"
+          class="social"
+          @click="dropdown3 = !dropdown3"
+        >
           <img src="~/assets/images/twitter.png" alt="select">
           Twitter
           <img
             :class="!dropdown3 ? 'down' : 'up'"
             src="~/assets/icons/dropdown.svg"
             alt="drop"
-            @click="dropdown3 = !dropdown3"
           >
         </div>
         <div
@@ -391,6 +409,21 @@ export default {
     this.$store.commit('setLayout', 'NEW GIVEAWAY')
   },
   methods: {
+    manualSelectAmountOpen (e) {
+      if (e.target.className === 'amt-select') {
+        this.selectAmountOpen = !this.selectAmountOpen
+      }
+    },
+    manualSelectTypeOpen (e) {
+      if (e.target.className === 'type-select') {
+        this.selectTypeOpen = !this.selectTypeOpen
+      }
+    },
+    manualSelectUserOpen (e) {
+      if (e.target.className === 'user-select') {
+        this.selectUserOpen = !this.selectUserOpen
+      }
+    },
     shortenName (user) {
       if (
         user.firstName !== undefined &&
@@ -805,6 +838,7 @@ input[type='number']::placeholder {
   border-radius: 6px;
   position: relative;
   z-index: 1;
+  cursor: pointer;
   padding: 0px 1.56rem 0px 0.875rem;
 }
 
@@ -982,6 +1016,7 @@ textarea::placeholder {
   font-size: calc(0.625rem + 0.3vw);
   border: 3px solid rgba(134, 146, 166, 0.4);
   border-radius: 3px;
+  cursor: pointer;
   padding: 0px 1.25rem 0px 1.125rem;
 }
 

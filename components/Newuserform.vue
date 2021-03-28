@@ -46,6 +46,7 @@
 
         <label>Select Gender</label>
         <div
+          v-click-outside="() => (selectGenderOpen = false)"
           :class="selectGenderOpen ? 'active-select select' : 'select'"
           tabindex="0"
           @click="selectGenderOpen = !selectGenderOpen"
