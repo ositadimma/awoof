@@ -27,6 +27,10 @@
     <UsersTable :key="key" :data="searchData" />
     <NewUserForm v-show="modalOpen" />
     <ReserveUser v-show="currentPath == 'users' && modalHeaderOpen" />
+    <h3 class="header-title animate__fadeInUp">
+      Reserved Users
+    </h3>
+    <UsersTable :data="reserveUserData" />
   </div>
 </template>
 
@@ -51,6 +55,9 @@ export default {
       var response = await $axios.$get(
         'https://awoof-api.herokuapp.com/v1/admins/get_all_users'
       )
+      var reserveUserResponse = await $axios.$get(
+        'https://awoof-api.herokuapp.com/v1/admins/get_reserved_usernames'
+      )
     } catch (err) {
       if (err.message.includes('Network')) {
         $toast.global.custom_error('please check your connection and try again')
@@ -62,7 +69,10 @@ export default {
         }
       }
     }
-    return { data: response ? response.data : [] }
+    return {
+      data: response ? response.data : [],
+      reserveUserData: reserveUserResponse ? reserveUserResponse.data : []
+    }
   },
   data () {
     return {
@@ -242,6 +252,18 @@ input[type='search']:focus {
 .search:focus {
   outline: 0;
 }
+.header-title {
+  font-weight: bold;
+  font-size: calc(0.75rem + 0.5vw);
+  color: #09ab5d;
+  text-decoration: underline;
+  margin: 1rem 0 1.5rem;
+}
+@media (min-width: 1200px) {
+  .header-title {
+    font-size: 1.7rem;
+  }
+}
 @media (max-width: 1054px) {
   .box-container {
     align-items: flex-start;
@@ -258,6 +280,9 @@ input[type='search']:focus {
 @media (max-width: 768px) {
   .user-container {
     padding: 6.4% 4.5% 0px 4.5%;
+  }
+  .header-title {
+    margin-top: 1.5rem;
   }
 }
 </style>
