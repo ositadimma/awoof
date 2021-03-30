@@ -13,10 +13,10 @@
       <div class="form">
         <label>Username</label>
         <input v-model="username" type="text" placeholder="Please Enter">
-        <label>Email Address</label>
+        <!-- <label>Email Address</label>
         <input v-model="email" type="email" placeholder="Please Enter">
         <label>Phone Number</label>
-        <input v-model="phonenumber" type="text" placeholder="Please Enter">
+        <input v-model="phonenumber" type="text" placeholder="Please Enter"> -->
         <button v-show="!validate && !loading" class="disable-1 btn-cmpt">
           Reserve User
         </button>
@@ -48,19 +48,19 @@ export default {
   data () {
     return {
       username: '',
-      email: '',
-      // eslint-disable-next-line
-      emailValidate: /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-      phonenumber: '',
+      // email: '',
+      // // eslint-disable-next-line
+      // emailValidate: /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+      // phonenumber: '',
       loading: false
     }
   },
   computed: {
     validate () {
       if (
-        this.username === '' ||
-        !this.emailValidate.test(this.email) ||
-        this.phonenumber === ''
+        this.username === '' // ||
+        // !this.emailValidate.test(this.email) ||
+        // this.phonenumber === ''
       ) {
         return false
       }
@@ -70,13 +70,13 @@ export default {
   methods: {
     setDataToDefault () {
       this.email = ''
-      this.phonenumber = ''
-      this.username = ''
+      // this.phonenumber = ''
+      // this.username = ''
     },
     bodyData () {
       const data = {
-        email: this.email,
-        phoneNumber: this.phonenumber,
+        // email: this.email,
+        // phoneNumber: this.phonenumber,
         username: this.username
       }
       return data
@@ -90,7 +90,7 @@ export default {
           this.bodyData()
         )
         if (response) {
-          this.$toast.global.custom_success('User created')
+          this.$toast.global.custom_success('User reserved.')
           this.$nuxt.refresh()
           this.setDataToDefault()
           this.$store.commit('setModalHeaderOpen', false)

@@ -16,6 +16,20 @@
       >
         Download Report
       </button>
+      <button
+        v-show="!giveawayDetail.completed && !giveawayDetail.hidden"
+        class="suspend-btn btn-cmpt"
+        @click="showHideGiveAwayModal"
+      >
+        Hide Giveaway
+      </button>
+      <button
+        v-show="!giveawayDetail.completed && giveawayDetail.hidden"
+        class="edit-btn btn-cmpt"
+        @click="showHideGiveAwayModal"
+      >
+        Show Giveaway
+      </button>
       <!-- When onGoing use this instead -->
       <!-- <button v-show="!giveawayDetail.completed" class="edit-btn btn-cmpt">
         Edit Giveaway
@@ -55,6 +69,12 @@
         />
       </div>
     </div>
+    <HideGiveAwayModal
+      v-show="popUpOpen"
+      :id="giveawayDetail._id"
+      :status="giveawayDetail.hidden"
+      @refresh="refresh"
+    />
   </div>
 </template>
 
@@ -66,6 +86,7 @@ import GiveawayWinnersTable from '~/components/GiveawayWinnerstable'
 import GiveawayParticipationTable from '~/components/GiveawayParticipationtable'
 import GiveawayFullDetails from '~/components/GiveawayFulldetails'
 import ParticipationReport from '~/components/Participationreport'
+import HideGiveAwayModal from '~/components/HideGiveAwayModal'
 
 export default {
   name: 'Giveawaydetail',
@@ -75,7 +96,8 @@ export default {
     GiveawayWinnersTable,
     GiveawayParticipationTable,
     GiveawayFullDetails,
-    ParticipationReport
+    ParticipationReport,
+    HideGiveAwayModal
   },
   async asyncData ({ $axios, $toast, params }) {
     $axios.setHeader('x-auth-token', Cookies.get('token'))
@@ -165,6 +187,9 @@ export default {
       }
 
       return tasks
+    },
+    popUpOpen () {
+      return this.$store.state.popUpOpen
     }
   },
   created () {
@@ -193,6 +218,9 @@ export default {
         .set(opt)
         .from(this.$refs.details)
         .save()
+    },
+    showHideGiveAwayModal () {
+      this.$store.commit('setPopUpOpen', true)
     },
     refresh () {
       this.$nuxt.refresh()
