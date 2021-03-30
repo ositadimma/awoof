@@ -3,13 +3,10 @@
     <div class="box-container animate__fadeInUp">
       <div class="user-card">
         <div class="title-ctn">
-          <span class="title">User Count</span>
+          <span class="title">Reserved User Count</span>
         </div>
         <div class="user-count">
           <span class="amount">{{ data.length }}</span>
-          <button class="btn-cmpt" @click="showModal">
-            Add new user
-          </button>
         </div>
       </div>
       <div class="search-container">
@@ -24,32 +21,26 @@
         </button>
       </div>
     </div>
-    <UsersTable :key="key" :data="searchData" />
-    <NewUserForm v-show="modalOpen" />
-    <ReserveUser v-show="currentPath == 'users' && modalHeaderOpen" />
+    <ReservedUsersTable :key="key" :data="searchData" />
   </div>
 </template>
 
 <script>
 import Cookies from 'js-cookie'
 import moment from 'moment'
-import UsersTable from '~/components/Userstable'
-import NewUserForm from '~/components/Newuserform'
-import ReserveUser from '~/components/Reserveuser'
+import ReservedUsersTable from '~/components/ReservedUserstable'
 
 export default {
-  name: 'Users',
+  name: 'ReservedUsers',
   layout: 'dashboardLayout',
   components: {
-    UsersTable,
-    NewUserForm,
-    ReserveUser
+    ReservedUsersTable
   },
   async asyncData ({ $axios, $toast }) {
     $axios.setHeader('x-auth-token', Cookies.get('token'))
     try {
       var response = await $axios.$get(
-        'https://awoof-api.herokuapp.com/v1/admins/get_all_users'
+        'https://awoof-api.herokuapp.com/v1/admins/get_reserved_usernames'
       )
     } catch (err) {
       if (err.message.includes('Network')) {
@@ -70,27 +61,12 @@ export default {
     return {
       searchData: [],
       search: '',
-      currentPath: '',
       key: 0
     }
   },
-  computed: {
-    modalOpen () {
-      return this.$store.state.modalOpen
-    },
-    modalHeaderOpen () {
-      return this.$store.state.modalHeaderOpen
-    }
-  },
-  watch: {
-    $route (newRoute) {
-      this.currentPath = newRoute.name
-    }
-  },
   created () {
-    this.$store.commit('setLayout', 'USERS') // changes layout title of dashboard header
+    this.$store.commit('setLayout', 'RESERVED USERS') // changes layout title of dashboard header
     this.searchData = this.data
-    this.currentPath = this.$route.name
   },
   methods: {
     showModal () {

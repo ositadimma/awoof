@@ -58,11 +58,27 @@
         </ul>
       </div>
       <nuxt-link
-        :class="currentPath.includes('users') ? 'active' : 'inactive'"
+        :class="
+          currentPath == 'users' && currentPath.includes('users')
+            ? 'active'
+            : 'inactive'
+        "
         to="/users"
       >
         <Referralsicon />
         <span>Users</span>
+      </nuxt-link>
+      <nuxt-link
+        :class="
+          currentPath == 'reservedusers' &&
+            currentPath.includes('reservedusers')
+            ? 'active'
+            : 'inactive'
+        "
+        to="/reservedusers"
+      >
+        <Referralsicon />
+        <span>Reserved Users</span>
       </nuxt-link>
       <nuxt-link
         :class="currentPath.includes('transactions') ? 'active' : 'inactive'"
