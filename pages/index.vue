@@ -8,7 +8,7 @@
         </div>
         <span
           class="amount"
-        >N{{
+        >₦{{
           dashboardParams !== undefined
             ? amountDelimeter(dashboardParams.amount_processed)
             : 0
@@ -113,7 +113,7 @@
         </div>
         <span
           class="amount"
-        >N{{
+        >₦{{
           dashboardParams !== undefined
             ? amountDelimeter(dashboardParams.bills_payment)
             : 0
@@ -144,19 +144,17 @@ export default {
     $axios.setHeader('x-auth-token', Cookies.get('token'))
     try {
       var dashboardParamsResponse = await $axios.$get(
-        'https://awoof-api.herokuapp.com/v1/admins/dashboard_params'
+        'http://awoofapiapp-env.eba-n5p9cvek.us-east-1.elasticbeanstalk.com/v1/admins/dashboard_params'
       )
       var dashboardChartResponse = await $axios.$get(
-        'https://awoof-api.herokuapp.com/v1/admins/chart'
+        'http://awoofapiapp-env.eba-n5p9cvek.us-east-1.elasticbeanstalk.com/v1/admins/chart'
       )
       var dashboardTableresponse = await $axios.$get(
-        'https://awoof-api.herokuapp.com/v1/giveaways'
+        'http://awoofapiapp-env.eba-n5p9cvek.us-east-1.elasticbeanstalk.com/v1/giveaways'
       )
     } catch (err) {
       if (err.message.includes('Network')) {
-        $toast.global.custom_error(
-          'please check your connection and try again'
-        )
+        $toast.global.custom_error('please check your connection and try again')
       }
 
       if (err.response !== undefined) {
@@ -243,7 +241,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-image: url("~assets/icons/dividefill.svg");
+  background-image: url('~assets/icons/dividefill.svg');
 }
 .dashboard-card .amount {
   font-weight: 600;

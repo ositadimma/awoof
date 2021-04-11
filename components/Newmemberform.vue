@@ -114,7 +114,7 @@ export default {
       this.$axios.setHeader('x-auth-token', Cookies.get('token'))
       try {
         const response = await this.$axios.$post(
-          'https://awoof-api.herokuapp.com/v1/admins/create_admin',
+          'http://awoofapiapp-env.eba-n5p9cvek.us-east-1.elasticbeanstalk.com/v1/admins/create_admin',
           this.bodyData()
         )
         if (response) {
@@ -211,7 +211,7 @@ span {
   cursor: pointer;
 }
 .select::after {
-  content: url("~assets/icons/teamcarrot.svg");
+  content: url('~assets/icons/teamcarrot.svg');
 }
 .active-select::after {
   transform: rotate(180deg);
@@ -266,10 +266,10 @@ label {
   margin-bottom: 11px;
 }
 label:after {
-  content: "*";
+  content: '*';
   color: red;
 }
-input[type="text"] {
+input[type='text'] {
   width: 100%;
   height: 64px;
   padding-left: 30px;
@@ -282,7 +282,7 @@ input[type="text"] {
   font-size: 12px;
   color: #8692a6;
 }
-input[type="text"]::placeholder {
+input[type='text']::placeholder {
   font-weight: 600;
   color: #8692a6;
 }

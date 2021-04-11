@@ -13,7 +13,7 @@
         <span class="title">Referral Bonus</span>
         <img src="~/assets/icons/Graph.svg">
       </div>
-      <span class="amount">N{{ amount.amount }}</span>
+      <span class="amount">₦{{ amount.amount }}</span>
     </div>
 
     <div class="details">
@@ -70,7 +70,7 @@
                 {{ referralDetail.refCodeUsage }}
               </td>
               <td data-title="Total Amount">
-                N{{ amountDelimeter(referralDetail.balance) }}
+                ₦{{ amountDelimeter(referralDetail.balance) }}
               </td>
             </tr>
           </tbody>
@@ -128,10 +128,10 @@ export default {
     $axios.setHeader('x-auth-token', Cookies.get('token'))
     try {
       var referralDetailResponse = await $axios.$get(
-        `https://awoof-api.herokuapp.com/v1/admins/get_refferal/${params.id}`
+        `http://awoofapiapp-env.eba-n5p9cvek.us-east-1.elasticbeanstalk.com/v1/admins/get_refferal/${params.id}`
       )
       var referralBonusResponse = await $axios.$get(
-        'https://awoof-api.herokuapp.com/v1/admins/referral_bonus'
+        'http://awoofapiapp-env.eba-n5p9cvek.us-east-1.elasticbeanstalk.com/v1/admins/referral_bonus'
       )
     } catch (err) {
       if (err.message.includes('Network')) {

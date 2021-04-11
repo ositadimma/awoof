@@ -57,7 +57,7 @@
                 2
               </td> -->
               <td data-title="Total Amount" class="Amount">
-                N{{ amountDelimeter(transactionDetail.amount) }}
+                ₦{{ amountDelimeter(transactionDetail.amount) }}
               </td>
               <td data-title="Method of Payment">
                 {{ methodOfPayment }}
@@ -163,13 +163,13 @@ export default {
     $axios.setHeader('x-auth-token', Cookies.get('token'))
     try {
       var response1 = await $axios.$get(
-        `https://awoof-api.herokuapp.com/v1/admins/bank_transfers/${params.id}`
+        `http://awoofapiapp-env.eba-n5p9cvek.us-east-1.elasticbeanstalk.com/v1/admins/bank_transfers/${params.id}`
       )
       var response2 = await $axios.$get(
-        `https://awoof-api.herokuapp.com/v1/admins/wallet_top_ups/${params.id}`
+        `http://awoofapiapp-env.eba-n5p9cvek.us-east-1.elasticbeanstalk.com/v1/admins/wallet_top_ups/${params.id}`
       )
       var response3 = await $axios.$get(
-        `https://awoof-api.herokuapp.com/v1/admins/airtime_top_up/${params.id}`
+        `http://awoofapiapp-env.eba-n5p9cvek.us-east-1.elasticbeanstalk.com/v1/admins/airtime_top_up/${params.id}`
       )
 
       var transactionDetailResponse
@@ -178,19 +178,19 @@ export default {
       if (response1.data) {
         transactionDetailResponse = response1.data
         userDetailResponse = await $axios.$get(
-          `https://awoof-api.herokuapp.com/v1/admins/get_by_email/${transactionDetailResponse.user}`
+          `http://awoofapiapp-env.eba-n5p9cvek.us-east-1.elasticbeanstalk.com/v1/admins/get_by_email/${transactionDetailResponse.user}`
         )
         methodOfPayment = 'Bank Transfer'
       } else if (response2.data) {
         transactionDetailResponse = response2.data
         userDetailResponse = await $axios.$get(
-          `https://awoof-api.herokuapp.com/v1/admins/get_by_email/${transactionDetailResponse.user_email}`
+          `http://awoofapiapp-env.eba-n5p9cvek.us-east-1.elasticbeanstalk.com/v1/admins/get_by_email/${transactionDetailResponse.user_email}`
         )
         methodOfPayment = 'Wallet'
       } else {
         transactionDetailResponse = response3.data
         userDetailResponse = await $axios.$get(
-          `https://awoof-api.herokuapp.com/v1/admins/get_by_email/${transactionDetailResponse.user}`
+          `http://awoofapiapp-env.eba-n5p9cvek.us-east-1.elasticbeanstalk.com/v1/admins/get_by_email/${transactionDetailResponse.user}`
         )
         methodOfPayment = 'Airtime Topup'
       }

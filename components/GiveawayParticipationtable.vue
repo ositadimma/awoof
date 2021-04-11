@@ -148,7 +148,7 @@ export default {
         this.$axios.setHeader('x-auth-token', Cookies.get('token'))
         try {
           const response = await this.$axios.$post(
-            `https://awoof-api.herokuapp.com/v1/admins/set_giveaway_winners/${this.$route.params.id}`,
+            `http://awoofapiapp-env.eba-n5p9cvek.us-east-1.elasticbeanstalk.com/v1/admins/set_giveaway_winners/${this.$route.params.id}`,
             {
               winners: this.customWinners
             }

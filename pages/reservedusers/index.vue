@@ -40,7 +40,7 @@ export default {
     $axios.setHeader('x-auth-token', Cookies.get('token'))
     try {
       var response = await $axios.$get(
-        'https://awoof-api.herokuapp.com/v1/admins/get_reserved_usernames'
+        'http://awoofapiapp-env.eba-n5p9cvek.us-east-1.elasticbeanstalk.com/v1/admins/get_reserved_usernames'
       )
     } catch (err) {
       if (err.message.includes('Network')) {

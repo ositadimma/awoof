@@ -23,7 +23,7 @@
           <tr v-for="(giveaway, index) in paginatedData" :key="index">
             <td data-title="Name" class="Name">
               <div class="Name-div">
-                <p>{{ giveaway.user ? giveaway.user.username : "Admin" }}</p>
+                <p>{{ giveaway.user ? giveaway.user.username : 'Admin' }}</p>
                 <!-- <Checkicon /> -->
               </div>
             </td>
@@ -34,10 +34,10 @@
               Open
             </td>
             <td data-title="Amount Won">
-              N{{ amountDelimeter(giveaway.giveaway_id.amountPerWinner) }}
+              ₦{{ amountDelimeter(giveaway.giveaway_id.amountPerWinner) }}
             </td>
             <td data-title="Giveaway Amount">
-              N{{ amountDelimeter(giveaway.giveaway_id.amount) }}
+              ₦{{ amountDelimeter(giveaway.giveaway_id.amount) }}
             </td>
             <td data-title="Date Posted">
               {{ format_date(giveaway.giveaway_id.createdAt) }}

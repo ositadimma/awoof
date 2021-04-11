@@ -3,8 +3,8 @@
     <div class="modal-card animate__fadeIn">
       <div class="modal-title">
         <span>Are you sure you want to make this
-          {{ role == "super_admin" ? "super admin" : "admin" }}
-          {{ status ? "active" : "inactive" }}.</span>
+          {{ role == 'super_admin' ? 'super admin' : 'admin' }}
+          {{ status ? 'active' : 'inactive' }}.</span>
       </div>
       <div class="action-container">
         <button class="yes-btn" @click="updateStatus">
@@ -45,7 +45,7 @@ export default {
       this.$axios.setHeader('x-auth-token', Cookies.get('token'))
       try {
         const response = await this.$axios.$put(
-          `https://awoof-api.herokuapp.com/v1/admins/toggle_admin/${this.id}`
+          `http://awoofapiapp-env.eba-n5p9cvek.us-east-1.elasticbeanstalk.com/v1/admins/toggle_admin/${this.id}`
         )
         if (response) {
           this.$toast.global.custom_success('Status changed')
