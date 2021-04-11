@@ -54,7 +54,7 @@
               Open
             </td>
             <td data-title="Total Amount">
-              N{{ amountDelimeter(giveaway.amount) }}
+              ₦{{ amountDelimeter(giveaway.amount) }}
             </td>
             <td data-title="Date Posted">
               {{ format_date(giveaway.createdAt) }}

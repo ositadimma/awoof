@@ -58,7 +58,7 @@ export default {
       this.$axios.setHeader('x-auth-token', Cookies.get('token'))
       try {
         const response = await this.$axios.$post(
-          'https://awoof-api.herokuapp.com/v1/admins/set_referral_bonus',
+          'http://awoofapiapp-env.eba-n5p9cvek.us-east-1.elasticbeanstalk.com/v1/admins/set_referral_bonus',
           {
             amount: parseInt(this.amount)
           }

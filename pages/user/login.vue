@@ -21,7 +21,7 @@
         v-show="
           (!loading && email == '') ||
             !emailValidate.test(email) ||
-            password.length < 8
+            password.length < 7
         "
         class="disable-1 btn-cmpt"
         disabled
@@ -33,7 +33,7 @@
           !loading &&
             email != '' &&
             emailValidate.test(email) &&
-            password.length >= 8
+            password.length >= 7
         "
         class="btn-cmpt"
       >
@@ -91,7 +91,7 @@ export default {
       this.loading = true
       try {
         const response = await this.$axios.$post(
-          'https://awoof-api.herokuapp.com/v1/auth/admin',
+          'http://awoofapiapp-env.eba-n5p9cvek.us-east-1.elasticbeanstalk.com/v1/auth/admin',
           {
             email: this.email,
             password: this.password

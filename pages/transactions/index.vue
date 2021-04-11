@@ -41,19 +41,17 @@ export default {
     $axios.setHeader('x-auth-token', Cookies.get('token'))
     try {
       var bankTransferResponse = await $axios.$get(
-        'https://awoof-api.herokuapp.com/v1/admins/bank_transfers'
+        'http://awoofapiapp-env.eba-n5p9cvek.us-east-1.elasticbeanstalk.com/v1/admins/bank_transfers'
       )
       var walletResponse = await $axios.$get(
-        'https://awoof-api.herokuapp.com/v1/admins/wallet_top_ups'
+        'http://awoofapiapp-env.eba-n5p9cvek.us-east-1.elasticbeanstalk.com/v1/admins/wallet_top_ups'
       )
       var airtimeResponse = await $axios.$get(
-        'https://awoof-api.herokuapp.com/v1/admins/airtime_top_up'
+        'http://awoofapiapp-env.eba-n5p9cvek.us-east-1.elasticbeanstalk.com/v1/admins/airtime_top_up'
       )
     } catch (err) {
       if (err.message.includes('Network')) {
-        $toast.global.custom_error(
-          'please check your connection and try again'
-        )
+        $toast.global.custom_error('please check your connection and try again')
       }
 
       if (err.response !== undefined) {
@@ -139,7 +137,7 @@ export default {
   cursor: pointer;
 }
 .nav span::before {
-  content: " ";
+  content: ' ';
   position: absolute;
   bottom: 0;
   width: 0;

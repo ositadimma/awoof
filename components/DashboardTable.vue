@@ -33,7 +33,7 @@
           >
             <td data-title="Name" class="Name">
               <div class="Name-div">
-                <p>{{ giveaway.user ? giveaway.user.username : "Admin" }}</p>
+                <p>{{ giveaway.user ? giveaway.user.username : 'Admin' }}</p>
                 <!-- <Checkicon /> -->
               </div>
             </td>
@@ -44,7 +44,7 @@
               Open
             </td>
             <td data-title="Total Amount">
-              N{{ amountDelimeter(giveaway.amount) }}
+              ₦{{ amountDelimeter(giveaway.amount) }}
             </td>
             <td data-title="Date Posted">
               {{ format_date(giveaway.createdAt) }}

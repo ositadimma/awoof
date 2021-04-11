@@ -137,7 +137,7 @@
               v-model="noOfWinners"
               type="number"
               placeholder="0"
-              :disabled="user === 'Select a user' ? false : true"
+              :disabled="user === 'Select username' ? false : true"
               @click="noOfWinnersFocus"
             >
           </div>
@@ -342,7 +342,7 @@ export default {
     $axios.setHeader('x-auth-token', Cookies.get('token'))
     try {
       var response = await $axios.$get(
-        'https://awoof-api.herokuapp.com/v1/admins/get_all_users'
+        'http://awoofapiapp-env.eba-n5p9cvek.us-east-1.elasticbeanstalk.com/v1/admins/get_all_users'
       )
     } catch (err) {
       if (err.message.includes('Network')) {
@@ -361,7 +361,7 @@ export default {
     return {
       searchData: [],
       search: '',
-      user: 'Select a user',
+      user: 'Select username',
       userId: '',
       selectUserOpen: false,
       type: 'Please select a giveaway type',
@@ -425,15 +425,11 @@ export default {
       }
     },
     shortenName (user) {
-      if (
-        user.firstName !== undefined &&
-        user.lastName !== undefined &&
-        (user.firstName + ' ' + user.lastName).length < 20
-      ) {
-        if ((user.firstName + ' ' + user.lastName).length < 18) {
-          return user.firstName + ' ' + user.lastName
+      if (user.username !== undefined && user.username.length < 20) {
+        if (user.username.length < 18) {
+          return user.username
         } else {
-          return (user.firstName + ' ' + user.lastName).substring(0, 18) + '...'
+          return user.username.length.substring(0, 18) + '...'
         }
       } else {
         return 'Admin'
@@ -441,7 +437,7 @@ export default {
     },
     filterSearch () {
       if (this.search === '') {
-        this.user = 'Select a user'
+        this.user = 'Select username'
         this.noOfWinners = 0
       }
       const data = this.data.filter((obj) => {
@@ -543,7 +539,7 @@ export default {
       this.LikeTwitterLink = ''
       this.endAt = ''
       this.loading = false
-      this.user = 'Select a user'
+      this.user = 'Select username'
     },
     bodyFormatData () {
       // const stringDate = this.endAt.split('/')
@@ -591,7 +587,7 @@ export default {
       this.$axios.setHeader('Content-Type', 'multipart/form-data')
       try {
         const response = await this.$axios.$post(
-          'https://awoof-api.herokuapp.com/v1/admins/create_giveaway',
+          'http://awoofapiapp-env.eba-n5p9cvek.us-east-1.elasticbeanstalk.com/v1/admins/create_giveaway',
           this.bodyFormatData()
         )
         if (response) {
@@ -857,12 +853,14 @@ input[type='number']::placeholder {
 .type-select-options-container,
 .user-select-options-container {
   width: 100%;
+  max-height: 350px;
   background: #fff;
   position: absolute;
   top: 60px;
   left: 0;
   z-index: 100;
   box-shadow: 0 10px 20px rgb(0 0 0 / 19%), 0 6px 6px rgb(0 0 0 / 23%);
+  overflow-y: auto;
 }
 
 .amt-select-options-container .option,

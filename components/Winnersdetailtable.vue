@@ -35,7 +35,7 @@
             </div>
           </td>
           <td data-title="Total Amount" class="Amount">
-            N{{ amountDelimeter(giveawayDetail.amount) }}
+            ₦{{ amountDelimeter(giveawayDetail.amount) }}
           </td>
           <td data-title="Date Posted" class="Date">
             {{ format_date(giveawayDetail.createdAt) }}
@@ -63,7 +63,7 @@
       <tbody>
         <tr>
           <td data-title="Possible Winners" class="Status">
-            {{ giveawayDetail.numberOfWinners }} (N{{
+            {{ giveawayDetail.numberOfWinners }} (₦{{
               amountDelimeter(giveawayDetail.amountPerWinner)
             }}
             per winner)
@@ -72,7 +72,7 @@
             All Completed
           </td>
           <td data-title="Amount Won" class="Amount">
-            N{{ amountDelimeter(giveawayDetail.amountPerWinner) }}
+            ₦{{ amountDelimeter(giveawayDetail.amountPerWinner) }}
           </td>
           <td data-title="Date Entered" class="Date">
             {{

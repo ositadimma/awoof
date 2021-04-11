@@ -29,10 +29,10 @@
             {{ tasks.length }}
           </td>
           <td data-title="Total Amount" class="Amount">
-            N{{ amountDelimeter(giveawayDetail.amount) }}
+            ₦{{ amountDelimeter(giveawayDetail.amount) }}
           </td>
           <td data-title="Possible Winners">
-            {{ giveawayDetail.numberOfWinners }} (N{{
+            {{ giveawayDetail.numberOfWinners }} (₦{{
               amountDelimeter(giveawayDetail.amountPerWinner)
             }}
             per winner)

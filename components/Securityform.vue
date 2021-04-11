@@ -109,7 +109,7 @@ export default {
       this.$axios.setHeader('x-auth-token', Cookies.get('token'))
       try {
         const response = await this.$axios.$put(
-          'https://awoof-api.herokuapp.com/v1/admins/password',
+          'http://awoofapiapp-env.eba-n5p9cvek.us-east-1.elasticbeanstalk.com/v1/admins/password',
           {
             password: this.password,
             newPassword: this.newPassword
@@ -188,8 +188,8 @@ label {
   position: relative;
   overflow: hidden;
 }
-input[type="password"],
-input[type="text"] {
+input[type='password'],
+input[type='text'] {
   border: none;
   width: 100%;
   height: 100%;
@@ -198,12 +198,12 @@ input[type="text"] {
 
   font-size: 12px;
 }
-input[type="password"]::placeholder,
-input[type="text"]::placeholder {
+input[type='password']::placeholder,
+input[type='text']::placeholder {
   font-weight: 600;
 }
-input[type="password"]:focus,
-input[type="text"]:focus {
+input[type='password']:focus,
+input[type='text']:focus {
   outline: none;
 }
 .visibility-container {

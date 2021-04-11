@@ -34,6 +34,11 @@
   outline: #000000 auto 2px;
 }
 
+td {
+  text-transform: lowercase !important;
+  transition: all 0.5s;
+}
+
 .easeIn {
   animation: easeIn 3s forwards ease;
 }
