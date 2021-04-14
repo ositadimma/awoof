@@ -144,13 +144,13 @@ export default {
     $axios.setHeader('x-auth-token', Cookies.get('token'))
     try {
       var dashboardParamsResponse = await $axios.$get(
-        'http://awoofapiapp-env.eba-n5p9cvek.us-east-1.elasticbeanstalk.com/v1/admins/dashboard_params'
+        'https://awoof-api.herokuapp.com/v1/admins/dashboard_params'
       )
       var dashboardChartResponse = await $axios.$get(
-        'http://awoofapiapp-env.eba-n5p9cvek.us-east-1.elasticbeanstalk.com/v1/admins/chart'
+        'https://awoof-api.herokuapp.com/v1/admins/chart'
       )
       var dashboardTableresponse = await $axios.$get(
-        'http://awoofapiapp-env.eba-n5p9cvek.us-east-1.elasticbeanstalk.com/v1/giveaways'
+        'https://awoof-api.herokuapp.com/v1/giveaways'
       )
     } catch (err) {
       if (err.message.includes('Network')) {

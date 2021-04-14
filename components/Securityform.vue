@@ -109,7 +109,7 @@ export default {
       this.$axios.setHeader('x-auth-token', Cookies.get('token'))
       try {
         const response = await this.$axios.$put(
-          'http://awoofapiapp-env.eba-n5p9cvek.us-east-1.elasticbeanstalk.com/v1/admins/password',
+          'https://awoof-api.herokuapp.com/v1/admins/password',
           {
             password: this.password,
             newPassword: this.newPassword

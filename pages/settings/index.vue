@@ -47,7 +47,7 @@ export default {
     $axios.setHeader('x-auth-token', Cookies.get('token'))
     try {
       var adminsResponse = await $axios.$get(
-        'http://awoofapiapp-env.eba-n5p9cvek.us-east-1.elasticbeanstalk.com/v1/admins/get_all_admins'
+        'https://awoof-api.herokuapp.com/v1/admins/get_all_admins'
       )
     } catch (err) {
       if (err.message.includes('Network')) {

@@ -91,7 +91,7 @@ export default {
       this.loading = true
       try {
         const response = await this.$axios.$post(
-          'http://awoofapiapp-env.eba-n5p9cvek.us-east-1.elasticbeanstalk.com/v1/auth/admin',
+          'https://awoof-api.herokuapp.com/v1/auth/admin',
           {
             email: this.email,
             password: this.password

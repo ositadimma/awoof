@@ -311,7 +311,7 @@ export default {
       this.$axios.setHeader('x-auth-token', Cookies.get('token'))
       try {
         const response = await this.$axios.$put(
-          `http://awoofapiapp-env.eba-n5p9cvek.us-east-1.elasticbeanstalk.com/v1/giveaways/${this.$route.params.id}`,
+          `https://awoof-api.herokuapp.com/v1/giveaways/${this.$route.params.id}`,
           this.bodyData()
         )
         if (response) {

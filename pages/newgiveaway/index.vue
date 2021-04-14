@@ -342,7 +342,7 @@ export default {
     $axios.setHeader('x-auth-token', Cookies.get('token'))
     try {
       var response = await $axios.$get(
-        'http://awoofapiapp-env.eba-n5p9cvek.us-east-1.elasticbeanstalk.com/v1/admins/get_all_users'
+        'https://awoof-api.herokuapp.com/v1/admins/get_all_users'
       )
     } catch (err) {
       if (err.message.includes('Network')) {
@@ -587,7 +587,7 @@ export default {
       this.$axios.setHeader('Content-Type', 'multipart/form-data')
       try {
         const response = await this.$axios.$post(
-          'http://awoofapiapp-env.eba-n5p9cvek.us-east-1.elasticbeanstalk.com/v1/admins/create_giveaway',
+          'https://awoof-api.herokuapp.com/v1/admins/create_giveaway',
           this.bodyFormatData()
         )
         if (response) {

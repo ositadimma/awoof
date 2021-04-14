@@ -41,13 +41,13 @@ export default {
     $axios.setHeader('x-auth-token', Cookies.get('token'))
     try {
       var bankTransferResponse = await $axios.$get(
-        'http://awoofapiapp-env.eba-n5p9cvek.us-east-1.elasticbeanstalk.com/v1/admins/bank_transfers'
+        'https://awoof-api.herokuapp.com/v1/admins/bank_transfers'
       )
       var walletResponse = await $axios.$get(
-        'http://awoofapiapp-env.eba-n5p9cvek.us-east-1.elasticbeanstalk.com/v1/admins/wallet_top_ups'
+        'https://awoof-api.herokuapp.com/v1/admins/wallet_top_ups'
       )
       var airtimeResponse = await $axios.$get(
-        'http://awoofapiapp-env.eba-n5p9cvek.us-east-1.elasticbeanstalk.com/v1/admins/airtime_top_up'
+        'https://awoof-api.herokuapp.com/v1/admins/airtime_top_up'
       )
     } catch (err) {
       if (err.message.includes('Network')) {
