@@ -114,7 +114,7 @@ export default {
       this.$axios.setHeader('x-auth-token', Cookies.get('token'))
       try {
         const response = await this.$axios.$post(
-          'http://awoofapiapp-env.eba-n5p9cvek.us-east-1.elasticbeanstalk.com/v1/admins/create_admin',
+          'https://awoof-api.herokuapp.com/v1/admins/create_admin',
           this.bodyData()
         )
         if (response) {

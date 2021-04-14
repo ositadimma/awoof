@@ -38,10 +38,10 @@ export default {
     $axios.setHeader('x-auth-token', Cookies.get('token'))
     try {
       var giveawayDetailResponse = await $axios.$get(
-        `http://awoofapiapp-env.eba-n5p9cvek.us-east-1.elasticbeanstalk.com/v1/giveaways/${params.id}`
+        `https://awoof-api.herokuapp.com/v1/giveaways/${params.id}`
       )
       var winnerDetailResponse = await $axios.$get(
-        `http://awoofapiapp-env.eba-n5p9cvek.us-east-1.elasticbeanstalk.com/v1/users/${giveawayDetailResponse.data.user._id}`
+        `https://awoof-api.herokuapp.com/v1/users/${giveawayDetailResponse.data.user._id}`
       )
     } catch (err) {
       if (err.message.includes('Network')) {

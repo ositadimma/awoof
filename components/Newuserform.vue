@@ -208,7 +208,7 @@ export default {
       this.$axios.setHeader('Content-Type', 'multipart/form-data')
       try {
         const response = await this.$axios.$post(
-          'http://awoofapiapp-env.eba-n5p9cvek.us-east-1.elasticbeanstalk.com/v1/users',
+          'https://awoof-api.herokuapp.com/v1/users',
           this.bodyData()
         )
         if (response) {
