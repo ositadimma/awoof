@@ -15,11 +15,16 @@
         :class="{ 'nav-active': airtimeActive }"
         @click="selectedAirtime"
       >AIRTIME TOPUP</span>
+      <span
+        :class="{ 'nav-active': surpriseActive }"
+        @click="selectedSurprise"
+      >SURPRISE</span>
       <!-- <span>DATA PURCHASE</span> -->
     </div>
     <BankTransferTable v-show="bankTransferActive" :data="bankTransfer" />
     <WalletTable v-show="walletActive" :data="wallet" />
     <AirtimeTable v-show="airtimeActive" :data="airtime" />
+    <SurpriseTable v-show="surpriseActive" :data="surprise" />
   </div>
 </template>
 
@@ -28,6 +33,7 @@ import Cookies from 'js-cookie'
 import BankTransferTable from '~/components/BankTransferTable'
 import WalletTable from '~/components/WalletTable'
 import AirtimeTable from '~/components/AirtimeTable'
+import SurpriseTable from '~/components/SurpriseTable'
 
 export default {
   name: 'Referral',
@@ -35,7 +41,8 @@ export default {
   components: {
     BankTransferTable,
     WalletTable,
-    AirtimeTable
+    AirtimeTable,
+    SurpriseTable
   },
   async asyncData ({ $axios, $toast }) {
     $axios.setHeader('x-auth-token', Cookies.get('token'))
@@ -48,6 +55,9 @@ export default {
       )
       var airtimeResponse = await $axios.$get(
         'https://awoof-api.herokuapp.com/v1/admins/airtime_top_up'
+      )
+      var surpriseResponse = await $axios.$get(
+        'https://awoof-api.herokuapp.com/v1/admins/get_suprise'
       )
     } catch (err) {
       if (err.message.includes('Network')) {
@@ -64,14 +74,16 @@ export default {
     return {
       bankTransfer: bankTransferResponse ? bankTransferResponse.data : [],
       wallet: walletResponse ? walletResponse.data : [],
-      airtime: airtimeResponse ? airtimeResponse.data : []
+      airtime: airtimeResponse ? airtimeResponse.data : [],
+      surprise: surpriseResponse ? surpriseResponse.data : []
     }
   },
   data () {
     return {
       bankTransferActive: true,
       walletActive: false,
-      airtimeActive: false
+      airtimeActive: false,
+      surpriseActive: false
     }
   },
   created () {
@@ -82,16 +94,25 @@ export default {
       this.bankTransferActive = true
       this.walletActive = false
       this.airtimeActive = false
+      this.surpriseActive = false
     },
     selectedWallet () {
       this.bankTransferActive = false
       this.walletActive = true
       this.airtimeActive = false
+      this.surpriseActive = false
     },
     selectedAirtime () {
       this.bankTransferActive = false
       this.walletActive = false
       this.airtimeActive = true
+      this.surpriseActive = false
+    },
+    selectedSurprise () {
+      this.bankTransferActive = false
+      this.walletActive = false
+      this.airtimeActive = false
+      this.surpriseActive = true
     }
   }
 }

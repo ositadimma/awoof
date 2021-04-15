@@ -576,7 +576,7 @@ export default {
       data.append('payment_status', 'success')
       data.append('gateway_response', '')
       data.append('image', this.image)
-      data.append('expiry', '30 days')
+      data.append('expiry', `${endAt}`)
       data.append('endAt', `${endAt}`)
       data.append('completed', this.completed)
       return data

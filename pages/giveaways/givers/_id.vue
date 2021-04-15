@@ -16,7 +16,7 @@
       >
         Download Report
       </button>
-      <button
+      <!-- <button
         v-show="!giveawayDetail.completed && !giveawayDetail.hidden"
         class="suspend-btn btn-cmpt"
         @click="showHideGiveAwayModal"
@@ -29,7 +29,7 @@
         @click="showHideGiveAwayModal"
       >
         Show Giveaway
-      </button>
+      </button> -->
       <!-- When onGoing use this instead -->
       <!-- <button v-show="!giveawayDetail.completed" class="edit-btn btn-cmpt">
         Edit Giveaway
@@ -41,40 +41,37 @@
 
     <div ref="details" class="details">
       <div class="details-child-1">
-        <GiveawayDetailTable :key="key + 1" :giveaway-detail="giveawayDetail" />
+        <GiveawayDetailTable :giveaway-detail="giveawayDetail" />
         <span
           v-show="giveawayDetail.completed"
           class="users"
         >Winners ({{ giveawayWinners.length }})</span>
         <GiveawayWinnersTable
           v-show="giveawayDetail.completed"
-          :key="key + 2"
           :giveaway-winners="giveawayWinners"
         />
         <span
           class="users"
         >Users Who Have Entered ({{ giveawayParticipants.length }})</span>
         <GiveawayParticipationTable
-          :key="key + 3"
           :giveaway-participants="giveawayParticipants"
           @refresh="refresh"
         />
       </div>
       <div class="details-child-2">
-        <GiveawayFullDetails :key="key" :user-info="userInfo" />
+        <GiveawayFullDetails :user-info="userInfo" />
         <ParticipationReport
           v-show="giveawayDetail.completed"
-          :key="key + 4"
           :giveaway-participants="giveawayParticipants"
         />
       </div>
     </div>
-    <HideGiveAwayModal
+    <!-- <HideGiveAwayModal
       v-show="popUpOpen"
       :id="giveawayDetail._id"
       :status="giveawayDetail.hidden"
       @refresh="refresh"
-    />
+    /> -->
   </div>
 </template>
 
@@ -86,7 +83,7 @@ import GiveawayWinnersTable from '~/components/GiveawayWinnerstable'
 import GiveawayParticipationTable from '~/components/GiveawayParticipationtable'
 import GiveawayFullDetails from '~/components/GiveawayFulldetails'
 import ParticipationReport from '~/components/Participationreport'
-import HideGiveAwayModal from '~/components/HideGiveAwayModal'
+// import HideGiveAwayModal from '~/components/HideGiveAwayModal'
 
 export default {
   name: 'Giveawaydetail',
@@ -96,8 +93,8 @@ export default {
     GiveawayWinnersTable,
     GiveawayParticipationTable,
     GiveawayFullDetails,
-    ParticipationReport,
-    HideGiveAwayModal
+    ParticipationReport
+    // HideGiveAwayModal
   },
   async asyncData ({ $axios, $toast, params }) {
     $axios.setHeader('x-auth-token', Cookies.get('token'))
@@ -142,11 +139,11 @@ export default {
           : []
     }
   },
-  data () {
-    return {
-      key: 0
-    }
-  },
+  // data () {
+  //   return {
+  //     key: 0
+  //   }
+  // },
   computed: {
     tasks () {
       const tasks = []
@@ -187,10 +184,10 @@ export default {
       }
 
       return tasks
-    },
-    popUpOpen () {
-      return this.$store.state.popUpOpen
     }
+    // popUpOpen () {
+    //   return this.$store.state.popUpOpen
+    // }
   },
   created () {
     this.$store.commit('setLayout', 'GIVEAWAYS DETAILS') // changes layout title of dashboard header
@@ -218,14 +215,14 @@ export default {
         .set(opt)
         .from(this.$refs.details)
         .save()
-    },
-    showHideGiveAwayModal () {
-      this.$store.commit('setPopUpOpen', true)
-    },
-    refresh () {
-      this.$nuxt.refresh()
-      this.key += 1
     }
+    // showHideGiveAwayModal () {
+    //   this.$store.commit('setPopUpOpen', true)
+    // },
+    // refresh () {
+    //   this.$nuxt.refresh()
+    //   this.key += 1
+    // }
   }
 }
 </script>
