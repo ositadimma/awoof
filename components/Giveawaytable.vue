@@ -15,7 +15,7 @@
             </th>
             <th>Total Amount</th>
             <th>Date Posted</th>
-            <th>
+            <th class="Status">
               <span>Status</span>
               <div v-if="status == 'Ongoing'">
                 <img src="~assets/icons/down.svg" class="scale" alt="down">
@@ -35,6 +35,12 @@
                 >
                 <img src="~assets/icons/down.svg" alt="down" class="rotate">
               </div>
+            </th>
+            <th>
+              Hidden
+            </th>
+            <th>
+              Visibility
             </th>
             <th class="View" />
           </tr>
@@ -65,6 +71,25 @@
             >
               {{ giveaway.completed ? 'Completed' : 'Ongoing' }}
             </td>
+            <td data-title="Hidden">
+              {{ giveaway.hidden }}
+            </td>
+            <td data-title="Visibility">
+              <button
+                v-if="!giveaway.hidden"
+                class="suspend-btn btn-cmpt"
+                @click="showHideGiveAwayModal(giveaway._id, giveaway.hidden)"
+              >
+                hide
+              </button>
+              <button
+                v-else
+                class="edit-btn btn-cmpt"
+                @click="showHideGiveAwayModal(giveaway._id, giveaway.hidden)"
+              >
+                show
+              </button>
+            </td>
             <td class="View">
               <ArrowCircle
                 @click.native="
@@ -84,6 +109,12 @@
       :break-view-text="'. . .'"
       :click-handler="Paginate"
     />
+    <HideGiveAwayModal
+      v-show="popUpOpen"
+      :id="giveawayId"
+      :status="giveawayHidden"
+      @refresh="refresh"
+    />
   </div>
 </template>
 
@@ -91,12 +122,14 @@
 import paginate from 'vuejs-paginate'
 import moment from 'moment'
 import NoData from './NoTableData'
+import HideGiveAwayModal from '~/components/HideGiveAwayModal'
 
 export default {
   name: 'GiveawayTable',
   components: {
     NoData,
-    paginate
+    paginate,
+    HideGiveAwayModal
   },
   props: {
     data: {
@@ -112,7 +145,14 @@ export default {
       amountOfPages: Math.ceil(this.data.length / 6),
       currentPage: 0,
       pagesToShow: 6,
-      status: 'Ongoing'
+      status: 'Ongoing',
+      giveawayId: '',
+      giveawayHidden: false
+    }
+  },
+  computed: {
+    popUpOpen () {
+      return this.$store.state.popUpOpen
     }
   },
   methods: {
@@ -200,6 +240,14 @@ export default {
         return `Today, ${moment(new Date(String(value))).format('hh:mm')}`
       }
       return moment(new Date(String(value))).format('DD MMM YYYY, hh:mm')
+    },
+    showHideGiveAwayModal (id, hidden) {
+      this.giveawayId = id
+      this.giveawayHidden = hidden
+      this.$store.commit('setPopUpOpen', true)
+    },
+    refresh () {
+      this.$emit('refresh')
     }
   }
 }
@@ -248,30 +296,34 @@ th:last-child {
   border-top-right-radius: 20px;
 }
 /* status */
-th:nth-last-child(2) div {
+th.Status div {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   min-height: 18px;
+  max-height: 18px;
 }
-th:nth-last-child(2) {
+th.Status {
   display: flex;
   align-items: center;
-  min-width: 11%;
+  /* min-width: 11%; */
 }
-th:nth-last-child(2) div {
+th.Status div {
   margin-left: 15px;
 }
-th:nth-last-child(2) div {
+th.Status div {
   cursor: pointer;
 }
+/* th.Status {
+  display: flex;
+} */
 .ongoing {
   color: #e1931e;
-  width: 11%;
+  /* width: 11%; */
 }
 .completed {
   color: #09ab5d;
-  width: 11%;
+  /* width: 11%; */
 }
 /**/
 td {
@@ -307,7 +359,7 @@ tbody tr:nth-child(odd) {
 p {
   margin-right: 10px;
 }
-.Type {
+/* .Type {
   width: 12%;
 }
 .Tasks {
@@ -315,7 +367,7 @@ p {
 }
 .View {
   width: 10%;
-}
+} */
 .arrowcircle {
   cursor: pointer;
 }
@@ -324,6 +376,18 @@ p {
 }
 .scale {
   transform: scale(1.9);
+}
+button {
+  transition: all 0.5s;
+}
+button.btn-cmpt {
+  width: 100%;
+  max-width: 120px;
+  min-height: 30px;
+  font-size: 0.7rem;
+}
+button.suspend-btn {
+  background: #e74d75;
 }
 @media (max-width: 1100px) {
   .table-head {

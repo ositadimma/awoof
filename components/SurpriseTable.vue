@@ -45,7 +45,11 @@
               Open  transaction_ref: response.data.reference,
             </td> -->
             <td data-title="Total Amount">
-              ₦{{ transfer !== undefined ? amountDelimeter(transfer.amount) : amountDelimeter(0) }}
+              ₦{{
+                transfer !== undefined
+                  ? amountDelimeter(transfer.amount)
+                  : amountDelimeter(0)
+              }}
             </td>
             <td data-title="Date Posted">
               {{ format_date(transfer.transactionDate) }}
@@ -78,7 +82,7 @@ import paginate from 'vuejs-paginate'
 import moment from 'moment'
 import NoData from './NoTableData'
 export default {
-  name: 'TransactionsTable',
+  name: 'SurpriseTable',
   components: {
     NoData,
     paginate

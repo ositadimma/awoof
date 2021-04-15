@@ -41,7 +41,7 @@
               Open  transaction_ref: response.data.reference,
             </td> -->
             <td data-title="Total Amount">
-              ₦{{ amountDelimeter(transfer.amount) }}
+              ₦{{ transfer !== undefined ? amountDelimeter(transfer.amount) : amountDelimeter(0) }}
             </td>
             <td data-title="Date Posted">
               {{ format_date(transfer.transaction_date) }}

@@ -1,6 +1,6 @@
 <template>
   <div class="giver-container">
-    <GiveawayTable :data="data" />
+    <GiveawayTable :key="key" :data="data" @refresh="refresh" />
   </div>
 </template>
 
@@ -31,10 +31,23 @@ export default {
         }
       }
     }
-    return { data: response ? response.data : [] }
+    return { data: response ? response.data : [], loading: false }
+  },
+  data () {
+    return {
+      key: 0
+    }
   },
   created () {
     this.$store.commit('setLayout', 'GIVEAWAYS') // changes layout title of dashboard header
+  },
+  methods: {
+    refresh () {
+      this.$nuxt.refresh()
+      if (!this.loading) {
+        this.key += 1
+      }
+    }
   }
 }
 </script>
