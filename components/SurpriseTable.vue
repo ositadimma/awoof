@@ -5,17 +5,17 @@
         <thead>
           <tr class="header">
             <th class="Ref">
-              Trans Ref.
+              Naration
             </th>
             <th class="Email">
-              Email Address
+              Username
             </th>
-            <th>Operator Name</th>
-            <th>Phone Number</th>
+            <th>Total Amount</th>
+            <th>Type</th>
             <!-- <th class="Tasks">
               Tasks
             </th> -->
-            <th>Total Amount</th>
+            <!-- <th>Total Amount</th> -->
             <th>Date Posted</th>
             <!-- <th class="Status">
               <span>Status</span>
@@ -24,44 +24,47 @@
                 <img src="~/assets/icons/up.svg" alt="u[">
               </div>
             </th> -->
-            <th class="View" />
+            <!-- <th class="View" /> -->
           </tr>
         </thead>
         <tbody v-show="data.length > 0">
           <tr v-for="(transfer, index) in paginatedData" :key="index">
-            <td data-title="Trans Ref." class="Ref">
-              <p>#{{ transfer.transactionId }}</p>
+            <td data-title="Naration" class="Ref">
+              <p>{{ transfer.naration }}</p>
             </td>
-            <td data-title="Email Address" class="Email">
-              {{ transfer.user }}
+            <td data-title="Username" class="Email">
+              {{ transfer.user.username }}
             </td>
-            <td data-title="Operator Name">
-              {{ transfer.operatorName }}
+            <!-- <td data-title="Operator Name">
+              {{ transfer.amount }}
             </td>
             <td data-title="Phone Number">
               {{ '+' + transfer.recipientPhoneNumber }}
-            </td>
+            </td> -->
             <!-- <td data-title="Tasks" class="Tasks">
               Open  transaction_ref: response.data.reference,
             </td> -->
             <td data-title="Total Amount">
               ₦{{
-                transfer !== undefined
+                transfer.amount !== undefined
                   ? amountDelimeter(transfer.amount)
                   : amountDelimeter(0)
               }}
             </td>
+            <td data-title="Type">
+              {{ transfer.type }}
+            </td>
             <td data-title="Date Posted">
-              {{ format_date(transfer.transactionDate) }}
+              {{ format_date(transfer.createdAt) }}
             </td>
             <!-- <td data-title="Status" class="Status failed">
               Failed
             </td> -->
-            <td class="View">
+            <!-- <td class="View">
               <ArrowCircle
                 @click.native="$router.push(`/transactions/${transfer._id}`)"
               />
-            </td>
+            </td> -->
           </tr>
         </tbody>
       </table>
@@ -187,7 +190,7 @@ th:last-child {
   border-top-right-radius: 20px;
 }
 /* status */
-th:nth-last-child(2) div {
+/* th:nth-last-child(2) div {
   display: flex;
   flex-direction: column;
 }
@@ -201,7 +204,7 @@ th:nth-last-child(2) div {
 }
 th:nth-last-child(2) div {
   cursor: pointer;
-}
+} */
 .failed {
   color: #e12a1e;
   width: 20%;
@@ -214,10 +217,10 @@ th:nth-last-child(2) div {
 td {
   overflow-x: auto;
 }
-td:last-child {
+/* td:last-child {
   padding-left: 0px;
   text-align: center;
-}
+} */
 tbody tr:last-child td {
   height: 74px;
 }

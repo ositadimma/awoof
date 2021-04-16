@@ -14,7 +14,9 @@ export default {
   components: {
     GiveawayTable
   },
-  async asyncData ({ $axios, $toast }) {
+  async asyncData ({ $axios, $toast, store }) {
+    var key = store.state.key
+
     $axios.setHeader('x-auth-token', Cookies.get('token'))
     try {
       var response = await $axios.$get(
@@ -31,11 +33,19 @@ export default {
         }
       }
     }
-    return { data: response ? response.data : [], loading: false }
+
+    store.commit('setKey', key + 1)
+
+    return { data: response ? response.data : [] }
   },
-  data () {
-    return {
-      key: 0
+  // data () {
+  //   return {
+  //     key: 0
+  //   }
+  // },
+  computed: {
+    key () {
+      return this.$store.state.key
     }
   },
   created () {
@@ -44,9 +54,8 @@ export default {
   methods: {
     refresh () {
       this.$nuxt.refresh()
-      if (!this.loading) {
-        this.key += 1
-      }
+      // this.key += 1
+      // this.$store.commit('setRefresh', true)
     }
   }
 }

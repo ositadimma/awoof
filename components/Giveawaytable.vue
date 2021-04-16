@@ -103,6 +103,7 @@
       <NoData v-show="data.length == 0" />
     </div>
     <paginate
+      v-model="page"
       :page-count="amountOfPages"
       :margin-pages="2"
       :container-class="'pagination'"
@@ -141,8 +142,9 @@ export default {
   },
   data () {
     return {
+      page: 1,
       paginatedData: this.initialPaginate(),
-      amountOfPages: Math.ceil(this.data.length / 6),
+      // amountOfPages: Math.ceil(this.data.length / 6),
       currentPage: 0,
       pagesToShow: 6,
       status: 'Ongoing',
@@ -153,8 +155,20 @@ export default {
   computed: {
     popUpOpen () {
       return this.$store.state.popUpOpen
+    },
+    amountOfPages () {
+      return Math.ceil(this.data.length / 6)
     }
   },
+  mounted () {
+    this.page = Math.ceil(this.data.length / 6)
+    this.page = 1
+  },
+  // watch: {
+  //   data (newVal) {
+  //     this.Paginate(0)
+  //   }
+  // },
   methods: {
     Paginate (clickedpagenumber) {
       this.currentPage = 0
@@ -248,6 +262,8 @@ export default {
     },
     refresh () {
       this.$emit('refresh')
+      // this.key += 1
+      // this.initialPaginate()
     }
   }
 }
