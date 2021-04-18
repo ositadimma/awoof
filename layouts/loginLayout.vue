@@ -1,6 +1,6 @@
 <template>
   <div class="login-ctn">
-    <img src="~/assets/images/logo.png" alt="logo" class="logo easeIn">
+    <img src="~/assets/images/Logo.png" alt="logo" class="logo easeIn">
     <Nuxt />
   </div>
 </template>
