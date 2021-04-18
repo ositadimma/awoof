@@ -46,7 +46,7 @@
           </tr>
         </thead>
         <tbody v-show="data.length > 0">
-          <tr v-for="(giveaway, index) in paginatedData" :key="index">
+          <tr v-for="(giveaway, index) in initialPaginate" :key="index">
             <td data-title="Name" class="Name">
               <div class="Name-div">
                 <p>{{ giveaway.user ? giveaway.user.username : 'Admin' }}</p>
@@ -103,7 +103,6 @@
       <NoData v-show="data.length == 0" />
     </div>
     <paginate
-      v-model="page"
       :page-count="amountOfPages"
       :margin-pages="2"
       :container-class="'pagination'"
@@ -142,8 +141,7 @@ export default {
   },
   data () {
     return {
-      page: 1,
-      paginatedData: this.initialPaginate(),
+      // paginatedData: [],
       // amountOfPages: Math.ceil(this.data.length / 6),
       currentPage: 0,
       pagesToShow: 6,
@@ -158,11 +156,28 @@ export default {
     },
     amountOfPages () {
       return Math.ceil(this.data.length / 6)
+    },
+    initialPaginate () {
+      // eslint-disable-next-line vue/no-side-effects-in-computed-properties
+      const initialData = this.data.sort((a, b) => {
+        if (this.status === 'Ongoing') {
+          if (!a.completed && b.completed) {
+            return -1
+          }
+          if (a.completed && !b.completed) {
+            return 1
+          }
+        } else {
+          if (a.completed && !b.completed) {
+            return -1
+          }
+          if (!a.completed && b.completed) {
+            return 1
+          }
+        }
+      })
+      return initialData.slice(this.currentPage, this.pagesToShow)
     }
-  },
-  mounted () {
-    this.page = Math.ceil(this.data.length / 6)
-    this.page = 1
   },
   // watch: {
   //   data (newVal) {
@@ -182,67 +197,76 @@ export default {
         }
       }
 
-      this.paginatedData = this.data
-        .sort((a, b) => {
-          if (this.status === 'Ongoing') {
-            if (!a.completed && b.completed) {
-              return -1
-            }
-            if (a.completed && !b.completed) {
-              return 1
-            }
-          } else {
-            if (a.completed && !b.completed) {
-              return -1
-            }
-            if (!a.completed && b.completed) {
-              return 1
-            }
-          }
-          // const giveawayDateA = new Date(a.createdAt)
-          // const giveawayDateB = new Date(b.createdAt)
-          // return giveawayDateB - giveawayDateA
-        })
-        .slice(this.currentPage, this.pagesToShow)
+      // this.paginatedData = this.data
+      //   .sort((a, b) => {
+      //     if (this.status === 'Ongoing') {
+      //       if (!a.completed && b.completed) {
+      //         return -1
+      //       }
+      //       if (a.completed && !b.completed) {
+      //         return 1
+      //       }
+      //     } else {
+      //       if (a.completed && !b.completed) {
+      //         return -1
+      //       }
+      //       if (!a.completed && b.completed) {
+      //         return 1
+      //       }
+      //     }
+      //     // const giveawayDateA = new Date(a.createdAt)
+      //     // const giveawayDateB = new Date(b.createdAt)
+      //     // return giveawayDateB - giveawayDateA
+      //   })
+      //   .slice(this.currentPage, this.pagesToShow)
     },
-    initialPaginate () {
-      const initialData = this.data.sort((a, b) => {
-        if (!a.completed && b.completed) {
-          return -1
-        }
-        if (a.completed && !b.completed) {
-          return 1
-        }
-        // const giveawayDateA = new Date(a.createdAt)
-        // const giveawayDateB = new Date(b.createdAt)
-        // return giveawayDateB - giveawayDateA
-      })
-      return initialData.slice(0, 6)
-    },
+    // initialPaginate () {
+    //   const initialData = this.data.sort((a, b) => {
+    //     if (this.status === 'Ongoing') {
+    //       if (!a.completed && b.completed) {
+    //         return -1
+    //       }
+    //       if (a.completed && !b.completed) {
+    //         return 1
+    //       }
+    //     } else {
+    //       if (a.completed && !b.completed) {
+    //         return -1
+    //       }
+    //       if (!a.completed && b.completed) {
+    //         return 1
+    //       }
+    //     }
+    //     // const giveawayDateA = new Date(a.createdAt)
+    //     // const giveawayDateB = new Date(b.createdAt)
+    //     // return giveawayDateB - giveawayDateA
+    //   })
+    //   return initialData.slice(this.currentPage, this.pagesToShow)
+    // },
     toggleStatus (status) {
       this.status = status
-      this.paginatedData = this.data
-        .sort((a, b) => {
-          if (this.status === 'Ongoing') {
-            if (!a.completed && b.completed) {
-              return -1
-            }
-            if (a.completed && !b.completed) {
-              return 1
-            }
-          } else {
-            if (a.completed && !b.completed) {
-              return -1
-            }
-            if (!a.completed && b.completed) {
-              return 1
-            }
-          }
-          // const giveawayDateA = new Date(a.createdAt)
-          // const giveawayDateB = new Date(b.createdAt)
-          // return giveawayDateB - giveawayDateA
-        })
-        .slice(this.currentPage, this.pagesToShow)
+      // this.paginatedData = this.data
+      //   .sort((a, b) => {
+      //     if (this.status === 'Ongoing') {
+      //       if (!a.completed && b.completed) {
+      //         return -1
+      //       }
+      //       if (a.completed && !b.completed) {
+      //         return 1
+      //       }
+      //     } else {
+      //       if (a.completed && !b.completed) {
+      //         return -1
+      //       }
+      //       if (!a.completed && b.completed) {
+      //         return 1
+      //       }
+      //     }
+      //     // const giveawayDateA = new Date(a.createdAt)
+      //     // const giveawayDateB = new Date(b.createdAt)
+      //     // return giveawayDateB - giveawayDateA
+      //   })
+      //   .slice(this.currentPage, this.pagesToShow)
     },
     amountDelimeter (amount) {
       return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')

@@ -139,11 +139,11 @@ export default {
           : []
     }
   },
-  // data () {
-  //   return {
-  //     key: 0
-  //   }
-  // },
+  data () {
+    return {
+      key: 0
+    }
+  },
   computed: {
     tasks () {
       const tasks = []
@@ -215,14 +215,14 @@ export default {
         .set(opt)
         .from(this.$refs.details)
         .save()
-    }
+    },
     // showHideGiveAwayModal () {
     //   this.$store.commit('setPopUpOpen', true)
     // },
-    // refresh () {
-    //   this.$nuxt.refresh()
-    //   this.key += 1
-    // }
+    refresh () {
+      this.$nuxt.refresh()
+      this.key += 1
+    }
   }
 }
 </script>

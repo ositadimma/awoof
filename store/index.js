@@ -3,8 +3,7 @@ export const state = () => ({
   mode: 'Monthly',
   modalOpen: false,
   modalHeaderOpen: false,
-  popUpOpen: false,
-  key: 0
+  popUpOpen: false
 })
 
 export const mutations = {
@@ -22,9 +21,6 @@ export const mutations = {
   },
   setPopUpOpen (state, open) {
     state.popUpOpen = open
-  },
-  setKey (state, key) {
-    state.key = key
   }
 }
 
