@@ -133,11 +133,11 @@
         <div class="child">
           <label class="no-of-winners-label">No. Of Winners</label>
           <div v-click-outside="removeFocusDiv" class="no-of-winners">
+            <!-- :disabled="user === 'Select username' ? false : true" -->
             <input
               v-model="noOfWinners"
               type="number"
               placeholder="0"
-              :disabled="user === 'Select username' ? false : true"
               @click="noOfWinnersFocus"
             >
           </div>
