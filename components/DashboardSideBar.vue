@@ -2,7 +2,7 @@
   <div class="dashboard-sidebar">
     <img
       class="dashboard-logo"
-      src="~/assets/images/Logo.png"
+      src="~/assets/images/Login-logo.png"
       alt="logo"
       @click="$router.push('/')"
     >
@@ -140,7 +140,7 @@ export default {
   overflow-y: auto;
 }
 .dashboard-logo {
-  margin: 23px 0px 25px 31px;
+  margin: 23px 0px 10px 21px;
   cursor: pointer;
 }
 .dashboard-sidebar-nav {
