@@ -1,6 +1,6 @@
 <template>
   <div class="login-ctn">
-    <img src="~/assets/images/Login-logo.png" alt="logo" class="logo easeIn">
+    <img src="~/assets/images/logo.png" alt="logo" class="logo easeIn">
     <Nuxt />
   </div>
 </template>
@@ -8,7 +8,6 @@
 <script>
 export default {
   name: 'LoginLayout'
-
 }
 </script>
 
@@ -41,7 +40,7 @@ export default {
     overflow-y: hidden;
   }
   .logo {
-      display: none;
+    display: none;
   }
 }
 </style>
