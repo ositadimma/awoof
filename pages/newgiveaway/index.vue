@@ -293,8 +293,9 @@
         class="end-label"
       >End date (should not be more than 30 days from now)</label>
       <input
+        id="datetime"
         v-model="endAt"
-        type="date"
+        type="datetime-local"
         placeholder="mm/dd/yyyy"
         :max="formatDate(dateInThirtyDays)"
       >
@@ -1148,7 +1149,7 @@ input[type='text']::placeholder {
   color: #ff0000;
 }
 
-input[type='date'] {
+input[type='datetime-local'] {
   border: 3px solid rgba(134, 146, 166, 0.4);
   border-radius: 3px;
   background: #fff;
