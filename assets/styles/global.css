@@ -35,6 +35,8 @@
 }
 
 td {
+  white-space: nowrap;
+  overflow-x: auto;
   text-transform: lowercase !important;
   transition: all 0.5s;
 }
