@@ -4,7 +4,7 @@
     <div class="dashboard-header__title">
       <h3>{{ layout }}</h3>
       <button
-        v-if="currentPath === 'users'"
+        v-if="currentPath === 'reservedusers'"
         class="btn-cmpt btn-cmpt--big"
         @click="showHeaderModal"
       >
