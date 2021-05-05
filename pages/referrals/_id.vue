@@ -128,10 +128,10 @@ export default {
     $axios.setHeader('x-auth-token', Cookies.get('token'))
     try {
       var referralDetailResponse = await $axios.$get(
-        `https://awoof-api.herokuapp.com/v1/admins/get_refferal/${params.id}`
+        `https://api.philantroapp.com/v1/admins/get_refferal/${params.id}`
       )
       var referralBonusResponse = await $axios.$get(
-        'https://awoof-api.herokuapp.com/v1/admins/referral_bonus'
+        'https://api.philantroapp.com/v1/admins/referral_bonus'
       )
     } catch (err) {
       if (err.message.includes('Network')) {

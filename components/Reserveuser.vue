@@ -86,7 +86,7 @@ export default {
       this.$axios.setHeader('x-auth-token', Cookies.get('token'))
       try {
         const response = await this.$axios.$post(
-          'https://awoof-api.herokuapp.com/v1/admins/reserve_username',
+          'https://api.philantroapp.com/v1/admins/reserve_username',
           this.bodyData()
         )
         if (response) {

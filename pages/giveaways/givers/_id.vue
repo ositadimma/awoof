@@ -100,13 +100,13 @@ export default {
     $axios.setHeader('x-auth-token', Cookies.get('token'))
     try {
       var giveawayDetailResponse = await $axios.$get(
-        `https://awoof-api.herokuapp.com/v1/giveaways/${params.id}`
+        `https://api.philantroapp.com/v1/giveaways/${params.id}`
       )
       var giveawayWinnersResponse = await $axios.$get(
-        `https://awoof-api.herokuapp.com/v1/giveaways/winners/${params.id}`
+        `https://api.philantroapp.com/v1/giveaways/winners/${params.id}`
       )
       var giveawayParticipantsResponse = await $axios.$get(
-        `https://awoof-api.herokuapp.com/v1/admins/get_participants/${params.id}`
+        `https://api.philantroapp.com/v1/admins/get_participants/${params.id}`
       )
     } catch (err) {
       if (err.message.includes('Network')) {

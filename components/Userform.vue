@@ -47,7 +47,7 @@ export default {
       this.$axios.setHeader('x-auth-token', Cookies.get('token'))
       try {
         const response = await this.$axios.$post(
-          `https://awoof-api.herokuapp.com/v1/admins/create_surprise/${this.$route.params.id}`,
+          `https://api.philantroapp.com/v1/admins/create_surprise/${this.$route.params.id}`,
           {
             amount: parseInt(this.amount)
           }

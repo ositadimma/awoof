@@ -17,7 +17,7 @@ export default {
     $axios.setHeader('x-auth-token', Cookies.get('token'))
     try {
       var response = await $axios.$get(
-        'https://awoof-api.herokuapp.com/v1/Admins/get_giveaway_winners'
+        'https://api.philantroapp.com/v1/Admins/get_giveaway_winners'
       )
     } catch (err) {
       if (err.message.includes('Network')) {

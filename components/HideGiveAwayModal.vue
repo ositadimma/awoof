@@ -37,7 +37,7 @@ export default {
       this.$axios.setHeader('x-auth-token', Cookies.get('token'))
       try {
         const response = await this.$axios.$post(
-          `https://awoof-api.herokuapp.com/v1/admins/giveaway_visibility/${this.id}`,
+          `https://api.philantroapp.com/v1/admins/giveaway_visibility/${this.id}`,
           {
             hide: this.status ? 'no' : 'yes'
           }

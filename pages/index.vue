@@ -144,13 +144,13 @@ export default {
     $axios.setHeader('x-auth-token', Cookies.get('token'))
     try {
       var dashboardParamsResponse = await $axios.$get(
-        'https://awoof-api.herokuapp.com/v1/admins/dashboard_params'
+        'https://api.philantroapp.com/v1/admins/dashboard_params'
       )
       var dashboardChartResponse = await $axios.$get(
-        'https://awoof-api.herokuapp.com/v1/admins/chart'
+        'https://api.philantroapp.com/v1/admins/chart'
       )
       var dashboardTableresponse = await $axios.$get(
-        'https://awoof-api.herokuapp.com/v1/giveaways'
+        'https://api.philantroapp.com/v1/giveaways'
       )
     } catch (err) {
       if (err.message.includes('Network')) {

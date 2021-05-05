@@ -138,7 +138,7 @@ export default {
       // this.$axios.setHeader('x-auth-token', Cookies.get('token'))
       // try {
       //   var user = await this.$axios.$put(
-      //     `https://awoof-api.herokuapp.com/v1/users/${this.$route.params.id}`,
+      //     `https://api.philantroapp.com/v1/users/${this.$route.params.id}`,
       //     this.bodyData
       //   )
       //   this.$nuxt.refresh()

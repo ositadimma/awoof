@@ -24,7 +24,6 @@
             password.length < 7
         "
         class="disable-1 btn-cmpt"
-        disabled
       >
         Sign In
       </button>
@@ -91,7 +90,7 @@ export default {
       this.loading = true
       try {
         const response = await this.$axios.$post(
-          'https://awoof-api.herokuapp.com/v1/auth/admin',
+          'https://api.philantroapp.com/v1/auth/admin',
           {
             email: this.email,
             password: this.password

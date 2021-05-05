@@ -48,16 +48,16 @@ export default {
     $axios.setHeader('x-auth-token', Cookies.get('token'))
     try {
       var bankTransferResponse = await $axios.$get(
-        'https://awoof-api.herokuapp.com/v1/admins/bank_transfers'
+        'https://api.philantroapp.com/v1/admins/bank_transfers'
       )
       var walletResponse = await $axios.$get(
-        'https://awoof-api.herokuapp.com/v1/admins/wallet_top_ups'
+        'https://api.philantroapp.com/v1/admins/wallet_top_ups'
       )
       var airtimeResponse = await $axios.$get(
-        'https://awoof-api.herokuapp.com/v1/admins/airtime_top_up'
+        'https://api.philantroapp.com/v1/admins/airtime_top_up'
       )
       var surpriseResponse = await $axios.$get(
-        'https://awoof-api.herokuapp.com/v1/admins/get_suprise'
+        'https://api.philantroapp.com/v1/admins/get_suprise'
       )
     } catch (err) {
       if (err.message.includes('Network')) {
