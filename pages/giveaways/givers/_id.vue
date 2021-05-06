@@ -110,7 +110,9 @@ export default {
       )
     } catch (err) {
       if (err.message.includes('Network')) {
-        $toast.global.custom_error('please check your connection and try again')
+        $toast.global.custom_error(
+          'please check your connection and try again'
+        )
       }
 
       if (err.response !== undefined) {
@@ -211,10 +213,7 @@ export default {
           return node.nodeName === 'CANVAS'
         }
       }
-      html2pdf()
-        .set(opt)
-        .from(this.$refs.details)
-        .save()
+      html2pdf().set(opt).from(this.$refs.details).save()
     },
     // showHideGiveAwayModal () {
     //   this.$store.commit('setPopUpOpen', true)
