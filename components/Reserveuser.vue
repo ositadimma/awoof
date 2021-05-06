@@ -91,8 +91,8 @@ export default {
         )
         if (response) {
           this.$toast.global.custom_success('User reserved.')
-          this.$nuxt.refresh()
           this.setDataToDefault()
+          this.$nuxt.$emit('reload-data')
           this.$store.commit('setModalHeaderOpen', false)
         }
       } catch (err) {

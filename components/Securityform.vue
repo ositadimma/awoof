@@ -85,17 +85,13 @@ export default {
   },
   computed: {
     validate () {
-      if (
-        this.password.length < 8 ||
-        this.newPassword.length < 8 ||
-        this.confirmPassword.length < 8 ||
-        (this.newPassword !== '' &&
-          this.confirmPassword &&
-          this.newPassword !== this.confirmPassword)
-      ) {
-        return false
+      if (this.password !== '' &&
+          this.newPassword !== '' &&
+          this.confirmPassword !== '' &&
+       (this.newPassword === this.confirmPassword)) {
+        return true
       }
-      return true
+      return false
     }
   },
   methods: {
