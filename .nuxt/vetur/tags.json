@@ -1,0 +1,284 @@
+{
+  "Addtask": {
+    "description": "Auto imported from components/Addtask.vue"
+  },
+  "LazyAddtask": {
+    "description": "Auto imported from components/Addtask.vue"
+  },
+  "AirtimeTable": {
+    "description": "Auto imported from components/AirtimeTable.vue"
+  },
+  "LazyAirtimeTable": {
+    "description": "Auto imported from components/AirtimeTable.vue"
+  },
+  "BankTransferTable": {
+    "description": "Auto imported from components/BankTransferTable.vue"
+  },
+  "LazyBankTransferTable": {
+    "description": "Auto imported from components/BankTransferTable.vue"
+  },
+  "DashboardHeader": {
+    "description": "Auto imported from components/DashboardHeader.vue"
+  },
+  "LazyDashboardHeader": {
+    "description": "Auto imported from components/DashboardHeader.vue"
+  },
+  "DashboardSideBar": {
+    "description": "Auto imported from components/DashboardSideBar.vue"
+  },
+  "LazyDashboardSideBar": {
+    "description": "Auto imported from components/DashboardSideBar.vue"
+  },
+  "DashboardTable": {
+    "description": "Auto imported from components/DashboardTable.vue"
+  },
+  "LazyDashboardTable": {
+    "description": "Auto imported from components/DashboardTable.vue"
+  },
+  "Dashboardchart": {
+    "description": "Auto imported from components/Dashboardchart.vue"
+  },
+  "LazyDashboardchart": {
+    "description": "Auto imported from components/Dashboardchart.vue"
+  },
+  "GiveawayFulldetails": {
+    "description": "Auto imported from components/GiveawayFulldetails.vue"
+  },
+  "LazyGiveawayFulldetails": {
+    "description": "Auto imported from components/GiveawayFulldetails.vue"
+  },
+  "GiveawayParticipationtable": {
+    "description": "Auto imported from components/GiveawayParticipationtable.vue"
+  },
+  "LazyGiveawayParticipationtable": {
+    "description": "Auto imported from components/GiveawayParticipationtable.vue"
+  },
+  "GiveawayWinnerstable": {
+    "description": "Auto imported from components/GiveawayWinnerstable.vue"
+  },
+  "LazyGiveawayWinnerstable": {
+    "description": "Auto imported from components/GiveawayWinnerstable.vue"
+  },
+  "Giveawaydetailtable": {
+    "description": "Auto imported from components/Giveawaydetailtable.vue"
+  },
+  "LazyGiveawaydetailtable": {
+    "description": "Auto imported from components/Giveawaydetailtable.vue"
+  },
+  "Giveawaytable": {
+    "description": "Auto imported from components/Giveawaytable.vue"
+  },
+  "LazyGiveawaytable": {
+    "description": "Auto imported from components/Giveawaytable.vue"
+  },
+  "HideGiveAwayModal": {
+    "description": "Auto imported from components/HideGiveAwayModal.vue"
+  },
+  "LazyHideGiveAwayModal": {
+    "description": "Auto imported from components/HideGiveAwayModal.vue"
+  },
+  "Horizontalbar": {
+    "description": "Auto imported from components/Horizontalbar.vue"
+  },
+  "LazyHorizontalbar": {
+    "description": "Auto imported from components/Horizontalbar.vue"
+  },
+  "Linechart": {
+    "description": "Auto imported from components/Linechart.vue"
+  },
+  "LazyLinechart": {
+    "description": "Auto imported from components/Linechart.vue"
+  },
+  "Logo": {
+    "description": "Auto imported from components/Logo.vue"
+  },
+  "LazyLogo": {
+    "description": "Auto imported from components/Logo.vue"
+  },
+  "MobileDashboardSideBar": {
+    "description": "Auto imported from components/MobileDashboardSideBar.vue"
+  },
+  "LazyMobileDashboardSideBar": {
+    "description": "Auto imported from components/MobileDashboardSideBar.vue"
+  },
+  "Newmemberform": {
+    "description": "Auto imported from components/Newmemberform.vue"
+  },
+  "LazyNewmemberform": {
+    "description": "Auto imported from components/Newmemberform.vue"
+  },
+  "Newuserform": {
+    "description": "Auto imported from components/Newuserform.vue"
+  },
+  "LazyNewuserform": {
+    "description": "Auto imported from components/Newuserform.vue"
+  },
+  "NoTableData": {
+    "description": "Auto imported from components/NoTableData.vue"
+  },
+  "LazyNoTableData": {
+    "description": "Auto imported from components/NoTableData.vue"
+  },
+  "Participationreport": {
+    "description": "Auto imported from components/Participationreport.vue"
+  },
+  "LazyParticipationreport": {
+    "description": "Auto imported from components/Participationreport.vue"
+  },
+  "Piechart": {
+    "description": "Auto imported from components/Piechart.vue"
+  },
+  "LazyPiechart": {
+    "description": "Auto imported from components/Piechart.vue"
+  },
+  "Referralform": {
+    "description": "Auto imported from components/Referralform.vue"
+  },
+  "LazyReferralform": {
+    "description": "Auto imported from components/Referralform.vue"
+  },
+  "Referraltable": {
+    "description": "Auto imported from components/Referraltable.vue"
+  },
+  "LazyReferraltable": {
+    "description": "Auto imported from components/Referraltable.vue"
+  },
+  "ReservedUserstable": {
+    "description": "Auto imported from components/ReservedUserstable.vue"
+  },
+  "LazyReservedUserstable": {
+    "description": "Auto imported from components/ReservedUserstable.vue"
+  },
+  "Reserveuser": {
+    "description": "Auto imported from components/Reserveuser.vue"
+  },
+  "LazyReserveuser": {
+    "description": "Auto imported from components/Reserveuser.vue"
+  },
+  "Securityform": {
+    "description": "Auto imported from components/Securityform.vue"
+  },
+  "LazySecurityform": {
+    "description": "Auto imported from components/Securityform.vue"
+  },
+  "StatusModal": {
+    "description": "Auto imported from components/StatusModal.vue"
+  },
+  "LazyStatusModal": {
+    "description": "Auto imported from components/StatusModal.vue"
+  },
+  "SurpriseTable": {
+    "description": "Auto imported from components/SurpriseTable.vue"
+  },
+  "LazySurpriseTable": {
+    "description": "Auto imported from components/SurpriseTable.vue"
+  },
+  "Teamtable": {
+    "description": "Auto imported from components/Teamtable.vue"
+  },
+  "LazyTeamtable": {
+    "description": "Auto imported from components/Teamtable.vue"
+  },
+  "UserDetailtable": {
+    "description": "Auto imported from components/UserDetailtable.vue"
+  },
+  "LazyUserDetailtable": {
+    "description": "Auto imported from components/UserDetailtable.vue"
+  },
+  "Userform": {
+    "description": "Auto imported from components/Userform.vue"
+  },
+  "LazyUserform": {
+    "description": "Auto imported from components/Userform.vue"
+  },
+  "Userstable": {
+    "description": "Auto imported from components/Userstable.vue"
+  },
+  "LazyUserstable": {
+    "description": "Auto imported from components/Userstable.vue"
+  },
+  "Userstar": {
+    "description": "Auto imported from components/Userstar.vue"
+  },
+  "LazyUserstar": {
+    "description": "Auto imported from components/Userstar.vue"
+  },
+  "WalletTable": {
+    "description": "Auto imported from components/WalletTable.vue"
+  },
+  "LazyWalletTable": {
+    "description": "Auto imported from components/WalletTable.vue"
+  },
+  "WinnersFulldetails": {
+    "description": "Auto imported from components/WinnersFulldetails.vue"
+  },
+  "LazyWinnersFulldetails": {
+    "description": "Auto imported from components/WinnersFulldetails.vue"
+  },
+  "Winnersdetailtable": {
+    "description": "Auto imported from components/Winnersdetailtable.vue"
+  },
+  "LazyWinnersdetailtable": {
+    "description": "Auto imported from components/Winnersdetailtable.vue"
+  },
+  "Winnerstable": {
+    "description": "Auto imported from components/Winnerstable.vue"
+  },
+  "LazyWinnerstable": {
+    "description": "Auto imported from components/Winnerstable.vue"
+  },
+  "ArrowCircle": {
+    "description": "Auto imported from components/IconComponents/ArrowCircle.vue"
+  },
+  "LazyArrowCircle": {
+    "description": "Auto imported from components/IconComponents/ArrowCircle.vue"
+  },
+  "Checkicon": {
+    "description": "Auto imported from components/IconComponents/Checkicon.vue"
+  },
+  "LazyCheckicon": {
+    "description": "Auto imported from components/IconComponents/Checkicon.vue"
+  },
+  "Dashboardicon": {
+    "description": "Auto imported from components/IconComponents/Dashboardicon.vue"
+  },
+  "LazyDashboardicon": {
+    "description": "Auto imported from components/IconComponents/Dashboardicon.vue"
+  },
+  "Gifticon": {
+    "description": "Auto imported from components/IconComponents/Gifticon.vue"
+  },
+  "LazyGifticon": {
+    "description": "Auto imported from components/IconComponents/Gifticon.vue"
+  },
+  "Referralsicon": {
+    "description": "Auto imported from components/IconComponents/Referralsicon.vue"
+  },
+  "LazyReferralsicon": {
+    "description": "Auto imported from components/IconComponents/Referralsicon.vue"
+  },
+  "Searchicon": {
+    "description": "Auto imported from components/IconComponents/Searchicon.vue"
+  },
+  "LazySearchicon": {
+    "description": "Auto imported from components/IconComponents/Searchicon.vue"
+  },
+  "Settingsicon": {
+    "description": "Auto imported from components/IconComponents/Settingsicon.vue"
+  },
+  "LazySettingsicon": {
+    "description": "Auto imported from components/IconComponents/Settingsicon.vue"
+  },
+  "Strokeicon": {
+    "description": "Auto imported from components/IconComponents/Strokeicon.vue"
+  },
+  "LazyStrokeicon": {
+    "description": "Auto imported from components/IconComponents/Strokeicon.vue"
+  },
+  "Transactionsicon": {
+    "description": "Auto imported from components/IconComponents/Transactionsicon.vue"
+  },
+  "LazyTransactionsicon": {
+    "description": "Auto imported from components/IconComponents/Transactionsicon.vue"
+  }
+}
