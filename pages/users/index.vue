@@ -7,9 +7,9 @@
         </div>
         <div class="user-count">
           <span class="amount">{{ data.length }}</span>
-          <button class="btn-cmpt" @click="showModal">
+          <!-- <button class="btn-cmpt" @click="showModal">
             Add new user
-          </button>
+          </button> -->
         </div>
       </div>
       <div class="search-container">

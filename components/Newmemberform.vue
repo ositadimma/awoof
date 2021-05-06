@@ -36,6 +36,8 @@
         <input v-model="lastname" type="text" placeholder="Please Enter">
         <label>Email Address</label>
         <input v-model="email" type="text" placeholder="Please Enter">
+        <label>Username</label>
+        <input v-model="username" type="text" placeholder="Please Enter">
         <label>Phone Number</label>
         <input v-model="phonenumber" type="text" placeholder="Please Enter">
         <button v-show="!validate && !loading" class="disable-1 btn-cmpt">
@@ -71,6 +73,7 @@ export default {
       // eslint-disable-next-line
       emailValidate: /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
       phonenumber: '',
+      username: '',
       loading: false
     }
   },
@@ -81,7 +84,7 @@ export default {
         this.firstname === '' ||
         this.lastname === '' ||
         !this.emailValidate.test(this.email) ||
-        this.phonenumber === ''
+        this.phonenumber === '' || this.username === ''
       ) {
         return false
       }
@@ -98,6 +101,7 @@ export default {
       this.email = ''
       this.phonenumber = ''
       this.role = 'Please select a role'
+      this.username = ''
     },
     bodyData () {
       const data = {
@@ -105,7 +109,8 @@ export default {
         lastName: this.lastname,
         email: this.email,
         phoneNumber: this.phonenumber,
-        role: this.role === 'Super admin' ? 'super_admin' : 'admin'
+        role: this.role === 'Super admin' ? 'super_admin' : 'admin',
+        username: this.username
       }
       return data
     },

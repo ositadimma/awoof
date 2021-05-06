@@ -6,7 +6,7 @@
           <span class="title">Reserved User Count</span>
         </div>
         <div class="user-count">
-          <span class="amount">{{ data.length }}</span>
+          <span class="amount">{{ searchData.length }}</span>
         </div>
       </div>
       <div class="search-container">
@@ -21,7 +21,7 @@
         </button>
       </div>
     </div>
-    <ReservedUsersTable :key="key" :data="searchData" />
+    <ReservedUsersTable v-if="searchData.length > 1" :key="key" :data="searchData" />
     <ReserveUser v-show="currentPath == 'reservedusers' && modalHeaderOpen" />
   </div>
 </template>
@@ -39,23 +39,26 @@ export default {
     ReservedUsersTable,
     ReserveUser
   },
-  async asyncData ({ $axios, $toast }) {
-    $axios.setHeader('x-auth-token', Cookies.get('token'))
+  async fetch () {
+    this.$axios.setHeader('x-auth-token', Cookies.get('token'))
     try {
-      var response = await $axios.$get(
+      var response = await this.$axios.$get(
         'https://api.philantroapp.com/v1/admins/get_reserved_usernames'
       )
+      this.key += 1
     } catch (err) {
       if (err.message.includes('Network')) {
-        $toast.global.custom_error('please check your connection and try again')
+        this.$toast.global.custom_error('please check your connection and try again')
       }
 
       if (err.response !== undefined) {
         if (err.response.status === 400) {
-          $toast.global.custom_error(err.response.data.message)
+          this.$toast.global.custom_error(err.response.data.message)
         }
       }
     }
+    this.searchData = response.data ? response.data : []
+    this.tableData = response.data ? [...response.data] : []
     return {
       data: response ? response.data : []
     }
@@ -65,7 +68,8 @@ export default {
       searchData: [],
       search: '',
       currentPath: '',
-      key: 0
+      key: 0,
+      tableData: []
     }
   },
   computed: {
@@ -80,15 +84,17 @@ export default {
   },
   created () {
     this.$store.commit('setLayout', 'RESERVED USERS') // changes layout title of dashboard header
-    this.searchData = this.data
     this.currentPath = this.$route.name
+    this.$nuxt.$on('reload-data', () => {
+      this.$fetch()
+    })
   },
   methods: {
     showModal () {
       this.$store.commit('setModalOpen', true)
     },
     filterSearch () {
-      const data = this.data.filter((obj) => {
+      const data = this.tableData.filter((obj) => {
         var stopSearch = false
 
         Object.values(obj).forEach((val) => {
