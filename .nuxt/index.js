@@ -5,7 +5,7 @@ import ClientOnly from 'vue-client-only'
 import NoSsr from 'vue-no-ssr'
 import { createRouter } from './router.js'
 import NuxtChild from './components/nuxt-child.js'
-import NuxtError from '../layouts/error.vue'
+import NuxtError from '..\\layouts\\error.vue'
 import Nuxt from './components/nuxt.js'
 import App from './App.js'
 import { setContext, getLocation, getRouteData, normalizeError } from './utils'
@@ -13,13 +13,13 @@ import { createStore } from './store.js'
 
 /* Plugins */
 
-import nuxt_plugin_plugin_2eee2935 from 'nuxt_plugin_plugin_2eee2935' // Source: ./components/plugin.js (mode: 'all')
-import nuxt_plugin_toast_f215ef0c from 'nuxt_plugin_toast_f215ef0c' // Source: ./toast.js (mode: 'client')
-import nuxt_plugin_axios_8a76886a from 'nuxt_plugin_axios_8a76886a' // Source: ./axios.js (mode: 'all')
-import nuxt_plugin_workbox_c3552bb2 from 'nuxt_plugin_workbox_c3552bb2' // Source: ./workbox.js (mode: 'client')
-import nuxt_plugin_meta_807abc9a from 'nuxt_plugin_meta_807abc9a' // Source: ./pwa/meta.js (mode: 'all')
-import nuxt_plugin_icons_278ddcdc from 'nuxt_plugin_icons_278ddcdc' // Source: ./pwa/icons.js (mode: 'all')
-import nuxt_plugin_axios_3566aa80 from 'nuxt_plugin_axios_3566aa80' // Source: ../plugins/axios (mode: 'all')
+import nuxt_plugin_plugin_4913ca1e from 'nuxt_plugin_plugin_4913ca1e' // Source: .\\components\\plugin.js (mode: 'all')
+import nuxt_plugin_toast_6e3347f0 from 'nuxt_plugin_toast_6e3347f0' // Source: .\\toast.js (mode: 'client')
+import nuxt_plugin_axios_bbfa097e from 'nuxt_plugin_axios_bbfa097e' // Source: .\\axios.js (mode: 'all')
+import nuxt_plugin_workbox_a1fcb7c6 from 'nuxt_plugin_workbox_a1fcb7c6' // Source: .\\workbox.js (mode: 'client')
+import nuxt_plugin_meta_073289b0 from 'nuxt_plugin_meta_073289b0' // Source: .\\pwa\\meta.js (mode: 'all')
+import nuxt_plugin_icons_63ca1702 from 'nuxt_plugin_icons_63ca1702' // Source: .\\pwa\\icons.js (mode: 'all')
+import nuxt_plugin_axios_3566aa80 from 'nuxt_plugin_axios_3566aa80' // Source: ..\\plugins\\axios (mode: 'all')
 
 // Component: <ClientOnly>
 Vue.component(ClientOnly.name, ClientOnly)
@@ -76,7 +76,7 @@ async function createApp(ssrContext, config = {}) {
   // here we inject the router and store to all child components,
   // making them available everywhere as `this.$router` and `this.$store`.
   const app = {
-    head: {"title":"Philantro Dashboard","meta":[{"charset":"utf-8"},{"name":"viewport","content":"width=device-width, initial-scale=1"},{"hid":"description","name":"description","content":""},{"hid":"charset","charset":"utf-8"},{"hid":"mobile-web-app-capable","name":"mobile-web-app-capable","content":"yes"},{"hid":"apple-mobile-web-app-title","name":"apple-mobile-web-app-title","content":"awoof_dashboard"},{"hid":"og:type","name":"og:type","property":"og:type","content":"website"},{"hid":"og:title","name":"og:title","property":"og:title","content":"awoof_dashboard"},{"hid":"og:site_name","name":"og:site_name","property":"og:site_name","content":"awoof_dashboard"},{"hid":"og:description","name":"og:description","property":"og:description","content":"## Build Setup"}],"link":[{"rel":"icon","type":"image\u002Fx-icon","href":"\u002Ffavicon.ico"},{"rel":"stylesheet","href":"https:\u002F\u002Ffonts.googleapis.com\u002Ficon?family=Material+Icons"},{"rel":"stylesheet","href":"https:\u002F\u002Fcdnjs.cloudflare.com\u002Fajax\u002Flibs\u002Fanimate.css\u002F4.1.1\u002Fanimate.min.css"},{"rel":"shortcut icon","href":"\u002F_nuxt\u002Ficons\u002Ficon_64x64.f8f3c2.png"},{"rel":"apple-touch-icon","href":"\u002F_nuxt\u002Ficons\u002Ficon_512x512.f8f3c2.png","sizes":"512x512"},{"rel":"manifest","href":"\u002F_nuxt\u002Fmanifest.0a31451d.json","hid":"manifest"}],"style":[],"script":[],"htmlAttrs":{"lang":"en"}},
+    head: {"title":"Philantro Dashboard","meta":[{"charset":"utf-8"},{"name":"viewport","content":"width=device-width, initial-scale=1"},{"hid":"description","name":"description","content":""}],"link":[{"rel":"icon","type":"image\u002Fx-icon","href":"\u002Ffavicon.ico"},{"rel":"stylesheet","href":"https:\u002F\u002Ffonts.googleapis.com\u002Ficon?family=Material+Icons"},{"rel":"stylesheet","href":"https:\u002F\u002Fcdnjs.cloudflare.com\u002Fajax\u002Flibs\u002Fanimate.css\u002F4.1.1\u002Fanimate.min.css"}],"style":[],"script":[]},
 
     store,
     router,
@@ -205,28 +205,28 @@ async function createApp(ssrContext, config = {}) {
   }
   // Plugin execution
 
-  if (typeof nuxt_plugin_plugin_2eee2935 === 'function') {
-    await nuxt_plugin_plugin_2eee2935(app.context, inject)
+  if (typeof nuxt_plugin_plugin_4913ca1e === 'function') {
+    await nuxt_plugin_plugin_4913ca1e(app.context, inject)
   }
 
-  if (process.client && typeof nuxt_plugin_toast_f215ef0c === 'function') {
-    await nuxt_plugin_toast_f215ef0c(app.context, inject)
+  if (process.client && typeof nuxt_plugin_toast_6e3347f0 === 'function') {
+    await nuxt_plugin_toast_6e3347f0(app.context, inject)
   }
 
-  if (typeof nuxt_plugin_axios_8a76886a === 'function') {
-    await nuxt_plugin_axios_8a76886a(app.context, inject)
+  if (typeof nuxt_plugin_axios_bbfa097e === 'function') {
+    await nuxt_plugin_axios_bbfa097e(app.context, inject)
   }
 
-  if (process.client && typeof nuxt_plugin_workbox_c3552bb2 === 'function') {
-    await nuxt_plugin_workbox_c3552bb2(app.context, inject)
+  if (process.client && typeof nuxt_plugin_workbox_a1fcb7c6 === 'function') {
+    await nuxt_plugin_workbox_a1fcb7c6(app.context, inject)
   }
 
-  if (typeof nuxt_plugin_meta_807abc9a === 'function') {
-    await nuxt_plugin_meta_807abc9a(app.context, inject)
+  if (typeof nuxt_plugin_meta_073289b0 === 'function') {
+    await nuxt_plugin_meta_073289b0(app.context, inject)
   }
 
-  if (typeof nuxt_plugin_icons_278ddcdc === 'function') {
-    await nuxt_plugin_icons_278ddcdc(app.context, inject)
+  if (typeof nuxt_plugin_icons_63ca1702 === 'function') {
+    await nuxt_plugin_icons_63ca1702(app.context, inject)
   }
 
   if (typeof nuxt_plugin_axios_3566aa80 === 'function') {

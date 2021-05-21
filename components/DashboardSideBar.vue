@@ -81,6 +81,18 @@
         <span>Reserved Users</span>
       </nuxt-link>
       <nuxt-link
+        :class="
+          currentPath == 'socialaccounts' &&
+            currentPath.includes('socialaccounts')
+            ? 'active'
+            : 'inactive'
+        "
+        to="/socialaccounts"
+      >
+        <Referralsicon />
+        <span>Social Accounts</span>
+      </nuxt-link>
+      <nuxt-link
         :class="currentPath.includes('transactions') ? 'active' : 'inactive'"
         to="/transactions"
       >

@@ -3,21 +3,22 @@ import Router from 'vue-router'
 import { interopDefault } from './utils'
 import scrollBehavior from './router.scrollBehavior.js'
 
-const _7e6b1903 = () => interopDefault(import('../pages/newgiveaway/index.vue' /* webpackChunkName: "pages/newgiveaway/index" */))
-const _cc1a104c = () => interopDefault(import('../pages/referrals/index.vue' /* webpackChunkName: "pages/referrals/index" */))
-const _be161b78 = () => interopDefault(import('../pages/reservedusers/index.vue' /* webpackChunkName: "pages/reservedusers/index" */))
-const _40737ad6 = () => interopDefault(import('../pages/settings/index.vue' /* webpackChunkName: "pages/settings/index" */))
-const _322055c7 = () => interopDefault(import('../pages/transactions/index.vue' /* webpackChunkName: "pages/transactions/index" */))
-const _3feb8b6c = () => interopDefault(import('../pages/users/index.vue' /* webpackChunkName: "pages/users/index" */))
-const _edd368c2 = () => interopDefault(import('../pages/giveaways/givers/index.vue' /* webpackChunkName: "pages/giveaways/givers/index" */))
-const _a3cbeb06 = () => interopDefault(import('../pages/giveaways/winners/index.vue' /* webpackChunkName: "pages/giveaways/winners/index" */))
-const _4731c6d4 = () => interopDefault(import('../pages/user/login.vue' /* webpackChunkName: "pages/user/login" */))
-const _42b0a9c7 = () => interopDefault(import('../pages/giveaways/givers/_id.vue' /* webpackChunkName: "pages/giveaways/givers/_id" */))
-const _3e9aefb6 = () => interopDefault(import('../pages/giveaways/winners/_id.vue' /* webpackChunkName: "pages/giveaways/winners/_id" */))
-const _11b128c2 = () => interopDefault(import('../pages/referrals/_id.vue' /* webpackChunkName: "pages/referrals/_id" */))
-const _70f1c422 = () => interopDefault(import('../pages/transactions/_id.vue' /* webpackChunkName: "pages/transactions/_id" */))
-const _797d78d4 = () => interopDefault(import('../pages/users/_id.vue' /* webpackChunkName: "pages/users/_id" */))
-const _d01d651a = () => interopDefault(import('../pages/index.vue' /* webpackChunkName: "pages/index" */))
+const _5b6ed494 = () => interopDefault(import('..\\pages\\newgiveaway\\index.vue' /* webpackChunkName: "pages/newgiveaway/index" */))
+const _3ef64d1d = () => interopDefault(import('..\\pages\\referrals\\index.vue' /* webpackChunkName: "pages/referrals/index" */))
+const _32f9c6f3 = () => interopDefault(import('..\\pages\\reservedusers\\index.vue' /* webpackChunkName: "pages/reservedusers/index" */))
+const _5266b15e = () => interopDefault(import('..\\pages\\settings\\index.vue' /* webpackChunkName: "pages/settings/index" */))
+const _86b51bd8 = () => interopDefault(import('..\\pages\\socialaccounts.vue' /* webpackChunkName: "pages/socialaccounts" */))
+const _3ba7fd6c = () => interopDefault(import('..\\pages\\transactions\\index.vue' /* webpackChunkName: "pages/transactions/index" */))
+const _0e1e84cb = () => interopDefault(import('..\\pages\\users\\index.vue' /* webpackChunkName: "pages/users/index" */))
+const _6910f32d = () => interopDefault(import('..\\pages\\giveaways\\givers\\index.vue' /* webpackChunkName: "pages/giveaways/givers/index" */))
+const _4e44cf3e = () => interopDefault(import('..\\pages\\giveaways\\winners\\index.vue' /* webpackChunkName: "pages/giveaways/winners/index" */))
+const _6dedc166 = () => interopDefault(import('..\\pages\\user\\login.vue' /* webpackChunkName: "pages/user/login" */))
+const _96a84656 = () => interopDefault(import('..\\pages\\giveaways\\givers\\_id.vue' /* webpackChunkName: "pages/giveaways/givers/_id" */))
+const _0a083f09 = () => interopDefault(import('..\\pages\\giveaways\\winners\\_id.vue' /* webpackChunkName: "pages/giveaways/winners/_id" */))
+const _5a021a76 = () => interopDefault(import('..\\pages\\referrals\\_id.vue' /* webpackChunkName: "pages/referrals/_id" */))
+const _84a32a58 = () => interopDefault(import('..\\pages\\transactions\\_id.vue' /* webpackChunkName: "pages/transactions/_id" */))
+const _66e5841a = () => interopDefault(import('..\\pages\\users\\_id.vue' /* webpackChunkName: "pages/users/_id" */))
+const _3e3474be = () => interopDefault(import('..\\pages\\index.vue' /* webpackChunkName: "pages/index" */))
 
 // TODO: remove in Nuxt 3
 const emptyFn = () => {}
@@ -37,63 +38,67 @@ export const routerOptions = {
 
   routes: [{
     path: "/newgiveaway",
-    component: _7e6b1903,
+    component: _5b6ed494,
     name: "newgiveaway"
   }, {
     path: "/referrals",
-    component: _cc1a104c,
+    component: _3ef64d1d,
     name: "referrals"
   }, {
     path: "/reservedusers",
-    component: _be161b78,
+    component: _32f9c6f3,
     name: "reservedusers"
   }, {
     path: "/settings",
-    component: _40737ad6,
+    component: _5266b15e,
     name: "settings"
   }, {
+    path: "/socialaccounts",
+    component: _86b51bd8,
+    name: "socialaccounts"
+  }, {
     path: "/transactions",
-    component: _322055c7,
+    component: _3ba7fd6c,
     name: "transactions"
   }, {
     path: "/users",
-    component: _3feb8b6c,
+    component: _0e1e84cb,
     name: "users"
   }, {
     path: "/giveaways/givers",
-    component: _edd368c2,
+    component: _6910f32d,
     name: "giveaways-givers"
   }, {
     path: "/giveaways/winners",
-    component: _a3cbeb06,
+    component: _4e44cf3e,
     name: "giveaways-winners"
   }, {
     path: "/user/login",
-    component: _4731c6d4,
+    component: _6dedc166,
     name: "user-login"
   }, {
     path: "/giveaways/givers/:id",
-    component: _42b0a9c7,
+    component: _96a84656,
     name: "giveaways-givers-id"
   }, {
     path: "/giveaways/winners/:id",
-    component: _3e9aefb6,
+    component: _0a083f09,
     name: "giveaways-winners-id"
   }, {
     path: "/referrals/:id",
-    component: _11b128c2,
+    component: _5a021a76,
     name: "referrals-id"
   }, {
     path: "/transactions/:id",
-    component: _70f1c422,
+    component: _84a32a58,
     name: "transactions-id"
   }, {
     path: "/users/:id",
-    component: _797d78d4,
+    component: _66e5841a,
     name: "users-id"
   }, {
     path: "/",
-    component: _d01d651a,
+    component: _3e3474be,
     name: "index"
   }],
 

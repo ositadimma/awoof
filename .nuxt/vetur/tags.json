@@ -17,6 +17,12 @@
   "LazyBankTransferTable": {
     "description": "Auto imported from components/BankTransferTable.vue"
   },
+  "Dashboardchart": {
+    "description": "Auto imported from components/Dashboardchart.vue"
+  },
+  "LazyDashboardchart": {
+    "description": "Auto imported from components/Dashboardchart.vue"
+  },
   "DashboardHeader": {
     "description": "Auto imported from components/DashboardHeader.vue"
   },
@@ -35,11 +41,11 @@
   "LazyDashboardTable": {
     "description": "Auto imported from components/DashboardTable.vue"
   },
-  "Dashboardchart": {
-    "description": "Auto imported from components/Dashboardchart.vue"
+  "Giveawaydetailtable": {
+    "description": "Auto imported from components/Giveawaydetailtable.vue"
   },
-  "LazyDashboardchart": {
-    "description": "Auto imported from components/Dashboardchart.vue"
+  "LazyGiveawaydetailtable": {
+    "description": "Auto imported from components/Giveawaydetailtable.vue"
   },
   "GiveawayFulldetails": {
     "description": "Auto imported from components/GiveawayFulldetails.vue"
@@ -53,23 +59,17 @@
   "LazyGiveawayParticipationtable": {
     "description": "Auto imported from components/GiveawayParticipationtable.vue"
   },
-  "GiveawayWinnerstable": {
-    "description": "Auto imported from components/GiveawayWinnerstable.vue"
-  },
-  "LazyGiveawayWinnerstable": {
-    "description": "Auto imported from components/GiveawayWinnerstable.vue"
-  },
-  "Giveawaydetailtable": {
-    "description": "Auto imported from components/Giveawaydetailtable.vue"
-  },
-  "LazyGiveawaydetailtable": {
-    "description": "Auto imported from components/Giveawaydetailtable.vue"
-  },
   "Giveawaytable": {
     "description": "Auto imported from components/Giveawaytable.vue"
   },
   "LazyGiveawaytable": {
     "description": "Auto imported from components/Giveawaytable.vue"
+  },
+  "GiveawayWinnerstable": {
+    "description": "Auto imported from components/GiveawayWinnerstable.vue"
+  },
+  "LazyGiveawayWinnerstable": {
+    "description": "Auto imported from components/GiveawayWinnerstable.vue"
   },
   "HideGiveAwayModal": {
     "description": "Auto imported from components/HideGiveAwayModal.vue"
@@ -161,6 +161,12 @@
   "LazySecurityform": {
     "description": "Auto imported from components/Securityform.vue"
   },
+  "SocialAccountTable": {
+    "description": "Auto imported from components/SocialAccountTable.vue"
+  },
+  "LazySocialAccountTable": {
+    "description": "Auto imported from components/SocialAccountTable.vue"
+  },
   "StatusModal": {
     "description": "Auto imported from components/StatusModal.vue"
   },
@@ -209,17 +215,17 @@
   "LazyWalletTable": {
     "description": "Auto imported from components/WalletTable.vue"
   },
-  "WinnersFulldetails": {
-    "description": "Auto imported from components/WinnersFulldetails.vue"
-  },
-  "LazyWinnersFulldetails": {
-    "description": "Auto imported from components/WinnersFulldetails.vue"
-  },
   "Winnersdetailtable": {
     "description": "Auto imported from components/Winnersdetailtable.vue"
   },
   "LazyWinnersdetailtable": {
     "description": "Auto imported from components/Winnersdetailtable.vue"
+  },
+  "WinnersFulldetails": {
+    "description": "Auto imported from components/WinnersFulldetails.vue"
+  },
+  "LazyWinnersFulldetails": {
+    "description": "Auto imported from components/WinnersFulldetails.vue"
   },
   "Winnerstable": {
     "description": "Auto imported from components/Winnerstable.vue"

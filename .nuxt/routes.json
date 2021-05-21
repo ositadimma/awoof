@@ -2,91 +2,97 @@
   {
     "name": "newgiveaway",
     "path": "/newgiveaway",
-    "component": "/Users/mac/Documents/Websites/Acumen Digital/Awoof-dashboard/pages/newgiveaway/index.vue",
+    "component": "C:\\\\Users\\\\440g1\\\\Documents\\\\Acumen\\\\Awoof-dashboard\\\\pages\\\\newgiveaway\\\\index.vue",
     "chunkName": "pages/newgiveaway/index"
   },
   {
     "name": "referrals",
     "path": "/referrals",
-    "component": "/Users/mac/Documents/Websites/Acumen Digital/Awoof-dashboard/pages/referrals/index.vue",
+    "component": "C:\\\\Users\\\\440g1\\\\Documents\\\\Acumen\\\\Awoof-dashboard\\\\pages\\\\referrals\\\\index.vue",
     "chunkName": "pages/referrals/index"
   },
   {
     "name": "reservedusers",
     "path": "/reservedusers",
-    "component": "/Users/mac/Documents/Websites/Acumen Digital/Awoof-dashboard/pages/reservedusers/index.vue",
+    "component": "C:\\\\Users\\\\440g1\\\\Documents\\\\Acumen\\\\Awoof-dashboard\\\\pages\\\\reservedusers\\\\index.vue",
     "chunkName": "pages/reservedusers/index"
   },
   {
     "name": "settings",
     "path": "/settings",
-    "component": "/Users/mac/Documents/Websites/Acumen Digital/Awoof-dashboard/pages/settings/index.vue",
+    "component": "C:\\\\Users\\\\440g1\\\\Documents\\\\Acumen\\\\Awoof-dashboard\\\\pages\\\\settings\\\\index.vue",
     "chunkName": "pages/settings/index"
+  },
+  {
+    "name": "socialaccounts",
+    "path": "/socialaccounts",
+    "component": "C:\\\\Users\\\\440g1\\\\Documents\\\\Acumen\\\\Awoof-dashboard\\\\pages\\\\socialaccounts.vue",
+    "chunkName": "pages/socialaccounts"
   },
   {
     "name": "transactions",
     "path": "/transactions",
-    "component": "/Users/mac/Documents/Websites/Acumen Digital/Awoof-dashboard/pages/transactions/index.vue",
+    "component": "C:\\\\Users\\\\440g1\\\\Documents\\\\Acumen\\\\Awoof-dashboard\\\\pages\\\\transactions\\\\index.vue",
     "chunkName": "pages/transactions/index"
   },
   {
     "name": "users",
     "path": "/users",
-    "component": "/Users/mac/Documents/Websites/Acumen Digital/Awoof-dashboard/pages/users/index.vue",
+    "component": "C:\\\\Users\\\\440g1\\\\Documents\\\\Acumen\\\\Awoof-dashboard\\\\pages\\\\users\\\\index.vue",
     "chunkName": "pages/users/index"
   },
   {
     "name": "giveaways-givers",
     "path": "/giveaways/givers",
-    "component": "/Users/mac/Documents/Websites/Acumen Digital/Awoof-dashboard/pages/giveaways/givers/index.vue",
+    "component": "C:\\\\Users\\\\440g1\\\\Documents\\\\Acumen\\\\Awoof-dashboard\\\\pages\\\\giveaways\\\\givers\\\\index.vue",
     "chunkName": "pages/giveaways/givers/index"
   },
   {
     "name": "giveaways-winners",
     "path": "/giveaways/winners",
-    "component": "/Users/mac/Documents/Websites/Acumen Digital/Awoof-dashboard/pages/giveaways/winners/index.vue",
+    "component": "C:\\\\Users\\\\440g1\\\\Documents\\\\Acumen\\\\Awoof-dashboard\\\\pages\\\\giveaways\\\\winners\\\\index.vue",
     "chunkName": "pages/giveaways/winners/index"
   },
   {
     "name": "user-login",
     "path": "/user/login",
-    "component": "/Users/mac/Documents/Websites/Acumen Digital/Awoof-dashboard/pages/user/login.vue",
+    "component": "C:\\\\Users\\\\440g1\\\\Documents\\\\Acumen\\\\Awoof-dashboard\\\\pages\\\\user\\\\login.vue",
     "chunkName": "pages/user/login"
   },
   {
     "name": "giveaways-givers-id",
     "path": "/giveaways/givers/:id",
-    "component": "/Users/mac/Documents/Websites/Acumen Digital/Awoof-dashboard/pages/giveaways/givers/_id.vue",
+    "component": "C:\\\\Users\\\\440g1\\\\Documents\\\\Acumen\\\\Awoof-dashboard\\\\pages\\\\giveaways\\\\givers\\\\_id.vue",
     "chunkName": "pages/giveaways/givers/_id"
   },
   {
     "name": "giveaways-winners-id",
     "path": "/giveaways/winners/:id",
-    "component": "/Users/mac/Documents/Websites/Acumen Digital/Awoof-dashboard/pages/giveaways/winners/_id.vue",
+    "component": "C:\\\\Users\\\\440g1\\\\Documents\\\\Acumen\\\\Awoof-dashboard\\\\pages\\\\giveaways\\\\winners\\\\_id.vue",
     "chunkName": "pages/giveaways/winners/_id"
   },
   {
     "name": "referrals-id",
     "path": "/referrals/:id",
-    "component": "/Users/mac/Documents/Websites/Acumen Digital/Awoof-dashboard/pages/referrals/_id.vue",
+    "component": "C:\\\\Users\\\\440g1\\\\Documents\\\\Acumen\\\\Awoof-dashboard\\\\pages\\\\referrals\\\\_id.vue",
     "chunkName": "pages/referrals/_id"
   },
   {
     "name": "transactions-id",
     "path": "/transactions/:id",
-    "component": "/Users/mac/Documents/Websites/Acumen Digital/Awoof-dashboard/pages/transactions/_id.vue",
+    "component": "C:\\\\Users\\\\440g1\\\\Documents\\\\Acumen\\\\Awoof-dashboard\\\\pages\\\\transactions\\\\_id.vue",
     "chunkName": "pages/transactions/_id"
   },
   {
     "name": "users-id",
     "path": "/users/:id",
-    "component": "/Users/mac/Documents/Websites/Acumen Digital/Awoof-dashboard/pages/users/_id.vue",
+    "component": "C:\\\\Users\\\\440g1\\\\Documents\\\\Acumen\\\\Awoof-dashboard\\\\pages\\\\users\\\\_id.vue",
     "chunkName": "pages/users/_id"
   },
   {
     "name": "index",
     "path": "/",
-    "component": "/Users/mac/Documents/Websites/Acumen Digital/Awoof-dashboard/pages/index.vue",
+    "component": "C:\\\\Users\\\\440g1\\\\Documents\\\\Acumen\\\\Awoof-dashboard\\\\pages\\\\index.vue",
     "chunkName": "pages/index"
   }
 ]
