@@ -17,7 +17,7 @@
         >
         <span class="visibility-container" @click="changeInputType">show</span>
       </div>
-      <button
+      <!-- <button
         v-show="
           (!loading && email == '') ||
             !emailValidate.test(email) ||
@@ -26,16 +26,14 @@
         class="disable-1 btn-cmpt"
       >
         Sign In
-      </button>
-      <button
-        v-show="
+      </button> -->
+      <!-- v-show="
           !loading &&
             email != '' &&
             emailValidate.test(email) &&
             password.length >= 7
-        "
-        class="btn-cmpt"
-      >
+        " -->
+      <button v-show="!loading" class="btn-cmpt">
         Sign In
       </button>
       <button v-show="loading" class="btn-cmpt" disabled>
@@ -92,7 +90,7 @@ export default {
         const response = await this.$axios.$post(
           'https://api.philantroapp.com/v1/auth/admin',
           {
-            email: this.email,
+            email: this.email.toLowerCase(),
             password: this.password
           }
         )
@@ -121,7 +119,7 @@ export default {
 <style scoped>
 .login-bd {
   width: 44.7%;
-  height: 580px;
+  /* height: 580px; */
 
   display: flex;
   align-items: center;
@@ -129,8 +127,9 @@ export default {
 
   background: #ffffff;
   border-radius: 20px;
-  padding: 0px 3.75% 1rem;
-  overflow-y: auto;
+  padding: 0px 3.75% 3.813rem;
+  margin-bottom: 1rem;
+  /* overflow-y: auto; */
 }
 
 .header {
@@ -243,6 +242,7 @@ input[type='password']::placeholder {
     width: 100%;
     height: 100%;
     border-radius: 0;
+    margin-bottom: 0;
   }
 }
 </style>

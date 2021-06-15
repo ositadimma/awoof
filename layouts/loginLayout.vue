@@ -27,7 +27,25 @@ export default {
 }
 
 .logo {
-  margin-bottom: 49px;
+  margin: 5rem 0 49px;
+}
+
+@media (min-width: 1025px) {
+  .login-ctn::-webkit-scrollbar {
+    width: 10px;
+    height: 5px;
+  }
+
+  .login-ctn::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+  }
+
+  .login-ctn::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.2);
+  }
 }
 
 @media (max-height: 850px) {
