@@ -3,22 +3,22 @@ import Router from 'vue-router'
 import { interopDefault } from './utils'
 import scrollBehavior from './router.scrollBehavior.js'
 
-const _a842c33c = () => interopDefault(import('../pages/newgiveaway/index.vue' /* webpackChunkName: "pages/newgiveaway/index" */))
-const _0a136e0e = () => interopDefault(import('../pages/referrals/index.vue' /* webpackChunkName: "pages/referrals/index" */))
-const _3f9c9be3 = () => interopDefault(import('../pages/reservedusers/index.vue' /* webpackChunkName: "pages/reservedusers/index" */))
-const _ced65cd4 = () => interopDefault(import('../pages/settings/index.vue' /* webpackChunkName: "pages/settings/index" */))
-const _cca1b4fa = () => interopDefault(import('../pages/socialaccounts.vue' /* webpackChunkName: "pages/socialaccounts" */))
-const _99c50770 = () => interopDefault(import('../pages/transactions/index.vue' /* webpackChunkName: "pages/transactions/index" */))
-const _536b77ea = () => interopDefault(import('../pages/users/index.vue' /* webpackChunkName: "pages/users/index" */))
-const _622a49a0 = () => interopDefault(import('../pages/giveaways/givers/index.vue' /* webpackChunkName: "pages/giveaways/givers/index" */))
-const _10f466c8 = () => interopDefault(import('../pages/giveaways/winners/index.vue' /* webpackChunkName: "pages/giveaways/winners/index" */))
-const _f44c0356 = () => interopDefault(import('../pages/user/login.vue' /* webpackChunkName: "pages/user/login" */))
-const _78fe3408 = () => interopDefault(import('../pages/giveaways/givers/_id.vue' /* webpackChunkName: "pages/giveaways/givers/_id" */))
-const _74164604 = () => interopDefault(import('../pages/giveaways/winners/_id.vue' /* webpackChunkName: "pages/giveaways/winners/_id" */))
-const _e97794be = () => interopDefault(import('../pages/referrals/_id.vue' /* webpackChunkName: "pages/referrals/_id" */))
-const _f2241ea0 = () => interopDefault(import('../pages/transactions/_id.vue' /* webpackChunkName: "pages/transactions/_id" */))
-const _21c0659a = () => interopDefault(import('../pages/users/_id.vue' /* webpackChunkName: "pages/users/_id" */))
-const _b11aad5c = () => interopDefault(import('../pages/index.vue' /* webpackChunkName: "pages/index" */))
+const _7e6b1903 = () => interopDefault(import('../pages/newgiveaway/index.vue' /* webpackChunkName: "pages/newgiveaway/index" */))
+const _cc1a104c = () => interopDefault(import('../pages/referrals/index.vue' /* webpackChunkName: "pages/referrals/index" */))
+const _be161b78 = () => interopDefault(import('../pages/reservedusers/index.vue' /* webpackChunkName: "pages/reservedusers/index" */))
+const _40737ad6 = () => interopDefault(import('../pages/settings/index.vue' /* webpackChunkName: "pages/settings/index" */))
+const _3e3ed2fc = () => interopDefault(import('../pages/socialaccounts.vue' /* webpackChunkName: "pages/socialaccounts" */))
+const _322055c7 = () => interopDefault(import('../pages/transactions/index.vue' /* webpackChunkName: "pages/transactions/index" */))
+const _3feb8b6c = () => interopDefault(import('../pages/users/index.vue' /* webpackChunkName: "pages/users/index" */))
+const _edd368c2 = () => interopDefault(import('../pages/giveaways/givers/index.vue' /* webpackChunkName: "pages/giveaways/givers/index" */))
+const _a3cbeb06 = () => interopDefault(import('../pages/giveaways/winners/index.vue' /* webpackChunkName: "pages/giveaways/winners/index" */))
+const _4731c6d4 = () => interopDefault(import('../pages/user/login.vue' /* webpackChunkName: "pages/user/login" */))
+const _42b0a9c7 = () => interopDefault(import('../pages/giveaways/givers/_id.vue' /* webpackChunkName: "pages/giveaways/givers/_id" */))
+const _3e9aefb6 = () => interopDefault(import('../pages/giveaways/winners/_id.vue' /* webpackChunkName: "pages/giveaways/winners/_id" */))
+const _11b128c2 = () => interopDefault(import('../pages/referrals/_id.vue' /* webpackChunkName: "pages/referrals/_id" */))
+const _70f1c422 = () => interopDefault(import('../pages/transactions/_id.vue' /* webpackChunkName: "pages/transactions/_id" */))
+const _797d78d4 = () => interopDefault(import('../pages/users/_id.vue' /* webpackChunkName: "pages/users/_id" */))
+const _d01d651a = () => interopDefault(import('../pages/index.vue' /* webpackChunkName: "pages/index" */))
 
 // TODO: remove in Nuxt 3
 const emptyFn = () => {}
@@ -38,67 +38,67 @@ export const routerOptions = {
 
   routes: [{
     path: "/newgiveaway",
-    component: _a842c33c,
+    component: _7e6b1903,
     name: "newgiveaway"
   }, {
     path: "/referrals",
-    component: _0a136e0e,
+    component: _cc1a104c,
     name: "referrals"
   }, {
     path: "/reservedusers",
-    component: _3f9c9be3,
+    component: _be161b78,
     name: "reservedusers"
   }, {
     path: "/settings",
-    component: _ced65cd4,
+    component: _40737ad6,
     name: "settings"
   }, {
     path: "/socialaccounts",
-    component: _cca1b4fa,
+    component: _3e3ed2fc,
     name: "socialaccounts"
   }, {
     path: "/transactions",
-    component: _99c50770,
+    component: _322055c7,
     name: "transactions"
   }, {
     path: "/users",
-    component: _536b77ea,
+    component: _3feb8b6c,
     name: "users"
   }, {
     path: "/giveaways/givers",
-    component: _622a49a0,
+    component: _edd368c2,
     name: "giveaways-givers"
   }, {
     path: "/giveaways/winners",
-    component: _10f466c8,
+    component: _a3cbeb06,
     name: "giveaways-winners"
   }, {
     path: "/user/login",
-    component: _f44c0356,
+    component: _4731c6d4,
     name: "user-login"
   }, {
     path: "/giveaways/givers/:id",
-    component: _78fe3408,
+    component: _42b0a9c7,
     name: "giveaways-givers-id"
   }, {
     path: "/giveaways/winners/:id",
-    component: _74164604,
+    component: _3e9aefb6,
     name: "giveaways-winners-id"
   }, {
     path: "/referrals/:id",
-    component: _e97794be,
+    component: _11b128c2,
     name: "referrals-id"
   }, {
     path: "/transactions/:id",
-    component: _f2241ea0,
+    component: _70f1c422,
     name: "transactions-id"
   }, {
     path: "/users/:id",
-    component: _21c0659a,
+    component: _797d78d4,
     name: "users-id"
   }, {
     path: "/",
-    component: _b11aad5c,
+    component: _d01d651a,
     name: "index"
   }],
 
