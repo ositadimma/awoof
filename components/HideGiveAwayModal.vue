@@ -60,7 +60,7 @@ export default {
 
         if (err.response !== undefined) {
           if (err.response.status === 400) {
-            this.$toast.global.custom_error(err.response.data.message)
+            this.$toast.global.custom_error(err.response.data || err.response.data.message)
           } else if (err.response.status === 403) {
             this.$toast.global.custom_error(err.response.data)
           }

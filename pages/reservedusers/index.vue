@@ -21,7 +21,7 @@
         </button>
       </div>
     </div>
-    <ReservedUsersTable v-if="searchData.length > 1" :key="key" :data="searchData" />
+    <ReservedUsersTable :key="key" :data="searchData" />
     <ReserveUser v-show="currentPath == 'reservedusers' && modalHeaderOpen" />
   </div>
 </template>
@@ -53,7 +53,7 @@ export default {
 
       if (err.response !== undefined) {
         if (err.response.status === 400) {
-          this.$toast.global.custom_error(err.response.data.message)
+          this.$toast.global.custom_error(err.response.data || err.response.data.message)
         }
       }
     }

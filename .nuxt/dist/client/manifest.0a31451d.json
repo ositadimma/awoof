@@ -1,7 +1,7 @@
 {
   "name": "awoof_dashboard",
   "short_name": "awoof_dashboard",
-  "description": "```bash\r # install dependencies\r $ npm install",
+  "description": "## Build Setup",
   "icons": [
     {
       "src": "/_nuxt/icons/icon_64x64.f8f3c2.png",
