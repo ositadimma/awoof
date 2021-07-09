@@ -41,7 +41,7 @@
               <div
                 v-if="checkboxes[index] !== undefined && !validate"
                 class="checkbox"
-                @click="setWinner(index, participant._id)"
+                @click="setWinner(index, participant.user._id, participant._id)"
               >
                 <input
                   :id="'check' + participant._id"
@@ -125,17 +125,17 @@ export default {
         })
       }
     },
-    setWinner (index, uuid) {
+    setWinner (index, userUuid, uuid) {
       if (this.checkboxes[index].checked) {
         const newCustomWinners = this.customWinners.filter(
-          users => uuid !== users.user_id
+          users => userUuid !== users.user_id
         )
         this.customWinners = newCustomWinners
       } else {
-        const validate = this.customWinners.some(user => uuid === user.user_id)
+        const validate = this.customWinners.some(user => userUuid === user.user_id)
         if (!validate) {
           this.customWinners.push({
-            user_id: uuid
+            user_id: userUuid
           })
         }
       }
@@ -208,6 +208,7 @@ th {
   font-weight: normal;
   font-size: 14px;
   line-height: 24px;
+  white-space: nowrap;
   color: #75759e;
 }
 th,

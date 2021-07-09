@@ -54,6 +54,7 @@
           class="users"
         >Users Who Have Entered ({{ giveawayParticipants.length }})</span>
         <GiveawayParticipationTable
+          :key="key"
           :giveaway-participants="giveawayParticipants"
           @refresh="refresh"
         />
