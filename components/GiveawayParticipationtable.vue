@@ -25,7 +25,7 @@
         <tbody v-show="giveawayParticipants.length > 0">
           <tr v-for="(participant, index) in giveawayParticipants" :key="index">
             <td data-title="Name" class="Name">
-              {{ participant.user.firstName + ' ' + participant.user.lastName }}
+              {{ participant.user.firstName + " " + participant.user.lastName }}
             </td>
             <td data-title="Email">
               {{ participant.user.email }}
@@ -47,7 +47,7 @@
                   :id="'check' + participant._id"
                   v-model="checkboxes[index].checked"
                   type="checkbox"
-                >
+                />
                 <label :for="'check' + participant._id" />
               </div>
             </td>
@@ -60,125 +60,127 @@
 </template>
 
 <script>
-import Cookies from 'js-cookie'
-import moment from 'moment'
-import NoData from './NoTableData'
+import Cookies from "js-cookie";
+import moment from "moment";
+import NoData from "./NoTableData";
 export default {
-  name: 'GiveawayParticipantiontable',
+  name: "GiveawayParticipantiontable",
   components: {
     NoData
   },
   props: {
     giveawayParticipants: {
       type: Array,
-      default () {
-        return []
+      default() {
+        return [];
       }
     }
   },
-  data () {
+  data() {
     return {
       checkboxes: [],
       customWinners: [],
-      loading: 'Add winners'
-    }
+      loading: "Add winners"
+    };
   },
   computed: {
-    validate () {
+    validate() {
       if (
         this.giveawayParticipants.length === 0 ||
         this.giveawayParticipants.some(user => user.win)
       ) {
-        return true
+        return true;
       }
-      return false
+      return false;
     }
   },
-  mounted () {
+  mounted() {
     this.$watch(
-      'giveawayParticipants',
-      (giveawayParticipants) => {
+      "giveawayParticipants",
+      giveawayParticipants => {
         for (let i = 0; i < giveawayParticipants.length; i += 1) {
           this.checkboxes.push({
             checked: false
-          })
+          });
         }
       },
       { immediate: true }
-    )
+    );
   },
   methods: {
-    format_date (value) {
-      const today = new Date().getTime()
-      const signupDate = new Date(String(value)).getTime()
+    format_date(value) {
+      const today = new Date().getTime();
+      const signupDate = new Date(String(value)).getTime();
       if (today === signupDate) {
-        return `Today, ${moment(new Date(String(value))).format('hh:mm')}`
+        return `Today, ${moment(new Date(String(value))).format("hh:mm")}`;
       }
-      return moment(new Date(String(value))).format('DD MMM YYYY, hh:mm')
+      return moment(new Date(String(value))).format("DD MMM YYYY, hh:mm");
     },
-    setDataToDefault () {
-      this.customWinners = []
-      this.checkboxes = []
+    setDataToDefault() {
+      this.customWinners = [];
+      this.checkboxes = [];
       for (let i = 0; i < this.giveawayParticipants.length; i += 1) {
         this.checkboxes.push({
           checked: false
-        })
+        });
       }
     },
-    setWinner (index, uuid) {
+    setWinner(index, uuid) {
       if (this.checkboxes[index].checked) {
         const newCustomWinners = this.customWinners.filter(
           users => uuid !== users.user_id
-        )
-        this.customWinners = newCustomWinners
+        );
+        this.customWinners = newCustomWinners;
       } else {
-        const validate = this.customWinners.some(user => uuid === user.user_id)
+        const validate = this.customWinners.some(user => uuid === user.user_id);
         if (!validate) {
           this.customWinners.push({
             user_id: uuid
-          })
+          });
         }
       }
     },
-    async addWinners () {
+    async addWinners() {
       if (this.customWinners.length < 1) {
-        this.$toast.global.custom_error('Please select a winner')
+        this.$toast.global.custom_error("Please select a winner");
       } else {
-        this.loading = '- - -'
-        this.$axios.setHeader('x-auth-token', Cookies.get('token'))
+        this.loading = "- - -";
+        this.$axios.setHeader("x-auth-token", Cookies.get("token"));
         try {
           const response = await this.$axios.$post(
             `https://api.philantroapp.com/v1/admins/set_giveaway_winners/${this.$route.params.id}`,
             {
               winners: this.customWinners
             }
-          )
+          );
           if (response) {
-            this.$toast.global.custom_success('Winners successfully added.')
-            this.$emit('refresh')
-            this.setDataToDefault()
+            this.$toast.global.custom_success("Winners successfully added.");
+            this.$emit("refresh");
+            this.setDataToDefault();
           }
-          this.loading = 'Add winners'
+          this.loading = "Add winners";
         } catch (err) {
-          this.loading = 'Add winners'
-          if (err.message.includes('Network')) {
+          this.loading = "Add winners";
+          if (err.message.includes("Network")) {
             this.$toast.global.custom_error(
-              'please check your connection and try again'
-            )
+              "please check your connection and try again"
+            );
           }
 
           if (err.response !== undefined) {
             if (err.response.status === 400) {
-              this.$toast.global.custom_error(err.response.data || err.response.data.message)
+              this.$toast.global.custom_error(
+                err.response.data || err.response.data.message
+              );
             } else if (err.response.status === 403) {
-              this.$toast.global.custom_error(err.response.data)
+              this.$toast.global.custom_error(err.response.data);
             }
           }
         }
       }
     }
   }
-}
+};
 </script>
 
 <style scoped>
@@ -256,7 +258,7 @@ tbody tr:nth-child(odd) {
   cursor: pointer;
 }
 /* custom checkbox */
-input[type='checkbox'] {
+input[type="checkbox"] {
   padding: 0;
   height: initial;
   width: initial;
@@ -279,7 +281,7 @@ input[type='checkbox'] {
 }
 
 .checkbox label:before {
-  content: '';
+  content: "";
   -webkit-appearance: none;
   background: #ffffff;
   border: 1px solid #8692a6;
@@ -294,13 +296,13 @@ input[type='checkbox'] {
   cursor: pointer;
 }
 
-.checkbox input[type='checkbox']:checked + label:before {
+.checkbox input[type="checkbox"]:checked + label:before {
   background: #09ab5d;
   border: none;
 }
 
-.checkbox input[type='checkbox']:checked + label:after {
-  content: '';
+.checkbox input[type="checkbox"]:checked + label:after {
+  content: "";
   position: absolute;
   top: 3px;
   left: 6px;
