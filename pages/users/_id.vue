@@ -26,7 +26,7 @@
 
     <div ref="details" class="details">
       <div class="details-child-1">
-        <UserDetailTable :user-detail="userDetail" />
+        <UserDetailTable :user-detail="userDetail" :social-media-account-detail="socialMediaAccountDetail" />
       </div>
     </div>
     <UserForm v-show="modalOpen && modal == 'surprise'" />
@@ -54,6 +54,12 @@ export default {
       var userDetailResponse = await $axios.$get(
         `https://api.philantroapp.com/v1/users/${params.id}`
       )
+      var socialMediaAccountResponse = await $axios.$get(
+        `https://api.philantroapp.com/v1/admins/get_social_account/${params.id}`
+      )
+      // var totalSuprise = await $axios.$get(
+      //   `https://api.philantroapp.com/v1/user/total_suprise_amount/${params.id}`
+      // )
     } catch (err) {
       if (err.message.includes('Network')) {
         $toast.global.custom_error('please check your connection and try again')
@@ -65,10 +71,13 @@ export default {
         }
       }
     }
+
+    // console.log(totalSuprise)
     // eslint-disable-next-line
     return {
       userDetail:
-        userDetailResponse !== undefined ? userDetailResponse.data : {}
+        userDetailResponse !== undefined ? userDetailResponse.data : {},
+      socialMediaAccountDetail: socialMediaAccountResponse.data !== undefined ? socialMediaAccountResponse.data[0] : {}
     }
   },
   data () {

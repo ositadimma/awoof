@@ -129,6 +129,30 @@
           {{ userDetail.location !== undefined ? userDetail.location : 'nil' }}
         </div>
       </div>
+      <div class="user-grid">
+        <div class="th">
+          Twitter
+        </div>
+        <div class="td" data-title="Location">
+          {{ socialMediaAccountDetail.twitter !== undefined ? socialMediaAccountDetail.twitter : 'nil' }}
+        </div>
+      </div>
+      <div class="user-grid">
+        <div class="th">
+          Instagram
+        </div>
+        <div class="td" data-title="Location">
+          {{ socialMediaAccountDetail.instagram !== undefined ? socialMediaAccountDetail.instagram : 'nil' }}
+        </div>
+      </div>
+      <div class="user-grid">
+        <div class="th">
+          Facebook
+        </div>
+        <div class="td" data-title="Location">
+          {{ socialMediaAccountDetail.facebook !== undefined ? socialMediaAccountDetail.facebook : 'nil' }}
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -139,6 +163,12 @@ export default {
   name: 'Userdetailtable',
   props: {
     userDetail: {
+      type: Object,
+      default () {
+        return {}
+      }
+    },
+    socialMediaAccountDetail: {
       type: Object,
       default () {
         return {}

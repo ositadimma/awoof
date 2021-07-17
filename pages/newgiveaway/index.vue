@@ -4,10 +4,24 @@
       <header>
         New Giveaway
       </header>
-      <div class="mode">
+      <div class="mode-1">
         <span>Already Completed</span>
         <div class="switch-container">
           <input id="switch" v-model="completed" type="checkbox">
+          <label for="switch" class="switch-btn">
+            <span>
+              No
+            </span>
+            <span>
+              Yes
+            </span>
+          </label>
+        </div>
+      </div>
+      <div class="mode-2">
+        <span>Anonymous</span>
+        <div class="switch-container">
+          <input id="switch" v-model="isAnonymous" type="checkbox">
           <label for="switch" class="switch-btn">
             <span>
               No
@@ -388,7 +402,8 @@ export default {
       LikeTwitterLink: '',
       endAt: '',
       completed: false,
-      loading: false
+      loading: false,
+      isAnonymous: false
     }
   },
   computed: {
@@ -541,6 +556,7 @@ export default {
       this.endAt = ''
       this.loading = false
       this.user = 'Select username'
+      this.isAnonymous = false
     },
     bodyFormatData () {
       // const stringDate = this.endAt.split('/')
@@ -580,6 +596,7 @@ export default {
       data.append('expiry', `${endAt}`)
       data.append('endAt', `${endAt}`)
       data.append('completed', this.completed)
+      data.append('isAnonymous', this.isAnonymous)
       return data
     },
     async createGiveaway () {
@@ -664,7 +681,15 @@ header:before {
   left: 0;
 }
 
-.mode {
+.mode-1 {
+  margin-bottom: 0.4rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.mode-2 {
   margin-bottom: 1.93rem;
   display: flex;
   justify-content: space-between;

@@ -13,6 +13,8 @@
           </th>
           <th>Total Amount</th>
           <th>Possible Winners</th>
+          <th>Date Posted</th>
+          <th>Date Completed</th>
         </tr>
       </thead>
       <tbody>
@@ -36,6 +38,12 @@
               amountDelimeter(giveawayDetail.amountPerWinner)
             }}
             per winner)
+          </td>
+          <td data-title="Date Posted">
+            {{ format_date(giveawayDetail.createdAt) }}
+          </td>
+          <td data-title="Date Completed">
+            {{ format_date(giveawayDetail.endAt) }}
           </td>
         </tr>
       </tbody>
@@ -72,7 +80,9 @@
 </template>
 
 <script>
+import moment from 'moment'
 import AddTask from '../components/Addtask'
+
 export default {
   name: 'Giveawaydetailtable',
   components: {
@@ -150,6 +160,14 @@ export default {
     refresh () {
       this.$nuxt.refresh()
       this.key += 1
+    },
+    format_date (value) {
+      const today = new Date().getTime()
+      const createdAt = new Date(String(value)).getTime()
+      if (today === createdAt) {
+        return `Today, ${moment(new Date(String(value))).format('hh:mm')}`
+      }
+      return moment(new Date(String(value))).format('DD MMM YYYY, hh:mm')
     }
   }
 }
@@ -246,7 +264,7 @@ td {
   color: #171717;
   overflow-x: auto;
 }
-.Amount {
+/* .Amount {
   width: 25%;
 }
 .Tasks {
@@ -254,7 +272,7 @@ td {
 }
 .Status {
   width: 18%;
-}
+} */
 .task-grid-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));

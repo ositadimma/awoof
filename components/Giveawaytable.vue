@@ -15,6 +15,7 @@
             </th>
             <th>Total Amount</th>
             <th>Date Posted</th>
+            <th>Date Completed</th>
             <th class="Status">
               <span>Status</span>
               <div v-if="status == 'Ongoing'">
@@ -64,6 +65,9 @@
             </td>
             <td data-title="Date Posted">
               {{ format_date(giveaway.createdAt) }}
+            </td>
+            <td data-title="Date Posted">
+              {{ format_date(giveaway.endAt) }}
             </td>
             <td
               data-title="Status"
@@ -179,11 +183,6 @@ export default {
       return initialData.slice(this.currentPage, this.pagesToShow)
     }
   },
-  // watch: {
-  //   data (newVal) {
-  //     this.Paginate(0)
-  //   }
-  // },
   methods: {
     Paginate (clickedpagenumber) {
       this.currentPage = 0
@@ -196,77 +195,9 @@ export default {
           pageCount += 1
         }
       }
-
-      // this.paginatedData = this.data
-      //   .sort((a, b) => {
-      //     if (this.status === 'Ongoing') {
-      //       if (!a.completed && b.completed) {
-      //         return -1
-      //       }
-      //       if (a.completed && !b.completed) {
-      //         return 1
-      //       }
-      //     } else {
-      //       if (a.completed && !b.completed) {
-      //         return -1
-      //       }
-      //       if (!a.completed && b.completed) {
-      //         return 1
-      //       }
-      //     }
-      //     // const giveawayDateA = new Date(a.createdAt)
-      //     // const giveawayDateB = new Date(b.createdAt)
-      //     // return giveawayDateB - giveawayDateA
-      //   })
-      //   .slice(this.currentPage, this.pagesToShow)
     },
-    // initialPaginate () {
-    //   const initialData = this.data.sort((a, b) => {
-    //     if (this.status === 'Ongoing') {
-    //       if (!a.completed && b.completed) {
-    //         return -1
-    //       }
-    //       if (a.completed && !b.completed) {
-    //         return 1
-    //       }
-    //     } else {
-    //       if (a.completed && !b.completed) {
-    //         return -1
-    //       }
-    //       if (!a.completed && b.completed) {
-    //         return 1
-    //       }
-    //     }
-    //     // const giveawayDateA = new Date(a.createdAt)
-    //     // const giveawayDateB = new Date(b.createdAt)
-    //     // return giveawayDateB - giveawayDateA
-    //   })
-    //   return initialData.slice(this.currentPage, this.pagesToShow)
-    // },
     toggleStatus (status) {
       this.status = status
-      // this.paginatedData = this.data
-      //   .sort((a, b) => {
-      //     if (this.status === 'Ongoing') {
-      //       if (!a.completed && b.completed) {
-      //         return -1
-      //       }
-      //       if (a.completed && !b.completed) {
-      //         return 1
-      //       }
-      //     } else {
-      //       if (a.completed && !b.completed) {
-      //         return -1
-      //       }
-      //       if (!a.completed && b.completed) {
-      //         return 1
-      //       }
-      //     }
-      //     // const giveawayDateA = new Date(a.createdAt)
-      //     // const giveawayDateB = new Date(b.createdAt)
-      //     // return giveawayDateB - giveawayDateA
-      //   })
-      //   .slice(this.currentPage, this.pagesToShow)
     },
     amountDelimeter (amount) {
       return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')

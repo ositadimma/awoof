@@ -57,7 +57,7 @@ export default {
   border: 1px solid #e2e2ea;
   border-radius: 20px;
   padding: 0px 38px 30px 23px;
-  margin-top: 113px;
+  margin: 4rem 0 4.188rem; /* 113px; */
 }
 .participation .head {
   margin-top: 27px;
