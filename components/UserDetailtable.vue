@@ -153,6 +153,14 @@
           {{ socialMediaAccountDetail.facebook !== undefined ? socialMediaAccountDetail.facebook : 'nil' }}
         </div>
       </div>
+      <div class="user-grid">
+        <div class="th">
+          Total Surprise
+        </div>
+        <div class="td" data-title="Location">
+          {{ socialMediaAccountDetail.totalSuprise !== undefined ? socialMediaAccountDetail.totalSuprise : '0' }}
+        </div>
+      </div>
     </div>
   </div>
 </template>

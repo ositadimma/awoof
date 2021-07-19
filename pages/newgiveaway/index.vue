@@ -7,8 +7,8 @@
       <div class="mode-1">
         <span>Already Completed</span>
         <div class="switch-container">
-          <input id="switch" v-model="completed" type="checkbox">
-          <label for="switch" class="switch-btn">
+          <input id="switch-1" v-model="completed" type="checkbox">
+          <label for="switch-1" class="switch-btn">
             <span>
               No
             </span>
@@ -21,8 +21,8 @@
       <div class="mode-2">
         <span>Anonymous</span>
         <div class="switch-container">
-          <input id="switch" v-model="isAnonymous" type="checkbox">
-          <label for="switch" class="switch-btn">
+          <input id="switch-2" v-model="isAnonymous" type="checkbox">
+          <label for="switch-2" class="switch-btn">
             <span>
               No
             </span>
@@ -713,7 +713,15 @@ span {
   position: relative;
 }
 
-#switch {
+#switch-1 {
+  opacity: 1;
+  width: 0;
+  height: 0;
+  position: absolute;
+  z-index: 1;
+}
+
+#switch-2 {
   opacity: 1;
   width: 0;
   height: 0;
@@ -745,7 +753,12 @@ span {
   transition: 0.5s;
 }
 
-#switch:checked + .switch-btn:before {
+#switch-1:checked + .switch-btn:before {
+  left: 6%;
+  background: #09ab5d;
+}
+
+#switch-2:checked + .switch-btn:before {
   left: 6%;
   background: #09ab5d;
 }
