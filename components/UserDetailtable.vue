@@ -158,7 +158,7 @@
           Total Surprise
         </div>
         <div class="td" data-title="Location">
-          {{ socialMediaAccountDetail.totalSuprise !== undefined ? socialMediaAccountDetail.totalSuprise : '0' }}
+          {{ socialMediaAccountDetail.totalSuprise !== undefined ? socialMediaAccountDetail.totalSuprise.amount : '0' }}
         </div>
       </div>
     </div>

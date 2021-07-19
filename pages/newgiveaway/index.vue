@@ -574,7 +574,6 @@ export default {
       )
       data.append('type', this.type.toLowerCase())
       data.append('user_id', this.userId)
-      data.append('isAnonymous', false)
       data.append('minimumstars', this.type === 'Star' ? this.noOfStars : 0)
       data.append('frequency', `${this.dateInThirtyDays}`)
       data.append('message', this.message)
