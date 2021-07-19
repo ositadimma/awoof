@@ -5,10 +5,22 @@
         <thead>
           <tr>
             <th class="Name">
-              Name
+              Username
+            </th>
+            <th>
+              Email
+            </th>
+            <th>
+              Twitter
+            </th>
+            <th>
+              Facebook
+            </th>
+            <th>
+              Instagram
             </th>
             <th class="Task">
-              Task Completion
+              Won Before
             </th>
             <th>
               Date Entered
@@ -24,13 +36,28 @@
             :key="index"
           >
             <td data-title="Name" class="Name">
-              {{ winner.user.firstName + " " + winner.user.lastName }}
+              {{ winner.user.username }}
             </td>
-            <td data-title="Task Completion" class="Task">
-              All Completed
+            <td data-title="Email">
+              {{ winner.user.email }}
+            </td>
+            <td>
+              {{ winner.user.twitter !== '' ? winner.user.twitter : 'nil' }}
+            </td>
+            <td>
+              {{ winner.user.facebook !== '' ? winner.user.facebook : 'nil' }}
+            </td>
+            <td>
+              {{ winner.user.instagram !== '' ? winner.user.instagram : 'nil' }}
+            </td>
+            <td v-if="winner.user.giveawaysAmountWon > 0" data-title="Task Completion" class="Task">
+              Yes
+            </td>
+            <td v-else data-title="Task Completion" class="Task">
+              No
             </td>
             <td data-title="Date Entered">
-              {{ format_date(winner.user.signupDate) }}
+              {{ format_date(winner.creadedAt) }}
             </td>
             <td class="View">
               <!-- <ArrowCircle /> -->
@@ -136,7 +163,6 @@ tbody tr:nth-child(odd) {
 }
 .Name {
   padding-left: 31px;
-  width: 35%;
 }
 .View {
   width: 10%;

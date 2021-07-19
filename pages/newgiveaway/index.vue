@@ -4,11 +4,25 @@
       <header>
         New Giveaway
       </header>
-      <div class="mode">
+      <div class="mode-1">
         <span>Already Completed</span>
         <div class="switch-container">
-          <input id="switch" v-model="completed" type="checkbox">
-          <label for="switch" class="switch-btn">
+          <input id="switch-1" v-model="completed" type="checkbox">
+          <label for="switch-1" class="switch-btn">
+            <span>
+              No
+            </span>
+            <span>
+              Yes
+            </span>
+          </label>
+        </div>
+      </div>
+      <div class="mode-2">
+        <span>Anonymous</span>
+        <div class="switch-container">
+          <input id="switch-2" v-model="isAnonymous" type="checkbox">
+          <label for="switch-2" class="switch-btn">
             <span>
               No
             </span>
@@ -388,7 +402,8 @@ export default {
       LikeTwitterLink: '',
       endAt: '',
       completed: false,
-      loading: false
+      loading: false,
+      isAnonymous: false
     }
   },
   computed: {
@@ -541,6 +556,7 @@ export default {
       this.endAt = ''
       this.loading = false
       this.user = 'Select username'
+      this.isAnonymous = false
     },
     bodyFormatData () {
       // const stringDate = this.endAt.split('/')
@@ -558,7 +574,6 @@ export default {
       )
       data.append('type', this.type.toLowerCase())
       data.append('user_id', this.userId)
-      data.append('isAnonymous', false)
       data.append('minimumstars', this.type === 'Star' ? this.noOfStars : 0)
       data.append('frequency', `${this.dateInThirtyDays}`)
       data.append('message', this.message)
@@ -580,6 +595,7 @@ export default {
       data.append('expiry', `${endAt}`)
       data.append('endAt', `${endAt}`)
       data.append('completed', this.completed)
+      data.append('isAnonymous', this.isAnonymous)
       return data
     },
     async createGiveaway () {
@@ -664,7 +680,15 @@ header:before {
   left: 0;
 }
 
-.mode {
+.mode-1 {
+  margin-bottom: 0.4rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.mode-2 {
   margin-bottom: 1.93rem;
   display: flex;
   justify-content: space-between;
@@ -688,7 +712,15 @@ span {
   position: relative;
 }
 
-#switch {
+#switch-1 {
+  opacity: 1;
+  width: 0;
+  height: 0;
+  position: absolute;
+  z-index: 1;
+}
+
+#switch-2 {
   opacity: 1;
   width: 0;
   height: 0;
@@ -720,7 +752,12 @@ span {
   transition: 0.5s;
 }
 
-#switch:checked + .switch-btn:before {
+#switch-1:checked + .switch-btn:before {
+  left: 6%;
+  background: #09ab5d;
+}
+
+#switch-2:checked + .switch-btn:before {
   left: 6%;
   background: #09ab5d;
 }

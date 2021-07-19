@@ -42,31 +42,31 @@
     <div ref="details" class="details">
       <div class="details-child-1">
         <GiveawayDetailTable :giveaway-detail="giveawayDetail" />
-        <span
-          v-show="giveawayDetail.completed"
-          class="users"
-        >Winners ({{ giveawayWinners.length }})</span>
-        <GiveawayWinnersTable
-          v-show="giveawayDetail.completed"
-          :giveaway-winners="giveawayWinners"
-        />
-        <span
-          class="users"
-        >Users Who Have Entered ({{ giveawayParticipants.length }})</span>
-        <GiveawayParticipationTable
-          :key="key"
-          :giveaway-participants="giveawayParticipants"
-          @refresh="refresh"
-        />
       </div>
       <div class="details-child-2">
         <GiveawayFullDetails :user-info="userInfo" />
-        <ParticipationReport
-          v-show="giveawayDetail.completed"
-          :giveaway-participants="giveawayParticipants"
-        />
       </div>
     </div>
+    <ParticipationReport
+      v-show="giveawayDetail.completed"
+      :giveaway-participants="giveawayParticipants"
+    />
+    <span
+      v-show="giveawayDetail.completed"
+      class="users"
+    >Winners ({{ giveawayWinners.length }})</span>
+    <GiveawayWinnersTable
+      v-show="giveawayDetail.completed"
+      :giveaway-winners="giveawayWinners"
+    />
+    <span
+      class="users"
+    >Users Who Have Entered ({{ giveawayParticipants.length }})</span>
+    <GiveawayParticipationTable
+      :key="key"
+      :giveaway-participants="giveawayParticipants"
+      @refresh="refresh"
+    />
     <!-- <HideGiveAwayModal
       v-show="popUpOpen"
       :id="giveawayDetail._id"
@@ -123,6 +123,91 @@ export default {
       }
     }
 
+    // get social account of participants
+
+    const giveawayParticipantsPromises = giveawayParticipantsResponse.data.map(async (item) => {
+      const participant = {
+        user: {
+          username: item.user.username,
+          email: item.user.email,
+          giveawaysAmountWon: item.user.giveawaysAmountWon,
+          _id: item.user._id,
+          facebook: '',
+          twitter: '',
+          instagram: ''
+        },
+        createdAt: item.createdAt,
+        _id: item._id
+      }
+
+      try {
+        const socialMediaAccount = await $axios.$get(
+        `https://api.philantroapp.com/v1/admins/get_social_account/${item.user._id}`
+        )
+
+        participant.user.facebook = socialMediaAccount.data[0].facebook
+        participant.user.twitter = socialMediaAccount.data[0].twitter
+        participant.user.instagram = socialMediaAccount.data[0].instagram
+      } catch (err) {
+        if (err.message.includes('Network')) {
+          $toast.global.custom_error(
+            'please check your connection and try again'
+          )
+        }
+
+        if (err.response !== undefined) {
+          if (err.response.status === 400) {
+            $toast.global.custom_error(err.response.data || err.response.data.message)
+          }
+        }
+      }
+      return participant
+    })
+
+    const giveawayWinnersPromises = giveawayWinnersResponse.data.map(async (item) => {
+      const winner = {
+        user: {
+          username: item.user.username,
+          email: item.user.email,
+          giveawaysAmountWon: item.user.giveawaysAmountWon,
+          _id: item.user._id,
+          facebook: '',
+          twitter: '',
+          instagram: ''
+        },
+        win: item.win,
+        createdAt: item.createdAt,
+        _id: item._id
+      }
+
+      try {
+        const socialMediaAccount = await $axios.$get(
+        `https://api.philantroapp.com/v1/admins/get_social_account/${item.user._id}`
+        )
+
+        winner.user.facebook = socialMediaAccount.data[0].facebook
+        winner.user.twitter = socialMediaAccount.data[0].twitter
+        winner.user.instagram = socialMediaAccount.data[0].instagram
+      } catch (err) {
+        if (err.message.includes('Network')) {
+          $toast.global.custom_error(
+            'please check your connection and try again'
+          )
+        }
+
+        if (err.response !== undefined) {
+          if (err.response.status === 400) {
+            $toast.global.custom_error(err.response.data || err.response.data.message)
+          }
+        }
+      }
+      return winner
+    })
+
+    const giveawayWinners = await Promise.all(giveawayWinnersPromises)
+    const giveawayParticipants = await Promise.all(giveawayParticipantsPromises)
+    // console.log(giveawayWinners)
+
     // eslint-disable-next-line
     return {
       giveawayDetail:
@@ -133,12 +218,12 @@ export default {
           ? giveawayDetailResponse.data.user
           : undefined,
       giveawayWinners:
-        giveawayWinnersResponse !== undefined
-          ? giveawayWinnersResponse.data
+        giveawayWinnersResponse.data !== undefined
+          ? giveawayWinners // .data
           : [],
       giveawayParticipants:
-        giveawayParticipantsResponse !== undefined
-          ? giveawayParticipantsResponse.data
+        giveawayParticipantsResponse.data !== undefined
+          ? giveawayParticipants // .data
           : []
     }
   },

@@ -8,13 +8,22 @@
         <thead>
           <tr>
             <th class="Name">
-              Name
+              Username
             </th>
             <th>
               Email
             </th>
+            <th>
+              Twitter
+            </th>
+            <th>
+              Facebook
+            </th>
+            <th>
+              Instagram
+            </th>
             <th class="Task">
-              Task Completion
+              Won Before
             </th>
             <th>
               Date Entered
@@ -25,13 +34,41 @@
         <tbody v-show="giveawayParticipants.length > 0">
           <tr v-for="(participant, index) in giveawayParticipants" :key="index">
             <td data-title="Name" class="Name">
-              {{ participant.user.firstName + " " + participant.user.lastName }}
+              {{ participant.user.username }}
             </td>
             <td data-title="Email">
               {{ participant.user.email }}
             </td>
-            <td data-title="Task Completion" class="Task">
-              All Completed
+            <td>
+              {{
+                participant.user.twitter !== ""
+                  ? participant.user.twitter
+                  : "nil"
+              }}
+            </td>
+            <td>
+              {{
+                participant.user.facebook !== ""
+                  ? participant.user.facebook
+                  : "nil"
+              }}
+            </td>
+            <td>
+              {{
+                participant.user.instagram !== ""
+                  ? participant.user.instagram
+                  : "nil"
+              }}
+            </td>
+            <td
+              v-if="participant.user.giveawaysAmountWon > 0"
+              data-title="Task Completion"
+              class="Task"
+            >
+              Yes
+            </td>
+            <td v-else data-title="Task Completion" class="Task">
+              No
             </td>
             <td data-title="Date Entered">
               {{ format_date(participant.createdAt) }}
@@ -221,6 +258,9 @@ td {
   text-align: left;
   padding-left: 6px;
 }
+/* td {
+  max-width: 200px;
+} */
 th:first-child {
   border-top-left-radius: 20px;
 }
@@ -229,7 +269,7 @@ th:last-child {
   border-top-right-radius: 20px;
 }
 td:last-child {
-  padding-left: 0px;
+  padding-left: 0.5rem;
   text-align: center;
 }
 td {
