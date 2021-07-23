@@ -163,13 +163,13 @@ export default {
     $axios.setHeader('x-auth-token', Cookies.get('token'))
     try {
       var response1 = await $axios.$get(
-        `https://api.philantroapp.com/v1/admins/bank_transfers/${params.id}`
+        `/admins/bank_transfers/${params.id}`
       )
       var response2 = await $axios.$get(
-        `https://api.philantroapp.com/v1/admins/wallet_top_ups/${params.id}`
+        `/admins/wallet_top_ups/${params.id}`
       )
       var response3 = await $axios.$get(
-        `https://api.philantroapp.com/v1/admins/airtime_top_up/${params.id}`
+        `/admins/airtime_top_up/${params.id}`
       )
 
       var transactionDetailResponse
@@ -178,19 +178,19 @@ export default {
       if (response1.data) {
         transactionDetailResponse = response1.data
         userDetailResponse = await $axios.$get(
-          `https://api.philantroapp.com/v1/admins/get_by_email/${transactionDetailResponse.user}`
+          `/admins/get_by_email/${transactionDetailResponse.user}`
         )
         methodOfPayment = 'Bank Transfer'
       } else if (response2.data) {
         transactionDetailResponse = response2.data
         userDetailResponse = await $axios.$get(
-          `https://api.philantroapp.com/v1/admins/get_by_email/${transactionDetailResponse.user_email}`
+          `/admins/get_by_email/${transactionDetailResponse.user_email}`
         )
         methodOfPayment = 'Wallet'
       } else {
         transactionDetailResponse = response3.data
         userDetailResponse = await $axios.$get(
-          `https://api.philantroapp.com/v1/admins/get_by_email/${transactionDetailResponse.user}`
+          `/admins/get_by_email/${transactionDetailResponse.user}`
         )
         methodOfPayment = 'Airtime Topup'
       }

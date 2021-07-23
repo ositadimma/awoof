@@ -43,7 +43,7 @@ export default {
     this.$axios.setHeader('x-auth-token', Cookies.get('token'))
     try {
       var response = await this.$axios.$get(
-        'https://api.philantroapp.com/v1/admins/get_reserved_usernames'
+        '/admins/get_reserved_usernames'
       )
       this.key += 1
     } catch (err) {

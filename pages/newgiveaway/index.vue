@@ -152,6 +152,7 @@
               v-model="noOfWinners"
               type="number"
               placeholder="0"
+              @input="validateNoOfWinners"
               @click="noOfWinnersFocus"
             >
           </div>
@@ -357,7 +358,7 @@ export default {
     $axios.setHeader('x-auth-token', Cookies.get('token'))
     try {
       var response = await $axios.$get(
-        'https://api.philantroapp.com/v1/admins/get_all_users'
+        '/admins/get_all_users'
       )
     } catch (err) {
       if (err.message.includes('Network')) {
@@ -481,12 +482,22 @@ export default {
       return moment(new Date(String(value))).format('YYYY-MM-DD')
     },
     validateNoOfStars (e) {
-      if (parseInt(this.noOfStars) < 31 || this.noOfStars === '') {
+      if ((parseInt(this.noOfStars) < 31 && parseInt(this.noOfStars) > -1) || this.noOfStars === '') {
       } else {
         e.target.value = '30'
         this.noOfStars = '30'
         this.$toast.global.custom_error(
           'minimum number of stars has to be less than or equal to 30'
+        )
+      }
+    },
+    validateNoOfWinners (e) {
+      if (parseInt(this.noOfWinners) > -1 || this.noOfWinners === '') {
+      } else {
+        e.target.value = '1'
+        this.noOfWinners = '1'
+        this.$toast.global.custom_error(
+          'minimum number of winners cannot be less than 0'
         )
       }
     },
@@ -604,7 +615,7 @@ export default {
       this.$axios.setHeader('Content-Type', 'multipart/form-data')
       try {
         const response = await this.$axios.$post(
-          'https://api.philantroapp.com/v1/admins/create_giveaway',
+          '/admins/create_giveaway',
           this.bodyFormatData()
         )
         if (response) {

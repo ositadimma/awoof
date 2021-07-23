@@ -18,7 +18,7 @@ export default {
     $axios.setHeader('x-auth-token', Cookies.get('token'))
     try {
       var response = await $axios.$get(
-        'https://api.philantroapp.com/v1/giveaways'
+        '/giveaways'
       )
     } catch (err) {
       if (err.message.includes('Network')) {

@@ -105,7 +105,7 @@ export default {
       this.$axios.setHeader('x-auth-token', Cookies.get('token'))
       try {
         const response = await this.$axios.$put(
-          'https://api.philantroapp.com/v1/admins/password',
+          '/admins/password',
           {
             password: this.password,
             newPassword: this.newPassword

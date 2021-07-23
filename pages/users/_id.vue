@@ -52,13 +52,13 @@ export default {
     $axios.setHeader('x-auth-token', Cookies.get('token'))
     try {
       var userDetailResponse = await $axios.$get(
-        `https://api.philantroapp.com/v1/users/${params.id}`
+        `/users/${params.id}`
       )
       var socialMediaAccountResponse = await $axios.$get(
-        `https://api.philantroapp.com/v1/admins/get_social_account/${params.id}`
+        `/admins/get_social_account/${params.id}`
       )
       var totalSupriseResponse = await $axios.$get(
-        `https://api.philantroapp.com/v1/admins/get_surprise_amount/${params.id}`
+        `/admins/get_surprise_amount/${params.id}`
       )
     } catch (err) {
       if (err.message.includes('Network')) {

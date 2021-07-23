@@ -88,7 +88,7 @@ export default {
       this.loading = true
       try {
         const response = await this.$axios.$post(
-          'https://api.philantroapp.com/v1/auth/admin',
+          '/auth/admin',
           {
             email: this.email.toLowerCase(),
             password: this.password

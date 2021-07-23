@@ -38,10 +38,10 @@ export default {
     $axios.setHeader('x-auth-token', Cookies.get('token'))
     try {
       var giveawayDetailResponse = await $axios.$get(
-        `https://api.philantroapp.com/v1/giveaways/${params.id}`
+        `/giveaways/${params.id}`
       )
       var winnerDetailResponse = await $axios.$get(
-        `https://api.philantroapp.com/v1/users/${giveawayDetailResponse.data.user._id}`
+        `/users/${giveawayDetailResponse.data.user._id}`
       )
     } catch (err) {
       if (err.message.includes('Network')) {

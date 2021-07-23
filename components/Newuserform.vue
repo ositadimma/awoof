@@ -208,7 +208,7 @@ export default {
       this.$axios.setHeader('Content-Type', 'multipart/form-data')
       try {
         const response = await this.$axios.$post(
-          'https://api.philantroapp.com/v1/users',
+          '/users',
           this.bodyData()
         )
         if (response) {

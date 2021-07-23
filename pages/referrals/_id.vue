@@ -128,10 +128,10 @@ export default {
     $axios.setHeader('x-auth-token', Cookies.get('token'))
     try {
       var referralDetailResponse = await $axios.$get(
-        `https://api.philantroapp.com/v1/admins/get_refferal/${params.id}`
+        `/admins/get_refferal/${params.id}`
       )
       var referralBonusResponse = await $axios.$get(
-        'https://api.philantroapp.com/v1/admins/referral_bonus'
+        '/admins/referral_bonus'
       )
     } catch (err) {
       if (err.message.includes('Network')) {

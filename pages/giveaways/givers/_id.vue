@@ -101,13 +101,13 @@ export default {
     $axios.setHeader('x-auth-token', Cookies.get('token'))
     try {
       var giveawayDetailResponse = await $axios.$get(
-        `https://api.philantroapp.com/v1/giveaways/${params.id}`
+        `/giveaways/${params.id}`
       )
       var giveawayWinnersResponse = await $axios.$get(
-        `https://api.philantroapp.com/v1/giveaways/winners/${params.id}`
+        `/giveaways/winners/${params.id}`
       )
       var giveawayParticipantsResponse = await $axios.$get(
-        `https://api.philantroapp.com/v1/admins/get_participants/${params.id}`
+        `/admins/get_participants/${params.id}`
       )
     } catch (err) {
       if (err.message.includes('Network')) {
@@ -142,7 +142,7 @@ export default {
 
       try {
         const socialMediaAccount = await $axios.$get(
-        `https://api.philantroapp.com/v1/admins/get_social_account/${item.user._id}`
+        `/admins/get_social_account/${item.user._id}`
         )
 
         participant.user.facebook = socialMediaAccount.data[0].facebook
@@ -182,7 +182,7 @@ export default {
 
       try {
         const socialMediaAccount = await $axios.$get(
-        `https://api.philantroapp.com/v1/admins/get_social_account/${item.user._id}`
+        `/admins/get_social_account/${item.user._id}`
         )
 
         winner.user.facebook = socialMediaAccount.data[0].facebook

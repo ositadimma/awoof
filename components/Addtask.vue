@@ -311,7 +311,7 @@ export default {
       this.$axios.setHeader('x-auth-token', Cookies.get('token'))
       try {
         const response = await this.$axios.$put(
-          `https://api.philantroapp.com/v1/giveaways/${this.$route.params.id}`,
+          `/giveaways/${this.$route.params.id}`,
           this.bodyData()
         )
         if (response) {

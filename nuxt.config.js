@@ -66,6 +66,7 @@ export default {
   ],
 
   axios: {
+    baseURL: (process.env.NODE_ENV === 'development' ? 'https://awoof-api.herokuapp.com/v1' : 'https://api.philantroapp.com/v1'),
     retry: { retries: 3 }
   },
 

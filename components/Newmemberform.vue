@@ -119,7 +119,7 @@ export default {
       this.$axios.setHeader('x-auth-token', Cookies.get('token'))
       try {
         const response = await this.$axios.$post(
-          'https://api.philantroapp.com/v1/admins/create_admin',
+          '/admins/create_admin',
           this.bodyData()
         )
         if (response) {

@@ -48,16 +48,16 @@ export default {
     $axios.setHeader('x-auth-token', Cookies.get('token'))
     try {
       var bankTransferResponse = await $axios.$get(
-        'https://api.philantroapp.com/v1/admins/bank_transfers'
+        '/admins/bank_transfers'
       )
       var walletResponse = await $axios.$get(
-        'https://api.philantroapp.com/v1/admins/wallet_top_ups'
+        '/admins/wallet_top_ups'
       )
       var airtimeResponse = await $axios.$get(
-        'https://api.philantroapp.com/v1/admins/airtime_top_up'
+        '/admins/airtime_top_up'
       )
       var surpriseResponse = await $axios.$get(
-        'https://api.philantroapp.com/v1/admins/get_suprise'
+        '/admins/get_suprise'
       )
     } catch (err) {
       if (err.message.includes('Network')) {

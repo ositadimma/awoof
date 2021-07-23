@@ -40,7 +40,7 @@ export default {
     $axios.setHeader('x-auth-token', Cookies.get('token'))
     try {
       var response = await $axios.$get(
-        'https://api.philantroapp.com/v1/admins/get_social_accounts'
+        '/admins/get_social_accounts'
       )
     } catch (err) {
       if (err.message.includes('Network')) {

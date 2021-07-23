@@ -45,7 +45,7 @@ export default {
       this.$axios.setHeader('x-auth-token', Cookies.get('token'))
       try {
         const response = await this.$axios.$put(
-          `https://api.philantroapp.com/v1/admins/toggle_admin/${this.id}`
+          `/admins/toggle_admin/${this.id}`
         )
         if (response) {
           this.$toast.global.custom_success('Status changed')
