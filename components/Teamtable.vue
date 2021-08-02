@@ -92,7 +92,7 @@ export default {
   data () {
     return {
       paginatedData: [],
-      amountOfPages: Math.ceil(this.data.length / 6),
+      amountOfPages: Math.ceil(this.data.length / 10),
       id: '',
       role: '',
       status: false
@@ -157,8 +157,8 @@ export default {
   flex-direction: column;
   width: 100%;
   height: 470px;
-  max-height: 500px;
-  overflow-y: auto;
+  /* max-height: 500px;
+  overflow-y: auto; */
 }
 table {
   table-layout: auto;

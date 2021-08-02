@@ -96,18 +96,18 @@ export default {
   data () {
     return {
       paginatedData: this.initialPaginate(),
-      amountOfPages: Math.ceil(this.data.length / 6)
+      amountOfPages: Math.ceil(this.data.length / 10)
     }
   },
   methods: {
     Paginate (clickedpagenumber) {
       let currentPage = 0
-      let pagesToShow = 6
+      let pagesToShow = 10
       let pageCount = 1
       if (clickedpagenumber > 1) {
         while (pageCount < clickedpagenumber) {
-          currentPage += 6
-          pagesToShow += 6
+          currentPage += 10
+          pagesToShow += 10
           pageCount += 1
         }
       }
@@ -125,7 +125,7 @@ export default {
         const winnerDateB = new Date(b.transaction_date)
         return winnerDateB - winnerDateA
       })
-      return initialData.slice(0, 6)
+      return initialData.slice(0, 10)
     },
     amountDelimeter (amount) {
       return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
@@ -153,8 +153,8 @@ export default {
 .table-head {
   width: 100%;
   border-radius: 20px;
-  max-height: 520px;
-  overflow-y: auto;
+  /* max-height: 520px;
+  overflow-y: auto; */
 }
 table {
   table-layout: auto;

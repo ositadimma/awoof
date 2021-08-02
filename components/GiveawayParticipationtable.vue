@@ -40,15 +40,31 @@
               {{ participant.user.email }}
             </td>
             <td>
-              {{ participant.user.twitter !== '' ? participant.user.twitter : 'nil' }}
+              {{
+                participant.user.twitter !== ""
+                  ? participant.user.twitter
+                  : "nil"
+              }}
             </td>
             <td>
-              {{ participant.user.facebook !== '' ? participant.user.facebook : 'nil' }}
+              {{
+                participant.user.facebook !== ""
+                  ? participant.user.facebook
+                  : "nil"
+              }}
             </td>
             <td>
-              {{ participant.user.instagram !== '' ? participant.user.instagram : 'nil' }}
+              {{
+                participant.user.instagram !== ""
+                  ? participant.user.instagram
+                  : "nil"
+              }}
             </td>
-            <td v-if="participant.user.giveawaysAmountWon > 0" data-title="Task Completion" class="Task">
+            <td
+              v-if="participant.user.giveawaysAmountWon > 0"
+              data-title="Task Completion"
+              class="Task"
+            >
               Yes
             </td>
             <td v-else data-title="Task Completion" class="Task">
@@ -153,7 +169,9 @@ export default {
         )
         this.customWinners = newCustomWinners
       } else {
-        const validate = this.customWinners.some(user => userUuid === user.user_id)
+        const validate = this.customWinners.some(
+          user => userUuid === user.user_id
+        )
         if (!validate) {
           this.customWinners.push({
             user_id: userUuid
@@ -190,7 +208,9 @@ export default {
 
           if (err.response !== undefined) {
             if (err.response.status === 400) {
-              this.$toast.global.custom_error(err.response.data || err.response.data.message)
+              this.$toast.global.custom_error(
+                err.response.data || err.response.data.message
+              )
             } else if (err.response.status === 403) {
               this.$toast.global.custom_error(err.response.data)
             }
@@ -213,8 +233,8 @@ export default {
 .table-head {
   width: 100%;
   border-radius: 20px;
-  max-height: 500px;
-  overflow-y: auto;
+  /* max-height: 500px;
+  overflow-y: auto; */
 }
 table {
   table-layout: auto;
@@ -281,7 +301,7 @@ tbody tr:nth-child(odd) {
   cursor: pointer;
 }
 /* custom checkbox */
-input[type='checkbox'] {
+input[type="checkbox"] {
   padding: 0;
   height: initial;
   width: initial;
@@ -304,7 +324,7 @@ input[type='checkbox'] {
 }
 
 .checkbox label:before {
-  content: '';
+  content: "";
   -webkit-appearance: none;
   background: #ffffff;
   border: 1px solid #8692a6;
@@ -319,13 +339,13 @@ input[type='checkbox'] {
   cursor: pointer;
 }
 
-.checkbox input[type='checkbox']:checked + label:before {
+.checkbox input[type="checkbox"]:checked + label:before {
   background: #09ab5d;
   border: none;
 }
 
-.checkbox input[type='checkbox']:checked + label:after {
-  content: '';
+.checkbox input[type="checkbox"]:checked + label:after {
+  content: "";
   position: absolute;
   top: 3px;
   left: 6px;

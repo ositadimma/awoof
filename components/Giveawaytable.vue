@@ -146,9 +146,9 @@ export default {
   data () {
     return {
       // paginatedData: [],
-      // amountOfPages: Math.ceil(this.data.length / 6),
+      // amountOfPages: Math.ceil(this.data.length / 10),
       currentPage: 0,
-      pagesToShow: 6,
+      pagesToShow: 10,
       status: 'Ongoing',
       giveawayId: '',
       giveawayHidden: false
@@ -159,7 +159,7 @@ export default {
       return this.$store.state.popUpOpen
     },
     amountOfPages () {
-      return Math.ceil(this.data.length / 6)
+      return Math.ceil(this.data.length / 10)
     },
     initialPaginate () {
       // eslint-disable-next-line vue/no-side-effects-in-computed-properties
@@ -186,12 +186,12 @@ export default {
   methods: {
     Paginate (clickedpagenumber) {
       this.currentPage = 0
-      this.pagesToShow = 6
+      this.pagesToShow = 10
       let pageCount = 1
       if (clickedpagenumber > 1) {
         while (pageCount < clickedpagenumber) {
-          this.currentPage += 6
-          this.pagesToShow += 6
+          this.currentPage += 10
+          this.pagesToShow += 10
           pageCount += 1
         }
       }
@@ -235,8 +235,8 @@ export default {
 .table-head {
   width: 100%;
   border-radius: 20px;
-  max-height: 500px;
-  overflow-y: auto;
+  /* max-height: 500px;
+  overflow-y: auto; */
 }
 table {
   table-layout: auto;

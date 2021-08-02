@@ -87,18 +87,18 @@ export default {
   data () {
     return {
       paginatedData: this.initialPaginate(),
-      amountOfPages: Math.ceil(this.data.length / 6)
+      amountOfPages: Math.ceil(this.data.length / 10)
     }
   },
   methods: {
     Paginate (clickedpagenumber) {
       let currentPage = 0
-      let pagesToShow = 6
+      let pagesToShow = 10
       let pageCount = 1
       if (clickedpagenumber > 1) {
         while (pageCount < clickedpagenumber) {
-          currentPage += 6
-          pagesToShow += 6
+          currentPage += 10
+          pagesToShow += 10
           pageCount += 1
         }
       }
@@ -117,7 +117,7 @@ export default {
         const referralDateB = new Date(b.signupDate)
         return referralDateB - referralDateA
       })
-      return initialData.slice(0, 6)
+      return initialData.slice(0, 10)
     },
     format_date (value) {
       const today = new Date().getTime()
@@ -142,8 +142,8 @@ export default {
 .table-head {
   width: 100%;
   border-radius: 20px;
-  max-height: 500px;
-  overflow-y: auto;
+  /* max-height: 500px;
+  overflow-y: auto; */
   overflow-x: hidden;
 }
 table {

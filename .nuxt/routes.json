@@ -3,96 +3,112 @@
     "name": "newgiveaway",
     "path": "/newgiveaway",
     "component": "/Users/mac/Documents/Acumen/Awoof-dashboard/pages/newgiveaway/index.vue",
-    "chunkName": "pages/newgiveaway/index"
+    "chunkName": "pages/newgiveaway/index",
+    "_name": "_a842c33c"
   },
   {
     "name": "referrals",
     "path": "/referrals",
     "component": "/Users/mac/Documents/Acumen/Awoof-dashboard/pages/referrals/index.vue",
-    "chunkName": "pages/referrals/index"
+    "chunkName": "pages/referrals/index",
+    "_name": "_0a136e0e"
   },
   {
     "name": "reservedusers",
     "path": "/reservedusers",
     "component": "/Users/mac/Documents/Acumen/Awoof-dashboard/pages/reservedusers/index.vue",
-    "chunkName": "pages/reservedusers/index"
+    "chunkName": "pages/reservedusers/index",
+    "_name": "_3f9c9be3"
   },
   {
     "name": "settings",
     "path": "/settings",
     "component": "/Users/mac/Documents/Acumen/Awoof-dashboard/pages/settings/index.vue",
-    "chunkName": "pages/settings/index"
+    "chunkName": "pages/settings/index",
+    "_name": "_ced65cd4"
   },
   {
     "name": "socialaccounts",
     "path": "/socialaccounts",
     "component": "/Users/mac/Documents/Acumen/Awoof-dashboard/pages/socialaccounts.vue",
-    "chunkName": "pages/socialaccounts"
+    "chunkName": "pages/socialaccounts",
+    "_name": "_cca1b4fa"
   },
   {
     "name": "transactions",
     "path": "/transactions",
     "component": "/Users/mac/Documents/Acumen/Awoof-dashboard/pages/transactions/index.vue",
-    "chunkName": "pages/transactions/index"
+    "chunkName": "pages/transactions/index",
+    "_name": "_99c50770"
   },
   {
     "name": "users",
     "path": "/users",
     "component": "/Users/mac/Documents/Acumen/Awoof-dashboard/pages/users/index.vue",
-    "chunkName": "pages/users/index"
+    "chunkName": "pages/users/index",
+    "_name": "_536b77ea"
   },
   {
     "name": "giveaways-givers",
     "path": "/giveaways/givers",
     "component": "/Users/mac/Documents/Acumen/Awoof-dashboard/pages/giveaways/givers/index.vue",
-    "chunkName": "pages/giveaways/givers/index"
+    "chunkName": "pages/giveaways/givers/index",
+    "_name": "_622a49a0"
   },
   {
     "name": "giveaways-winners",
     "path": "/giveaways/winners",
     "component": "/Users/mac/Documents/Acumen/Awoof-dashboard/pages/giveaways/winners/index.vue",
-    "chunkName": "pages/giveaways/winners/index"
+    "chunkName": "pages/giveaways/winners/index",
+    "_name": "_10f466c8"
   },
   {
     "name": "user-login",
     "path": "/user/login",
     "component": "/Users/mac/Documents/Acumen/Awoof-dashboard/pages/user/login.vue",
-    "chunkName": "pages/user/login"
+    "chunkName": "pages/user/login",
+    "_name": "_f44c0356"
   },
   {
     "name": "giveaways-givers-id",
     "path": "/giveaways/givers/:id",
     "component": "/Users/mac/Documents/Acumen/Awoof-dashboard/pages/giveaways/givers/_id.vue",
-    "chunkName": "pages/giveaways/givers/_id"
+    "chunkName": "pages/giveaways/givers/_id",
+    "_name": "_78fe3408"
   },
   {
     "name": "giveaways-winners-id",
     "path": "/giveaways/winners/:id",
     "component": "/Users/mac/Documents/Acumen/Awoof-dashboard/pages/giveaways/winners/_id.vue",
-    "chunkName": "pages/giveaways/winners/_id"
+    "chunkName": "pages/giveaways/winners/_id",
+    "_name": "_74164604"
   },
   {
     "name": "referrals-id",
     "path": "/referrals/:id",
     "component": "/Users/mac/Documents/Acumen/Awoof-dashboard/pages/referrals/_id.vue",
-    "chunkName": "pages/referrals/_id"
+    "chunkName": "pages/referrals/_id",
+    "_name": "_e97794be"
   },
   {
     "name": "transactions-id",
     "path": "/transactions/:id",
     "component": "/Users/mac/Documents/Acumen/Awoof-dashboard/pages/transactions/_id.vue",
-    "chunkName": "pages/transactions/_id"
+    "chunkName": "pages/transactions/_id",
+    "_name": "_f2241ea0"
   },
   {
     "name": "users-id",
     "path": "/users/:id",
     "component": "/Users/mac/Documents/Acumen/Awoof-dashboard/pages/users/_id.vue",
-    "chunkName": "pages/users/_id"
+    "chunkName": "pages/users/_id",
+    "_name": "_21c0659a"
   },
   {
     "name": "index",
     "path": "/",
     "component": "/Users/mac/Documents/Acumen/Awoof-dashboard/pages/index.vue",
-    "chunkName": "pages/index"
+    "chunkName": "pages/index",
+    "_name": "_b11aad5c"
   }
 ]
