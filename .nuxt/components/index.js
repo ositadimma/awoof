@@ -18,6 +18,7 @@ export { default as MobileDashboardSideBar } from '../../components/MobileDashbo
 export { default as Newmemberform } from '../../components/Newmemberform.vue'
 export { default as Newuserform } from '../../components/Newuserform.vue'
 export { default as NoTableData } from '../../components/NoTableData.vue'
+export { default as NotificationForm } from '../../components/NotificationForm.vue'
 export { default as Participationreport } from '../../components/Participationreport.vue'
 export { default as Piechart } from '../../components/Piechart.vue'
 export { default as Referralform } from '../../components/Referralform.vue'
@@ -67,6 +68,7 @@ export const LazyMobileDashboardSideBar = import('../../components/MobileDashboa
 export const LazyNewmemberform = import('../../components/Newmemberform.vue' /* webpackChunkName: "components/Newmemberform" */).then(c => c.default || c)
 export const LazyNewuserform = import('../../components/Newuserform.vue' /* webpackChunkName: "components/Newuserform" */).then(c => c.default || c)
 export const LazyNoTableData = import('../../components/NoTableData.vue' /* webpackChunkName: "components/NoTableData" */).then(c => c.default || c)
+export const LazyNotificationForm = import('../../components/NotificationForm.vue' /* webpackChunkName: "components/NotificationForm" */).then(c => c.default || c)
 export const LazyParticipationreport = import('../../components/Participationreport.vue' /* webpackChunkName: "components/Participationreport" */).then(c => c.default || c)
 export const LazyPiechart = import('../../components/Piechart.vue' /* webpackChunkName: "components/Piechart" */).then(c => c.default || c)
 export const LazyReferralform = import('../../components/Referralform.vue' /* webpackChunkName: "components/Referralform" */).then(c => c.default || c)

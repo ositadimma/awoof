@@ -107,6 +107,13 @@
         <span>Referrals</span>
       </nuxt-link>
       <nuxt-link
+        :class="currentPath.includes('notifications') ? 'active' : 'inactive'"
+        to="/notifications"
+      >
+        <Referralsicon />
+        <span>Notifications</span>
+      </nuxt-link>
+      <nuxt-link
         :class="currentPath.includes('settings') ? 'active' : 'inactive'"
         to="/settings"
       >

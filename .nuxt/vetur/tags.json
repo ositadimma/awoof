@@ -119,6 +119,12 @@
   "LazyNoTableData": {
     "description": "Auto imported from components/NoTableData.vue"
   },
+  "NotificationForm": {
+    "description": "Auto imported from components/NotificationForm.vue"
+  },
+  "LazyNotificationForm": {
+    "description": "Auto imported from components/NotificationForm.vue"
+  },
   "Participationreport": {
     "description": "Auto imported from components/Participationreport.vue"
   },

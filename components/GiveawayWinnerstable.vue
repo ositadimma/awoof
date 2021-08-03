@@ -57,7 +57,7 @@
               No
             </td>
             <td data-title="Date Entered">
-              {{ format_date(winner.creadedAt) }}
+              {{ format_date(winner.createdAt) }}
             </td>
             <td class="View">
               <!-- <ArrowCircle /> -->

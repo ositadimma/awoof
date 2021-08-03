@@ -4,6 +4,7 @@ import { interopDefault } from './utils'
 import scrollBehavior from './router.scrollBehavior.js'
 
 const _a842c33c = () => interopDefault(import('../pages/newgiveaway/index.vue' /* webpackChunkName: "pages/newgiveaway/index" */))
+const _d3759bca = () => interopDefault(import('../pages/notification.vue' /* webpackChunkName: "pages/notification" */))
 const _0a136e0e = () => interopDefault(import('../pages/referrals/index.vue' /* webpackChunkName: "pages/referrals/index" */))
 const _3f9c9be3 = () => interopDefault(import('../pages/reservedusers/index.vue' /* webpackChunkName: "pages/reservedusers/index" */))
 const _ced65cd4 = () => interopDefault(import('../pages/settings/index.vue' /* webpackChunkName: "pages/settings/index" */))
@@ -40,6 +41,10 @@ export const routerOptions = {
     path: "/newgiveaway",
     component: _a842c33c,
     name: "newgiveaway"
+  }, {
+    path: "/notification",
+    component: _d3759bca,
+    name: "notification"
   }, {
     path: "/referrals",
     component: _0a136e0e,
