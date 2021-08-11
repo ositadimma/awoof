@@ -27,7 +27,8 @@ export default {
 }
 
 .logo {
-  margin: 5rem 0 49px;
+  width: 200px;
+  margin: 2rem 0 49px;
 }
 
 @media (min-width: 1025px) {
