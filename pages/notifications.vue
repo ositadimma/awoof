@@ -15,7 +15,7 @@
 import NotificationForm from '~/components/NotificationForm'
 
 export default {
-  name: 'Notification',
+  name: 'Notifications',
   layout: 'dashboardLayout',
   components: {
     NotificationForm
@@ -28,8 +28,7 @@ export default {
   },
   created () {
     this.$store.commit('setLayout', 'Notification') // changes layout title of dashboard header
-  },
-  methods: {}
+  }
 }
 </script>
 

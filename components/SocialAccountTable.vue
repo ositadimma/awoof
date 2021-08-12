@@ -139,8 +139,8 @@ export default {
 .table-head {
   width: 100%;
   border-radius: 20px;
-  /* max-height: 500px;
-  overflow-y: auto; */
+  /* max-height: 500px; */
+  overflow-y: auto;
 }
 table {
   table-layout: auto;
@@ -249,9 +249,9 @@ p {
     justify-content: space-between;
     padding: 0px;
   }
-  td:last-child {
+  /* td:last-child {
     justify-content: center;
-  }
+  } */
   td::before {
     content: attr(data-title);
   }

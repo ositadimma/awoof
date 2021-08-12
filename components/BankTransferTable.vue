@@ -147,8 +147,8 @@ export default {
 .table-head {
   width: 100%;
   border-radius: 20px;
-  /* max-height: 520px;
-  overflow-y: auto; */
+  /* max-height: 520px; */
+  overflow-y: auto;
 }
 table {
   table-layout: auto;

@@ -1,14 +1,16 @@
 <template>
   <div class="form">
-    <label>Message Body</label>
-    <textarea v-model="text" />
-    <button v-show="!loading" class="disable-1 btn-cmpt">
+    <label>Subject</label>
+    <input v-model="title" type="text">
+    <label>Body</label>
+    <textarea v-model="body" />
+    <button v-show="!validate && !loading" class="disable-1 btn-cmpt" disabled>
       Send
     </button>
     <button
       v-show="validate && !loading"
       class="btn-cmpt"
-      @click="changePassword"
+      @click="pushNotification()"
     >
       Send
     </button>
@@ -24,8 +26,40 @@ export default {
   name: 'Notificationform',
   data () {
     return {
-      text: '',
-      loading: false
+      loading: false,
+      body: '',
+      title: ''
+    }
+  },
+  computed: {
+    validate () {
+      return this.title !== '' && this.body !== ''
+    }
+  },
+  methods: {
+    async pushNotification () {
+      this.loading = true
+      try {
+        await this.$axios.$post(
+          '/admins/create_notification',
+          {
+            title: this.title,
+            body: this.body
+          }
+        )
+
+        this.loading = false
+      } catch (err) {
+        this.loading = false
+        if (err.message.includes('Network')) {
+          this.$toast.global.custom_error(
+            'please check your connection and try again'
+          )
+        }
+        if (err.response !== undefined && err.response.status === 400) {
+          this.$toast.global.custom_error(err.response.data.message)
+        }
+      }
     }
   }
 }
@@ -43,6 +77,11 @@ label {
   line-height: 23px;
   color: #696f79;
   margin-bottom: 11px;
+}
+input {
+  margin-bottom: 16px;
+  height: 40px;
+  padding-left: 1rem;
 }
 textarea {
   padding: 1rem;
