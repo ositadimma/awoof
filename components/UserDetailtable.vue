@@ -11,8 +11,8 @@
           {{
             userDetail.firstName !== undefined ||
               userDetail.lastName !== undefined
-              ? userDetail.firstName + ' ' + userDetail.lastName
-              : 'nil'
+              ? userDetail.firstName + " " + userDetail.lastName
+              : "nil"
           }}
         </div>
       </div>
@@ -21,7 +21,7 @@
           Email
         </div>
         <div class="td" data-title="Email">
-          {{ userDetail.email !== undefined ? userDetail.email : 'nil' }}
+          {{ userDetail.email !== undefined ? userDetail.email : "nil" }}
         </div>
       </div>
       <div class="user-grid">
@@ -32,7 +32,7 @@
           {{
             userDetail.phoneNumber !== undefined
               ? userDetail.phoneNumber
-              : 'nil'
+              : "nil"
           }}
         </div>
       </div>
@@ -41,11 +41,16 @@
           Balance
         </div>
         <div class="td" data-title="Balance">
-          {{
-            userDetail.balance !== undefined
-              ? amountDelimeter(userDetail.balance)
-              : 'nil'
-          }}
+          <div class="inner">
+            {{
+              userDetail.balance !== undefined
+                ? amountDelimeter(userDetail.balance)
+                : "nil"
+            }}
+            <button class="btn-cmpt secondary deduct-btn" @click="$emit('open-deduct-balance')">
+              Deduct balance
+            </button>
+          </div>
         </div>
       </div>
       <div class="user-grid">
@@ -56,7 +61,7 @@
           {{
             userDetail.signupDate !== undefined
               ? format_date(userDetail.signupDate)
-              : 'nil'
+              : "nil"
           }}
         </div>
       </div>
@@ -75,9 +80,9 @@
           {{
             userDetail.isActive !== undefined
               ? userDetail.isActive
-                ? 'Active'
-                : 'InActive'
-              : 'nil'
+                ? "Active"
+                : "InActive"
+              : "nil"
           }}
         </div>
       </div>
@@ -86,7 +91,7 @@
           Stars
         </div>
         <div class="td" data-title="Stars">
-          {{ userDetail.stars !== undefined ? userDetail.stars : 'nil' }}
+          {{ userDetail.stars !== undefined ? userDetail.stars : "nil" }}
         </div>
       </div>
       <div class="user-grid">
@@ -97,7 +102,7 @@
           {{
             userDetail.giveawaysWon !== undefined
               ? amountDelimeter(userDetail.giveawaysWon)
-              : 'nil'
+              : "nil"
           }}
         </div>
       </div>
@@ -107,7 +112,7 @@
         </div>
         <div class="td" data-title="Followers">
           {{
-            userDetail.followers !== undefined ? userDetail.followers : 'nil'
+            userDetail.followers !== undefined ? userDetail.followers : "nil"
           }}
         </div>
       </div>
@@ -117,7 +122,7 @@
         </div>
         <div class="td" data-title="Following">
           {{
-            userDetail.following !== undefined ? userDetail.following : 'nil'
+            userDetail.following !== undefined ? userDetail.following : "nil"
           }}
         </div>
       </div>
@@ -126,7 +131,7 @@
           Location
         </div>
         <div class="td" data-title="Location">
-          {{ userDetail.location !== undefined ? userDetail.location : 'nil' }}
+          {{ userDetail.location !== undefined ? userDetail.location : "nil" }}
         </div>
       </div>
       <div class="user-grid">
@@ -134,7 +139,11 @@
           Twitter
         </div>
         <div class="td" data-title="Location">
-          {{ socialMediaAccountDetail.twitter !== undefined ? socialMediaAccountDetail.twitter : 'nil' }}
+          {{
+            socialMediaAccountDetail.twitter !== undefined
+              ? socialMediaAccountDetail.twitter
+              : "nil"
+          }}
         </div>
       </div>
       <div class="user-grid">
@@ -142,7 +151,11 @@
           Instagram
         </div>
         <div class="td" data-title="Location">
-          {{ socialMediaAccountDetail.instagram !== undefined ? socialMediaAccountDetail.instagram : 'nil' }}
+          {{
+            socialMediaAccountDetail.instagram !== undefined
+              ? socialMediaAccountDetail.instagram
+              : "nil"
+          }}
         </div>
       </div>
       <div class="user-grid">
@@ -150,7 +163,11 @@
           Facebook
         </div>
         <div class="td" data-title="Location">
-          {{ socialMediaAccountDetail.facebook !== undefined ? socialMediaAccountDetail.facebook : 'nil' }}
+          {{
+            socialMediaAccountDetail.facebook !== undefined
+              ? socialMediaAccountDetail.facebook
+              : "nil"
+          }}
         </div>
       </div>
       <div class="user-grid">
@@ -158,7 +175,11 @@
           Total Surprise
         </div>
         <div class="td" data-title="Location">
-          {{ socialMediaAccountDetail.totalSuprise !== undefined ? socialMediaAccountDetail.totalSuprise.amount : '0' }}
+          {{
+            socialMediaAccountDetail.totalSuprise !== undefined
+              ? socialMediaAccountDetail.totalSuprise.amount
+              : "0"
+          }}
         </div>
       </div>
     </div>
@@ -256,7 +277,7 @@ hr {
   border-radius: 3px;
   margin: 0px 3.8% 0px auto;
 }
-input[type='text'] {
+input[type="text"] {
   color: #000000;
   font-size: 12px;
   width: 80%;
@@ -368,6 +389,15 @@ td {
   font-size: 12px;
   color: #083577;
 }
+.deduct-btn {
+  transform: scale(0.7);
+  transform-origin: left;
+  margin-left: 0.2rem;
+}
+.td .inner {
+  display: flex;
+  align-items: center;
+}
 @media (max-width: 950px) {
   .body {
     width: 100%;
@@ -413,6 +443,11 @@ td {
   .user-grid .td::before {
     content: attr(data-title);
     color: #000000;
+  }
+  .deduct-btn {
+    transform: scale(1);
+    font-size: 10px;
+    /* transform-origin: right; */
   }
 }
 </style>

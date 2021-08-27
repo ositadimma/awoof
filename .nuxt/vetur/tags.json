@@ -41,6 +41,12 @@
   "LazyDashboardchart": {
     "description": "Auto imported from components/Dashboardchart.vue"
   },
+  "DeductBalanceForm": {
+    "description": "Auto imported from components/DeductBalanceForm.vue"
+  },
+  "LazyDeductBalanceForm": {
+    "description": "Auto imported from components/DeductBalanceForm.vue"
+  },
   "GiveawayFulldetails": {
     "description": "Auto imported from components/GiveawayFulldetails.vue"
   },

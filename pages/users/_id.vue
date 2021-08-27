@@ -26,11 +26,12 @@
 
     <div ref="details" class="details">
       <div class="details-child-1">
-        <UserDetailTable :user-detail="userDetail" :social-media-account-detail="socialMediaAccountDetail" />
+        <UserDetailTable :user-detail="userDetail" :social-media-account-detail="socialMediaAccountDetail" @open-deduct-balance="showDeductBalanceModal" />
       </div>
     </div>
     <UserForm v-show="modalOpen && modal == 'surprise'" />
     <UserStar v-show="modalOpen && modal == 'star'" />
+    <DeductBalanceForm v-show="modalOpen && modal == 'deductbalance'" />
   </div>
 </template>
 
@@ -105,6 +106,10 @@ export default {
     showSurpriseModal () {
       this.$store.commit('setModalOpen', true)
       this.modal = 'surprise'
+    },
+    showDeductBalanceModal () {
+      this.$store.commit('setModalOpen', true)
+      this.modal = 'deductbalance'
     }
   }
 }

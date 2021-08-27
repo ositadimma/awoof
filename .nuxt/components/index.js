@@ -5,6 +5,7 @@ export { default as DashboardHeader } from '../../components/DashboardHeader.vue
 export { default as DashboardSideBar } from '../../components/DashboardSideBar.vue'
 export { default as DashboardTable } from '../../components/DashboardTable.vue'
 export { default as Dashboardchart } from '../../components/Dashboardchart.vue'
+export { default as DeductBalanceForm } from '../../components/DeductBalanceForm.vue'
 export { default as GiveawayFulldetails } from '../../components/GiveawayFulldetails.vue'
 export { default as GiveawayParticipationtable } from '../../components/GiveawayParticipationtable.vue'
 export { default as GiveawayWinnerstable } from '../../components/GiveawayWinnerstable.vue'
@@ -55,6 +56,7 @@ export const LazyDashboardHeader = import('../../components/DashboardHeader.vue'
 export const LazyDashboardSideBar = import('../../components/DashboardSideBar.vue' /* webpackChunkName: "components/DashboardSideBar" */).then(c => c.default || c)
 export const LazyDashboardTable = import('../../components/DashboardTable.vue' /* webpackChunkName: "components/DashboardTable" */).then(c => c.default || c)
 export const LazyDashboardchart = import('../../components/Dashboardchart.vue' /* webpackChunkName: "components/Dashboardchart" */).then(c => c.default || c)
+export const LazyDeductBalanceForm = import('../../components/DeductBalanceForm.vue' /* webpackChunkName: "components/DeductBalanceForm" */).then(c => c.default || c)
 export const LazyGiveawayFulldetails = import('../../components/GiveawayFulldetails.vue' /* webpackChunkName: "components/GiveawayFulldetails" */).then(c => c.default || c)
 export const LazyGiveawayParticipationtable = import('../../components/GiveawayParticipationtable.vue' /* webpackChunkName: "components/GiveawayParticipationtable" */).then(c => c.default || c)
 export const LazyGiveawayWinnerstable = import('../../components/GiveawayWinnerstable.vue' /* webpackChunkName: "components/GiveawayWinnerstable" */).then(c => c.default || c)
