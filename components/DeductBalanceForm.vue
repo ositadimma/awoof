@@ -65,7 +65,7 @@ export default {
           }
         )
         if (response) {
-          this.$toast.global.custom_success('User bonus awarded successfully')
+          this.$toast.global.custom_success('User bonus deducted successfully')
           this.$nuxt.refresh()
           this.closeModal()
         }
