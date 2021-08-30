@@ -66,7 +66,7 @@ export default {
   ],
 
   axios: {
-    baseURL: (process.env.NODE_ENV === 'production' ? 'https://awoof-api.herokuapp.com/v1' : 'https://backend.awoofapp.com/v1'),
+    baseURL: (process.env.NODE_ENV === 'development' ? 'https://awoof-api.herokuapp.com/v1' : 'https://backend.awoofapp.com/v1'),
     retry: { retries: 3 }
   },
 
