@@ -88,6 +88,7 @@ export default {
     async login () {
       this.loading = true
       try {
+        this.$axios.setHeader('Origin','https://effortless-manatee-0697fc.netlify.app')
         process.env.API_URL = 'https://pacific-plateau-95951.herokuapp.com/v1'
         const response = await this.$axios.$post(
           '/auth/admin',
