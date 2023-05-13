@@ -1,6 +1,22 @@
 <template>
   <div class="body">
-    <span>User Details</span>
+    <div class="header-container">
+      <span>User Details</span>
+      <div class="user-options">
+        <button class="btn-cmpt edit-btn" @click="$emit('open-edit-user')">
+          Edit User
+        </button>
+        <button v-if="userDetail.isSuspended" class="btn-cmpt suspend" @click="$emit('open-reinstate-user-dialog')">
+          Reinstate User
+        </button>
+        <button v-if="!userDetail.isSuspended" class="btn-cmpt suspend" @click="$emit('open-suspend-user-dialog')">
+          Suspend User
+        </button>
+        <button class="btn-cmpt delete" @click="$emit('open-delete-user-dialog')">
+          Delete User
+        </button>
+      </div>
+    </div>
     <hr>
     <div class="user-grid-container">
       <div class="user-grid">
@@ -71,7 +87,7 @@
         </div>
         <div
           :class="
-            userDetail.isActive !== undefined && userDetail.isActive
+            userDetail.isActive !== undefined && userDetail.isSuspended
               ? 'td active'
               : 'td inactive'
           "
@@ -262,12 +278,9 @@ hr {
   align-self: center;
 }
 .edit-btn {
-  width: 89px;
-  max-width: 89px;
-  max-height: 27px;
+  transform: scale(0.7);
   background: #e74d75;
-  border-radius: 10px;
-  margin: 0px 3.8% 0px auto;
+  width: 100px
 }
 .save-btn {
   width: 160px;
@@ -350,6 +363,25 @@ td {
 }
 .inactive {
   color: #fd0404 !important;
+}
+.header-container{
+  display: flex;
+  justify-content: space-between;
+}
+.user-options{
+  padding-top: 23px;
+  display: flex
+}
+
+.suspend {
+  background-color: #b17c0b !important;
+  transform: scale(0.7);
+  width: 110px
+}
+.delete {
+  background-color: #fd0404 !important;
+  transform: scale(0.7);
+  width: 100px
 }
 .ongoing {
   color: #e1931e;

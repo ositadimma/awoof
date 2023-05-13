@@ -21,11 +21,6 @@
       "content": "awoof_dashboard"
     },
     {
-      "hid": "description",
-      "name": "description",
-      "content": "## Build Setup"
-    },
-    {
       "hid": "og:type",
       "name": "og:type",
       "property": "og:type",
@@ -42,12 +37,6 @@
       "name": "og:site_name",
       "property": "og:site_name",
       "content": "awoof_dashboard"
-    },
-    {
-      "hid": "og:description",
-      "name": "og:description",
-      "property": "og:description",
-      "content": "## Build Setup"
     }
   ],
   "link": [
@@ -62,7 +51,7 @@
     },
     {
       "rel": "manifest",
-      "href": "/_nuxt/manifest.0a31451d.json",
+      "href": "/_nuxt/manifest.7ae9dd0e.json",
       "hid": "manifest"
     }
   ],

@@ -66,7 +66,7 @@ export default {
   ],
 
   axios: {
-    baseURL: (process.env.NODE_ENV === 'development' ? 'https://awoof-api.herokuapp.com/v1' : 'https://backend.awoofapp.com/v1'),
+    baseURL: 'https://pacific-plateau-95951.herokuapp.com/v1',//'http://localhost:10000/v1',//(process.env.NODE_ENV === 'http://localhost:10000/v1'),'development' ? 'https://awoof-api.herokuapp.com/v1' : 'https://backend.awoofapp.com/v1'),
     retry: { retries: 3 }
   },
 

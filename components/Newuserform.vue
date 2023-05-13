@@ -74,7 +74,7 @@
         <input v-model="phonenumber" type="text" placeholder="Please Enter">
         <label class="locationlabel">Referral Code</label>
         <input v-model="referralCode" type="text" placeholder="Please Enter">
-        <button v-show="!validate && !loading" class="disable-1 btn-cmpt">
+        <button v-show="!validate && !loading" class="btn-cmpt" @click="createAdmin">
           Create Account
         </button>
         <button
@@ -97,7 +97,7 @@
 import Cookies from 'js-cookie'
 import vClickOutside from 'v-click-outside'
 export default {
-  name: 'Newmemberform',
+  name: 'Newuserform',
   directives: {
     clickOutside: vClickOutside.directive
   },
@@ -213,7 +213,8 @@ export default {
         )
         if (response) {
           this.$toast.global.custom_success('User created')
-          this.$nuxt.refresh()
+          this.$router.push('/usersrefresh')
+          // this.$nuxt.refresh()
           this.setDataToDefault()
           this.$store.commit('setModalOpen', false)
         }

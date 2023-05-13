@@ -150,8 +150,8 @@ export default (ctx, inject) => {
   const runtimeConfig = ctx.$config && ctx.$config.axios || {}
   // baseURL
   const baseURL = process.browser
-    ? (runtimeConfig.browserBaseURL || runtimeConfig.baseURL || 'https://backend.awoofapp.com/v1')
-      : (runtimeConfig.baseURL || process.env._AXIOS_BASE_URL_ || 'https://backend.awoofapp.com/v1')
+    ? (runtimeConfig.browserBaseURL || runtimeConfig.baseURL || 'https://pacific-plateau-95951.herokuapp.com/v1')
+      : (runtimeConfig.baseURL || process.env._AXIOS_BASE_URL_ || 'https://pacific-plateau-95951.herokuapp.com/v1')
 
   // Create fresh objects for all default header scopes
   // Axios creates only one which is shared across SSR requests!

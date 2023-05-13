@@ -46,6 +46,7 @@
 <script>
 import vClickOutside from 'v-click-outside'
 import Cookies from 'js-cookie'
+// import axios from '../../.nuxt/axios'
 export default {
   name: 'Login',
   layout: 'loginLayout',
@@ -87,6 +88,7 @@ export default {
     async login () {
       this.loading = true
       try {
+        process.env.API_URL = 'https://pacific-plateau-95951.herokuapp.com/v1'
         const response = await this.$axios.$post(
           '/auth/admin',
           {

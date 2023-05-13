@@ -9,6 +9,7 @@
         >
         <span>Back</span>
       </div>
+      <span v-if="userDetail.isSuspended" class="red">(User Suspended)</span>
       <button class="btn-cmpt primary" @click="showStarModal">
         Add Star
       </button>
@@ -26,18 +27,29 @@
 
     <div ref="details" class="details">
       <div class="details-child-1">
-        <UserDetailTable :user-detail="userDetail" :social-media-account-detail="socialMediaAccountDetail" @open-deduct-balance="showDeductBalanceModal" />
+        <UserDetailTable
+          :user-detail="userDetail"
+          :social-media-account-detail="socialMediaAccountDetail"
+          @open-deduct-balance="showDeductBalanceModal"
+          @open-edit-user="showEditUserFormModal"
+          @open-suspend-user-dialog="showSuspendUserDialogModal"
+          @open-reinstate-user-dialog="showReinstateUserDialogModal"
+          @open-delete-user-dialog="showDeleteUserDialogModal"
+        />
       </div>
     </div>
+    <UserDialog v-show="modalOpen && modal == 'userDialog'" :detail="detail" :user-detail="userDetail" />
     <UserForm v-show="modalOpen && modal == 'surprise'" />
     <UserStar v-show="modalOpen && modal == 'star'" />
     <DeductBalanceForm v-show="modalOpen && modal == 'deductbalance'" />
+    <EditUserForm v-show="modalOpen && modal == 'edituserform'" :user-detail="userDetail" />
   </div>
 </template>
 
 <script>
 import Cookies from 'js-cookie'
 import UserDetailTable from '~/components/UserDetailtable'
+import UserDialog from '~/components/UserDialog'
 import UserForm from '~/components/Userform'
 import UserStar from '~/components/Userstar'
 
@@ -47,7 +59,8 @@ export default {
   components: {
     UserDetailTable,
     UserForm,
-    UserStar
+    UserStar,
+    UserDialog
   },
   async asyncData ({ $axios, $toast, params }) {
     $axios.setHeader('x-auth-token', Cookies.get('token'))
@@ -79,12 +92,14 @@ export default {
       userDetail:
         userDetailResponse !== undefined ? userDetailResponse.data : {},
       socialMediaAccountDetail: socialMediaAccountResponse.data !== undefined ? socialMediaAccountResponse.data[0] : {},
-      totalSuprise: totalSupriseResponse !== undefined ? totalSupriseResponse.data : []
+      totalSuprise: totalSupriseResponse !== undefined ? totalSupriseResponse.data : [],
+      detail: 'suspend'
     }
   },
   data () {
     return {
-      modal: 'star'
+      modal: 'star',
+      detail: 'suspend'
     }
   },
   computed: {
@@ -110,6 +125,25 @@ export default {
     showDeductBalanceModal () {
       this.$store.commit('setModalOpen', true)
       this.modal = 'deductbalance'
+    },
+    showEditUserFormModal () {
+      this.$store.commit('setModalOpen', true)
+      this.modal = 'edituserform'
+    },
+    showSuspendUserDialogModal () {
+      this.$store.commit('setModalOpen', true)
+      this.detail = 'suspend'
+      this.modal = 'userDialog'
+    },
+    showReinstateUserDialogModal () {
+      this.$store.commit('setModalOpen', true)
+      this.detail = 'reinstate'
+      this.modal = 'userDialog'
+    },
+    showDeleteUserDialogModal () {
+      this.$store.commit('setModalOpen', true)
+      this.modal = 'userDialog'
+      this.detail = 'delete'
     }
   }
 }
@@ -151,6 +185,12 @@ export default {
   color: #75759e;
   margin-left: 11px;
   padding-top: 3px;
+}
+.red{
+  color: #fd0404 !important;
+  font-size: 18px !important;
+  margin-right: 15px;
+  width: 150px;
 }
 .btn-cmpt {
   width: 175px;

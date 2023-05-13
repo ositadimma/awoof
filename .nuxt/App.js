@@ -1,14 +1,14 @@
 import Vue from 'vue'
 
 import { getMatchedComponentsInstances, getChildrenComponentInstancesUsingFetch, promisify, globalHandleError, urlJoin, sanitizeComponent } from './utils'
-import NuxtError from '../layouts/error.vue'
+import NuxtError from '..\\layouts\\error.vue'
 import NuxtLoading from './components/nuxt-loading.vue'
 
-import '../assets/styles/global.css'
+import '..\\assets\\styles\\global.css'
 
-import _39cadc28 from '../layouts/dashboardLayout.vue'
-import _6f6c098b from '../layouts/default.vue'
-import _89033b86 from '../layouts/loginLayout.vue'
+import _39cadc28 from '..\\layouts\\dashboardLayout.vue'
+import _6f6c098b from '..\\layouts\\default.vue'
+import _89033b86 from '..\\layouts\\loginLayout.vue'
 
 const layouts = { "_dashboardLayout": sanitizeComponent(_39cadc28),"_default": sanitizeComponent(_6f6c098b),"_loginLayout": sanitizeComponent(_89033b86) }
 
