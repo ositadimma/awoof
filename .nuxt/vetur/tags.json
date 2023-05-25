@@ -47,6 +47,12 @@
   "LazyDeductBalanceForm": {
     "description": "Auto imported from components/DeductBalanceForm.vue"
   },
+  "DeleteRequest": {
+    "description": "Auto imported from components/DeleteRequest.vue"
+  },
+  "LazyDeleteRequest": {
+    "description": "Auto imported from components/DeleteRequest.vue"
+  },
   "EditUserForm": {
     "description": "Auto imported from components/EditUserForm.vue"
   },
@@ -208,6 +214,12 @@
   },
   "LazyTeamtable": {
     "description": "Auto imported from components/Teamtable.vue"
+  },
+  "TransferRequestsTable": {
+    "description": "Auto imported from components/TransferRequestsTable.vue"
+  },
+  "LazyTransferRequestsTable": {
+    "description": "Auto imported from components/TransferRequestsTable.vue"
   },
   "UserDetailtable": {
     "description": "Auto imported from components/UserDetailtable.vue"

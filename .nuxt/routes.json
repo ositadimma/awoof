@@ -3,108 +3,140 @@
     "name": "newgiveaway",
     "path": "/newgiveaway",
     "component": "C:\\\\Users\\\\user\\\\Documents\\\\projects\\\\xaoxig\\\\Awoof\\\\main2\\\\Awoof-dashboard\\\\pages\\\\newgiveaway\\\\index.vue",
-    "chunkName": "pages/newgiveaway/index"
+    "chunkName": "pages/newgiveaway/index",
+    "_name": "_07ed5206"
   },
   {
     "name": "notifications",
     "path": "/notifications",
     "component": "C:\\\\Users\\\\user\\\\Documents\\\\projects\\\\xaoxig\\\\Awoof\\\\main2\\\\Awoof-dashboard\\\\pages\\\\notifications.vue",
-    "chunkName": "pages/notifications"
+    "chunkName": "pages/notifications",
+    "_name": "_0077efae"
   },
   {
     "name": "referrals",
     "path": "/referrals",
     "component": "C:\\\\Users\\\\user\\\\Documents\\\\projects\\\\xaoxig\\\\Awoof\\\\main2\\\\Awoof-dashboard\\\\pages\\\\referrals\\\\index.vue",
-    "chunkName": "pages/referrals/index"
+    "chunkName": "pages/referrals/index",
+    "_name": "_941f5474"
   },
   {
     "name": "reservedusers",
     "path": "/reservedusers",
     "component": "C:\\\\Users\\\\user\\\\Documents\\\\projects\\\\xaoxig\\\\Awoof\\\\main2\\\\Awoof-dashboard\\\\pages\\\\reservedusers\\\\index.vue",
-    "chunkName": "pages/reservedusers/index"
+    "chunkName": "pages/reservedusers/index",
+    "_name": "_16fd531c"
   },
   {
     "name": "settings",
     "path": "/settings",
     "component": "C:\\\\Users\\\\user\\\\Documents\\\\projects\\\\xaoxig\\\\Awoof\\\\main2\\\\Awoof-dashboard\\\\pages\\\\settings\\\\index.vue",
-    "chunkName": "pages/settings/index"
+    "chunkName": "pages/settings/index",
+    "_name": "_19b720d6"
   },
   {
     "name": "socialaccounts",
     "path": "/socialaccounts",
     "component": "C:\\\\Users\\\\user\\\\Documents\\\\projects\\\\xaoxig\\\\Awoof\\\\main2\\\\Awoof-dashboard\\\\pages\\\\socialaccounts.vue",
-    "chunkName": "pages/socialaccounts"
+    "chunkName": "pages/socialaccounts",
+    "_name": "_1cab90fd"
   },
   {
     "name": "transactions",
     "path": "/transactions",
     "component": "C:\\\\Users\\\\user\\\\Documents\\\\projects\\\\xaoxig\\\\Awoof\\\\main2\\\\Awoof-dashboard\\\\pages\\\\transactions\\\\index.vue",
-    "chunkName": "pages/transactions/index"
+    "chunkName": "pages/transactions/index",
+    "_name": "_a3446fba"
+  },
+  {
+    "name": "transferrequests",
+    "path": "/transferrequests",
+    "component": "C:\\\\Users\\\\user\\\\Documents\\\\projects\\\\xaoxig\\\\Awoof\\\\main2\\\\Awoof-dashboard\\\\pages\\\\transferrequests\\\\index.vue",
+    "chunkName": "pages/transferrequests/index",
+    "_name": "_7b0e1189"
   },
   {
     "name": "users",
     "path": "/users",
     "component": "C:\\\\Users\\\\user\\\\Documents\\\\projects\\\\xaoxig\\\\Awoof\\\\main2\\\\Awoof-dashboard\\\\pages\\\\users\\\\index.vue",
-    "chunkName": "pages/users/index"
+    "chunkName": "pages/users/index",
+    "_name": "_4bc149f4"
   },
   {
     "name": "usersrefresh",
     "path": "/usersrefresh",
     "component": "C:\\\\Users\\\\user\\\\Documents\\\\projects\\\\xaoxig\\\\Awoof\\\\main2\\\\Awoof-dashboard\\\\pages\\\\usersrefresh\\\\index.vue",
-    "chunkName": "pages/usersrefresh/index"
+    "chunkName": "pages/usersrefresh/index",
+    "_name": "_5303cae5"
   },
   {
     "name": "giveaways-givers",
     "path": "/giveaways/givers",
     "component": "C:\\\\Users\\\\user\\\\Documents\\\\projects\\\\xaoxig\\\\Awoof\\\\main2\\\\Awoof-dashboard\\\\pages\\\\giveaways\\\\givers\\\\index.vue",
-    "chunkName": "pages/giveaways/givers/index"
+    "chunkName": "pages/giveaways/givers/index",
+    "_name": "_4ab042d6"
   },
   {
     "name": "giveaways-winners",
     "path": "/giveaways/winners",
     "component": "C:\\\\Users\\\\user\\\\Documents\\\\projects\\\\xaoxig\\\\Awoof\\\\main2\\\\Awoof-dashboard\\\\pages\\\\giveaways\\\\winners\\\\index.vue",
-    "chunkName": "pages/giveaways/winners/index"
+    "chunkName": "pages/giveaways/winners/index",
+    "_name": "_2b283dd8"
   },
   {
     "name": "user-login",
     "path": "/user/login",
     "component": "C:\\\\Users\\\\user\\\\Documents\\\\projects\\\\xaoxig\\\\Awoof\\\\main2\\\\Awoof-dashboard\\\\pages\\\\user\\\\login.vue",
-    "chunkName": "pages/user/login"
+    "chunkName": "pages/user/login",
+    "_name": "_04d49104"
   },
   {
     "name": "giveaways-givers-id",
     "path": "/giveaways/givers/:id",
     "component": "C:\\\\Users\\\\user\\\\Documents\\\\projects\\\\xaoxig\\\\Awoof\\\\main2\\\\Awoof-dashboard\\\\pages\\\\giveaways\\\\givers\\\\_id.vue",
-    "chunkName": "pages/giveaways/givers/_id"
+    "chunkName": "pages/giveaways/givers/_id",
+    "_name": "_b405fa84"
   },
   {
     "name": "giveaways-winners-id",
     "path": "/giveaways/winners/:id",
     "component": "C:\\\\Users\\\\user\\\\Documents\\\\projects\\\\xaoxig\\\\Awoof\\\\main2\\\\Awoof-dashboard\\\\pages\\\\giveaways\\\\winners\\\\_id.vue",
-    "chunkName": "pages/giveaways/winners/_id"
+    "chunkName": "pages/giveaways/winners/_id",
+    "_name": "_42dbd640"
   },
   {
     "name": "referrals-id",
     "path": "/referrals/:id",
     "component": "C:\\\\Users\\\\user\\\\Documents\\\\projects\\\\xaoxig\\\\Awoof\\\\main2\\\\Awoof-dashboard\\\\pages\\\\referrals\\\\_id.vue",
-    "chunkName": "pages/referrals/_id"
+    "chunkName": "pages/referrals/_id",
+    "_name": "_330511ae"
   },
   {
     "name": "transactions-id",
     "path": "/transactions/:id",
     "component": "C:\\\\Users\\\\user\\\\Documents\\\\projects\\\\xaoxig\\\\Awoof\\\\main2\\\\Awoof-dashboard\\\\pages\\\\transactions\\\\_id.vue",
-    "chunkName": "pages/transactions/_id"
+    "chunkName": "pages/transactions/_id",
+    "_name": "_25f5774b"
+  },
+  {
+    "name": "transferrequests-id",
+    "path": "/transferrequests/:id",
+    "component": "C:\\\\Users\\\\user\\\\Documents\\\\projects\\\\xaoxig\\\\Awoof\\\\main2\\\\Awoof-dashboard\\\\pages\\\\transferrequests\\\\_id.vue",
+    "chunkName": "pages/transferrequests/_id",
+    "_name": "_2cd4e231"
   },
   {
     "name": "users-id",
     "path": "/users/:id",
     "component": "C:\\\\Users\\\\user\\\\Documents\\\\projects\\\\xaoxig\\\\Awoof\\\\main2\\\\Awoof-dashboard\\\\pages\\\\users\\\\_id.vue",
-    "chunkName": "pages/users/_id"
+    "chunkName": "pages/users/_id",
+    "_name": "_317d8d48"
   },
   {
     "name": "index",
     "path": "/",
     "component": "C:\\\\Users\\\\user\\\\Documents\\\\projects\\\\xaoxig\\\\Awoof\\\\main2\\\\Awoof-dashboard\\\\pages\\\\index.vue",
-    "chunkName": "pages/index"
+    "chunkName": "pages/index",
+    "_name": "_6fba8c98"
   }
 ]

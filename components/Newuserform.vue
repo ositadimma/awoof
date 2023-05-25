@@ -11,13 +11,13 @@
       </div>
       <hr>
       <div class="form">
-        <label>First Name</label>
+        <label class="requiredlabel">First Name</label>
         <input v-model="firstname" type="text" placeholder="Please Enter">
-        <label>Last Name</label>
+        <label class="requiredlabel">Last Name</label>
         <input v-model="lastname" type="text" placeholder="Please Enter">
-        <label>Username</label>
+        <label class="requiredlabel">Username</label>
         <input v-model="username" type="text" placeholder="Please Enter">
-        <label>Password</label>
+        <label class="requiredlabel">Password</label>
 
         <div v-click-outside="removeFocus" class="input">
           <input
@@ -44,7 +44,7 @@
           >
         </div>
 
-        <label>Select Gender</label>
+        <label class="requiredlabel">Select Gender</label>
         <div
           v-click-outside="() => (selectGenderOpen = false)"
           :class="selectGenderOpen ? 'active-select select' : 'select'"
@@ -64,15 +64,15 @@
           </div>
         </div>
 
-        <label>Email Address</label>
+        <label class="requiredlabel">Email Address</label>
         <input v-model="email" type="email" placeholder="Please Enter">
-        <label>Date Of Birth</label>
+        <label class="requiredlabel">Date Of Birth</label>
         <input v-model="dateOfBirth" type="date" placeholder="Please Enter">
-        <label class="locationlabel">Location</label>
+        <label class="locationlabel requiredlabel">Location</label>
         <input v-model="location" type="text" placeholder="Please Enter">
-        <label>Phone Number</label>
+        <label class="requiredlabel">Phone Number</label>
         <input v-model="phonenumber" type="text" placeholder="Please Enter">
-        <label class="locationlabel">Referral Code</label>
+        <label class="reflabel">Referral Code</label>
         <input v-model="referralCode" type="text" placeholder="Please Enter">
         <button v-show="!validate && !loading" class="btn-cmpt" @click="createAdmin">
           Create Account
@@ -375,10 +375,15 @@ label {
   color: #696f79;
   margin-bottom: 11px;
 }
-label:after {
+.requiredlabel{
   content: '*';
   color: red;
 }
+
+/* label:after {
+  content: '*';
+  color: red;
+} */
 
 input[type='text'],
 input[type='date'],

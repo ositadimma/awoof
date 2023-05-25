@@ -10,6 +10,7 @@ const _16fd531c = () => interopDefault(import('..\\pages\\reservedusers\\index.v
 const _19b720d6 = () => interopDefault(import('..\\pages\\settings\\index.vue' /* webpackChunkName: "pages/settings/index" */))
 const _1cab90fd = () => interopDefault(import('..\\pages\\socialaccounts.vue' /* webpackChunkName: "pages/socialaccounts" */))
 const _a3446fba = () => interopDefault(import('..\\pages\\transactions\\index.vue' /* webpackChunkName: "pages/transactions/index" */))
+const _7b0e1189 = () => interopDefault(import('..\\pages\\transferrequests\\index.vue' /* webpackChunkName: "pages/transferrequests/index" */))
 const _4bc149f4 = () => interopDefault(import('..\\pages\\users\\index.vue' /* webpackChunkName: "pages/users/index" */))
 const _5303cae5 = () => interopDefault(import('..\\pages\\usersrefresh\\index.vue' /* webpackChunkName: "pages/usersrefresh/index" */))
 const _4ab042d6 = () => interopDefault(import('..\\pages\\giveaways\\givers\\index.vue' /* webpackChunkName: "pages/giveaways/givers/index" */))
@@ -19,6 +20,7 @@ const _b405fa84 = () => interopDefault(import('..\\pages\\giveaways\\givers\\_id
 const _42dbd640 = () => interopDefault(import('..\\pages\\giveaways\\winners\\_id.vue' /* webpackChunkName: "pages/giveaways/winners/_id" */))
 const _330511ae = () => interopDefault(import('..\\pages\\referrals\\_id.vue' /* webpackChunkName: "pages/referrals/_id" */))
 const _25f5774b = () => interopDefault(import('..\\pages\\transactions\\_id.vue' /* webpackChunkName: "pages/transactions/_id" */))
+const _2cd4e231 = () => interopDefault(import('..\\pages\\transferrequests\\_id.vue' /* webpackChunkName: "pages/transferrequests/_id" */))
 const _317d8d48 = () => interopDefault(import('..\\pages\\users\\_id.vue' /* webpackChunkName: "pages/users/_id" */))
 const _6fba8c98 = () => interopDefault(import('..\\pages\\index.vue' /* webpackChunkName: "pages/index" */))
 
@@ -67,6 +69,10 @@ export const routerOptions = {
     component: _a3446fba,
     name: "transactions"
   }, {
+    path: "/transferrequests",
+    component: _7b0e1189,
+    name: "transferrequests"
+  }, {
     path: "/users",
     component: _4bc149f4,
     name: "users"
@@ -102,6 +108,10 @@ export const routerOptions = {
     path: "/transactions/:id",
     component: _25f5774b,
     name: "transactions-id"
+  }, {
+    path: "/transferrequests/:id",
+    component: _2cd4e231,
+    name: "transferrequests-id"
   }, {
     path: "/users/:id",
     component: _317d8d48,

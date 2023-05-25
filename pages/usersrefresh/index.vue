@@ -6,6 +6,7 @@
 
 export default {
   name: 'Usersrefresh',
+  layout: 'dashboardLayout',
   data () {
     return {
       key: 0

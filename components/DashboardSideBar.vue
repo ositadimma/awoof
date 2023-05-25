@@ -100,6 +100,13 @@
         <span>Transactions</span>
       </nuxt-link>
       <nuxt-link
+        :class="currentPath.includes('transferrequests') ? 'active' : 'inactive'"
+        to="/transferrequests"
+      >
+        <Transactionsicon />
+        <span>Transfer Requests</span>
+      </nuxt-link>
+      <nuxt-link
         :class="currentPath.includes('referrals') ? 'active' : 'inactive'"
         to="/referrals"
       >

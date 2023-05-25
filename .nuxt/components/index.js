@@ -6,6 +6,7 @@ export { default as DashboardHeader } from '../..\\components\\DashboardHeader.v
 export { default as DashboardSideBar } from '../..\\components\\DashboardSideBar.vue'
 export { default as DashboardTable } from '../..\\components\\DashboardTable.vue'
 export { default as DeductBalanceForm } from '../..\\components\\DeductBalanceForm.vue'
+export { default as DeleteRequest } from '../..\\components\\DeleteRequest.vue'
 export { default as EditUserForm } from '../..\\components\\EditUserForm.vue'
 export { default as Giveawaydetailtable } from '../..\\components\\Giveawaydetailtable.vue'
 export { default as GiveawayFulldetails } from '../..\\components\\GiveawayFulldetails.vue'
@@ -33,6 +34,7 @@ export { default as StatusModal } from '../..\\components\\StatusModal.vue'
 export { default as SurpriseTable } from '../..\\components\\SurpriseTable.vue'
 export { default as SuspendUserDialog } from '../..\\components\\SuspendUserDialog.vue'
 export { default as Teamtable } from '../..\\components\\Teamtable.vue'
+export { default as TransferRequestsTable } from '../..\\components\\TransferRequestsTable.vue'
 export { default as UserDetailtable } from '../..\\components\\UserDetailtable.vue'
 export { default as UserDialog } from '../..\\components\\UserDialog.vue'
 export { default as Userform } from '../..\\components\\Userform.vue'
@@ -60,6 +62,7 @@ export const LazyDashboardHeader = import('../..\\components\\DashboardHeader.vu
 export const LazyDashboardSideBar = import('../..\\components\\DashboardSideBar.vue' /* webpackChunkName: "components_DashboardSideBar" */).then(c => c.default || c)
 export const LazyDashboardTable = import('../..\\components\\DashboardTable.vue' /* webpackChunkName: "components_DashboardTable" */).then(c => c.default || c)
 export const LazyDeductBalanceForm = import('../..\\components\\DeductBalanceForm.vue' /* webpackChunkName: "components_DeductBalanceForm" */).then(c => c.default || c)
+export const LazyDeleteRequest = import('../..\\components\\DeleteRequest.vue' /* webpackChunkName: "components_DeleteRequest" */).then(c => c.default || c)
 export const LazyEditUserForm = import('../..\\components\\EditUserForm.vue' /* webpackChunkName: "components_EditUserForm" */).then(c => c.default || c)
 export const LazyGiveawaydetailtable = import('../..\\components\\Giveawaydetailtable.vue' /* webpackChunkName: "components_Giveawaydetailtable" */).then(c => c.default || c)
 export const LazyGiveawayFulldetails = import('../..\\components\\GiveawayFulldetails.vue' /* webpackChunkName: "components_GiveawayFulldetails" */).then(c => c.default || c)
@@ -87,6 +90,7 @@ export const LazyStatusModal = import('../..\\components\\StatusModal.vue' /* we
 export const LazySurpriseTable = import('../..\\components\\SurpriseTable.vue' /* webpackChunkName: "components_SurpriseTable" */).then(c => c.default || c)
 export const LazySuspendUserDialog = import('../..\\components\\SuspendUserDialog.vue' /* webpackChunkName: "components_SuspendUserDialog" */).then(c => c.default || c)
 export const LazyTeamtable = import('../..\\components\\Teamtable.vue' /* webpackChunkName: "components_Teamtable" */).then(c => c.default || c)
+export const LazyTransferRequestsTable = import('../..\\components\\TransferRequestsTable.vue' /* webpackChunkName: "components_TransferRequestsTable" */).then(c => c.default || c)
 export const LazyUserDetailtable = import('../..\\components\\UserDetailtable.vue' /* webpackChunkName: "components_UserDetailtable" */).then(c => c.default || c)
 export const LazyUserDialog = import('../..\\components\\UserDialog.vue' /* webpackChunkName: "components_UserDialog" */).then(c => c.default || c)
 export const LazyUserform = import('../..\\components\\Userform.vue' /* webpackChunkName: "components_Userform" */).then(c => c.default || c)
