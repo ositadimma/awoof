@@ -291,14 +291,16 @@ export default {
       } else {
         response2 = await this.$axios.$get(`/admins/confirm_transfer_request/${id}`)
       }
-      console.log(response2)
-      this.$toast.global.custom_success('Transfer Confirmed')
-      this.$nuxt.refresh()
+      if (response2) {
+        this.$toast.global.custom_success('Transfer Confirmed')
+        this.$nuxt.refresh()
+      }
     },
     async deletePayment (id) {
       var response3 = await this.$axios.$get(`/admins/delete_transfer_request/${id}`)
-      console.log(response3)
-      this.detail = 'delete'
+      if (response3) {
+        this.detail = 'delete'
+      }
       this.$store.commit('setModalOpen', true)
       this.$nuxt.refresh()
     }
