@@ -1,6 +1,21 @@
 <template>
   <div class="body">
-    <span>Giveaway Details</span>
+    <div class="top-flex">
+      <div class="long">
+        Giveaway Details
+      </div>
+      <div class="user-options">
+        <button v-if="!giveawayDetail.manualPaid" class="task-btn" @click="$emit('open-confirm-payment-dialog')">
+          Confirm Payment
+        </button>
+        <button v-if="!giveawayDetail.done && giveawayDetail.manualPaid" class="task-btn" @click="$emit('open-set-winner-dialog')">
+          Set Winners
+        </button>
+        <button v-if="giveawayDetail.winRemain && giveawayDetail.winRemain>0" class="btn-cmpt task-btn" @click="$emit('open-complete-winner-dialog')">
+          complete Winners
+        </button>
+      </div>
+    </div>
     <hr>
     <table>
       <thead>

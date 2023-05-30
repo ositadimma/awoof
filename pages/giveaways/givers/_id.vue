@@ -41,7 +41,12 @@
 
     <div ref="details" class="details">
       <div class="details-child-1">
-        <GiveawayDetailTable :giveaway-detail="giveawayDetail" />
+        <GiveawayDetailTable
+          :giveaway-detail="giveawayDetail"
+          @open-complete-winner-dialog="completeWinnerDialogModal"
+          @open-set-winner-dialog="setWinnerDialogModal"
+          @open-confirm-payment-dialog="confirmPaymentDialogModal"
+        />
       </div>
       <div class="details-child-2">
         <GiveawayFullDetails :user-info="userInfo" />
@@ -52,11 +57,11 @@
       :giveaway-participants="giveawayParticipants"
     />
     <span
-      v-show="giveawayDetail.completed"
+      v-show="giveawayDetail.done"
       class="users"
     >Winners ({{ giveawayWinners.length }})</span>
     <GiveawayWinnersTable
-      v-show="giveawayDetail.completed"
+      v-show="giveawayDetail.done"
       :giveaway-winners="giveawayWinners"
     />
     <span
@@ -66,6 +71,12 @@
       :key="key"
       :giveaway-participants="giveawayParticipants"
       @refresh="refresh"
+    />
+    <GiveWinnerDialog
+      v-show="modalOpen && modal == 'giveWinnerDialog'"
+      :detail="detail"
+      :message="message"
+      :giveaway-detail="giveawayDetail"
     />
     <!-- <HideGiveAwayModal
       v-show="popUpOpen"
@@ -84,6 +95,8 @@ import GiveawayWinnersTable from '~/components/GiveawayWinnerstable'
 import GiveawayParticipationTable from '~/components/GiveawayParticipationtable'
 import GiveawayFullDetails from '~/components/GiveawayFulldetails'
 import ParticipationReport from '~/components/Participationreport'
+import GiveWinnerDialog from '~/components/GiveWinnerDialog'
+
 // import HideGiveAwayModal from '~/components/HideGiveAwayModal'
 
 export default {
@@ -94,7 +107,8 @@ export default {
     GiveawayWinnersTable,
     GiveawayParticipationTable,
     GiveawayFullDetails,
-    ParticipationReport
+    ParticipationReport,
+    GiveWinnerDialog
     // HideGiveAwayModal
   },
   async asyncData ({ $axios, $toast, params }) {
@@ -229,7 +243,10 @@ export default {
   },
   data () {
     return {
-      key: 0
+      key: 0,
+      modal: '',
+      message: '',
+      detail: ''
     }
   },
   computed: {
@@ -300,6 +317,24 @@ export default {
         }
       }
       html2pdf().set(opt).from(this.$refs.details).save()
+    },
+    setWinnerDialogModal () {
+      this.$store.commit('setModalOpen', true)
+      this.detail = 'set'
+      this.message = 'set winners for this giveaway'
+      this.modal = 'giveWinnerDialog'
+    },
+    confirmPaymentDialogModal () {
+      this.$store.commit('setModalOpen', true)
+      this.detail = 'confirm'
+      this.message = 'confirm that this user has made a payment for this giveaway'
+      this.modal = 'giveWinnerDialog'
+    },
+    completeWinnerDialogModal () {
+      this.$store.commit('setModalOpen', true)
+      this.detail = 'complete'
+      this.message = 'complete the selection of winners for this giveaway'
+      this.modal = 'giveWinnerDialog'
     },
     // showHideGiveAwayModal () {
     //   this.$store.commit('setPopUpOpen', true)

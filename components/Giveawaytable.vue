@@ -71,9 +71,9 @@
             </td>
             <td
               data-title="Status"
-              :class="giveaway.completed ? 'completed' : 'ongoing'"
+              :class="giveaway.done ? 'completed' : 'ongoing'"
             >
-              {{ giveaway.completed ? 'Completed' : 'Ongoing' }}
+              {{ giveaway.done ? 'Completed' : 'Ongoing' }}
             </td>
             <td data-title="Hidden">
               {{ giveaway.hidden }}
