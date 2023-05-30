@@ -89,6 +89,12 @@
   "LazyGiveawayWinnerstable": {
     "description": "Auto imported from components/GiveawayWinnerstable.vue"
   },
+  "GiveWinnerDialog": {
+    "description": "Auto imported from components/GiveWinnerDialog.vue"
+  },
+  "LazyGiveWinnerDialog": {
+    "description": "Auto imported from components/GiveWinnerDialog.vue"
+  },
   "HideGiveAwayModal": {
     "description": "Auto imported from components/HideGiveAwayModal.vue"
   },

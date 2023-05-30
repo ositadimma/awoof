@@ -13,6 +13,7 @@ export { default as GiveawayFulldetails } from '../..\\components\\GiveawayFulld
 export { default as GiveawayParticipationtable } from '../..\\components\\GiveawayParticipationtable.vue'
 export { default as Giveawaytable } from '../..\\components\\Giveawaytable.vue'
 export { default as GiveawayWinnerstable } from '../..\\components\\GiveawayWinnerstable.vue'
+export { default as GiveWinnerDialog } from '../..\\components\\GiveWinnerDialog.vue'
 export { default as HideGiveAwayModal } from '../..\\components\\HideGiveAwayModal.vue'
 export { default as Horizontalbar } from '../..\\components\\Horizontalbar.vue'
 export { default as Linechart } from '../..\\components\\Linechart.vue'
@@ -69,6 +70,7 @@ export const LazyGiveawayFulldetails = import('../..\\components\\GiveawayFullde
 export const LazyGiveawayParticipationtable = import('../..\\components\\GiveawayParticipationtable.vue' /* webpackChunkName: "components_GiveawayParticipationtable" */).then(c => c.default || c)
 export const LazyGiveawaytable = import('../..\\components\\Giveawaytable.vue' /* webpackChunkName: "components_Giveawaytable" */).then(c => c.default || c)
 export const LazyGiveawayWinnerstable = import('../..\\components\\GiveawayWinnerstable.vue' /* webpackChunkName: "components_GiveawayWinnerstable" */).then(c => c.default || c)
+export const LazyGiveWinnerDialog = import('../..\\components\\GiveWinnerDialog.vue' /* webpackChunkName: "components_GiveWinnerDialog" */).then(c => c.default || c)
 export const LazyHideGiveAwayModal = import('../..\\components\\HideGiveAwayModal.vue' /* webpackChunkName: "components_HideGiveAwayModal" */).then(c => c.default || c)
 export const LazyHorizontalbar = import('../..\\components\\Horizontalbar.vue' /* webpackChunkName: "components_Horizontalbar" */).then(c => c.default || c)
 export const LazyLinechart = import('../..\\components\\Linechart.vue' /* webpackChunkName: "components_Linechart" */).then(c => c.default || c)
