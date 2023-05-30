@@ -11,7 +11,7 @@
         <button v-if="!giveawayDetail.done && giveawayDetail.manualPaid" class="task-btn" @click="$emit('open-set-winner-dialog')">
           Set Winners
         </button>
-        <button v-if="giveawayDetail.winRemain && giveawayDetail.winRemain>0" class="btn-cmpt task-btn" @click="$emit('open-complete-winner-dialog')">
+        <button v-if="giveawayDetail.winRemain && giveawayDetail.winRemain>0" class="task-btn" @click="$emit('open-complete-winner-dialog')">
           complete Winners
         </button>
       </div>
@@ -37,10 +37,10 @@
           <td
             data-title="Status"
             :class="
-              giveawayDetail.completed ? 'completed Status' : 'ongoing Status'
+              giveawayDetail.done ? 'completed Status' : 'ongoing Status'
             "
           >
-            {{ giveawayDetail.completed ? 'Completed' : 'On-going' }}
+            {{ giveawayDetail.done ? 'Completed' : 'On-going' }}
           </td>
           <td data-title="Tasks" class="Tasks">
             {{ tasks.length }}
@@ -84,13 +84,13 @@
         </div>
       </div>
       <div v-show="edit" class="blur-container">
-        <div class="action" @click="showModal('modalBody')">
+        <div class="action" @click="open_tasks">
           <span>ADD A NEW TASK</span>
           <img src="~/assets/icons/addTask.svg" alt="add">
         </div>
       </div>
     </div>
-    <AddTask v-show="modalOpen" :key="0" :tasks="tasks" @refresh="refresh" />
+    <AddTask v-show="modalOpen && modal=='tasks'" :key="0" :tasks="tasks" @refresh="refresh" />
   </div>
 </template>
 
@@ -114,6 +114,7 @@ export default {
   data () {
     return {
       key: 0,
+      modal: 'yes',
       edit: false
     }
   },
@@ -176,6 +177,9 @@ export default {
       this.$nuxt.refresh()
       this.key += 1
     },
+    open_tasks () {
+      this.modal = 'tasks'
+    },
     format_date (value) {
       const today = new Date().getTime()
       const createdAt = new Date(String(value)).getTime()
@@ -206,6 +210,29 @@ hr {
   margin-bottom: 19px;
   width: 92.5%;
   align-self: center;
+}
+.long {
+  align-self: start;
+  display: block;
+  /* margin-left: 3.8%;
+  margin-top: 27px;
+  margin-bottom: 16px; */
+  margin: 27px 0px 16px 3.8%;
+  font-size: 12px;
+  line-height: 19px;
+
+  color: #a2abaa;
+}
+.task-btn {
+  width: 89px;
+  max-width: 250px;
+  background: #13ad72;
+  color: #ffffff;
+  border: none;
+  border-radius: 1px;
+  font-weight: 400;
+  margin: 15px 3.8% 0px auto;
+  padding:10px 5px 10px 5px
 }
 .body span {
   align-self: start;
