@@ -57,7 +57,6 @@ export default {
       this.loading = true
       this.$axios.setHeader('x-auth-token', Cookies.get('token'))
       try {
-        console.log(this.giveawayDetail._id)
         const response = await this.$axios.$get(
             `/giveaways/confirm_manual_pay/${this.giveawayDetail._id}`
         )
