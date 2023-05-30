@@ -223,6 +223,10 @@ hr {
 
   color: #a2abaa;
 }
+.top-flex {
+  display: flex;
+  justify-content: space-between;
+}
 .task-btn {
   width: 89px;
   max-width: 250px;
