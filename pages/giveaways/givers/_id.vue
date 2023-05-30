@@ -289,6 +289,9 @@ export default {
       }
 
       return tasks
+    },
+    modalOpen () {
+      return this.$store.state.modalOpen
     }
     // popUpOpen () {
     //   return this.$store.state.popUpOpen

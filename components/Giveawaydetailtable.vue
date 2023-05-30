@@ -228,15 +228,14 @@ hr {
   justify-content: space-between;
 }
 .task-btn {
-  width: 89px;
-  max-width: 250px;
   background: #13ad72;
   color: #ffffff;
   border: none;
-  border-radius: 1px;
+  border-radius: 3px;
   font-weight: 400;
-  margin: 15px 3.8% 0px auto;
-  padding:10px 5px 10px 5px
+  margin: 15px 3.8% 15px auto;
+  padding:10px 5px 10px 5px;
+  outline: none;
 }
 .body span {
   align-self: start;
